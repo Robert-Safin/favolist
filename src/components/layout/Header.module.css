@@ -3,7 +3,7 @@
 }
 
 .icon {
-  @apply text-4xl mr-4;
+  @apply text-4xl;
 }
 
 .burger {
@@ -28,6 +28,6 @@
 }
 
 
-.linkItem p {
+.linkItem div {
   @apply text-2xl
 }

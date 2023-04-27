@@ -23,21 +23,30 @@ const Header: FC = () => {
       <div className={styles.nav}>
 
 
+        <motion.div
+          whileHover={{ scale: 1.4 }}
+          whileTap={{ scale: 0.9 }}>
+          <FaThList className={styles.logo} />
+        </motion.div>
 
-        <FaThList className={styles.logo} />
 
+        <motion.div
+          whileHover={{ scale: 1.4 }}
+          whileTap={{ scale: 0.9 }}>
+          <h1 className={styles.title}>FavoList</h1>
+        </motion.div>
 
-
-        <h1 className={styles.title}>FavoList</h1>
-
-
-        <GiHamburgerMenu className={styles.burger} onClick={() => setIsShowMennu(!isShowMenu)} />
+        <motion.div
+          whileHover={{ scale: 1.4 }}
+          whileTap={{ scale: 0.9 }}>
+          <GiHamburgerMenu className={styles.burger} onClick={() => setIsShowMennu(!isShowMenu)} />
+        </motion.div>
 
       </div>
       {isShowMenu &&
-        <motion.div initial={{ opacity: 0, scale: 0.5 }}
+        <motion.div initial={{ opacity: 0, scale: 0.1 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.2 }}
           className={styles.links}>
 
           <div className={styles.linkItem}
@@ -46,7 +55,10 @@ const Header: FC = () => {
 
           >
             <RxMagnifyingGlass
-              className={styles.icon} />{showSearch && <p>Search</p>}
+              className={styles.icon} />{showSearch && <motion.div
+                initial={{ opacity: 0, scale: 0.1 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.2 }}>Search</motion.div>}
           </div>
 
           <div className={styles.linkItem}
@@ -55,7 +67,10 @@ const Header: FC = () => {
 
           >
             <FaUser
-              className={styles.icon} />{showAccount && <p>Account</p>}
+              className={styles.icon} />{showAccount && <motion.div
+                initial={{ opacity: 0, scale: 0.1 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.2 }}>Account</motion.div>}
           </div>
 
           <div className={styles.linkItem}
@@ -64,7 +79,10 @@ const Header: FC = () => {
 
           >
             <AiFillSetting
-              className={styles.icon} />{showSettings && <p>Settings</p>}
+              className={styles.icon} />{showSettings && <motion.div
+                initial={{ opacity: 0, scale: 0.1 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.2 }}>Settings</motion.div>}
           </div>
 
           <div className={styles.linkItem}
@@ -73,7 +91,10 @@ const Header: FC = () => {
 
           >
             <HiOutlinePlus
-              className={styles.icon} />{showAdd && <p>Add</p>}
+              className={styles.icon} />{showAdd && <motion.div
+                initial={{ opacity: 0, scale: 0.1 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.2 }}>Add</motion.div>}
           </div>
         </motion.div>
       }
