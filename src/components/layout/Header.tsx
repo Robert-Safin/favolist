@@ -31,13 +31,13 @@ const Header: FC = () => {
 
 
         <motion.div
-          whileHover={{ scale: 1.4 }}
+          whileHover={{ scale: 1.4, color:'#FC467D' }}
           whileTap={{ scale: 0.9 }}>
           <h1 className={styles.title}>FavoList</h1>
         </motion.div>
 
         <motion.div
-          whileHover={{ scale: 1.4 }}
+          whileHover={{ scale: 1.4, color:'#FC467D' }}
           whileTap={{ scale: 0.9 }}>
           <GiHamburgerMenu className={styles.burger} onClick={() => setIsShowMennu(!isShowMenu)} />
         </motion.div>
