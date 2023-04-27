@@ -1,5 +1,5 @@
 .logo {
-  @apply text-pink-400 text-4xl flex;
+  @apply text-[#FC467D] text-4xl flex;
 }
 
 .icon {
@@ -7,15 +7,15 @@
 }
 
 .burger {
-  @apply text-4xl
+  @apply text-5xl
 }
 .nav {
-  @apply flex justify-between items-center bg-slate-400
+  @apply flex justify-between items-center border-b
 }
 
 
 .links {
-  @apply bg-slate-400 flex items-center justify-evenly
+  @apply  md:flex items-center justify-evenly border-b
 }
 
 
@@ -24,7 +24,7 @@
 }
 
 .linkItem  {
-  @apply flex
+  @apply flex border-2 rounded-lg border-[#FC467D] p-3
 }
 
 
