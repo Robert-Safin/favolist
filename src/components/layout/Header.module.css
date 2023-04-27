@@ -1,0 +1,33 @@
+.logo {
+  @apply text-pink-400 text-4xl flex;
+}
+
+.icon {
+  @apply text-4xl mr-4;
+}
+
+.burger {
+  @apply text-4xl
+}
+.nav {
+  @apply flex justify-between items-center bg-slate-400
+}
+
+
+.links {
+  @apply bg-slate-400 flex items-center justify-evenly
+}
+
+
+.title {
+  @apply text-4xl
+}
+
+.linkItem  {
+  @apply flex
+}
+
+
+.linkItem p {
+  @apply text-2xl
+}
