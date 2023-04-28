@@ -1,21 +1,30 @@
 .logo {
-  @apply text-[#FC467D] text-4xl flex;
+  @apply text-flamingo text-4xl flex;
 }
 
 .icon {
-  @apply text-4xl;
+  @apply text-3xl;
 }
 
 .burger {
   @apply text-5xl
 }
-.nav {
-  @apply flex justify-between items-center border-b
+
+.burgerLogin {
+@apply flex flex-row-reverse
 }
 
 
+.navOpen {
+  @apply flex justify-between items-center
+}
+
+.navClosed {
+  @apply flex justify-between items-center border-b pb-3
+}
+
 .links {
-  @apply  md:flex items-center justify-evenly border-b
+  @apply  md:flex items-center justify-evenly border-b pb-3
 }
 
 
@@ -24,10 +33,14 @@
 }
 
 .linkItem  {
-  @apply flex border-2 rounded-lg border-[#FC467D] p-3
+  @apply flex border-2 rounded bg-flamingo p-3 text-white
 }
 
 
 .linkItem div {
-  @apply text-2xl
+  @apply text-xl
+}
+
+.authButton {
+  @apply border-2 bg-flamingo rounded p-3 mr-5 text-white text-base
 }

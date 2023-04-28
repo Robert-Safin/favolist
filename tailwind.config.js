@@ -6,6 +6,11 @@ module.exports = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    colors: { // can follow bootstrap pattern of 'primary' : '#123123'
+      'flamingo': '#FC467D',
+      'white': '#FFFFFF',
+      'black': '#000000'
+    },
     extend: {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

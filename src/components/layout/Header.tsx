@@ -9,6 +9,9 @@ import { GiHamburgerMenu } from 'react-icons/gi'
 import { useState } from 'react'
 import { motion } from "framer-motion"
 
+import { signIn, signOut } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
+
 const Header: FC = () => {
 
   const [isShowMenu, setIsShowMennu] = useState(false)
@@ -18,9 +21,19 @@ const Header: FC = () => {
   const [showSettings, setShowSettings] = useState(false)
   const [showAdd, setShowAdd] = useState(false)
 
+  const dropdownVariants = {
+    open: { opacity: 1, height: 'auto' },
+    closed: { opacity: 0, height: 0 },
+  };
+
+  const { data: session, status } = useSession()
+  const isAuth = status === "authenticated"
+  const notAuth = status === "unauthenticated"
+
+
   return (
     <>
-      <div className={styles.nav}>
+      <div className={isShowMenu ? styles.navOpen : styles.navClosed}>
 
 
         <motion.div
@@ -31,24 +44,33 @@ const Header: FC = () => {
 
 
         <motion.div
-          whileHover={{ scale: 1.1, color:'#FC467D' }}
+          whileHover={{ scale: 1.1, color: '#FC467D' }}
           whileTap={{ scale: 0.9 }}>
           <h1 className={styles.title}>FavoList</h1>
         </motion.div>
 
-        <motion.div
-          whileHover={{ scale: 1.1, color:'#FC467D' }}
-          whileTap={{ scale: 0.9 }}>
-          <GiHamburgerMenu className={styles.burger} onClick={() => setIsShowMennu(!isShowMenu)} />
-        </motion.div>
+
+        <div className={styles.burgerLogin}>
+          <motion.div
+            whileHover={{ scale: 1.1, color: '#FC467D' }}
+            whileTap={{ scale: 0.9 }}>
+            <GiHamburgerMenu className={styles.burger} onClick={() => setIsShowMennu(!isShowMenu)} />
+          </motion.div>
+
+          {notAuth && <button className={styles.authButton} onClick={() => signIn()}>Login</button>}
+          {isAuth && <button className={styles.authButton} onClick={() => signOut()}>SignOut</button>}
+
+        </div>
+
+
 
       </div>
-
       {isShowMenu &&
         <motion.div
-          initial={{ opacity: 0, scale: 0.1 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.2 }}
+          initial="closed"
+          animate="open"
+          exit="closed"
+          variants={dropdownVariants}
           className={styles.links}>
 
           <div className={styles.linkItem}
@@ -100,7 +122,6 @@ const Header: FC = () => {
           </div>
         </motion.div>
       }
-
     </>
   )
 }
