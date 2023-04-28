@@ -57,8 +57,15 @@ const Header: FC = () => {
             <GiHamburgerMenu className={styles.burger} onClick={() => setIsShowMennu(!isShowMenu)} />
           </motion.div>
 
-          {notAuth && <button className={styles.authButton} onClick={() => signIn()}>Login</button>}
-          {isAuth && <button className={styles.authButton} onClick={() => signOut()}>SignOut</button>}
+          {notAuth && <motion.button
+          whileHover={{scale: 1.1}}
+          whileTap={{scale: 0.9}}
+          className={styles.authButton} onClick={() => signIn()}>Login</motion.button>}
+
+          {isAuth && <motion.button
+          whileHover={{scale: 1.1}}
+          whileTap={{scale: 0.9}}
+          className={styles.authButton} onClick={() => signOut()}>SignOut</motion.button>}
 
         </div>
 

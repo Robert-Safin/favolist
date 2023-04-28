@@ -1,0 +1,17 @@
+.rightCard {
+  @apply flex pb-40
+}
+
+
+.leftCard {
+  @apply flex pb-40
+}
+
+.rightCard p {
+  @apply text-justify text-3xl my-auto p-8 font-serif tracking-widest
+}
+
+
+.leftCard p {
+  @apply text-justify text-3xl my-auto p-8 font-serif tracking-widest
+}

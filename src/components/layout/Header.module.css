@@ -1,5 +1,5 @@
 .logo {
-  @apply text-flamingo text-4xl flex;
+  @apply text-flamingo text-3xl flex;
 }
 
 .icon {
@@ -7,7 +7,7 @@
 }
 
 .burger {
-  @apply text-5xl
+  @apply text-4xl
 }
 
 .burgerLogin {
@@ -42,5 +42,5 @@
 }
 
 .authButton {
-  @apply border-2 bg-flamingo rounded p-2 mr-5 text-white text-base
+  @apply border-2 bg-flamingo rounded mr-5 text-white text-base px-4 py-1
 }
