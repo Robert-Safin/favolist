@@ -52,23 +52,24 @@ const Header: FC = () => {
 
         <div className={styles.burgerLogin}>
           <motion.div
-            whileHover={{ scale: 1.1, color: '#FC467D' }}
-            whileTap={{ scale: 0.9 }}>
+            whileHover={{ scale: 1.1, color: '#FC467D', rotate: [0, 0, 270, 270, 0] }}
+            whileTap={{ scale: 0.9 }}
+          >
             <GiHamburgerMenu className={styles.burger} onClick={() => setIsShowMennu(!isShowMenu)} />
           </motion.div>
 
           {notAuth && <motion.button
-          whileHover={{scale: 1.1}}
-          whileTap={{scale: 0.9}}
-          className={styles.authButton} onClick={() => signIn()}>Login</motion.button>}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            className={styles.authButton} onClick={() => signIn()}>Login</motion.button>}
 
           {isAuth &&
-          <>
-          <motion.button
-          whileHover={{scale: 1.1}}
-          whileTap={{scale: 0.9}}
-          className={styles.authButton} onClick={() => signOut()}>SignOut</motion.button>
-          </>
+            <>
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className={styles.authButton} onClick={() => signOut()}>SignOut</motion.button>
+            </>
           }
 
         </div>

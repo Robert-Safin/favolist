@@ -63,7 +63,6 @@ const LandingPage: NextPage = () => {
         <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quod saepe possimus inventore quis, perferendis non maiores sint repellat, mollitia dolore officia ipsum eos incidunt unde ducimus distinctio aliquam quibusdam pariatur!</p>
         <Image src={'landing-page-images/buy.svg'} alt='buy products' width={600} height={600} />
       </motion.div>
-
     </>
 
 

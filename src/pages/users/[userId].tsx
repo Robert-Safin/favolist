@@ -12,11 +12,13 @@ interface Props {
 
 
 const UserProfile:NextPage<Props> = (props) => {
-  const { data: session } = useSession();
+  const { data: session,status } = useSession()
 
   if (!session) {
     return <p>no sesh</p>;
   }
+
+
 
 
   return (

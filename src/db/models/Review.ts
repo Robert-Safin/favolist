@@ -6,6 +6,7 @@ export interface ListModelSchema {
   title: string;
   productName: string;
   productBrand: string;
+  productBrandImage: string;
   content: Text;
   rating: number;
   referral: string;
@@ -28,6 +29,10 @@ const UserSchema = new Schema<ListModelSchema>(
     productBrand: {
       type: String,
       default: "Unbranded",
+    },
+    productBrandImage: {
+      type: String,
+      default: "Unbranded"
     },
     content: {
       type: Text,
