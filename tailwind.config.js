@@ -6,10 +6,12 @@ module.exports = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    colors: { // can follow bootstrap pattern of 'primary' : '#123123'
+    colors: {
       'flamingo': '#FC467D',
       'white': '#FFFFFF',
-      'black': '#000000'
+      'black': '#000000',
+      'gray': '#E4DCDE',
+      'dark-grey': '#A68A92'
     },
     extend: {
       backgroundImage: {

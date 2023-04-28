@@ -1,0 +1,9 @@
+
+.searchForm {
+  @apply mx-auto
+}
+
+
+.searchInput {
+  @apply bg-gray text-dark-grey p-3 border-2 w-full rounded
+}

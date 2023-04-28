@@ -20,11 +20,11 @@
 }
 
 .navClosed {
-  @apply flex justify-between items-center border-b pb-3
+  @apply flex justify-between items-center pb-3
 }
 
 .links {
-  @apply  md:flex items-center justify-evenly border-b pb-3
+  @apply  md:flex items-center justify-evenly  pb-3
 }
 
 
@@ -42,5 +42,5 @@
 }
 
 .authButton {
-  @apply border-2 bg-flamingo rounded p-3 mr-5 text-white text-base
+  @apply border-2 bg-flamingo rounded p-2 mr-5 text-white text-base
 }
