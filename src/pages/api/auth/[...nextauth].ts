@@ -1,9 +1,13 @@
 import { connectDB } from "@/db/lib/connectDb";
 import NextAuth, {NextAuthOptions} from "next-auth";
 import  GithubAuthProvider  from "next-auth/providers/github";
-import User from "@/db/models/user";
+import User from "@/db/models/User";
 
 const authOptions: NextAuthOptions = {
+  secret: process.env.NEXTAUTH_URL,
+  session: {
+    strategy: 'jwt'
+  },
   providers: [
     GithubAuthProvider({
       clientId: process.env.GITHUB_SECRET_ID as string,

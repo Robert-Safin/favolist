@@ -6,6 +6,10 @@ import styles from './index.module.css'
 import { motion } from 'framer-motion'
 
 const LandingPage: NextPage = () => {
+
+
+
+
   return (
     <>
       <SearchBar />

@@ -9,8 +9,9 @@ interface Props {
 }
 
 export default function App({ Component, pageProps }: AppProps<Props>) {
+
   return (
-    <SessionProvider session={pageProps.session}>
+    <SessionProvider session={pageProps.session} refetchInterval={5 * 60}>
     <Layout>
     <Component {...pageProps} />
     </Layout>

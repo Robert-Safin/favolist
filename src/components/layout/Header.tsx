@@ -11,6 +11,7 @@ import { motion } from "framer-motion"
 
 import { signIn, signOut } from 'next-auth/react'
 import { useSession } from 'next-auth/react'
+import Link from 'next/link'
 
 const Header: FC = () => {
 
@@ -31,10 +32,11 @@ const Header: FC = () => {
   const notAuth = status === "unauthenticated"
 
 
+
+
   return (
     <>
       <div className={isShowMenu ? styles.navOpen : styles.navClosed}>
-
 
         <motion.div
           whileHover={{ scale: 1.1 }}
@@ -42,13 +44,11 @@ const Header: FC = () => {
           <FaThList className={styles.logo} />
         </motion.div>
 
-
         <motion.div
           whileHover={{ scale: 1.1, color: '#FC467D' }}
           whileTap={{ scale: 0.9 }}>
-          <h1 className={styles.title}>FavoList</h1>
+          <h1 className={styles.title}> <Link href='/'>FavoList</Link> </h1>
         </motion.div>
-
 
         <div className={styles.burgerLogin}>
           <motion.div
@@ -62,14 +62,16 @@ const Header: FC = () => {
           whileTap={{scale: 0.9}}
           className={styles.authButton} onClick={() => signIn()}>Login</motion.button>}
 
-          {isAuth && <motion.button
+          {isAuth &&
+          <>
+          <motion.button
           whileHover={{scale: 1.1}}
           whileTap={{scale: 0.9}}
-          className={styles.authButton} onClick={() => signOut()}>SignOut</motion.button>}
+          className={styles.authButton} onClick={() => signOut()}>SignOut</motion.button>
+          </>
+          }
 
         </div>
-
-
 
       </div>
       {isShowMenu &&
@@ -101,7 +103,7 @@ const Header: FC = () => {
               className={styles.icon} />{showAccount && <motion.div
                 initial={{ opacity: 0, scale: 0.1 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.2 }}>Account</motion.div>}
+                transition={{ duration: 0.2 }}> <Link href={`users/${session?.user?.name}`}>Account</Link></motion.div>}
           </div>
 
           <div className={styles.linkItem}
@@ -131,6 +133,15 @@ const Header: FC = () => {
       }
     </>
   )
+
+
+
+
+
+
+
+
+
 }
 
 export default Header
