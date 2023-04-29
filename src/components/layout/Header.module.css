@@ -29,7 +29,7 @@
 
 
 .title {
-  @apply text-4xl dark:text-flamingo tracking-widest
+  @apply text-4xl dark:text-flamingo tracking-widest mx-auto
 }
 
 .linkItem  {

@@ -1,7 +1,7 @@
 import { Schema, models, model, ObjectId, Model } from "mongoose";
 import List from "./List";
 
-export interface ListModelSchema {
+export interface ProductModelSchema {
   list_id: ObjectId;
   title: string;
   productName: string;
@@ -12,7 +12,7 @@ export interface ListModelSchema {
   referral: string;
 }
 
-const UserSchema = new Schema<ListModelSchema>(
+const UserSchema = new Schema<ProductModelSchema>(
   {
     list_id: {
       type: List,

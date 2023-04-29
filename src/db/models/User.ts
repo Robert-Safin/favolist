@@ -5,6 +5,8 @@ export interface UserModelSchema {
   email: string;
   provider: "github" | "google";
   avatar?: string;
+  follows: UserModelSchema[],
+  followers: UserModelSchema[],
 }
 
 const UserSchema = new Schema<UserModelSchema>(
@@ -25,6 +27,14 @@ const UserSchema = new Schema<UserModelSchema>(
     avatar: {
       type: String,
     },
+    follows: [{
+      type: Schema.Types.ObjectId,
+      ref: "User"
+    }],
+    followers: [{
+      type: Schema.Types.ObjectId,
+      ref: "User"
+    }]
   },
   {
     timestamps: true,
