@@ -1,37 +1,36 @@
 import { connectDB } from "@/db/lib/connectDb";
-import NextAuth, {NextAuthOptions} from "next-auth";
-import  GithubAuthProvider  from "next-auth/providers/github";
+import NextAuth, { NextAuthOptions } from "next-auth";
+import GithubAuthProvider from "next-auth/providers/github";
 import User from "@/db/models/User";
 
 const authOptions: NextAuthOptions = {
-  secret: process.env.NEXTAUTH_URL,
+  secret: process.env.NEXTAUTH_SECRET,
   session: {
-    strategy: 'jwt'
+    strategy: "jwt",
   },
+
   providers: [
     GithubAuthProvider({
       clientId: process.env.GITHUB_SECRET_ID as string,
       clientSecret: process.env.GITHUB_SECRET_CLIENT as string,
 
       async profile(profile) {
-        await connectDB()
-        const oldUser = await User.findOne({email:profile.email})
+        await connectDB();
+        const oldUser = await User.findOne({ email: profile.email });
 
         if (!oldUser) {
           const newUser = new User({
             email: profile.email,
             username: profile.login,
-            provider: 'github',
+            provider: "github",
             avatar: profile.avatar_url,
-          })
-          await newUser.save()
+          });
+          await newUser.save();
         }
-        return profile
-      }
-    })
-  ]
-}
+        return profile;
+      },
+    }),
+  ],
+};
 
-
-
-export default NextAuth(authOptions)
+export default NextAuth(authOptions);

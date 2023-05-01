@@ -15,7 +15,7 @@ const UserProfile:NextPage<Props> = (props) => {
   const { data: session,status } = useSession()
 
   if (!session) {
-    return <p>no sesh</p>;
+    return <p>No session found...</p>;
   }
 
 
