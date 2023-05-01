@@ -7,6 +7,7 @@ export interface UserModelSchema {
   email: string;
   provider: "github" | "google";
   avatar?: string;
+  bio: string;
   follows: ObjectId[],
   followers: ObjectId[],
   lists : ListModelSchema[]
@@ -31,6 +32,10 @@ const UserSchema = new Schema<UserModelSchema>(
     avatar: {
       type: String,
       default: "/user.webp"
+    },
+    bio: {
+      type: String,
+      default: ""
     },
     follows: [{
       type: Schema.Types.ObjectId,
