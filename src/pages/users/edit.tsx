@@ -4,10 +4,10 @@ import { FormEventHandler, useRef } from "react"
 import styles from './edit.module.css'
 import { useSession } from 'next-auth/react'
 import { UserProfileUpdateForm } from "../api/users/edit"
-
+import {useRouter} from 'next/router'
 const EditProfile: NextPage = () => {
   const { data: session, status } = useSession()
-
+  const router = useRouter()
   console.log(session);
 
 
@@ -32,6 +32,9 @@ const EditProfile: NextPage = () => {
         },
         body: JSON.stringify(formData)
       })
+      if (response.ok) {
+        router.push(`/users/${session?.user?.email}`)
+      }
     } catch (error) {
       console.log(error);
 

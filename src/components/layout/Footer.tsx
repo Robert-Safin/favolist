@@ -21,16 +21,16 @@ const Footer: FC = () => {
 
         </div>
         <div className={styles.menuitem}>
-          <Link href="search" className={styles.menulink}><GoSearch /></Link>
+          <Link href="/search" className={styles.menulink}><GoSearch /></Link>
         </div>
         <div className={styles.menuitem}>
-          <Link href={`users/${session?.user?.name}`} className={styles.menulink}><CgProfile /></Link>
+          <Link href={`/users/${session?.user?.name}`} className={styles.menulink}><CgProfile /></Link>
         </div>
         <div className={styles.menuitem}>
-          <Link href="users/edit" className={styles.menulink}><AiOutlineSetting /></Link>
+          <Link href="/users/edit" className={styles.menulink}><AiOutlineSetting /></Link>
         </div>
         <div className={styles.menuitem}>
-          <Link href="users/new-list" className={styles.menulink}><RiAddFill /></Link>
+          <Link href="/users/new-list" className={styles.menulink}><RiAddFill /></Link>
         </div>
       </div>
     </div>
