@@ -1,6 +1,7 @@
-import { Schema, models, model, ObjectId, Model } from "mongoose";
+import { Schema, models, model, ObjectId, Model, Document } from "mongoose";
 
-export interface ProductModelSchema {
+export interface ProductModelSchema extends Document {
+  _id : ObjectId
   user_id : ObjectId,
   listName: string;
   productCategory: string;
