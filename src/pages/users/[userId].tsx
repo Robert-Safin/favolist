@@ -4,14 +4,11 @@ import {  GetServerSideProps } from "next";
 import { connectDB } from "@/db/lib/connectDb";
 import User from "@/db/models/User";
 import Image from 'next/image'
-interface Props {
-  userEmail:string,
-  userAvatar:string,
-  username:string,
-}
+import { UserModelSchema } from "@/db/models/User";
 
 
-const UserProfile:NextPage<Props> = (props) => {
+
+const UserProfile:NextPage<UserModelSchema> = (props) => {
   const { data: session,status } = useSession()
 
   if (!session) {
@@ -23,8 +20,12 @@ const UserProfile:NextPage<Props> = (props) => {
 
   return (
     <>
-    <p>Welcome from mongo :{props.username}!</p>
-    <Image src={props.userAvatar} alt='user avatar' width={100} height={100}/>
+    <h1>Welcome {props.username}!</h1>
+    <Image src={props.avatar!} alt='user avatar' width={100} height={100}/>
+    <p>{props.bio}</p>
+    <p>My lists: {props.lists.length}</p>
+    <p>My followers: {props.followers.length}</p>
+    <p>My following {props.follows.length}</p>
     </>
   )
 
@@ -42,9 +43,13 @@ export const getServerSideProps:GetServerSideProps = async(context) => {
 
   return {
     props: {
-      userEmail: user!.email,
-      userAvatar: user!.avatar,
-      username: user!.username
+      email: user?.email,
+      avatar: user?.avatar,
+      username: user?.username,
+      bio: user?.bio,
+      follows: user?.follows,
+      followers: user?.followers,
+      lists : user?.lists
     }
   }
 

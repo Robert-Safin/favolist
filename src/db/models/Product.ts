@@ -3,11 +3,12 @@ import { Schema, models, model, ObjectId, Model } from "mongoose";
 export interface ProductModelSchema {
   user_id : ObjectId,
   listName: string;
+  productCategory: string;
   productName: string;
-  productBrand: string;
-  productBrandImage: string;
+  productLogo: string;
+  productImage: string;
   content: string;
-  rating: number;
+  price: number;
   referral: string;
 }
 
@@ -26,23 +27,21 @@ const ProductSchema = new Schema<ProductModelSchema>(
       type: String,
       required: true,
     },
-    productBrand: {
+    productLogo: {
       type: String,
       default: "Unbranded",
     },
-    productBrandImage: {
-      type: String,
-      default: "Unbranded"
+    productImage: {
+    type: String,
+    required: true,
     },
     content: {
       type: String,
       required: true,
     },
-    rating: {
+    price: {
       type: Number,
-      required: true,
-      max: 10,
-      min: 1,
+      required: true
     },
     referral: {
       type: String,
