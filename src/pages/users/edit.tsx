@@ -2,10 +2,15 @@
 import { NextPage } from "next"
 import { FormEventHandler, useRef } from "react"
 import styles from './edit.module.css'
+import { useSession } from 'next-auth/react'
+import { UserProfileUpdateForm } from "../api/users/edit"
 
 const EditProfile: NextPage = () => {
+  const { data: session, status } = useSession()
 
-  // const avatarRef = useRef<HTMLInputElement>(null)
+  console.log(session);
+
+
   const usernameRef = useRef<HTMLInputElement>(null)
   const bioRef = useRef<HTMLTextAreaElement>(null)
 
@@ -14,14 +19,11 @@ const EditProfile: NextPage = () => {
 
   const handleSubmit: FormEventHandler = async (event) => {
     event.preventDefault()
-    const formData = {
-      // newAvatar: avatarRef.current?.value,
-      newUsername: usernameRef.current?.value,
-      newBio: bioRef.current?.value,
+    const formData: UserProfileUpdateForm = {
+      newUsername: usernameRef.current?.value as string,
+      newBio: bioRef.current?.value as string,
+      userEmail: session?.user?.email as string
     }
-
-
-
     try {
       const response = await fetch('/api/users/edit', {
         method: "POST",
@@ -37,6 +39,7 @@ const EditProfile: NextPage = () => {
   }
 
 
+
   return (
 
     <div className={styles.formContainer}>
@@ -44,9 +47,6 @@ const EditProfile: NextPage = () => {
       <h1 className={styles.title}>Update Profile</h1>
 
       <form onSubmit={handleSubmit} className={styles.form}>
-
-        {/* <label htmlFor="avatar" className={styles.formLabel}>Avatar</label>
-        <input type="file" id="avatar" ref={avatarRef} className={styles.formInput} /> */}
 
         <label htmlFor="username" className={styles.formLabel}>Username</label>
         <input type="text" id="username" ref={usernameRef} className={styles.formInput} />
