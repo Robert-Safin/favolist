@@ -1,7 +1,6 @@
 import { connectDB } from "@/db/lib/connectDb";
 import List from "@/db/models/List";
 import User from "@/db/models/User";
-import NewList from "@/pages/users/new-list";
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 
 
