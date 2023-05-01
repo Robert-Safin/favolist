@@ -31,6 +31,7 @@ const ListSchema = new Schema<ListModelSchema>(
   }
 );
 
+
 const List = models?.List || model("List", ListSchema);
 
 export default List as Model<ListModelSchema>;
