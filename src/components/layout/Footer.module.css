@@ -8,3 +8,7 @@
 .menuitem {
   @apply  grid place-content-center;
 }
+
+.menulink {
+  @apply text-2xl
+}
