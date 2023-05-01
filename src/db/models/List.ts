@@ -1,9 +1,11 @@
 import { Schema, models, model, ObjectId, Model } from "mongoose";
-import User from "./user";
+import User from "./User";
+import { ProductModelSchema } from "./Product";
 
 export interface ListModelSchema {
   user_id: ObjectId;
   title: string;
+  products: ProductModelSchema[]
 }
 
 const ListSchema = new Schema<ListModelSchema>(
@@ -16,6 +18,10 @@ const ListSchema = new Schema<ListModelSchema>(
       type: String,
       required: true,
     },
+    products: [{
+      type: Schema.Types.ObjectId,
+      ref: "Product"
+    }]
   },
   {
     timestamps: true,

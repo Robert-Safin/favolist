@@ -1,4 +1,5 @@
 import { Schema, models, model, Model } from "mongoose";
+import { ListModelSchema } from "./List";
 
 export interface UserModelSchema {
   username: string;
@@ -7,6 +8,7 @@ export interface UserModelSchema {
   avatar?: string;
   follows: UserModelSchema[],
   followers: UserModelSchema[],
+  lists : ListModelSchema[]
 }
 
 const UserSchema = new Schema<UserModelSchema>(
@@ -23,9 +25,11 @@ const UserSchema = new Schema<UserModelSchema>(
     provider: {
       type: String,
       enum: ["github", "google"],
+      required: true,
     },
     avatar: {
       type: String,
+      default: "/user.webp"
     },
     follows: [{
       type: Schema.Types.ObjectId,
@@ -34,6 +38,10 @@ const UserSchema = new Schema<UserModelSchema>(
     followers: [{
       type: Schema.Types.ObjectId,
       ref: "User"
+    }],
+    lists: [{
+      type: Schema.Types.ObjectId,
+      ref: "List"
     }]
   },
   {

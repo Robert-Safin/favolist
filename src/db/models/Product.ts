@@ -2,8 +2,8 @@ import { Schema, models, model, ObjectId, Model } from "mongoose";
 import List from "./List";
 
 export interface ProductModelSchema {
-  list_id: ObjectId;
-  title: string;
+  userId : ObjectId,
+  listName: string;
   productName: string;
   productBrand: string;
   productBrandImage: string;
@@ -12,13 +12,13 @@ export interface ProductModelSchema {
   referral: string;
 }
 
-const UserSchema = new Schema<ProductModelSchema>(
+const ProductSchema = new Schema<ProductModelSchema>(
   {
-    list_id: {
-      type: List,
-      required: true,
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
     },
-    title: {
+    listName: {
       type: String,
       required: true,
     },
@@ -52,3 +52,7 @@ const UserSchema = new Schema<ProductModelSchema>(
     timestamps: true,
   }
 );
+
+const Product = models?.Product || model("Product", ProductSchema);
+
+export default Product as Model<ProductModelSchema>;
