@@ -7,40 +7,40 @@
 }
 
 .burger {
-  @apply text-4xl dark:text-flamingo
+  @apply text-4xl dark:text-flamingo;
 }
 
 .burgerLogin {
-@apply flex flex-row-reverse
+@apply flex flex-row-reverse;
 }
 
 
 .navOpen {
-  @apply flex justify-between items-center
+  @apply flex justify-between items-center;
 }
 
 .navClosed {
-  @apply flex justify-between items-center pb-3
+  @apply flex justify-between items-center pb-3;
 }
 
 .links {
-  @apply  md:flex items-center justify-evenly  pb-3
+  @apply  md:flex items-center justify-evenly  pb-3;
 }
 
 
 .title {
-  @apply text-4xl dark:text-flamingo tracking-widest mx-auto
+  @apply text-4xl dark:text-flamingo tracking-widest mx-auto;
 }
 
 .linkItem  {
-  @apply flex border-2 rounded bg-flamingo p-3 text-white
+  @apply flex border-2 rounded bg-flamingo p-3 text-white;
 }
 
 
 .linkItem div {
-  @apply text-xl
+  @apply text-xl;
 }
 
 .authButton {
-  @apply border-2 bg-flamingo rounded mr-5 text-white text-base px-4 py-1
+  @apply border-2 bg-flamingo rounded mr-5 text-white text-base px-4 py-1;
 }
