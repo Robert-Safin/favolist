@@ -8,7 +8,10 @@ import {useRouter} from 'next/router'
 const EditProfile: NextPage = () => {
   const { data: session, status } = useSession()
   const router = useRouter()
-  console.log(session);
+
+  if (!session) {
+    // to do
+  }
 
 
   const usernameRef = useRef<HTMLInputElement>(null)

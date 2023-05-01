@@ -9,6 +9,9 @@ const NewList:NextPage = () => {
   const { data: session, status } = useSession()
   const router = useRouter()
 
+  if (!session) {
+    // to do
+  }
 
   const titleRef = useRef<HTMLInputElement>(null)
 
@@ -38,9 +41,6 @@ const NewList:NextPage = () => {
     }
   }
 
-  if (!session) {
-    return <p>no session</p>
-  }
 
   return (
     <div className={styles.formContainer}>
