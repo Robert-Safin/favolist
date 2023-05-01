@@ -1,13 +1,14 @@
 import { Schema, models, model, Model } from "mongoose";
 import { ListModelSchema } from "./List";
+import { ObjectId } from "mongoose";
 
 export interface UserModelSchema {
   username: string;
   email: string;
   provider: "github" | "google";
   avatar?: string;
-  follows: UserModelSchema[],
-  followers: UserModelSchema[],
+  follows: ObjectId[],
+  followers: ObjectId[],
   lists : ListModelSchema[]
 }
 
@@ -33,15 +34,18 @@ const UserSchema = new Schema<UserModelSchema>(
     },
     follows: [{
       type: Schema.Types.ObjectId,
-      ref: "User"
+      ref: "User",
+      default: [],
     }],
     followers: [{
       type: Schema.Types.ObjectId,
-      ref: "User"
+      ref: "User",
+      default: [],
     }],
     lists: [{
       type: Schema.Types.ObjectId,
-      ref: "List"
+      ref: "List",
+      default: []
     }]
   },
   {

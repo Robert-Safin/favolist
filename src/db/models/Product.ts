@@ -1,22 +1,22 @@
 import { Schema, models, model, ObjectId, Model } from "mongoose";
-import List from "./List";
 
 export interface ProductModelSchema {
-  userId : ObjectId,
+  user_id : ObjectId,
   listName: string;
   productName: string;
   productBrand: string;
   productBrandImage: string;
-  content: Text;
+  content: string;
   rating: number;
   referral: string;
 }
 
 const ProductSchema = new Schema<ProductModelSchema>(
   {
-    userId: {
+    user_id: {
       type: Schema.Types.ObjectId,
       ref: "User",
+      required: true,
     },
     listName: {
       type: String,
@@ -35,7 +35,7 @@ const ProductSchema = new Schema<ProductModelSchema>(
       default: "Unbranded"
     },
     content: {
-      type: Text,
+      type: String,
       required: true,
     },
     rating: {
@@ -46,6 +46,7 @@ const ProductSchema = new Schema<ProductModelSchema>(
     },
     referral: {
       type: String,
+      default: ""
     },
   },
   {

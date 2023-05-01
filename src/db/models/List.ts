@@ -1,5 +1,5 @@
 import { Schema, models, model, ObjectId, Model } from "mongoose";
-import User from "./User";
+
 import { ProductModelSchema } from "./Product";
 
 export interface ListModelSchema {
@@ -10,8 +10,10 @@ export interface ListModelSchema {
 
 const ListSchema = new Schema<ListModelSchema>(
   {
+
     user_id: {
-      type: User,
+      type: Schema.Types.ObjectId,
+      ref: 'User',
       required: true,
     },
     title: {
@@ -20,7 +22,8 @@ const ListSchema = new Schema<ListModelSchema>(
     },
     products: [{
       type: Schema.Types.ObjectId,
-      ref: "Product"
+      ref: "Product",
+      default: []
     }]
   },
   {
