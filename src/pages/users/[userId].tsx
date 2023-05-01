@@ -33,27 +33,34 @@ const UserProfile:NextPage<UserModelSchema> = (props) => {
 };
 
 
-export const getServerSideProps:GetServerSideProps = async(context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  await connectDB();
+  const session = await getSession(context);
+  const userEmail = session?.user?.email;
+  const userDoc = await User.findOne({ email: userEmail });
 
-  await connectDB()
-  const session = await getSession(context)
-  const userEmail = session?.user?.email
-  const user = await User.findOne({email:userEmail})
+  if (!userDoc) {
+    // You can customize the response when the user is not found
+    return {
+      notFound: true,
+    };
+  }
 
+  // Convert the Mongoose document to a plain JavaScript object
+  const user = userDoc.toJSON();
 
   return {
     props: {
-      email: user?.email,
-      avatar: user?.avatar,
-      username: user?.username,
-      bio: user?.bio,
-      follows: user?.follows,
-      followers: user?.followers,
-      lists : user?.lists
-    }
-  }
-
-}
+      email: user.email,
+      avatar: user.avatar,
+      username: user.username,
+      bio: user.bio,
+      follows: user.follows,
+      followers: user.followers,
+      lists: user.lists,
+    },
+  };
+};
 
 
 export default UserProfile

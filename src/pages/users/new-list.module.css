@@ -1,0 +1,24 @@
+
+.formContainer {
+  @apply flex flex-col
+}
+
+.title {
+  @apply mx-auto
+}
+
+.form {
+  @apply mx-auto flex flex-col
+}
+
+.form label {
+  @apply text-2xl
+}
+
+.form input {
+  @apply border border-flamingo
+}
+
+.form button{
+  @apply bg-flamingo rounded mt-5
+}
