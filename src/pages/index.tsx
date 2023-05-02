@@ -7,9 +7,6 @@ import { motion } from 'framer-motion'
 
 const LandingPage: NextPage = () => {
 
-
-
-
   return (
     <>
       <SearchBar />

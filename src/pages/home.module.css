@@ -1,0 +1,5 @@
+
+
+.leftCard p {
+  @apply text-justify text-3xl my-auto p-8 font-serif tracking-widest border border-flamingo rounded
+}
