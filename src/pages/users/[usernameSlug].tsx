@@ -38,7 +38,7 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
       <Image src={props.avatar!} alt='user avatar' width={100} height={100} />
       <p>{props.bio}</p>
 
-      <Link href={`/lists`}><p>My lists: {props.lists.length}</p></Link>
+      <Link href={`lists`}><p>My lists: {props.lists.length}</p></Link>
 
       <p>My followers: {props.followers.length}</p>
       <p>My following {props.follows.length}</p>

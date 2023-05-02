@@ -6,9 +6,11 @@ import User from "@/db/models/User";
 import List from "@/db/models/List";
 import { ListModelSchema } from "@/db/models/List";
 import ListItem from "@/components/lists/ListItem";
+import { ObjectId } from "mongoose";
 
 interface ListProps {
   lists: ListModelSchema[],
+
 }
 
 
@@ -20,12 +22,29 @@ const UserLists: NextPage<ListProps> = (props) => {
     // to do
   }
 
+  const handleClick = (_id: ObjectId) => {
+    // to do
+    console.log(_id);
+  };
 
   return (
     <>
-      <h1>User lists</h1>
+      <h1>{session?.user?.name}`s lists</h1>
 
-      {props.lists.map(list => <ListItem alt={list.title} title={list.title} about={list.about} src={list.thumbnail} key={String(list._id)} _id={list.id}/>)}
+      {props.lists.map(list =>
+
+        <ListItem alt={list.title}
+          title={list.title}
+          about={list.about}
+          src={list.thumbnail}
+          key={String(list._id)}
+          _id={list.id}
+          products={list.products}
+          onClick={() => handleClick(list._id)}
+
+        />
+      )}
+
 
 
 
