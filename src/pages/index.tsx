@@ -4,9 +4,10 @@ import SearchBar from '@/components/searchBar.tsx/SearchBar'
 import { NextPage } from 'next'
 import styles from './index.module.css'
 import { motion } from 'framer-motion'
+import Card from '@/components/layout/Card'
+
 
 const LandingPage: NextPage = () => {
-
 
 
 
