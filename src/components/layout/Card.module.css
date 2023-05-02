@@ -1,0 +1,51 @@
+
+
+/* custom styles */
+.bottomNav {
+  @apply bg-gray grid grid-cols-5 border-gray fixed bottom-0 left-0 w-full p-4;
+}
+
+.menuitem {
+  @apply  grid place-content-center;
+}
+
+.descriptionList {
+  @apply text-base p-4 line-clamp-4 ;
+}
+
+.descriptionContainer {
+  @apply h-24 overflow-hidden
+}
+
+.image {
+  @apply w-6 h-6;
+}
+
+.imgContainer {
+  @apply w-full aspect-w-16 aspect-h-12 bg-white relative;
+}
+
+.category {
+  @apply text-lg text-center;
+}
+
+.title {
+  @apply text-xl font-bold text-center;
+}
+
+
+.category {
+  @apply text-xl text-center;
+}
+
+.price {
+  @apply text-base font-light text-center;
+}
+
+.button {
+  @apply bg-gray hover:bg-flamingo text-white font-bold py-2 px-4 rounded ;
+}
+
+.container {
+@apply border-b border-gray pb-3;
+}
