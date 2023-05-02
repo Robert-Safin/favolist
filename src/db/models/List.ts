@@ -6,6 +6,7 @@ export interface ListModelSchema extends Document{
   _id?: ObjectId;
   user_id: ObjectId;
   title: string;
+  thumbnail: string;
   products: ProductModelSchema[]
 }
 
@@ -20,6 +21,11 @@ const ListSchema = new Schema<ListModelSchema>(
     title: {
       type: String,
       required: true,
+    },
+    thumbnail : {
+      type: String,
+      // to do
+      default: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Banana-Single.jpg/2324px-Banana-Single.jpg"
     },
     products: [{
       type: Schema.Types.ObjectId,
