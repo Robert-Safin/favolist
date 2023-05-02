@@ -12,14 +12,18 @@ const handler:NextApiHandler = async(req:NextApiRequest, res:NextApiResponse) =>
     await connectDB()
     const user = await User.findOne({email:email})
 
-    const newList = await new List({user_id: user?._id, title: listTitle})
+    const newList =  new List({user_id: user?._id, title: listTitle})
     await newList.save()
-    await user?.lists.push(newList)
+
+
+    user?.lists.push(newList)
 
     await user?.save()
     res.status(200).json({message: "ok"})
   } catch(error) {
-    res.status(500).json({message: error})
+    console.log(error);
+    res.status(400).json({message: error})
+
   }
 
 }

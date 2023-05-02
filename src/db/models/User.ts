@@ -1,8 +1,9 @@
-import { Schema, models, model, Model } from "mongoose";
+import { Schema, models, model, Model, Document } from "mongoose";
 import { ListModelSchema } from "./List";
 import { ObjectId } from "mongoose";
 
-export interface UserModelSchema {
+export interface UserModelSchema extends Document {
+  _id : ObjectId;
   username: string;
   email: string;
   provider: "github" | "google";
