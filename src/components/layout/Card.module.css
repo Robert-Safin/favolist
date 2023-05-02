@@ -1,0 +1,10 @@
+
+
+/* custom styles */
+.bottomNav {
+  @apply bg-gray grid grid-cols-5 border-gray fixed bottom-0 left-0 w-full p-4;
+}
+
+.menuitem {
+  @apply  grid place-content-center;
+}
