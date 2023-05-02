@@ -16,6 +16,18 @@ const NewList:NextPage = () => {
   const titleRef = useRef<HTMLInputElement>(null)
 
 
+  const handleImageChange = () => {
+    try {
+
+    } catch(error) {
+
+    }
+  }
+
+
+
+
+
   const handleSubmit:FormEventHandler = async(event) => {
     event.preventDefault()
     const enteredTitle = titleRef.current?.value
@@ -50,6 +62,7 @@ const NewList:NextPage = () => {
       <form className={styles.form} onSubmit={handleSubmit}>
         <label htmlFor="title"> List title</label>
         <input type="text" id="title" placeholder='Hangover cures' ref={titleRef}/>
+        {/* <input type="file" accept="image/*" onChange={handleImageChange} /> */}
         <button type="submit">Create</button>
       </form>
 
