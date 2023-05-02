@@ -5,7 +5,10 @@ import styles from "./home.module.css";
 
 const Home: NextPage = () => {
   return (
+    <>
     <Card  />
+    <Card  />
+    </>
   )
 
 }
