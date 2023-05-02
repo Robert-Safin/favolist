@@ -4,10 +4,10 @@ import { GetServerSideProps } from "next";
 import { connectDB } from "@/db/lib/connectDb";
 import User from "@/db/models/User";
 import Image from 'next/image'
-import { UserModelSchema } from "@/db/models/User";
+
 import Link from 'next/link'
 import { ListModelSchema } from "@/db/models/List";
-import {useEffect} from 'react'
+
 import {useRouter} from 'next/router'
 interface UserProfileProps {
   email: string;

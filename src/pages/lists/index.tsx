@@ -5,6 +5,7 @@ import { connectDB } from "@/db/lib/connectDb";
 import User from "@/db/models/User";
 import List from "@/db/models/List";
 import { ListModelSchema } from "@/db/models/List";
+import ListItem from "@/components/lists/ListItem";
 
 interface ListProps {
   lists: ListModelSchema[],
@@ -24,7 +25,7 @@ const UserLists: NextPage<ListProps> = (props) => {
     <>
       <h1>User lists</h1>
 
-      {props.lists.map(list => <div key={String(list._id)}>{list.title}</div>)}
+      {props.lists.map(list => <ListItem alt={list.title} title={list.title} about={list.about} src={list.thumbnail} key={String(list._id)} _id={list.id}/>)}
 
 
 

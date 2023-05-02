@@ -2,7 +2,7 @@ import { connectDB } from "@/db/lib/connectDb";
 import User from "@/db/models/User";
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 
-
+// to do: secure route
 
 export interface UserProfileUpdateForm {
   newUsername: string,

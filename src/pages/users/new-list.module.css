@@ -15,8 +15,11 @@
   @apply text-2xl
 }
 
-.form input {
-  @apply border border-flamingo
+.form input  {
+  @apply border border-flamingo mb-5
+}
+.form textarea  {
+  @apply border border-flamingo mb-5
 }
 
 .form button{
