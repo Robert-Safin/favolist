@@ -8,6 +8,12 @@ const nextConfig = {
         port: '',
         pathname: '/u/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'ouraring-images.imgix.net',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
   reactStrictMode: true,
