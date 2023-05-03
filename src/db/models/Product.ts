@@ -2,9 +2,9 @@ import { Schema, models, model, ObjectId, Model, Document } from "mongoose";
 
 export interface ProductModelSchema extends Document {
   _id : ObjectId
-  user_id : ObjectId,
-  listName: string;
-  productCategory: string;
+  // user_id : ObjectId,
+  listId: ObjectId;
+  // productCategory: string;
   productName: string;
   productLogo: string;
   productImage: string;
@@ -15,13 +15,14 @@ export interface ProductModelSchema extends Document {
 
 const ProductSchema = new Schema<ProductModelSchema>(
   {
-    user_id: {
+    // user_id: {
+    //   type: Schema.Types.ObjectId,
+    //   ref: "User",
+    //   required: true,
+    // },
+    listId: {
       type: Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
-    listName: {
-      type: String,
+      ref: "List",
       required: true,
     },
     productName: {
@@ -30,7 +31,7 @@ const ProductSchema = new Schema<ProductModelSchema>(
     },
     productLogo: {
       type: String,
-      default: "Unbranded",
+      default: "no logo",
     },
     productImage: {
     type: String,
