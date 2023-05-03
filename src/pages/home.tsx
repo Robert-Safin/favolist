@@ -1,6 +1,6 @@
 import Card from "@/components/layout/Card";
 import ToggleView from "@/components/toggleViewListCard/ToggleView";
-import SearchBar from "@/components/searchBar.tsx/SearchBar";
+import SearchBar from "@/components/searchBar/SearchBar";
 import type { NextPage } from "next";
 import styles from "./home.module.css";
 import { signIn } from "next-auth/react";

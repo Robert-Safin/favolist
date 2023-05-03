@@ -18,6 +18,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/pages/users/[usernameSlug]/lists/products"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/pages/users/[usernameSlug]/lists/products", "src/components/searchBar"],
   "exclude": ["node_modules"]
 }
