@@ -4,11 +4,12 @@ import { GetServerSideProps } from "next";
 import { connectDB } from "@/db/lib/connectDb";
 import User from "@/db/models/User";
 import Image from 'next/image'
-
+import styles from './index.module.css'
 import Link from 'next/link'
 import { ListModelSchema } from "@/db/models/List";
+import { signIn } from 'next-auth/react'
 
-import {useRouter} from 'next/router'
+import { useRouter } from 'next/router'
 interface UserProfileProps {
   email: string;
   avatar: string;
@@ -26,24 +27,45 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
 
 
   if (!session) {
-    // to do
+    return (
+      <>
+        <button onClick={() => signIn()}>Login</button>
+      </>
+    )
   }
 
 
 
 
   return (
-    <>
-      <h1>Welcome {props.username}!</h1>
-      <Image src={props.avatar!} alt='user avatar' width={100} height={100} />
-      <p>{props.bio}</p>
+    <div className={styles.containerDiv}>
 
-      <Link href={`${session?.user?.name}/lists`}><p>My lists: {props.lists.length}</p></Link>
 
-      <p>My followers: {props.followers.length}</p>
-      <p>My following {props.follows.length}</p>
-      <Link href={`/users/edit`}>Edit profile</Link>
-    </>
+      <h1 className={styles.username}>{props.username}</h1>
+
+
+      <div className={styles.userCard}>
+        <Image src={props.avatar!} alt='user avatar' width={100} height={100} />
+
+        <div className={styles.userStats}>
+          <h1 className={styles.username}>{props.username}</h1>
+          <Link href={`${session?.user?.name}/lists`}><p>{props.lists.length} lists</p></Link>
+          <p>8 products</p>
+          <p>{props.followers.length} followers</p>
+          <p>{props.follows.length} following</p>
+        </div>
+
+        <div className={styles.buttonContainer}>
+          <Link href={`/users/edit`} className={styles.button}>Edit profile</Link>
+          <Link href={``} className={styles.button}>Follow</Link>
+        </div>
+      </div>
+
+
+
+
+
+    </div>
   )
 
 

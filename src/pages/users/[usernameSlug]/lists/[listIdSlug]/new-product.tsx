@@ -3,7 +3,7 @@ import styles from './new-product.module.css'
 import { FormEventHandler, useRef } from "react";
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-
+import { signIn } from "next-auth/react";
 
 
 
@@ -21,7 +21,13 @@ const NewProduct: NextPage = () => {
   const imageRef = useRef<HTMLInputElement>(null)
 
 
-
+  if (!session) {
+    return (
+      <>
+        <button onClick={() => signIn()}>Login</button>
+      </>
+    )
+  }
 
 
 

@@ -17,7 +17,7 @@ const Footer: FC = () => {
     <div className={styles.footer}>
       <div className={styles.bottomNav}>
         <div className={styles.menuitem}>
-          <Link href="/" className={styles.menulink}> <BiHomeAlt2 /></Link>
+          <Link href="/home" className={styles.menulink}> <BiHomeAlt2 /></Link>
 
         </div>
         <div className={styles.menuitem}>
