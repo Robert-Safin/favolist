@@ -1,7 +1,13 @@
 import React from 'react';
 import styles from './Card.module.css';
+import Avatar from '../avatar/Avatar';
 import {FC} from 'react';
 import Image from 'next/image';
+import { RxAvatar } from 'react-icons/rx';
+import { HiOutlineBookmark } from 'react-icons/hi';
+import { BiCommentDetail } from 'react-icons/bi';
+import { IoMdAdd } from 'react-icons/io';
+import { RxDotsHorizontal } from 'react-icons/rx';
 
 interface Props {
   title?: string;
@@ -14,6 +20,12 @@ const Card:FC<Props> = ({ title, imageUrl, description, onClick }) => {
 
   return (
     <div className={styles.container}>
+      <div className={styles.suspensionPoints}>
+        <button className="p-2">
+        <RxDotsHorizontal />
+        </button>
+      </div>
+
       <h2 className={styles.category}>Sleep Enhancers</h2>
       <h2 className={styles.title}>Oura Ring 3.0</h2>
       <h2 className={styles.price}>$300</h2>
@@ -25,6 +37,17 @@ const Card:FC<Props> = ({ title, imageUrl, description, onClick }) => {
         src='https://ouraring-images.imgix.net/https%3A%2F%2Fs3.amazonaws.com%2Fouraring.com%2Fimages%2Fproduct%2Fsimple%2Fpdp-img-carousel-black-01-heritage%402x.png?ixlib=js-2.3.2&fm=webp&w=684&s=ba64f7df7020d604ae2f2a0acaae219c'
         />
       </div>
+
+      <div className={styles.cardBar}>
+        <div className={styles.avatar}><Avatar />Tim</div>
+        <div className={styles.brandLogo}>Peloton</div>
+        <div className={styles.actions}>
+          <div><HiOutlineBookmark /></div>
+          <div><BiCommentDetail /></div>
+          <div><IoMdAdd /></div>
+        </div>
+      </div>
+
       <div className={styles.descriptionContainer}>
         <p className={styles.descriptionList}>
           Each style has identical technical and hardware capabilities.

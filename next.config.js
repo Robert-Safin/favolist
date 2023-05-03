@@ -20,6 +20,12 @@ const nextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'speaking.com',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
   reactStrictMode: true,
