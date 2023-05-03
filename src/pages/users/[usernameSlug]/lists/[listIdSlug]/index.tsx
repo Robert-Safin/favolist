@@ -32,6 +32,8 @@ const ShowList: NextPage<Props> = (props) => {
       <p>{props.list.about}</p>
       <p>{props.list.thumbnail}</p>
       <p>{props.list.products.length} products in the list</p>
+
+      <button>add product to list</button>
     </>
   )
 }
