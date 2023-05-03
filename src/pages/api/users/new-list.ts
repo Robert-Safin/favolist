@@ -4,6 +4,7 @@ import User from "@/db/models/User";
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 import cloudinary from "cloudinary";
 
+// to do: secure route
 
 cloudinary.v2.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -17,6 +18,7 @@ const handler: NextApiHandler = async (req: NextApiRequest,res: NextApiResponse)
   const email = req.body.userEmail;
   const listTitle = req.body.listTitle;
   const thumbnail = req.body.image;
+  const listAbout = req.body.listAbout
 
   try {
     const uploadResponse = await cloudinary.v2.uploader.upload(thumbnail, {
@@ -32,6 +34,7 @@ const handler: NextApiHandler = async (req: NextApiRequest,res: NextApiResponse)
       user_id: user?._id,
       title: listTitle,
       thumbnail: secure_url,
+      about: listAbout,
     });
     await newList.save();
     user?.lists.push(newList);

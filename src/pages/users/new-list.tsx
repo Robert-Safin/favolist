@@ -14,12 +14,14 @@ const NewList: NextPage = () => {
 
   const titleRef = useRef<HTMLInputElement>(null);
   const imageRef = useRef<HTMLInputElement>(null);
+  const aboutRef = useRef<HTMLTextAreaElement>(null);
 
   const handleSubmit: FormEventHandler = async (event) => {
     event.preventDefault();
 
     const enteredTitle = titleRef.current?.value;
     const enteredImage = imageRef.current?.files;
+    const enteredAbout = aboutRef.current?.value;
 
     if (enteredImage && enteredImage.length > 0) {
       // to do: validate file type
@@ -29,6 +31,7 @@ const NewList: NextPage = () => {
         const data = {
           userEmail: session?.user?.email,
           listTitle: enteredTitle,
+          listAbout: enteredAbout,
           image: base64,
         };
 
@@ -58,9 +61,15 @@ const NewList: NextPage = () => {
     <div className={styles.formContainer}>
       <h1 className={styles.title}>New List</h1>
       <form className={styles.form} onSubmit={handleSubmit}>
+
         <label htmlFor="title"> List title</label>
         <input type="text" id="title" placeholder="Hangover cures" ref={titleRef} />
+
+        <label htmlFor="about"> About the list</label>
+        <textarea id="about" placeholder="List of charcoal pills" ref={aboutRef} />
+
         <input type="file" accept="image/*" ref={imageRef} />
+
         <button type="submit">Create</button>
       </form>
     </div>
