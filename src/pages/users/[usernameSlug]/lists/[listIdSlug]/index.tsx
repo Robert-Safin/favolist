@@ -4,6 +4,7 @@ import User from "@/db/models/User";
 import { GetServerSideProps, NextPage } from "next";
 import { getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { signIn } from "next-auth/react";
 interface Props {
   list: ListModelSchema
 }
@@ -16,8 +17,11 @@ const ShowList: NextPage<Props> = (props) => {
   const listIdSlug = router.query.listIdSlug
 
   if (!session) {
-    // to do
-    return <p>no session</p>
+    return (
+      <>
+        <button onClick={() => signIn()}>Login</button>
+      </>
+    )
   }
 
 const handleClick = () => {

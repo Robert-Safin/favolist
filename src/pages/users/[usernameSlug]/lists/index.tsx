@@ -7,7 +7,7 @@ import List from "@/db/models/List";
 import { ListModelSchema } from "@/db/models/List";
 import ListItem from "@/components/lists/ListItem";
 import { ObjectId } from "mongoose";
-
+import { signIn } from "next-auth/react";
 interface ListProps {
   lists: ListModelSchema[],
 
@@ -19,7 +19,11 @@ const UserLists: NextPage<ListProps> = (props) => {
   const { data: session, status } = useSession()
 
   if (!session) {
-    // to do
+    return (
+      <>
+        <button onClick={() => signIn()}>Login</button>
+      </>
+    )
   }
 
   const handleClick = (title: string) => {

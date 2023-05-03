@@ -1,0 +1,23 @@
+.containerDiv {
+  @apply flex flex-col
+}
+
+.username {
+  @apply text-4xl mx-auto
+}
+
+.userCard {
+  @apply border-y flex mx-auto space-x-48
+}
+
+.button {
+  @apply  bg-flamingo
+}
+
+.userStats {
+  @apply flex flex-col
+}
+
+.buttonContainer {
+  @apply flex flex-col space-y-10
+}

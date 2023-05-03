@@ -3,18 +3,22 @@ import { NextPage } from 'next';
 import styles from './new-list.module.css';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-
+import { signIn } from 'next-auth/react';
 const NewList: NextPage = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
-
-  if (!session) {
-    // to do
-  }
-
   const titleRef = useRef<HTMLInputElement>(null);
   const imageRef = useRef<HTMLInputElement>(null);
   const aboutRef = useRef<HTMLTextAreaElement>(null);
+
+  if (!session) {
+    return (
+      <>
+        <button onClick={() => signIn()}>Login</button>
+      </>
+    )
+  }
+
 
   const handleSubmit: FormEventHandler = async (event) => {
     event.preventDefault();

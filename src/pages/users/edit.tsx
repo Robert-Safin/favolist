@@ -5,17 +5,23 @@ import styles from './edit.module.css'
 import { useSession } from 'next-auth/react'
 import { UserProfileUpdateForm } from "../api/users/edit"
 import {useRouter} from 'next/router'
+import { signIn } from 'next-auth/react'
+
 const EditProfile: NextPage = () => {
   const { data: session, status } = useSession()
   const router = useRouter()
+  const usernameRef = useRef<HTMLInputElement>(null)
+  const bioRef = useRef<HTMLTextAreaElement>(null)
 
   if (!session) {
-    // to do
+    return (
+      <>
+        <button onClick={() => signIn()}>Login</button>
+      </>
+    )
   }
 
 
-  const usernameRef = useRef<HTMLInputElement>(null)
-  const bioRef = useRef<HTMLTextAreaElement>(null)
 
 
 
