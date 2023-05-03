@@ -65,6 +65,10 @@ const NewProduct: NextPage = () => {
             },
             body: JSON.stringify(data),
           });
+          const status = await response.json()
+          console.log(status);
+
+
 
 
           if (response.ok) {
