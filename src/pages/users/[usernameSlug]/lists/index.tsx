@@ -22,9 +22,11 @@ const UserLists: NextPage<ListProps> = (props) => {
     // to do
   }
 
-  const handleClick = (_id: ObjectId) => {
+  const handleClick = (title: string) => {
     // to do
-    console.log(_id);
+    const usernameSlug = router.query.usernameSlug
+
+    router.push(`/users/${usernameSlug}/lists/${title}`)
   };
 
   return (
@@ -40,8 +42,7 @@ const UserLists: NextPage<ListProps> = (props) => {
           key={String(list._id)}
           _id={list.id}
           products={list.products}
-          onClick={() => handleClick(list._id)}
-
+          onClick={() => handleClick(list.title)}
         />
       )}
 
