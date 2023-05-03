@@ -1,0 +1,7 @@
+.avatar {
+  @apply h-6 w-6;
+}
+
+.image {
+  @apply w-6 h-6 rounded-full;
+}

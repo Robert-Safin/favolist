@@ -1,5 +1,6 @@
 import {FC} from 'react'
 import styles from './SearchBar.module.css'
+import {GoSearch} from 'react-icons/go'
 interface Props {
 
 }
@@ -7,7 +8,10 @@ interface Props {
 const SearchBar:FC<Props> = () => {
   return (
     <form className={styles.searchForm}>
-      <input type="text" placeholder='Search...' className={styles.searchInput}/>
+      <div className={styles.container}>
+        <input type="text" placeholder='Search...' className={styles.searchInput}/>
+        <GoSearch className={styles.zoomIcon} />
+      </div>
     </form>
 
   )
