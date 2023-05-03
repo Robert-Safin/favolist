@@ -41,15 +41,21 @@ const handler: NextApiHandler = async (
 
     const listId = userDoc?.lists[0]._id;
     const list = await List.findOne({ _id: listId });
+    const listTitle = list?.title
+    //console.log(listTitle);
+
 
     const newProduct = new Product({
       listId: listId,
+      productListName: listTitle,
       productName: name,
       productImage: secure_url,
       content: content,
       price: price,
       referral: referral,
     })
+    // to do productListName is no saved
+    //console.log(newProduct);
 
     await newProduct.save()
     list?.products.push(newProduct)

@@ -4,7 +4,7 @@ export interface ProductModelSchema extends Document {
   _id : ObjectId
   // user_id : ObjectId,
   listId: ObjectId;
-  // productCategory: string;
+  productListName: string;
   productName: string;
   productLogo: string;
   productImage: string;
@@ -23,6 +23,10 @@ const ProductSchema = new Schema<ProductModelSchema>(
     listId: {
       type: Schema.Types.ObjectId,
       ref: "List",
+      required: true,
+    },
+    productListName : {
+      type: String,
       required: true,
     },
     productName: {
