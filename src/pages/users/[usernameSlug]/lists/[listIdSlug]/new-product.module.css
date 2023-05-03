@@ -1,0 +1,18 @@
+
+
+.form {
+  @apply flex flex-col
+}
+
+.form label {
+  @apply mx-auto text-xl
+}
+
+
+.form input {
+  @apply mx-auto border border-flamingo
+}
+
+.form textarea {
+  @apply mx-auto border border-flamingo
+}

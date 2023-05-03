@@ -3,7 +3,7 @@ import List, { ListModelSchema } from "@/db/models/List";
 import User from "@/db/models/User";
 import { GetServerSideProps, NextPage } from "next";
 import { getSession, useSession } from "next-auth/react";
-
+import { useRouter } from "next/router";
 interface Props {
   list: ListModelSchema
 }
@@ -11,13 +11,18 @@ interface Props {
 const ShowList: NextPage<Props> = (props) => {
 
   const { data: session, status } = useSession()
+  const router = useRouter()
+  const usernameSlug = router.query.usernameSlug
+  const listIdSlug = router.query.listIdSlug
 
   if (!session) {
     // to do
     return <p>no session</p>
   }
 
-
+const handleClick = () => {
+  router.push(`/users/${usernameSlug}/lists/${listIdSlug}/new-product`)
+}
 
   return (
 
@@ -33,7 +38,7 @@ const ShowList: NextPage<Props> = (props) => {
       <p>{props.list.thumbnail}</p>
       <p>{props.list.products.length} products in the list</p>
 
-      <button>add product to list</button>
+      <button onClick={handleClick}>add product to list</button>
     </>
   )
 }
