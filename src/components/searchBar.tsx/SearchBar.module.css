@@ -1,9 +1,9 @@
 
 .searchForm {
-  @apply mx-auto my-10 flex
+  @apply mx-0 py-2 flex border-b;
 }
 
 
 .searchInput {
-  @apply bg-gray text-dark-grey p-3 border-2 rounded mx-auto w-3/4
+  @apply bg-white text-gray-600 p-3 mx-2 h-8 border w-full rounded-md;
 }

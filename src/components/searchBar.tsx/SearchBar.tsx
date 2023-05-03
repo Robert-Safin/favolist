@@ -7,7 +7,7 @@ interface Props {
 const SearchBar:FC<Props> = () => {
   return (
     <form className={styles.searchForm}>
-      <input type="text" placeholder='Search Products...' className={styles.searchInput}/>
+      <input type="text" placeholder='Search...' className={styles.searchInput}/>
     </form>
 
   )
