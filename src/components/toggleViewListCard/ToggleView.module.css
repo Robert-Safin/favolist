@@ -1,0 +1,11 @@
+.iconCard {
+  @apply text-gray-500;
+}
+
+.iconList {
+  @apply text-gray-300;
+}
+
+.container {
+  @apply flex items-center justify-between h-8 w-full px-4 py-2 mb-2 bg-gray-50;
+}

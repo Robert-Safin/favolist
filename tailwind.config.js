@@ -13,14 +13,21 @@ module.exports = {
       'flamingo': '#FC467D',
       'white': '#FFFFFF',
       'black': '#000000',
-      'gray': '#E4DCDE',
-      'dark-grey': '#A68A92'
+      'gray': {
+        50: '#FAFAFA',
+        200: '#E5E5E5',
+        300: '#D4D4D4',
+        400: '#A3A3A3',
+        500: '#737373',
+        DEFAULT: '#E4DCDE',
+        600: '#A68A92',
+      },
     },
     extend: {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
     },
   },

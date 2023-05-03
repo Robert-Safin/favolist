@@ -16,11 +16,11 @@
 
 
 .navOpen {
-  @apply flex justify-between items-center;
+  @apply  justify-between items-center hidden;
 }
 
 .navClosed {
-  @apply flex justify-between items-center pb-3;
+  @apply  justify-between items-center  hidden pb-3;
 }
 
 .links {

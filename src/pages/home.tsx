@@ -1,17 +1,21 @@
 import Card from "@/components/layout/Card";
-import NextPage from "next";
+import ToggleView from "@/components/toggleViewListCard/ToggleView";
+import SearchBar from "@/components/searchBar.tsx/SearchBar";
+import type { NextPage } from "next";
 import styles from "./home.module.css";
 
 
 const Home: NextPage = () => {
   return (
     <>
-    <Card  />
-    <Card  />
+    <SearchBar />
+    <ToggleView />
+    <Card onClick={() => {}}  />
+    <Card onClick={() => {}}  />
+    <Card onClick={() => {}}  />
     </>
   )
 
 }
-
 
 export default Home;

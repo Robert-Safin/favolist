@@ -41,6 +41,4 @@ const Card:FC<Props> = ({ title, imageUrl, description, onClick }) => {
   );
 };
 
-
-
 export default Card;
