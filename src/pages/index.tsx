@@ -1,6 +1,6 @@
 
 import Image from 'next/image'
-import SearchBar from '@/components/searchBar.tsx/SearchBar'
+import SearchBar from '@/components/searchBar/SearchBar'
 import { NextPage } from 'next'
 import styles from './index.module.css'
 import { motion } from 'framer-motion'
