@@ -1,6 +1,6 @@
 
 .container {
-@apply border-b border-gray pb-3 mb-2;
+@apply relative border-b border-gray pb-3 mb-2;
 }
 
 .bottomNav {
@@ -9,6 +9,10 @@
 
 .menuitem {
   @apply  grid place-content-center;
+}
+
+.suspensionPoints {
+  @apply absolute flex justify-end pr-4 top-0 right-0 text-gray-500 text-xl align-middle;
 }
 
 .category {
@@ -31,10 +35,26 @@
   @apply w-6 h-6;
 }
 
+.cardBar {
+  @apply inline-flex justify-between items-center h-6 w-full px-4 font-semibold text-sm
+}
+
+.avatar {
+  @apply w-1/4 flex items-center gap-2;
+}
+
+.brandLogo  {
+  @apply flex-grow items-center text-center;
+}
+
+.actions {
+  @apply grid-cols-3 gap-2 w-1/4 inline-flex align-middle items-center justify-end text-lg;
+}
+
 .descriptionContainer {
   @apply h-24 overflow-hidden;
 }
 
 .descriptionList {
-  @apply text-base p-4 line-clamp-4 ;
+  @apply text-base px-4 py-1 line-clamp-4 leading-6;
 }
