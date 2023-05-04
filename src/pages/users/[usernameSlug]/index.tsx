@@ -17,8 +17,9 @@ interface UserProfileProps {
   bio: string;
   follows: string[];
   followers: string[];
-  lists: ListModelSchema[];
+  lists: string[];
   products: ProductModelSchema[]
+  userLists: ListModelSchema[]
 }
 
 
@@ -63,7 +64,7 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
       </div>
 
 
-
+    {props.userLists.map(list => <p key={list.title}>title: {list.title} image_url: {list.thumbnail} about: {list.about} products: {list.products.length}</p> )}
 
 
     </div>
@@ -85,9 +86,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       notFound: true,
     };
   }
+  const userListsDoc = await user.populate('lists')
 
   const lists = JSON.parse(JSON.stringify(user.lists))
   const products = JSON.parse(JSON.stringify(user.products))
+  const userLists = JSON.parse(JSON.stringify(userListsDoc.lists))
+
+
 
 
 
@@ -101,6 +106,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       followers: user.followers,
       lists: lists,
       products: products,
+      userLists: userLists,
     },
   };
 };
