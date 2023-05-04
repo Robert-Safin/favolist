@@ -8,8 +8,8 @@ import styles from './index.module.css'
 import Link from 'next/link'
 import { ListModelSchema } from "@/db/models/List";
 import { signIn } from 'next-auth/react'
-
 import { useRouter } from 'next/router'
+import { ProductModelSchema } from "@/db/models/Product";
 interface UserProfileProps {
   email: string;
   avatar: string;
@@ -18,6 +18,7 @@ interface UserProfileProps {
   follows: string[];
   followers: string[];
   lists: ListModelSchema[];
+  products: ProductModelSchema[]
 }
 
 
@@ -50,7 +51,7 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
         <div className={styles.userStats}>
           <h1 className={styles.username}>{props.username}</h1>
           <Link href={`${session?.user?.name}/lists`}><p>{props.lists.length} lists</p></Link>
-          <p>8 products</p>
+          <p>{props.products.length} products</p>
           <p>{props.followers.length} followers</p>
           <p>{props.follows.length} following</p>
         </div>
@@ -85,10 +86,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 
-
-
-
   const lists = JSON.parse(JSON.stringify(user.lists))
+  const products = JSON.parse(JSON.stringify(user.products))
+
 
 
   return {
@@ -100,6 +100,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       follows: user.follows,
       followers: user.followers,
       lists: lists,
+      products: products,
     },
   };
 };

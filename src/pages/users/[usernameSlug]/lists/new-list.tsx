@@ -48,6 +48,7 @@ const NewList: NextPage = () => {
             body: JSON.stringify(data),
           });
           if (response.ok) {
+            console.log(await response.json());
             router.push(`/users/${session?.user?.email}`);
           }
         } catch (error) {

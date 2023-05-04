@@ -13,7 +13,7 @@ const Home: NextPage = () => {
   const [foundUsers, setFoundUsers] = useState([]);
   const [foundLists, setFoundLists] = useState([]);
   const [foundProducts, setFoundProducts] = useState([]);
-  console.log(session);
+
 
   if (!session) {
     return (

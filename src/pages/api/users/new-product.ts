@@ -42,7 +42,7 @@ const handler: NextApiHandler = async (
     const listId = userDoc?.lists[0]._id;
     const list = await List.findOne({ _id: listId });
     const listTitle = list?.title
-    //console.log(listTitle);
+    console.log(listTitle);
 
 
     const newProduct = new Product({
@@ -56,7 +56,7 @@ const handler: NextApiHandler = async (
       referral: referral,
     })
     // to do productListName is no saved
-    //console.log(newProduct);
+    console.log(newProduct);
 
     await newProduct.save()
     list?.products.push(newProduct)

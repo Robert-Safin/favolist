@@ -24,6 +24,7 @@ const authOptions: NextAuthOptions = {
             username: profile.login,
             provider: "github",
             avatar: profile.avatar_url,
+            products: [], // Add this line
           });
           await newUser.save();
         }
