@@ -26,7 +26,7 @@ const SearchPage: NextPage<Props> = (props) => {
       });
       const data = await response.json();
 
-      // Update the state with the fetched data
+
       setFoundUsers(JSON.parse(data.foundUsers));
       setFoundLists(JSON.parse(data.foundLists));
       setFoundProducts(JSON.parse(data.foundProducts));
@@ -44,8 +44,8 @@ const SearchPage: NextPage<Props> = (props) => {
   return (
     <>
       <SearchBar handleSubmit={handleSubmit} handleSearch={handleSearch} />
+        <h2 className={styles.foundCategory}>Users found</h2>
       <div className={styles.resultsContainer}>
-        <h2>Users:</h2>
         {foundUsers.map((user: UserModelSchema) => (
           <FoundUserCard
             userId={user._id}
@@ -62,12 +62,12 @@ const SearchPage: NextPage<Props> = (props) => {
 
       </div>
 
+        <h2 className={styles.foundCategory}>Lists found</h2>
       <div className={styles.resultsContainer}>
-        <h2>Lists:</h2>
         {foundLists.map((list: ListModelSchema) => (
           <FoundListCard
             key={String(list._id)}
-            userId={list.user_id}
+            userId={list.user_id as UserModelSchema}
             listId={list._id}
             title={list.title}
             thumbnail={list.thumbnail}
@@ -77,8 +77,8 @@ const SearchPage: NextPage<Props> = (props) => {
         ))}
       </div>
 
+        <h2 className={styles.foundCategory}>Products found</h2>
       <div className={styles.resultsContainer}>
-        <h2>Products:</h2>
         {foundProducts.map((product: ProductModelSchema) => (
           <FoundProductCard key={String(product._id)}
           productId={product.id}

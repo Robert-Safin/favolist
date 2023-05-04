@@ -1,0 +1,52 @@
+.cardContainer {
+  @apply mb-10
+}
+
+.imageContainer {
+  @apply w-44 h-44 relative md:w-72 md:h-72 border border-b-gray-200
+}
+
+.image {
+  @apply object-cover opacity-50
+}
+
+.cardText {
+  @apply  text-xl w-full pt-4 md:pt-8 md:text-3xl z-10
+}
+
+.cardProductLength {
+  @apply pb-4  md:pb-8 md:text-xl z-10
+}
+
+.textItems {
+  @apply flex flex-col ml-4 h-full justify-between
+}
+
+
+.userInfo {
+  @apply flex items-center mt-2
+}
+
+
+
+
+.avatarContainer {
+  @apply w-6 h-6 md:w-9 md:h-9 mr-1 absolute
+}
+
+.userAvatar {
+  @apply object-cover rounded-full
+}
+
+
+
+
+
+
+.followers {
+  @apply ml-auto text-xs md:text-base
+}
+
+.username {
+  @apply ml-7 md:ml-10 text-xs md:text-base
+}

@@ -1,7 +1,7 @@
 import { connectDB } from "@/db/lib/connectDb";
 import List from "@/db/models/List";
 import Product from "@/db/models/Product";
-import User from "@/db/models/User";
+import User, { UserModelSchema } from "@/db/models/User";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -13,9 +13,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const regexWords = words.map((word: string) => new RegExp(word, 'i'));
 
-    // to do filter out irrelevant data: ids, emails, etc !!!!
-
-    const foundLists = await List.find({ title: { $in: regexWords } });
+    const foundLists = await List.find({ title: { $in: regexWords } }).populate('user_id');
 
     const foundUsers = await User.find({ username: { $in: regexWords } });
 

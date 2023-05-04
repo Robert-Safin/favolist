@@ -1,3 +1,7 @@
 .resultsContainer {
-  @apply border border-b-flamingo border-t-flamingo my-10
+  @apply border border-b-flamingo border-t-flamingo justify-evenly flex flex-wrap
+}
+
+.foundCategory {
+  @apply text-2xl
 }
