@@ -35,6 +35,14 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
   const [foundLists, setFoundLists] = useState([]);
   const [foundProducts, setFoundProducts] = useState([]);
 
+  if (!session) {
+    return (
+      <>
+        <button onClick={() => signIn()}>Login</button>
+      </>
+    )
+  }
+
   const handleSearch = async (query: string) => {
     try {
       const response = await fetch('/api/search', {
@@ -59,13 +67,6 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
     event.preventDefault();
   };
 
-  if (!session) {
-    return (
-      <>
-        <button onClick={() => signIn()}>Login</button>
-      </>
-    )
-  }
 
 
 
@@ -74,49 +75,51 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
 
     <div>
       <SearchBar handleSubmit={handleSubmit} handleSearch={handleSearch} />
-        <div className={styles.containerDiv}>
-          <div className={styles.userCard}>
-            <Link href={`/users/edit`} className={styles.link}>
-              <Image  className={styles.avatar} src={props.avatar!} alt='user avatar' width={64} height={64} />
-            </Link>
+      <div className={styles.containerDiv}>
+        <div className={styles.userCard}>
+          <Link href={`/users/edit`} className={styles.link}>
+            <Image className={styles.avatar} src={props.avatar!} alt='user avatar' width={64} height={64} />
+          </Link>
 
-            <div className={styles.userStats}>
-              <h1 className={styles.username}>{props.username}</h1>
+          <div className={styles.userStats}>
+            <h1 className={styles.username}>{props.username}</h1>
 
-              <div className={styles.listProducts}>
-                <Link href={`${session?.user?.name}/lists`}><p>{props.lists.length} lists</p></Link>
-                <p>·</p>
-                <p>{props.products.length}</p>
-              </div>
-              <div className={styles.followersFollowing}>
-                <p>{props.followers.length} followers</p>
-                <p>·</p>
-                <p>{props.follows.length} following</p>
-              </div>
+            <div className={styles.listProducts}>
+              <Link href={`${session?.user?.name}/lists`}><p>{props.lists.length} lists</p></Link>
+              <p>·</p>
+              <p>{props.products.length}</p>
             </div>
-
-            <div className={styles.buttonContainer}>
-              <Link href={`#`} className={styles.button}>Follow</Link>
+            <div className={styles.followersFollowing}>
+              <p>{props.followers.length} followers</p>
+              <p>·</p>
+              <p>{props.follows.length} following</p>
             </div>
+          </div>
+
+          <div className={styles.buttonContainer}>
+            <Link href={`#`} className={styles.button}>Follow</Link>
           </div>
         </div>
+      </div>
 
-          <div className={styles.tabs}>
-            <div className={styles.tab}>
-              <Link href={`#`}><p>Products</p></Link>
-            </div>
-            <div className={styles.tabActive}>
-              <Link href={`#`}><p>Lists</p></Link>
-            </div>
-            <div className={styles.tab}>
-              <Link href={`#`}><p>Referrals</p></Link>
-            </div>
-            <div className={styles.tab}>
-              <Link href={`#`}><p>Profile</p></Link>
-            </div>
-          </div>
-          <ToggleView />
-  {props.userLists.map(list => <p key={list.title}>title: {list.title} image_url: {list.thumbnail} about: {list.about} products: {list.products.length}</p> )}
+      <div className={styles.tabs}>
+        <div className={styles.tab}>
+          <Link href={`#`}><p>Products</p></Link>
+        </div>
+        <div className={styles.tabActive}>
+          <Link href={`#`}><p>Lists</p></Link>
+        </div>
+        <div className={styles.tab}>
+          <Link href={`#`}><p>Referrals</p></Link>
+        </div>
+        <div className={styles.tab}>
+          <Link href={`#`}><p>Profile</p></Link>
+        </div>
+      </div>
+      <ToggleView />
+
+      {/* to do render component for every users list*/}
+      {props.userLists.map(list => <p key={list.title}>title: {list.title} image_url: {list.thumbnail} about: {list.about} products: {list.products.length}</p>)}
 
 
 
@@ -162,7 +165,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       followers: user.followers,
       lists: lists,
       products: products,
-     userLists: userLists,
+      userLists: userLists,
     },
   };
 };

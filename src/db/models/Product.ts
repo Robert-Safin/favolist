@@ -35,7 +35,7 @@ const ProductSchema = new Schema<ProductModelSchema>(
     },
     productLogo: {
       type: String,
-      default: "no logo",
+      default: "https://res.cloudinary.com/dxgkclowd/image/upload/v1683187504/defaultLogo_ryvt8i.png",
     },
     productImage: {
     type: String,

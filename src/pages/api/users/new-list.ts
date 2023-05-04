@@ -22,7 +22,7 @@ const handler: NextApiHandler = async (req: NextApiRequest,res: NextApiResponse)
 
   try {
     const uploadResponse = await cloudinary.v2.uploader.upload(thumbnail, {
-      folder: "FAVOLIST",
+      folder: "FAVOLIST/lists",
     });
 
     const secure_url = uploadResponse.secure_url
