@@ -31,7 +31,7 @@
 }
 
 .button {
-  @apply  bg-purple rounded-md text-white text-center text-sm px-4 py-2
+  @apply  bg-purple rounded-md text-white text-center text-xs px-4 py-2
 }
 
 .userStats {
@@ -44,4 +44,8 @@
 
 .tabActive {
   @apply border-b-2 border-purple text-purple pb-4 w-1/4 text-center
+}
+
+.listsContainer {
+  @apply flex flex-col md:flex-row md:justify-around md:flex-wrap
 }

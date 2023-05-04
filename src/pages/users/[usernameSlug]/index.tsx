@@ -1,4 +1,4 @@
-import SearchBar from "@/components/searchBar/SearchBar";
+
 import { ListModelSchema } from "@/db/models/List";
 import { ProductModelSchema } from "@/db/models/Product";
 import { connectDB } from "@/db/lib/connectDb";
@@ -8,10 +8,12 @@ import { getSession, signIn, useSession } from "next-auth/react";
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FormEventHandler, useState } from "react";
+
 import styles from './index.module.css';
 import ToggleView from "@/components/toggleViewListCard/ToggleView";
 import List from "@/db/models/List";
+
+import UserList from "@/components/user-profile/UserList";
 
 
 interface UserProfileProps {
@@ -36,10 +38,6 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
 
 
 
-  const [foundUsers, setFoundUsers] = useState([]);
-  const [foundLists, setFoundLists] = useState([]);
-  const [foundProducts, setFoundProducts] = useState([]);
-
   if (!session) {
     return (
       <>
@@ -48,29 +46,8 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
     )
   }
 
-  const handleSearch = async (query: string) => {
-    try {
-      const response = await fetch('/api/search', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(query),
-      });
-      const data = await response.json();
 
-      // Update the state with the fetched data
-      setFoundUsers(JSON.parse(data.foundUsers));
-      setFoundLists(JSON.parse(data.foundLists));
-      setFoundProducts(JSON.parse(data.foundProducts));
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
-  const handleSubmit: FormEventHandler = (event) => {
-    event.preventDefault();
-  };
 
 
 
@@ -79,7 +56,7 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
   return (
 
     <div>
-      <SearchBar handleSubmit={handleSubmit} handleSearch={handleSearch} />
+
       <div className={styles.containerDiv}>
         <div className={styles.userCard}>
           <Link href={`/users/edit`} className={styles.link}>
@@ -93,6 +70,7 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
               <Link href={`${session?.user?.name}/lists`}><p>{props.lists.length} lists</p></Link>
               <p>·</p>
               <p>{props.products.length}</p>
+              <p>products</p>
             </div>
             <div className={styles.followersFollowing}>
               <p>{props.followers.length} followers</p>
@@ -125,7 +103,15 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
       <ToggleView />
 
       {/* to do render component for every users list*/}
-      {props.userLists.map(list => <p key={list.title}>title: {list.title} image_url: {list.thumbnail} about: {list.about} products: {list.products.length}</p>)}
+      <div className={styles.listsContainer}>
+        {props.userLists.map(list => <UserList
+          key={String(list._id)}
+          title={list.title}
+          products={list.products}
+          about={list.about}
+          thumbnail={list.thumbnail}
+        />)}
+      </div>
 
 
 
@@ -150,6 +136,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
   const userListsDoc = await user.populate({ path: 'lists', model: List });
+  //console.log(userListsDoc);
 
 
 
