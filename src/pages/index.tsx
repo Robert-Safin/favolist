@@ -1,16 +1,16 @@
 
 import Image from 'next/image'
-import SearchBar from '@/components/searchBar/SearchBar'
+
 import { NextPage } from 'next'
 import styles from './index.module.css'
 import { motion } from 'framer-motion'
-import Card from '@/components/layout/Card'
+
 
 const LandingPage: NextPage = () => {
 
   return (
     <>
-      <SearchBar />
+
 
       <motion.div
         initial={{ y: 200, opacity: 0 }}
