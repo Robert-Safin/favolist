@@ -2,9 +2,11 @@
 import { ProductModelSchema } from '@/db/models/Product'
 import { ObjectId } from 'mongoose'
 import { FC } from 'react'
-
+import Image from 'next/image'
+import styles from './FoundListCard.module.css'
+import { UserModelSchema } from '@/db/models/User'
 interface Props {
-  userId: ObjectId
+  userId: UserModelSchema
   listId: ObjectId
   title: string
   thumbnail: string
@@ -13,21 +15,53 @@ interface Props {
 }
 
 const FoundListCard: FC<Props> = (props) => {
+
+  const maxTitleLength = 80
+
   return (
-    <>
-      {props.userId}
-      <br />
-      {props.listId}
-      <br />
-      {props.title}
-      <br />
-      {props.thumbnail}
-      <br />
-      {props.about}
-      <br />
-      {props.products.length}
-      <br />
-    </>
+    <div className={styles.cardContainer}>
+
+
+      <div className={styles.imageContainer}>
+        <Image src={props.thumbnail} alt={props.title} fill  className={styles.image}/>
+
+        <div className={styles.textItems}>
+      <p className={styles.cardText}>{props.title.substring(0, maxTitleLength)}</p>
+      <p className={styles.cardProductLength}>{props.products.length} products</p>
+        </div>
+
+      </div>
+
+
+
+
+
+
+      <div className={styles.userInfo} >
+
+
+            <div className={styles.avatarContainer}>
+              <Image src={props.userId.avatar!} alt={'user avatar'} className={styles.userAvatar} fill/>
+            </div>
+
+
+        <h1 className={styles.username}>{props.userId.username}</h1>
+        <h2 className={styles.followers}>{props.userId.followers.length} followers</h2>
+
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
   )
 }
 

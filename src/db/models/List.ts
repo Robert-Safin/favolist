@@ -1,10 +1,11 @@
 import { ProductModelSchema } from "./Product";
 import { Schema, models, model, ObjectId, Model, Document } from "mongoose";
+import { UserModelSchema } from "./User";
 
 
 export interface ListModelSchema extends Document{
   _id: ObjectId;
-  user_id: ObjectId;
+  user_id: ObjectId | UserModelSchema
   title: string;
   thumbnail: string;
   about: string,
