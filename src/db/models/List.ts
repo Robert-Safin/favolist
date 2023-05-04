@@ -1,6 +1,6 @@
+import { ProductModelSchema } from "./Product";
 import { Schema, models, model, ObjectId, Model, Document } from "mongoose";
 
-import { ProductModelSchema } from "./Product";
 
 export interface ListModelSchema extends Document{
   _id: ObjectId;

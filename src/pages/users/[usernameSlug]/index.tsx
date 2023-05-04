@@ -1,7 +1,7 @@
 import SearchBar from "@/components/searchBar/SearchBar";
-import { connectDB } from "@/db/lib/connectDb";
 import { ListModelSchema } from "@/db/models/List";
 import { ProductModelSchema } from "@/db/models/Product";
+import { connectDB } from "@/db/lib/connectDb";
 import User from "@/db/models/User";
 import { GetServerSideProps, NextPage } from "next";
 import { getSession, signIn, useSession } from "next-auth/react";
@@ -11,7 +11,7 @@ import { useRouter } from 'next/router';
 import { FormEventHandler, useState } from "react";
 import styles from './index.module.css';
 import ToggleView from "@/components/toggleViewListCard/ToggleView";
-
+import List from "@/db/models/List";
 
 
 interface UserProfileProps {
@@ -143,8 +143,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       notFound: true,
     };
   }
-  const userListsDoc = await user.populate('lists')
-  console.log(userListsDoc);
+  const userListsDoc = await user.populate({ path: 'lists', model: List });
+
+
 
 
   const lists = await JSON.parse(JSON.stringify(user.lists))
