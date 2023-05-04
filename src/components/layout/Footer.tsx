@@ -30,7 +30,7 @@ const Footer: FC = () => {
           <Link href="/users/edit" className={styles.menulink}><AiOutlineSetting /></Link>
         </div>
         <div className={styles.menuitem}>
-          <Link href="/users/new-list" className={styles.menulink}><RiAddFill /></Link>
+          <Link href={`/users/${session?.user?.name}/lists/new-list`} className={styles.menulink}><RiAddFill /></Link>
         </div>
       </div>
     </div>

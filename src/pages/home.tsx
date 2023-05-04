@@ -13,6 +13,15 @@ const Home: NextPage = () => {
   const [foundUsers, setFoundUsers] = useState([]);
   const [foundLists, setFoundLists] = useState([]);
   const [foundProducts, setFoundProducts] = useState([]);
+  console.log(session);
+
+  if (!session) {
+    return (
+      <>
+        <button onClick={() => signIn()}>Login</button>
+      </>
+    );
+  }
 
   const handleSearch = async (query: string) => {
     try {
@@ -25,7 +34,7 @@ const Home: NextPage = () => {
       });
       const data = await response.json();
 
-      // Update the state with the fetched data
+
       setFoundUsers(JSON.parse(data.foundUsers));
       setFoundLists(JSON.parse(data.foundLists));
       setFoundProducts(JSON.parse(data.foundProducts));
@@ -39,13 +48,7 @@ const Home: NextPage = () => {
   };
 
 
-  if (!session) {
-    return (
-      <>
-        <button onClick={() => signIn()}>Login</button>
-      </>
-    );
-  }
+
 
   return (
     <>

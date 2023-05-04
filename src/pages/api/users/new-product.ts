@@ -46,6 +46,7 @@ const handler: NextApiHandler = async (
 
 
     const newProduct = new Product({
+      user_id: userDoc?._id,
       listId: listId,
       productListName: listTitle,
       productName: name,

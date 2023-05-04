@@ -1,6 +1,7 @@
 import { Schema, models, model, Model, Document } from "mongoose";
 import { ListModelSchema } from "./List";
 import { ObjectId } from "mongoose";
+import { ProductModelSchema } from "./Product";
 
 export interface UserModelSchema extends Document {
   _id : ObjectId;
@@ -11,7 +12,8 @@ export interface UserModelSchema extends Document {
   bio: string;
   follows: ObjectId[],
   followers: ObjectId[],
-  lists : ListModelSchema[]
+  lists : ListModelSchema[],
+  products: ProductModelSchema[],
 }
 
 const UserSchema = new Schema<UserModelSchema>(
@@ -51,6 +53,11 @@ const UserSchema = new Schema<UserModelSchema>(
     lists: [{
       type: Schema.Types.ObjectId,
       ref: "List",
+      default: []
+    }],
+    products: [{
+      type: Schema.Types.ObjectId,
+      ref: "Product",
       default: []
     }]
   },

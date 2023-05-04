@@ -76,9 +76,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   await connectDB();
   const session = await getSession(context);
   const userEmail = session?.user?.email;
-  const userDoc = await User.findOne({ email: userEmail });
+  const user = await User.findOne({ email: userEmail });
 
-  if (!userDoc) {
+  if (!user) {
     // to do
     return {
       notFound: true,
@@ -86,7 +86,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
 
-  const user = userDoc
 
 
   const lists = JSON.parse(JSON.stringify(user.lists))

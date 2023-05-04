@@ -2,7 +2,7 @@ import { Schema, models, model, ObjectId, Model, Document } from "mongoose";
 
 export interface ProductModelSchema extends Document {
   _id : ObjectId
-  // user_id : ObjectId,
+  user_id : ObjectId,
   listId: ObjectId;
   productListName: string;
   productName: string;
@@ -15,11 +15,11 @@ export interface ProductModelSchema extends Document {
 
 const ProductSchema = new Schema<ProductModelSchema>(
   {
-    // user_id: {
-    //   type: Schema.Types.ObjectId,
-    //   ref: "User",
-    //   required: true,
-    // },
+    user_id: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
     listId: {
       type: Schema.Types.ObjectId,
       ref: "List",
