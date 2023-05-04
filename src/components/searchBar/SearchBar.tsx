@@ -1,31 +1,28 @@
-import { FC } from 'react'
-import styles from './SearchBar.module.css'
-import { useRef } from 'react'
+import { FC } from 'react';
+import styles from './SearchBar.module.css';
+import { GoSearch } from 'react-icons/go';
+
 interface Props {
-  handleSubmit: (event: React.FormEvent) => void;
-  handleSearch: (query: string) => void;
+  handleSubmit: () => void;
+  handleSearch: (value: string) => void;
 }
 
-const SearchBar: FC<Props> = (props) => {
-  const searchRef = useRef<HTMLInputElement>(null);
-
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    if (searchRef.current) {
-      props.handleSearch(searchRef.current.value);
-    }
-  };
-
+const SearchBar: FC<Props> = ({ handleSubmit, handleSearch }) => {
   return (
     <form className={styles.searchForm} onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Search..."
-        className={styles.searchInput}
-        ref={searchRef}
-      />
+      <div className={styles.container}>
+        <input
+          type="text"
+          placeholder="Search..."
+          className={styles.searchInput}
+          onChange={(e) => handleSearch(e.target.value)}
+        />
+        <button type="submit" className={styles.searchButton}>
+          <GoSearch className={styles.zoomIcon} />
+        </button>
+      </div>
     </form>
   );
 };
 
-export default SearchBar
+export default SearchBar;
