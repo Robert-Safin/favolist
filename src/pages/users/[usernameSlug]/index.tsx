@@ -115,8 +115,8 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
               <Link href={`#`}><p>Profile</p></Link>
             </div>
           </div>
-  {props.userLists.map(list => <p key={list.title}>title: {list.title} image_url: {list.thumbnail} about: {list.about} products: {list.products.length}</p> )}
           <ToggleView />
+  {props.userLists.map(list => <p key={list.title}>title: {list.title} image_url: {list.thumbnail} about: {list.about} products: {list.products.length}</p> )}
 
 
 
