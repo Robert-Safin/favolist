@@ -1,6 +1,11 @@
 import SearchBar from "@/components/searchBar/SearchBar";
 import { connectDB } from "@/db/lib/connectDb";
 import { ListModelSchema } from "@/db/models/List";
+
+import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/router'
+import { ProductModelSchema } from "@/db/models/Product";
+
 import User from "@/db/models/User";
 import { GetServerSideProps, NextPage } from "next";
 import { getSession, signIn, useSession } from "next-auth/react";
@@ -12,6 +17,7 @@ import styles from './index.module.css';
 import ToggleView from "@/components/toggleViewListCard/ToggleView";
 
 
+
 interface UserProfileProps {
   email: string;
   avatar: string;
@@ -19,7 +25,9 @@ interface UserProfileProps {
   bio: string;
   follows: string[];
   followers: string[];
-  lists: ListModelSchema[];
+  lists: string[];
+  products: ProductModelSchema[]
+  userLists: ListModelSchema[]
 }
 
 
@@ -67,6 +75,7 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
 
 
   return (
+
     <div>
       <SearchBar handleSubmit={handleSubmit} handleSearch={handleSearch} />
         <div className={styles.containerDiv}>
@@ -110,8 +119,9 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
               <Link href={`#`}><p>Profile</p></Link>
             </div>
           </div>
-
+ {props.userLists.map(list => <p key={list.title}>title: {list.title} image_url: {list.thumbnail} about: {list.about} products: {list.products.length}</p> )}
           <ToggleView />
+
 
 
 
@@ -126,20 +136,22 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   await connectDB();
   const session = await getSession(context);
   const userEmail = session?.user?.email;
-  const userDoc = await User.findOne({ email: userEmail });
+  const user = await User.findOne({ email: userEmail });
 
-  if (!userDoc) {
+  if (!user) {
     // to do
     return {
       notFound: true,
     };
   }
-
-
-  const user = userDoc
-
+  const userListsDoc = await user.populate('lists')
 
   const lists = JSON.parse(JSON.stringify(user.lists))
+  const products = JSON.parse(JSON.stringify(user.products))
+  const userLists = JSON.parse(JSON.stringify(userListsDoc.lists))
+
+
+
 
 
   return {
@@ -151,6 +163,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       follows: user.follows,
       followers: user.followers,
       lists: lists,
+      products: products,
+      userLists: userLists,
     },
   };
 };

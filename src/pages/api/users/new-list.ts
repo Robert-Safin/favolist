@@ -24,8 +24,6 @@ const handler: NextApiHandler = async (req: NextApiRequest,res: NextApiResponse)
     const uploadResponse = await cloudinary.v2.uploader.upload(thumbnail, {
       folder: "FAVOLIST",
     });
-    res.json({message:'uploaded to cloudinary successfully'})
-
 
     const secure_url = uploadResponse.secure_url
     await connectDB();
@@ -39,6 +37,7 @@ const handler: NextApiHandler = async (req: NextApiRequest,res: NextApiResponse)
     await newList.save();
     user?.lists.push(newList);
     await user?.save();
+    res.json({message:'success'})
   } catch (error) {
     res.json({message: 'there was an error', error: error})
   }
