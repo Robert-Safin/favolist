@@ -1,0 +1,3 @@
+.resultsContainer {
+  @apply border border-b-flamingo border-t-flamingo my-10
+}
