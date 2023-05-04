@@ -9,9 +9,9 @@ interface Props {}
 
 const SearchPage: NextPage<Props> = (props) => {
   // Add state for foundUsers, foundLists, and foundProducts
-  const [foundUsers, setFoundUsers] = useState([]);
-  const [foundLists, setFoundLists] = useState([]);
-  const [foundProducts, setFoundProducts] = useState([]);
+  const [foundUsers, setFoundUsers] = useState<UserModelSchema[]>([]);
+  const [foundLists, setFoundLists] = useState<ListModelSchema[]>([]);
+  const [foundProducts, setFoundProducts] = useState<ProductModelSchema[]>([]);
 
   const handleSearch = async (query: string) => {
     try {
