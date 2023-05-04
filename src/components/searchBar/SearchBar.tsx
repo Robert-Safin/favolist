@@ -3,7 +3,7 @@ import styles from './SearchBar.module.css';
 import { GoSearch } from 'react-icons/go';
 
 interface Props {
-  handleSubmit: () => void;
+  handleSubmit: (event: React.FormEvent) => void;
   handleSearch: (value: string) => void;
 }
 
