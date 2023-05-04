@@ -1,15 +1,17 @@
-import { NextPage } from "next";
-import { getSession, useSession } from "next-auth/react";
-import { GetServerSideProps } from "next";
+import SearchBar from "@/components/searchBar/SearchBar";
 import { connectDB } from "@/db/lib/connectDb";
-import User from "@/db/models/User";
-import Image from 'next/image'
-import styles from './index.module.css'
-import Link from 'next/link'
 import { ListModelSchema } from "@/db/models/List";
-import { signIn } from 'next-auth/react'
+import User from "@/db/models/User";
+import { GetServerSideProps, NextPage } from "next";
+import { getSession, signIn, useSession } from "next-auth/react";
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { FormEventHandler, useState } from "react";
+import styles from './index.module.css';
+import ToggleView from "@/components/toggleViewListCard/ToggleView";
 
-import { useRouter } from 'next/router'
+
 interface UserProfileProps {
   email: string;
   avatar: string;
@@ -25,6 +27,33 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
   const { data: session, status } = useSession()
   const router = useRouter()
 
+  const [foundUsers, setFoundUsers] = useState([]);
+  const [foundLists, setFoundLists] = useState([]);
+  const [foundProducts, setFoundProducts] = useState([]);
+
+  const handleSearch = async (query: string) => {
+    try {
+      const response = await fetch('/api/search', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(query),
+      });
+      const data = await response.json();
+
+      // Update the state with the fetched data
+      setFoundUsers(JSON.parse(data.foundUsers));
+      setFoundLists(JSON.parse(data.foundLists));
+      setFoundProducts(JSON.parse(data.foundProducts));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleSubmit: FormEventHandler = (event) => {
+    event.preventDefault();
+  };
 
   if (!session) {
     return (
@@ -38,30 +67,51 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
 
 
   return (
-    <div className={styles.containerDiv}>
+    <div>
+      <SearchBar handleSubmit={handleSubmit} handleSearch={handleSearch} />
+        <div className={styles.containerDiv}>
+          <div className={styles.userCard}>
+            <Link href={`/users/edit`} className={styles.link}>
+              <Image  className={styles.avatar} src={props.avatar!} alt='user avatar' width={64} height={64} />
+            </Link>
 
+            <div className={styles.userStats}>
+              <h1 className={styles.username}>{props.username}</h1>
 
-      <h1 className={styles.username}>{props.username}</h1>
+              <div className={styles.listProducts}>
+                <Link href={`${session?.user?.name}/lists`}><p>{props.lists.length} lists</p></Link>
+                <p>·</p>
+                <p>8 products</p>
+              </div>
+              <div className={styles.followersFollowing}>
+                <p>{props.followers.length} followers</p>
+                <p>·</p>
+                <p>{props.follows.length} following</p>
+              </div>
+            </div>
 
-
-      <div className={styles.userCard}>
-        <Image src={props.avatar!} alt='user avatar' width={100} height={100} />
-
-        <div className={styles.userStats}>
-          <h1 className={styles.username}>{props.username}</h1>
-          <Link href={`${session?.user?.name}/lists`}><p>{props.lists.length} lists</p></Link>
-          <p>8 products</p>
-          <p>{props.followers.length} followers</p>
-          <p>{props.follows.length} following</p>
+            <div className={styles.buttonContainer}>
+              <Link href={`#`} className={styles.button}>Follow</Link>
+            </div>
+          </div>
         </div>
 
-        <div className={styles.buttonContainer}>
-          <Link href={`/users/edit`} className={styles.button}>Edit profile</Link>
-          <Link href={``} className={styles.button}>Follow</Link>
-        </div>
-      </div>
+          <div className={styles.tabs}>
+            <div className={styles.tab}>
+              <Link href={`#`}><p>Products</p></Link>
+            </div>
+            <div className={styles.tabActive}>
+              <Link href={`#`}><p>Lists</p></Link>
+            </div>
+            <div className={styles.tab}>
+              <Link href={`#`}><p>Referrals</p></Link>
+            </div>
+            <div className={styles.tab}>
+              <Link href={`#`}><p>Profile</p></Link>
+            </div>
+          </div>
 
-
+          <ToggleView />
 
 
 

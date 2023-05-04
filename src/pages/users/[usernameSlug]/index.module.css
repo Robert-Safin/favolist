@@ -1,23 +1,47 @@
 .containerDiv {
-  @apply flex flex-col
+  @apply flex
 }
 
 .username {
-  @apply text-4xl mx-auto
+  @apply text-base font-semibold
 }
 
 .userCard {
-  @apply border-y flex mx-auto space-x-48
+  @apply flex h-20 w-full py-2 mb-4
 }
 
-.button {
-  @apply  bg-flamingo
+.avatar {
+  @apply w-16 h-16 rounded-full mx-4
 }
 
-.userStats {
-  @apply flex flex-col
+.link {
+  @apply w-1/4
+}
+
+.listProducts {
+  @apply flex gap-1
+}
+
+.followersFollowing {
+  @apply flex gap-1
 }
 
 .buttonContainer {
-  @apply flex flex-col space-y-10
+  @apply w-1/4 place-items-center flex justify-end mr-4
+}
+
+.button {
+  @apply  bg-purple rounded-md text-white text-center text-sm px-4 py-2
+}
+
+.userStats {
+  @apply flex text-sm flex-col w-1/2
+}
+
+.tabs {
+  @apply flex text-sm border-b justify-around px-2
+}
+
+.tabActive {
+  @apply border-b-2 border-purple text-purple pb-4 w-1/4 text-center
 }
