@@ -1,28 +1,35 @@
 import React from 'react';
 import styles from './Card.module.css';
 import Avatar from '../avatar/Avatar';
-import {FC} from 'react';
+import { FC } from 'react';
 import Image from 'next/image';
 import { RxAvatar } from 'react-icons/rx';
 import { HiOutlineBookmark } from 'react-icons/hi';
 import { BiCommentDetail } from 'react-icons/bi';
 import { IoMdAdd } from 'react-icons/io';
 import { RxDotsHorizontal } from 'react-icons/rx';
+import { ObjectId } from 'mongoose';
 
 interface Props {
-  title?: string;
-  imageUrl?: string;
-  description?: string;
+  id: ObjectId;
+  userId: ObjectId,
+  productListName: string
+  productName: string
+  productLogo: string;
+  productImage: string;
+  content: string;
+  price: number;
+  referral: string,
   onClick: () => void;
 }
 
-const Card:FC<Props> = ({ title, imageUrl, description, onClick }) => {
+const Card: FC<Props> = (props) => {
 
   return (
     <div className={styles.container}>
       <div className={styles.suspensionPoints}>
         <button className="p-2">
-        <RxDotsHorizontal />
+          <RxDotsHorizontal />
         </button>
       </div>
 
@@ -30,11 +37,11 @@ const Card:FC<Props> = ({ title, imageUrl, description, onClick }) => {
       <h2 className={styles.title}>Oura Ring 3.0</h2>
       <h2 className={styles.price}>$300</h2>
       <div className={styles.imgContainer}>
-       <Image className={styles.image}
-        fill
-        style={{ objectFit: 'contain' }}
-        alt=''
-        src='https://ouraring-images.imgix.net/https%3A%2F%2Fs3.amazonaws.com%2Fouraring.com%2Fimages%2Fproduct%2Fsimple%2Fpdp-img-carousel-black-01-heritage%402x.png?ixlib=js-2.3.2&fm=webp&w=684&s=ba64f7df7020d604ae2f2a0acaae219c'
+        <Image className={styles.image}
+          fill
+          style={{ objectFit: 'contain' }}
+          alt=''
+          src='https://ouraring-images.imgix.net/https%3A%2F%2Fs3.amazonaws.com%2Fouraring.com%2Fimages%2Fproduct%2Fsimple%2Fpdp-img-carousel-black-01-heritage%402x.png?ixlib=js-2.3.2&fm=webp&w=684&s=ba64f7df7020d604ae2f2a0acaae219c'
         />
       </div>
 

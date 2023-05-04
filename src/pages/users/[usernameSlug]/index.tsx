@@ -30,6 +30,11 @@ interface UserProfileProps {
 const UserProfile: NextPage<UserProfileProps> = (props) => {
   const { data: session, status } = useSession()
   const router = useRouter()
+  const usernameSlug = router.query.usernameSlug
+  const userIsProfileOwner = usernameSlug === session?.user?.name
+
+
+
 
   const [foundUsers, setFoundUsers] = useState([]);
   const [foundLists, setFoundLists] = useState([]);
@@ -97,7 +102,8 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
           </div>
 
           <div className={styles.buttonContainer}>
-            <Link href={`#`} className={styles.button}>Follow</Link>
+            {userIsProfileOwner && <Link href={`#`} className={styles.button}>Edit profile</Link>}
+            {!userIsProfileOwner && <Link href={`#`} className={styles.button}>Follow</Link>}
           </div>
         </div>
       </div>
