@@ -12,6 +12,7 @@ module.exports = {
     colors: {
       'flamingo': '#FC467D',
       'white': '#FFFFFF',
+      'purple': '#6366F1',
       'black': '#000000',
       'gray': {
         50: '#FAFAFA',
