@@ -1,11 +1,7 @@
 import SearchBar from "@/components/searchBar/SearchBar";
 import { connectDB } from "@/db/lib/connectDb";
 import { ListModelSchema } from "@/db/models/List";
-
-import { signIn } from 'next-auth/react'
-import { useRouter } from 'next/router'
 import { ProductModelSchema } from "@/db/models/Product";
-
 import User from "@/db/models/User";
 import { GetServerSideProps, NextPage } from "next";
 import { getSession, signIn, useSession } from "next-auth/react";
@@ -90,7 +86,7 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
               <div className={styles.listProducts}>
                 <Link href={`${session?.user?.name}/lists`}><p>{props.lists.length} lists</p></Link>
                 <p>·</p>
-                <p>8 products</p>
+                <p>{props.products.length}</p>
               </div>
               <div className={styles.followersFollowing}>
                 <p>{props.followers.length} followers</p>
@@ -119,7 +115,7 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
               <Link href={`#`}><p>Profile</p></Link>
             </div>
           </div>
- {props.userLists.map(list => <p key={list.title}>title: {list.title} image_url: {list.thumbnail} about: {list.about} products: {list.products.length}</p> )}
+  {props.userLists.map(list => <p key={list.title}>title: {list.title} image_url: {list.thumbnail} about: {list.about} products: {list.products.length}</p> )}
           <ToggleView />
 
 
@@ -145,10 +141,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
   const userListsDoc = await user.populate('lists')
+  console.log(userListsDoc);
 
-  const lists = JSON.parse(JSON.stringify(user.lists))
-  const products = JSON.parse(JSON.stringify(user.products))
-  const userLists = JSON.parse(JSON.stringify(userListsDoc.lists))
+
+  const lists = await JSON.parse(JSON.stringify(user.lists))
+  const products = await JSON.parse(JSON.stringify(user.products))
+  const userLists = await JSON.parse(JSON.stringify(userListsDoc.lists))
 
 
 
@@ -164,7 +162,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       followers: user.followers,
       lists: lists,
       products: products,
-      userLists: userLists,
+     userLists: userLists,
     },
   };
 };
