@@ -50,17 +50,6 @@ const FoundListCard: FC<Props> = (props) => {
 
       </div>
 
-
-
-
-
-
-
-
-
-
-
-
     </div>
   )
 }
