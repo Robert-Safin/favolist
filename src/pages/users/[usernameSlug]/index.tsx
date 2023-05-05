@@ -8,7 +8,7 @@ import { getSession, signIn, useSession } from "next-auth/react";
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-
+import ProfileTabs from "@/components/profile-tabs/ProfileTabs";
 import styles from './index.module.css';
 import ToggleView from "@/components/toggleViewListCard/ToggleView";
 import List from "@/db/models/List";
@@ -86,20 +86,7 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
         </div>
       </div>
 
-      <div className={styles.tabs}>
-        <div className={styles.tab}>
-          <Link href={`#`}><p>Products</p></Link>
-        </div>
-        <div className={styles.tabActive}>
-          <Link href={`#`}><p>Lists</p></Link>
-        </div>
-        <div className={styles.tab}>
-          <Link href={`#`}><p>Referrals</p></Link>
-        </div>
-        <div className={styles.tab}>
-          <Link href={`#`}><p>Profile</p></Link>
-        </div>
-      </div>
+      <ProfileTabs text="Click me" link="https://example.com"/>
       <ToggleView />
 
       {/* to do render component for every users list*/}

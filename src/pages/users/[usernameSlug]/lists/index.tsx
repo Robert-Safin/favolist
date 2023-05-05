@@ -8,6 +8,11 @@ import { ListModelSchema } from "@/db/models/List";
 import ListItem from "@/components/lists/ListItem";
 import { ObjectId } from "mongoose";
 import { signIn } from "next-auth/react";
+import Link from 'next/link';
+import ToggleView  from "@/components/toggleViewListCard/ToggleView";
+import styles from './index.module.css'
+import ProfileTabs from "@/components/profile-tabs/ProfileTabs";
+
 interface ListProps {
   lists: ListModelSchema[],
 
@@ -35,6 +40,10 @@ const UserLists: NextPage<ListProps> = (props) => {
 
   return (
     <>
+
+     <ProfileTabs />
+
+      <ToggleView />
       <h1>{session?.user?.name}`s lists</h1>
 
       {props.lists.map(list =>
