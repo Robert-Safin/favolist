@@ -2,12 +2,13 @@ import { ProductModelSchema } from "@/db/models/Product";
 import { FC } from "react";
 import styles from "./UserList.module.css";
 import Image from "next/image";
-
+import Link from 'next'
 interface Props {
   title: string;
   products: ProductModelSchema[];
   about: string;
   thumbnail: string;
+  onClick: (title: string) => void;
 }
 
 const UserList: FC<Props> = (props) => {
@@ -24,7 +25,7 @@ const UserList: FC<Props> = (props) => {
       : props.title
 
   return (
-    <div className={styles.listContainer}>
+    <div className={styles.listContainer} onClick={() => props.onClick(props.title)}>
       <div className={styles.imageContainer}>
         <Image src={props.thumbnail} alt={props.title} fill className={styles.image} />
         <h1 className={styles.title}>{truncatedTitle}</h1>
