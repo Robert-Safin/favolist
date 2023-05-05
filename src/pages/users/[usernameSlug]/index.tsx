@@ -46,9 +46,9 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
     )
   }
 
-
-
-
+  const handleClick = (title:string) => {
+    router.push(`/users/${props.username}/lists/${title}`)
+  };
 
 
 
@@ -67,7 +67,7 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
             <h1 className={styles.username}>{props.username}</h1>
 
             <div className={styles.listProducts}>
-              <Link href={`${session?.user?.name}/lists`}><p>{props.lists.length} lists</p></Link>
+              <p>{props.lists.length} lists</p>
               <p>·</p>
               <p>{props.products.length}</p>
               <p>products</p>
@@ -89,7 +89,7 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
       <ProfileTabs text="Click me" link="https://example.com"/>
       <ToggleView />
 
-      {/* to do render component for every users list*/}
+
       <div className={styles.listsContainer}>
         {props.userLists.map(list => <UserList
           key={String(list._id)}
@@ -97,6 +97,7 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
           products={list.products}
           about={list.about}
           thumbnail={list.thumbnail}
+          onClick={() => handleClick(list.title)}
         />)}
       </div>
 
