@@ -1,0 +1,36 @@
+.nav {
+  @apply flex py-1 border-b relative
+}
+
+
+.image {
+  @apply rounded-full h-6 w-6 mr-2
+}
+
+.backLink {
+  @apply absolute top-0 left-0 py-1 pl-2
+}
+
+.userInfo {
+  @apply mx-auto flex items-center
+}
+
+.subNavigation {
+  @apply flex justify-evenly my-5
+}
+
+.listTitle {
+  @apply text-center text-xl px-2
+}
+
+.listAbout {
+  @apply px-2
+}
+
+.listNoProducts {
+  @apply text-center text-xl
+}
+
+.button {
+  @apply p-2 bg-flamingo mt-5
+}
