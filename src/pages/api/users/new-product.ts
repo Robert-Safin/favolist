@@ -59,6 +59,8 @@ const handler: NextApiHandler = async (
     await newProduct.save()
     list?.products.push(newProduct)
     await list?.save()
+    userDoc?.products.push(newProduct)
+    userDoc?.save()
     res.json({message: 'success'})
   } catch (error) {
     res.json({message: 'error', error: error});

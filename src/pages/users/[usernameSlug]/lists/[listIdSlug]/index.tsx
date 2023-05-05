@@ -1,4 +1,5 @@
 import { connectDB } from "@/db/lib/connectDb";
+import Product from "@/db/models/Product";
 import List, { ListModelSchema } from "@/db/models/List";
 import User, { UserModelSchema } from "@/db/models/User";
 import { GetServerSideProps, NextPage } from "next";
@@ -9,6 +10,7 @@ import styles from './index.module.css'
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import ProductCardProfile from "@/components/product-card-profile/ProductCard";
 interface Props {
   user: UserModelSchema
 }
@@ -23,7 +25,7 @@ const ShowList: NextPage<Props> = (props) => {
   const [showProducts, setShowProducts] = useState(false)
   const [showListAbout, setShowListAbout] = useState(true)
 
-  const listHasNoProducts = props.user.lists[0].products.length === 0
+  const listHasNoProducts = props.user.products.length === 0
 
 
 
@@ -73,6 +75,14 @@ const ShowList: NextPage<Props> = (props) => {
       {showProducts &&
         <div className={styles.productsContainer}>
           {listHasNoProducts && <p className={styles.listNoProducts}>No products in this list yet</p>}
+          {props.user.products.map((product) => <ProductCardProfile key={product.id}
+            title={product.productName}
+            price={product.price}
+            content={product.content}
+            referral={product.referral}
+            listName={product.productListName}
+            image={product.productImage}
+          />)}
           <button onClick={handleClick} className={styles.button}>add product</button>
         </div>}
 
@@ -98,12 +108,18 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 
 
+  const userDoc = await User.findOne({ username: usernameSlug })
 
-  const userDoc = await User.findOne({ username: usernameSlug }).populate({
-    path: "lists",
-    match: { title: listIdSlug },
-  })
-    .exec();
+  if (userDoc?.lists.length! > 0) {
+    await userDoc?.populate({ path: "lists" })
+  }
+
+  if (userDoc?.products.length! > 0) {
+    await userDoc?.populate({ path: "products" })
+  }
+
+
+
   console.log(userDoc);
 
   if (!usernameSlug || !listIdSlug) {
