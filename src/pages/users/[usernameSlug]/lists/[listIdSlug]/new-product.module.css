@@ -10,9 +10,9 @@
 
 
 .form input {
-  @apply mx-auto border border-flamingo
+  @apply mx-auto border border-purple
 }
 
 .form textarea {
-  @apply mx-auto border border-flamingo
+  @apply mx-auto border border-purple
 }

@@ -8,7 +8,7 @@
 }
 
 .backLink {
-  @apply absolute top-0 left-0 py-1 pl-2
+  @apply absolute top-0 left-0 py-2 pl-2
 }
 
 .userInfo {
@@ -36,5 +36,9 @@
 }
 
 .productsContainer {
-  @apply flex flex-col
+  @apply flex flex-col md:flex-row mx-3 flex-wrap md:justify-evenly
+}
+
+.back {
+  @apply text-center
 }

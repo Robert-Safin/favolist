@@ -2,9 +2,9 @@ import { FC } from 'react'
 import styles from './ProductCard.module.css'
 import Image from 'next/image'
 import { BsBookmark } from 'react-icons/bs'
-import {IoMdAddCircleOutline} from 'react-icons/io'
-import {FaRegComment} from 'react-icons/fa'
-
+import { IoMdAddCircleOutline } from 'react-icons/io'
+import { FaRegComment } from 'react-icons/fa'
+import {MdCopyAll} from 'react-icons/md'
 interface Props {
   title: string
   price: number
@@ -13,12 +13,21 @@ interface Props {
   listName: string
   image: string
   avatar: string
-  username:string
+  username: string
 }
 
 const ProductCardProfile: FC<Props> = (props) => {
 
-  const productContentLength = 100
+  const productContentLength = 140
+
+  let shortContent
+  if (props.content.length > productContentLength) {
+    shortContent = props.content.substring(0, productContentLength) + '...'
+  } else {
+    shortContent = props.content
+  }
+
+  const productHasReferral = props.referral.length > 0
 
   return (
     <div className={styles.cardContainer}>
@@ -35,11 +44,19 @@ const ProductCardProfile: FC<Props> = (props) => {
           <h1 className={styles.listName}>{props.listName}</h1>
           <h2 className={styles.title}>{props.title}</h2>
           <h3 className={styles.price}>${props.price}</h3>
-          <p>{props.content.substring(0, productContentLength)}</p>
+          <p className={styles.content}>{shortContent}</p>
+
+          {productHasReferral &&
+            <div className={styles.referralContainer}>
+              <p>{props.referral}</p>
+              <MdCopyAll className={styles.refIcon}/>
+            </div>}
+
+
         </div>
 
         <div >
-          <Image className={styles.image} src={props.image} alt={props.listName} width={100} height={100} />
+          <Image className={styles.image} src={props.image} alt={props.listName} width={80} height={80} />
         </div>
 
 
@@ -59,18 +76,18 @@ const ProductCardProfile: FC<Props> = (props) => {
         <div className={styles.iconsContainer}>
 
           <div className={styles.iconContainer}>
-          <BsBookmark/>
-          <p>0</p>
+            <BsBookmark />
+            <p>0</p>
           </div>
 
           <div className={styles.iconContainer}>
-          <IoMdAddCircleOutline/>
-          <p>1</p>
+            <IoMdAddCircleOutline />
+            <p>1</p>
           </div>
 
           <div className={styles.iconContainer}>
-          <FaRegComment/>
-          <p>3</p>
+            <FaRegComment />
+            <p>3</p>
           </div>
 
         </div>

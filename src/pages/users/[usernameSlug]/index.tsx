@@ -14,6 +14,7 @@ import ToggleView from "@/components/toggleViewListCard/ToggleView";
 
 
 import UserList from "@/components/user-profile/UserList";
+import { useState } from "react";
 
 
 interface UserProfileProps {
@@ -37,7 +38,25 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
   const userHasLists = props.lists.length > 0
 
 
+  const [productIsActive, setProductIsActive] = useState(false)
+  const [listIsActive, setListIsActive] = useState(true)
+  const [accountIsActive, setAccountIsActive] = useState(false)
 
+  const handleProductClick = () => {
+    setProductIsActive(true)
+    setListIsActive(false)
+    setAccountIsActive(false)
+  }
+  const handleListClick = () => {
+    setProductIsActive(false)
+    setListIsActive(true)
+    setAccountIsActive(false)
+  }
+  const handleProfileClick = () => {
+    setProductIsActive(false)
+    setListIsActive(false)
+    setAccountIsActive(true)
+  }
   if (!session) {
     return (
       <>
@@ -47,8 +66,9 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
   }
 
   const handleClick = (title: string) => {
-    router.push(`/users/${props.username}/lists/${title}`)
+    router.push(`/users/${usernameSlug}/lists/${title}`)
   };
+
 
 
 
@@ -87,16 +107,18 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
       </div>
 
       <div className={styles.tabContainer}>
-        <ProfileTabs text="Products" />
-        <ProfileTabs text="Lists" />
-        <ProfileTabs text="Profile" />
+        <button className={productIsActive ? styles.activeTab : styles.tabLink} onClick={handleProductClick}>Products</button>
+        <button className={listIsActive ? styles.activeTab : styles.tabLink} onClick={handleListClick}>Lists</button>
+        <button className={accountIsActive ? styles.activeTab : styles.tabLink} onClick={handleProfileClick}>Profile</button>
       </div>
+
       <ToggleView />
 
 
       <div className={styles.listsContainer}>
         {!userHasLists && <h1 className={styles.userHasNoLists}>User has no lists.<Link href={`/users/${session.user?.name}/lists/new-list`} className={styles.listLink}> Make new list</Link> </h1>}
-        {userHasLists && props.userLists.map(list => <UserList
+        {userHasLists && props.userLists.map(list =>
+          <UserList
           key={String(list._id)}
           title={list.title}
           products={list.products}

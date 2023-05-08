@@ -12,7 +12,7 @@ interface Props {
 }
 
 const UserList: FC<Props> = (props) => {
-  const maxAboutLength = 165;
+  const maxAboutLength = 110;
   const truncatedAbout =
     props.about.length > maxAboutLength
       ? props.about.substring(0, maxAboutLength) + "..."

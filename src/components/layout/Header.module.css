@@ -1,5 +1,5 @@
 .logo {
-  @apply text-flamingo text-3xl flex;
+  @apply text-purple text-3xl flex;
 }
 
 .icon {
@@ -7,7 +7,7 @@
 }
 
 .burger {
-  @apply text-4xl dark:text-flamingo;
+  @apply text-4xl dark:text-purple;
 }
 
 .burgerLogin {
@@ -29,11 +29,11 @@
 
 
 .title {
-  @apply text-4xl dark:text-flamingo tracking-widest mx-auto;
+  @apply text-4xl dark:text-purple tracking-widest mx-auto;
 }
 
 .linkItem  {
-  @apply flex border-2 rounded bg-flamingo p-3 text-white;
+  @apply flex border-2 rounded bg-purple text-purple p-3
 }
 
 
@@ -42,5 +42,5 @@
 }
 
 .authButton {
-  @apply border-2 bg-flamingo rounded mr-5 text-white text-base px-4 py-1;
+  @apply border-2 bg-purple  rounded mr-5 text-white text-base px-4 py-1;
 }

@@ -8,10 +8,10 @@
 }
 
 .rightCard p {
-  @apply text-justify text-3xl my-auto p-8 tracking-widest border border-flamingo rounded
+  @apply text-justify text-3xl my-auto p-8 tracking-widest border border-purple rounded
 }
 
 
 .leftCard p {
-  @apply text-justify text-3xl my-auto p-8 tracking-widest border border-flamingo rounded
+  @apply text-justify text-3xl my-auto p-8 tracking-widest border border-purple rounded
 }

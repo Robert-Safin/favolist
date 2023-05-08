@@ -1,5 +1,5 @@
 .cardContainer {
-  @apply border border-gray-200 w-full my-1
+  @apply border border-gray-200 w-full my-1 md:m-3 md:w-2/5
 }
 
 .productContainer {
@@ -22,7 +22,7 @@
 }
 
 .cardActionsContainer {
-  @apply flex justify-between items-center
+  @apply flex justify-between items-center self-end
 }
 
 .iconsContainer {
@@ -34,12 +34,23 @@
 }
 
 .image {
-  @apply w-32 h-32 mr-3
+  @apply w-32 h-32 mr-5 mt-2 ml-1
 }
 
 .iconContainer {
   @apply flex flex-col items-center mr-2
 }
 .productText {
-  @apply ml-2 w-3/4
+  @apply ml-2 w-3/4 mt-1
+}
+
+.content {
+  @apply text-sm
+}
+
+.referralContainer {
+  @apply flex border border-gray-400 border-dashed items-center justify-between
+}
+.refIcon {
+  @apply text-gray-400
 }
