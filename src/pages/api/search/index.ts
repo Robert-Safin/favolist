@@ -1,7 +1,6 @@
 import { connectDB } from "@/db/lib/connectDb";
-import List from "@/db/models/List";
-import Product from "@/db/models/Product";
-import User, { UserModelSchema } from "@/db/models/User";
+import { User, List, Product } from "@/db/models";
+import { UserModelSchema } from "@/db/models/User";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {

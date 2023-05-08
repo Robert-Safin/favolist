@@ -49,3 +49,14 @@
 .listsContainer {
   @apply flex flex-col md:flex-row md:justify-around md:flex-wrap
 }
+
+.tabContainer {
+  @apply flex justify-evenly
+}
+
+.listLink {
+  @apply text-purple underline
+}
+.userHasNoLists {
+  @apply text-center
+}

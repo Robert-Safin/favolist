@@ -1,7 +1,8 @@
 import { connectDB } from "@/db/lib/connectDb";
-import Product from "@/db/models/Product";
-import List, { ListModelSchema } from "@/db/models/List";
-import User, { UserModelSchema } from "@/db/models/User";
+
+import { User, List, Product } from "@/db/models";
+import  { ListModelSchema } from "@/db/models/List";
+import { UserModelSchema } from "@/db/models/User";
 import { GetServerSideProps, NextPage } from "next";
 import { getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -11,6 +12,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import ProductCardProfile from "@/components/product-card-profile/ProductCard";
+
 interface Props {
   user: UserModelSchema
 }
@@ -82,6 +84,8 @@ const ShowList: NextPage<Props> = (props) => {
             referral={product.referral}
             listName={product.productListName}
             image={product.productImage}
+            avatar={props.user.avatar!}
+            username={props.user.username}
           />)}
           <button onClick={handleClick} className={styles.button}>add product</button>
         </div>}
@@ -106,28 +110,27 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const listIdSlug = context.params!.listIdSlug
 
 
-
-
-  const userDoc = await User.findOne({ username: usernameSlug })
-
-  if (userDoc?.lists.length! > 0) {
-    await userDoc?.populate({ path: "lists" })
-  }
-
-  if (userDoc?.products.length! > 0) {
-    await userDoc?.populate({ path: "products" })
-  }
-
-
-
-  console.log(userDoc);
-
   if (!usernameSlug || !listIdSlug) {
     // to do
     return {
       notFound: true,
     };
   }
+
+
+  const userDoc = await User.findOne({ username: usernameSlug })
+
+
+  if (userDoc?.lists.length! > 0) {
+    await userDoc?.populate("lists")
+  }
+
+  if (userDoc?.products.length! > 0) {
+    await userDoc?.populate("products")
+  }
+
+
+
 
 
   return {

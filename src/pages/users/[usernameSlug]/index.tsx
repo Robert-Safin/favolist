@@ -2,7 +2,7 @@
 import { ListModelSchema } from "@/db/models/List";
 import { ProductModelSchema } from "@/db/models/Product";
 import { connectDB } from "@/db/lib/connectDb";
-import User from "@/db/models/User";
+import { User, List, Product } from "@/db/models";
 import { GetServerSideProps, NextPage } from "next";
 import { getSession, signIn, useSession } from "next-auth/react";
 import Image from 'next/image';
@@ -11,7 +11,7 @@ import { useRouter } from 'next/router';
 import ProfileTabs from "@/components/profile-tabs/ProfileTabs";
 import styles from './index.module.css';
 import ToggleView from "@/components/toggleViewListCard/ToggleView";
-import List from "@/db/models/List";
+
 
 import UserList from "@/components/user-profile/UserList";
 
@@ -34,7 +34,7 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
   const router = useRouter()
   const usernameSlug = router.query.usernameSlug
   const userIsProfileOwner = usernameSlug === session?.user?.name
-
+  const userHasLists = props.lists.length > 0
 
 
 
@@ -46,7 +46,7 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
     )
   }
 
-  const handleClick = (title:string) => {
+  const handleClick = (title: string) => {
     router.push(`/users/${props.username}/lists/${title}`)
   };
 
@@ -86,12 +86,17 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
         </div>
       </div>
 
-      <ProfileTabs text="Click me" link="https://example.com"/>
+      <div className={styles.tabContainer}>
+        <ProfileTabs text="Products" />
+        <ProfileTabs text="Lists" />
+        <ProfileTabs text="Profile" />
+      </div>
       <ToggleView />
 
 
       <div className={styles.listsContainer}>
-        {props.userLists.map(list => <UserList
+        {!userHasLists && <h1 className={styles.userHasNoLists}>User has no lists.<Link href={`/users/${session.user?.name}/lists/new-list`} className={styles.listLink}> Make new list</Link> </h1>}
+        {userHasLists && props.userLists.map(list => <UserList
           key={String(list._id)}
           title={list.title}
           products={list.products}

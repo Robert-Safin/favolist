@@ -2,8 +2,7 @@ import { GetServerSideProps, NextPage } from "next"
 import { getSession, useSession } from "next-auth/react";
 import { useRouter } from 'next/router'
 import { connectDB } from "@/db/lib/connectDb";
-import User from "@/db/models/User";
-import List from "@/db/models/List";
+import { User, List, Product } from "@/db/models";
 import { ListModelSchema } from "@/db/models/List";
 import ListItem from "@/components/lists/ListItem";
 import { ObjectId } from "mongoose";
@@ -41,7 +40,7 @@ const UserLists: NextPage<ListProps> = (props) => {
   return (
     <>
 
-     <ProfileTabs />
+
 
       <ToggleView />
       <h1>{session?.user?.name}`s lists</h1>

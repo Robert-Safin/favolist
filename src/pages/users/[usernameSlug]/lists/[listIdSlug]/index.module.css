@@ -34,3 +34,7 @@
 .button {
   @apply p-2 bg-flamingo mt-5
 }
+
+.productsContainer {
+  @apply flex flex-col
+}

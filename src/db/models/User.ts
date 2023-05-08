@@ -1,6 +1,5 @@
-import { Schema, models, model, Model, Document } from "mongoose";
+import mongoose, { Schema, models, model, Model, Document, ObjectId } from "mongoose";
 import { ListModelSchema } from "./List";
-import { ObjectId } from "mongoose";
 import { ProductModelSchema } from "./Product";
 
 export interface UserModelSchema extends Document {
@@ -16,7 +15,7 @@ export interface UserModelSchema extends Document {
   products: ProductModelSchema[],
 }
 
-const UserSchema = new Schema<UserModelSchema>(
+const UserSchema = new mongoose.Schema<UserModelSchema>(
   {
     username: {
       type: String,
@@ -41,22 +40,22 @@ const UserSchema = new Schema<UserModelSchema>(
       default: ""
     },
     follows: [{
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       default: [],
     }],
     followers: [{
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       default: [],
     }],
     lists: [{
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "List",
       default: []
     }],
     products: [{
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "Product",
       default: []
     }]
@@ -66,6 +65,7 @@ const UserSchema = new Schema<UserModelSchema>(
   }
 );
 
-const User = models?.User || model("User", UserSchema);
+
+const User = (mongoose.models.User || mongoose.model("User", UserSchema)) as Model<UserModelSchema>;
 
 export default User as Model<UserModelSchema>;

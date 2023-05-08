@@ -1,4 +1,4 @@
-import { Schema, models, model, ObjectId, Model, Document } from "mongoose";
+import mongoose, { Schema, models, model, ObjectId, Model, Document } from "mongoose";
 
 export interface ProductModelSchema extends Document {
   _id : ObjectId
@@ -13,15 +13,15 @@ export interface ProductModelSchema extends Document {
   referral: string;
 }
 
-const ProductSchema = new Schema<ProductModelSchema>(
+const ProductSchema = new mongoose.Schema<ProductModelSchema>(
   {
     user_id: {
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
     listId: {
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "List",
       required: true,
     },
@@ -59,6 +59,6 @@ const ProductSchema = new Schema<ProductModelSchema>(
   }
 );
 
-const Product = models?.Product || model("Product", ProductSchema);
+const Product = (mongoose.models.Product || mongoose.model("Product", ProductSchema)) as Model<ProductModelSchema>;
 
 export default Product as Model<ProductModelSchema>;
