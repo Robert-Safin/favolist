@@ -42,7 +42,7 @@ const EditProfile: NextPage = () => {
         body: JSON.stringify(formData)
       })
       if (response.ok) {
-        router.push(`/users/${session?.user?.email}`)
+        router.push(`/users/${session?.user?.name}`)
       }
     } catch (error) {
       console.log(error);

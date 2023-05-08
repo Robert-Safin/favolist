@@ -12,7 +12,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import ProductCardProfile from "@/components/product-card-profile/ProductCard";
-
+import {MdOutlineArrowBackIos} from 'react-icons/md'
 interface Props {
   user: UserModelSchema
 }
@@ -28,6 +28,7 @@ const ShowList: NextPage<Props> = (props) => {
   const [showListAbout, setShowListAbout] = useState(true)
 
   const listHasNoProducts = props.user.products.length === 0
+
 
 
 
@@ -60,7 +61,7 @@ const ShowList: NextPage<Props> = (props) => {
       <div className={styles.nav}>
 
 
-        <Link href='#' className={styles.backLink}>back</Link>
+        <Link href={`/users/${session.user?.name}`} className={styles.backLink}><MdOutlineArrowBackIos/></Link>
 
         <div className={styles.userInfo}>
           <Image src={props.user.avatar!} alt={'user avatar'} className={styles.image} width={100} height={100} />
@@ -87,8 +88,8 @@ const ShowList: NextPage<Props> = (props) => {
             avatar={props.user.avatar!}
             username={props.user.username}
           />)}
-          <button onClick={handleClick} className={styles.button}>add product</button>
         </div>}
+          <button onClick={handleClick} className={styles.button}>add product</button>
 
       {showListAbout &&
         <div className={styles.listInfoContainer}>
@@ -108,6 +109,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const usernameSlug = context.params!.usernameSlug
   const listIdSlug = context.params!.listIdSlug
+
 
 
   if (!usernameSlug || !listIdSlug) {

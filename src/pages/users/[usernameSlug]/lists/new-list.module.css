@@ -16,12 +16,12 @@
 }
 
 .form input  {
-  @apply border border-flamingo mb-5
+  @apply border border-purple mb-5
 }
 .form textarea  {
-  @apply border border-flamingo mb-5
+  @apply border border-purple mb-5
 }
 
 .form button{
-  @apply bg-flamingo rounded mt-5
+  @apply bg-purple rounded mt-5
 }

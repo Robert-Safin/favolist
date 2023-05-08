@@ -19,7 +19,13 @@ interface Props {
 
 const ListItem: FC<Props> = (props) => {
 
-
+  const maxAboutLength = 50
+  let shortAbout
+  if (props.about.length > maxAboutLength) {
+    shortAbout = props.about.substring(0,maxAboutLength) + '...'
+  } else {
+    shortAbout = props.about
+  }
 
   return (
     <div onClick={props.onClick}>
@@ -32,7 +38,7 @@ const ListItem: FC<Props> = (props) => {
 
       />
       <h1>{props.title}</h1>
-      <p>{props.about}</p>
+      <p>{shortAbout}</p>
       <p>{props.products.length} products</p>
 
     </div>

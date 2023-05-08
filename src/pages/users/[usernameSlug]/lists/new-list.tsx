@@ -49,7 +49,7 @@ const NewList: NextPage = () => {
           });
           if (response.ok) {
             console.log(await response.json());
-            router.push(`/users/${session?.user?.email}`);
+            router.push(`/users/${session?.user?.name}`);
           }
         } catch (error) {
           // to do
