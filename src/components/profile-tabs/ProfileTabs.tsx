@@ -4,14 +4,13 @@ import { FC } from "react";
 
 interface Props {
   text: string
-  link: string
 }
 
 const ProfileTabs: FC<Props> = (props) => {
 
   return (
       <div className={styles.tab}>
-        <Link href={props.link}><p>{props.text }</p></Link>
+        <button>{props.text}</button>
       </div>
   );
 };

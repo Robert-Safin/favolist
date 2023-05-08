@@ -34,7 +34,7 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
   const router = useRouter()
   const usernameSlug = router.query.usernameSlug
   const userIsProfileOwner = usernameSlug === session?.user?.name
-
+  const userHasLists = props.lists.length > 0
 
 
 
@@ -46,7 +46,7 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
     )
   }
 
-  const handleClick = (title:string) => {
+  const handleClick = (title: string) => {
     router.push(`/users/${props.username}/lists/${title}`)
   };
 
@@ -86,12 +86,17 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
         </div>
       </div>
 
-      <ProfileTabs text="Click me" link="https://example.com"/>
+      <div className={styles.tabContainer}>
+        <ProfileTabs text="Products" />
+        <ProfileTabs text="Lists" />
+        <ProfileTabs text="Profile" />
+      </div>
       <ToggleView />
 
 
       <div className={styles.listsContainer}>
-        {props.userLists.map(list => <UserList
+        {!userHasLists && <h1 className={styles.userHasNoLists}>User has no lists.<Link href={`/users/${session.user?.name}/lists/new-list`} className={styles.listLink}> Make new list</Link> </h1>}
+        {userHasLists && props.userLists.map(list => <UserList
           key={String(list._id)}
           title={list.title}
           products={list.products}
