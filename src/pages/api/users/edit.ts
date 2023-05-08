@@ -5,7 +5,7 @@ import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 // to do: secure route
 
 export interface UserProfileUpdateForm {
-  newUsername: string,
+  //newUsername: string,
   newBio: string,
   userEmail: string
 }
@@ -16,14 +16,14 @@ export interface UserProfileUpdateForm {
 
 const handler:NextApiHandler = async(req:NextApiRequest, res:NextApiResponse) => {
 
-  const username = req.body.newUsername
+  //const username = req.body.newUsername
   const bio = req.body.newBio
   const email = req.body.userEmail
 
   try {
     await connectDB()
     const user = await User.findOne({email: email})
-    await user?.updateOne({username:username,bio:bio})
+    await user?.updateOne({bio:bio})
     res.status(200).json({message: "ok"})
   } catch(error) {
     res.status(500).json({message: error})

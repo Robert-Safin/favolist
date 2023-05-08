@@ -10,7 +10,7 @@ import { signIn } from 'next-auth/react'
 const EditProfile: NextPage = () => {
   const { data: session, status } = useSession()
   const router = useRouter()
-  const usernameRef = useRef<HTMLInputElement>(null)
+  //const usernameRef = useRef<HTMLInputElement>(null)
   const bioRef = useRef<HTMLTextAreaElement>(null)
 
   if (!session) {
@@ -29,7 +29,7 @@ const EditProfile: NextPage = () => {
   const handleSubmit: FormEventHandler = async (event) => {
     event.preventDefault()
     const formData: UserProfileUpdateForm = {
-      newUsername: usernameRef.current?.value as string,
+      //newUsername: usernameRef.current?.value as string,
       newBio: bioRef.current?.value as string,
       userEmail: session?.user?.email as string
     }
@@ -60,8 +60,8 @@ const EditProfile: NextPage = () => {
 
       <form onSubmit={handleSubmit} className={styles.form}>
 
-        <label htmlFor="username" className={styles.formLabel}>Username</label>
-        <input type="text" id="username" ref={usernameRef} className={styles.formInput} />
+        {/* <label htmlFor="username" className={styles.formLabel}>Username</label>
+        <input type="text" id="username" ref={usernameRef} className={styles.formInput} /> */}
 
         <label htmlFor="bio" className={styles.formLabel}>Bio</label>
         <textarea id="bio" ref={bioRef} className={styles.formInput} />
