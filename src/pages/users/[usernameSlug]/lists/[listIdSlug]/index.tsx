@@ -11,6 +11,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import ProductCardProfile from "@/components/product-card-profile/ProductCard";
+
 interface Props {
   user: UserModelSchema
 }
@@ -106,28 +107,33 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const listIdSlug = context.params!.listIdSlug
 
 
-
-
-  const userDoc = await User.findOne({ username: usernameSlug })
-
-  if (userDoc?.lists.length! > 0) {
-    await userDoc?.populate({ path: "lists" })
-  }
-
-  if (userDoc?.products.length! > 0) {
-    await userDoc?.populate({ path: "products" })
-  }
-
-
-
-  console.log(userDoc);
-
   if (!usernameSlug || !listIdSlug) {
     // to do
     return {
       notFound: true,
     };
   }
+
+
+  const userDoc = await User.findOne({ username: usernameSlug })
+
+
+  if (userDoc?.lists.length! > 0) {
+    await userDoc?.populate("lists")
+  }
+
+  if (userDoc?.products.length! > 0) {
+    await userDoc?.populate("products")
+  }
+
+  console.log(userDoc);
+
+
+
+
+
+
+
 
 
   return {

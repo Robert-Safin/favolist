@@ -1,6 +1,6 @@
-import { ProductModelSchema } from "./Product";
-import { Schema, models, model, ObjectId, Model, Document } from "mongoose";
+import mongoose, { Schema, models, model, ObjectId, Model, Document } from "mongoose";
 import { UserModelSchema } from "./User";
+import { ProductModelSchema } from "./Product";
 
 
 export interface ListModelSchema extends Document{
@@ -12,11 +12,11 @@ export interface ListModelSchema extends Document{
   products: ProductModelSchema[]
 }
 
-const ListSchema = new Schema<ListModelSchema>(
+const ListSchema = new mongoose.Schema<ListModelSchema>(
   {
 
     user_id: {
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       required: true,
     },
@@ -34,7 +34,7 @@ const ListSchema = new Schema<ListModelSchema>(
       required: true,
     },
     products: [{
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "Product",
       default: []
     }]
@@ -45,6 +45,6 @@ const ListSchema = new Schema<ListModelSchema>(
 );
 
 
-const List = models?.List || model("List", ListSchema);
+const List = (mongoose.models.List || mongoose.model("List", ListSchema)) as Model<ListModelSchema>;
 
 export default List as Model<ListModelSchema>;
