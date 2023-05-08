@@ -2,7 +2,7 @@
 import { ListModelSchema } from "@/db/models/List";
 import { ProductModelSchema } from "@/db/models/Product";
 import { connectDB } from "@/db/lib/connectDb";
-import User from "@/db/models/User";
+import { User, List, Product } from "@/db/models";
 import { GetServerSideProps, NextPage } from "next";
 import { getSession, signIn, useSession } from "next-auth/react";
 import Image from 'next/image';
@@ -11,7 +11,7 @@ import { useRouter } from 'next/router';
 import ProfileTabs from "@/components/profile-tabs/ProfileTabs";
 import styles from './index.module.css';
 import ToggleView from "@/components/toggleViewListCard/ToggleView";
-import List from "@/db/models/List";
+
 
 import UserList from "@/components/user-profile/UserList";
 

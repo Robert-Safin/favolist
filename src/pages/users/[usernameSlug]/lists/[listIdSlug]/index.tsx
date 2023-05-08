@@ -1,7 +1,8 @@
 import { connectDB } from "@/db/lib/connectDb";
-import Product from "@/db/models/Product";
-import List, { ListModelSchema } from "@/db/models/List";
-import User, { UserModelSchema } from "@/db/models/User";
+
+import { User, List, Product } from "@/db/models";
+import  { ListModelSchema } from "@/db/models/List";
+import { UserModelSchema } from "@/db/models/User";
 import { GetServerSideProps, NextPage } from "next";
 import { getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -126,12 +127,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     await userDoc?.populate("products")
   }
 
-  console.log(userDoc);
-
-
-
-
-
+  //console.log(userDoc);
 
 
 

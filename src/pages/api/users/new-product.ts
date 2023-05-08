@@ -1,9 +1,8 @@
 import { connectDB } from "@/db/lib/connectDb";
-import List from "@/db/models/List";
-import User from "@/db/models/User";
+import { User, List, Product } from "@/db/models";
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 import cloudinary from "cloudinary";
-import Product from "@/db/models/Product";
+
 
 // to do: secure route
 

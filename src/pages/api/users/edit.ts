@@ -1,5 +1,5 @@
 import { connectDB } from "@/db/lib/connectDb";
-import User from "@/db/models/User";
+import { User, List, Product } from "@/db/models";
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 
 // to do: secure route
