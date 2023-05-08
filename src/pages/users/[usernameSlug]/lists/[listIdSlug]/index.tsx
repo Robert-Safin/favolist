@@ -84,6 +84,8 @@ const ShowList: NextPage<Props> = (props) => {
             referral={product.referral}
             listName={product.productListName}
             image={product.productImage}
+            avatar={props.user.avatar!}
+            username={props.user.username}
           />)}
           <button onClick={handleClick} className={styles.button}>add product</button>
         </div>}
@@ -127,7 +129,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     await userDoc?.populate("products")
   }
 
-  //console.log(userDoc);
 
 
 

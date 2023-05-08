@@ -1,0 +1,45 @@
+.cardContainer {
+  @apply border border-gray-200 w-full my-1
+}
+
+.productContainer {
+  @apply flex justify-between
+}
+.listName {
+  @apply text-xl font-bold
+}
+
+.title {
+  @apply text-2xl font-bold
+}
+
+.price {
+  @apply font-thin
+}
+
+.userInfo {
+  @apply flex items-center ml-2
+}
+
+.cardActionsContainer {
+  @apply flex justify-between items-center
+}
+
+.iconsContainer {
+  @apply flex
+}
+
+.avatar {
+  @apply w-6 h-6 rounded-full mr-2
+}
+
+.image {
+  @apply w-32 h-32 mr-3
+}
+
+.iconContainer {
+  @apply flex flex-col items-center mr-2
+}
+.productText {
+  @apply ml-2 w-3/4
+}
