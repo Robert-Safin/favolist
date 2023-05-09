@@ -1,0 +1,49 @@
+
+
+.infoContainer {
+  @apply flex
+}
+
+.productContainer {
+  @apply w-full border border-gray-200 m-2 p-2 md:w-1/3
+}
+
+.productInfo {
+  @apply flex flex-col space-y-1 w-1/2
+}
+
+.image {
+  @apply w-48 h-48 object-contain
+}
+
+.listName {
+  @apply text-xl
+}
+
+.productName {
+  @apply text-2xl
+}
+
+.price {
+  @apply font-thin
+}
+
+.userInfo {
+  @apply flex items-center my-2
+}
+
+.avatar {
+  @apply rounded-full w-6 h-6 mr-2
+}
+
+.imageAndButton {
+  @apply flex flex-col
+}
+
+.button {
+  @apply text-center text-purple relative top-8
+}
+
+.username {
+  @apply text-sm font-bold
+}

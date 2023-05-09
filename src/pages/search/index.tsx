@@ -44,7 +44,7 @@ const SearchPage: NextPage<Props> = (props) => {
   return (
     <>
       <SearchBar handleSubmit={handleSubmit} handleSearch={handleSearch} />
-        <h2 className={styles.foundCategory}>Users found</h2>
+      <h2 className={styles.foundCategory}>Users found</h2>
       <div className={styles.resultsContainer}>
         {foundUsers.map((user: UserModelSchema) => (
           <FoundUserCard
@@ -62,7 +62,7 @@ const SearchPage: NextPage<Props> = (props) => {
 
       </div>
 
-        <h2 className={styles.foundCategory}>Lists found</h2>
+      <h2 className={styles.foundCategory}>Lists found</h2>
       <div className={styles.resultsContainer}>
         {foundLists.map((list: ListModelSchema) => (
           <FoundListCard
@@ -77,27 +77,29 @@ const SearchPage: NextPage<Props> = (props) => {
         ))}
       </div>
 
-        <h2 className={styles.foundCategory}>Products found</h2>
+      <h2 className={styles.foundCategory}>Products found</h2>
       <div className={styles.resultsContainer}>
-        {foundProducts.map((product: ProductModelSchema) => (
-          <FoundProductCard key={String(product._id)}
-          productId={product.id}
-          userId={product.user_id}
-          listId={product.listId}
-          productName={product.productName}
-          productListName={product.productListName}
-          productLogo={product.productLogo}
-          productImage={product.productImage}
-          content={product.content}
-          price={product.price}
-          referral={product.referral}
-          userAvatar={product.user_id.avatar}
-          userName={product.user_id.username}
+        {foundProducts.map((product: ProductModelSchema) => {
+          const user = product.user_id as any;
+          return (
+            <FoundProductCard key={String(product._id)}
+              productId={product._id}
+              userId={product.user_id}
+              listId={product.listId}
+              productName={product.productName}
+              productListName={product.productListName}
+              productLogo={product.productLogo}
+              productImage={product.productImage}
+              content={product.content}
+              price={product.price}
+              referral={product.referral}
+              userAvatar={user.avatar}
+              userName={user.username}
+            />
+          )
+        })}
 
 
-
-          />
-        ))}
       </div>
     </>
   );

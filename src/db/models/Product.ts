@@ -1,8 +1,9 @@
 import mongoose, { Schema, models, model, ObjectId, Model, Document } from "mongoose";
+import { UserModelSchema } from "./User";
 
 export interface ProductModelSchema extends Document {
   _id : ObjectId
-  user_id : ObjectId,
+  user_id : ObjectId
   listId: ObjectId;
   productListName: string;
   productName: string;
