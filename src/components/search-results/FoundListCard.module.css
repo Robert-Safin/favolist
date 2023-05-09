@@ -1,9 +1,9 @@
 .cardContainer {
-  @apply mb-10
+  @apply my-2 border border-b-gray-200 p-2
 }
 
 .imageContainer {
-  @apply w-44 h-44 relative md:w-72 md:h-72 border border-b-gray-200
+  @apply w-44 h-44 relative md:w-72 md:h-72
 }
 
 .image {
@@ -11,11 +11,11 @@
 }
 
 .cardText {
-  @apply  text-xl w-full pt-4 md:pt-8 md:text-3xl z-10
+  @apply  text-xl w-full md:text-3xl z-10
 }
 
 .cardProductLength {
-  @apply pb-4  md:pb-8 md:text-xl z-10
+  @apply pb-2  md:pb-8 md:text-xl z-10
 }
 
 .textItems {
@@ -24,18 +24,18 @@
 
 
 .userInfo {
-  @apply flex items-center mt-2
+  @apply flex justify-between items-center
 }
 
 
 
 
 .avatarContainer {
-  @apply w-6 h-6 md:w-9 md:h-9 mr-1 absolute
+  @apply flex items-center
 }
 
 .userAvatar {
-  @apply object-cover rounded-full
+  @apply object-cover rounded-full w-6 h-6
 }
 
 
@@ -44,9 +44,9 @@
 
 
 .followers {
-  @apply ml-auto text-xs md:text-base
+  @apply text-xs md:text-base
 }
 
 .username {
-  @apply ml-7 md:ml-10 text-xs md:text-base
+  @apply text-xs md:text-base ml-1
 }
