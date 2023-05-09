@@ -77,6 +77,7 @@ const ShowList: NextPage<Props> = (props) => {
 
       {showProducts &&
         <div className={styles.productsContainer}>
+          <button onClick={handleClick} className={styles.button}>add product</button>
           {listHasNoProducts && <p className={styles.listNoProducts}>No products in this list yet</p>}
           {props.user.products.map((product) => <ProductCardProfile key={product.id}
             title={product.productName}
@@ -89,7 +90,6 @@ const ShowList: NextPage<Props> = (props) => {
             username={props.user.username}
           />)}
         </div>}
-          <button onClick={handleClick} className={styles.button}>add product</button>
 
       {showListAbout &&
         <div className={styles.listInfoContainer}>
@@ -110,6 +110,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const usernameSlug = context.params!.usernameSlug
   const listIdSlug = context.params!.listIdSlug
 
+  const session = await getSession(context)
+  const userEmail = session?.user?.email
+
+
+
+
+
+
 
 
   if (!usernameSlug || !listIdSlug) {
@@ -120,7 +128,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
 
-  const userDoc = await User.findOne({ username: usernameSlug })
+  const userDoc = await User.findOne({ email: userEmail })
+
+
+
+
 
 
   if (userDoc?.lists.length! > 0) {

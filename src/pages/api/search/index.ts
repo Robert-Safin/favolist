@@ -14,11 +14,23 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const foundLists = await List.find({ title: { $in: regexWords } }).populate('user_id');
 
-    const foundUsers = await User.find({ username: { $in: regexWords } });
+    const foundUsers = await User.find({ username: { $in: regexWords } })
 
-    const foundProducts = await Product.find({ productName: { $in: regexWords } });
+    const foundProducts = await Product.find({ productName: { $in: regexWords } }).populate('user_id');
 
     const matchedFound = foundLists.length + foundUsers.length + foundProducts.length
+
+
+
+
+
+
+
+
+
+
+
+
 
     res.json({
       message: "ok",

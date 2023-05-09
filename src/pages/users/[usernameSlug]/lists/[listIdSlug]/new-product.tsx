@@ -72,7 +72,7 @@ const NewProduct: NextPage = () => {
 
 
           if (response.ok) {
-            router.push(`/users/${session?.user?.email}`);
+            router.push(`/users/${session?.user?.name}`);
           }
         } catch (error) {
           console.log(error);
