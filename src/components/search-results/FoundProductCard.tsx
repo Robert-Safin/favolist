@@ -43,7 +43,7 @@ const FoundProductCard: FC<Props> = (props) => {
               </div>
 
               <div className={styles.imageAndButton}>
-                <Image className={styles.image} src={props.productImage} alt={'product name'} width={50} height={50}/>
+                <Image className={styles.image} src={props.productImage} alt={'product name'} width={100} height={100}/>
                 <button className={styles.button}>View product</button>
               </div>
 

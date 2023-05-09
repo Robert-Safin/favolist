@@ -1,5 +1,5 @@
 .resultsContainer {
-  @apply border border-b-flamingo border-t-flamingo justify-evenly flex flex-wrap
+  @apply border border-b-purple border-t-purple justify-evenly flex flex-wrap
 }
 
 .foundCategory {

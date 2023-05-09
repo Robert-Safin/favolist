@@ -41,11 +41,11 @@ const FoundListCard: FC<Props> = (props) => {
 
 
             <div className={styles.avatarContainer}>
-              <Image src={props.userId.avatar!} alt={'user avatar'} className={styles.userAvatar} fill/>
+              <Image src={props.userId.avatar!} alt={'user avatar'} className={styles.userAvatar} width={50} height={50}/>
+               <h1 className={styles.username}>{props.userId.username}</h1>
             </div>
 
 
-        <h1 className={styles.username}>{props.userId.username}</h1>
         <h2 className={styles.followers}>{props.userId.followers.length} followers</h2>
 
       </div>
