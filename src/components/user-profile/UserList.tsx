@@ -12,7 +12,7 @@ interface Props {
 }
 
 const UserList: FC<Props> = (props) => {
-  const maxAboutLength = 110;
+  const maxAboutLength = 125;
   const truncatedAbout =
     props.about.length > maxAboutLength
       ? props.about.substring(0, maxAboutLength) + "..."
@@ -27,7 +27,7 @@ const UserList: FC<Props> = (props) => {
   return (
     <div className={styles.listContainer} onClick={() => props.onClick(props.title)}>
       <div className={styles.imageContainer}>
-        <Image src={props.thumbnail} alt={props.title} fill className={styles.image} />
+        <Image src={props.thumbnail} alt={props.title} width={100} height={100} className={styles.image} />
         <h1 className={styles.title}>{truncatedTitle}</h1>
         <p className={styles.products}>{props.products.length} products</p>
       </div>

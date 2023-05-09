@@ -15,6 +15,8 @@ import ToggleView from "@/components/toggleViewListCard/ToggleView";
 import UserList from "@/components/user-profile/UserList";
 import { useState } from "react";
 
+import ProductCardProfile from "@/components/product-card-profile/ProductCard";
+
 
 interface UserProfileProps {
   user: {
@@ -37,6 +39,7 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
   const usernameSlug = router.query.usernameSlug
   const userIsProfileOwner = usernameSlug === session?.user?.name
   const userHasLists = props.user.lists.length > 0
+  const userHasProducts = props.user.products.length > 0
 
 
   const [productIsActive, setProductIsActive] = useState(false)
@@ -116,9 +119,31 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
       <ToggleView />
 
 
+      <div className={styles.productsContainer}>
+        {!userHasProducts && <h1 className={styles.userHasNoLists}>User has no products</h1>}
+        {userHasProducts && productIsActive && props.user.products.map(product =>
+          <ProductCardProfile
+          key={String(product._id)}
+          title={product.productName}
+          price={product.price}
+          content={product.content}
+          referral={product.referral}
+          listName={product.productListName}
+          image={product.productImage}
+          avatar={props.user.avatar}
+          username={props.user.username}
+          />
+      )}
+      </div>
+
+
+
+
+
+
       <div className={styles.listsContainer}>
         {!userHasLists && <h1 className={styles.userHasNoLists}>User has no lists.<Link href={`/users/${session.user?.name}/lists/new-list`} className={styles.listLink}> Make new list</Link> </h1>}
-        {userHasLists && props.user.lists.map(list =>
+        {userHasLists && listIsActive && props.user.lists.map(list =>
           <UserList
           key={String(list._id)}
           title={list.title}

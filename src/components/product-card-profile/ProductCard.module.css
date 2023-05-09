@@ -1,5 +1,6 @@
 .cardContainer {
-  @apply border border-gray-200 w-full my-1 md:m-3 md:w-2/5
+  @apply border border-gray-200 w-full p-2 m-2
+  md:m-3 md:w-2/5
 }
 
 .productContainer {
@@ -34,7 +35,7 @@
 }
 
 .image {
-  @apply w-32 h-32 mr-5 mt-2 ml-1
+  @apply w-32 h-32
 }
 
 .iconContainer {

@@ -1,22 +1,26 @@
 .listContainer {
-  @apply mt-10 flex border border-b-gray-200
+  @apply m-2 flex border border-b-gray-200
+  md:w-2/5
 }
 .imageContainer {
-  @apply relative w-48 h-48 md:w-60 md:h-60 pl-4 flex flex-col justify-center
+  @apply relative flex flex-col justify-center w-1/2 p-2
 }
 
 .image {
-  @apply object-cover opacity-75 pl-4
+  @apply object-cover opacity-75 h-48 w-48
 }
 
 .about {
-  @apply w-48 h-48 md:w-60 md:h-60 px-4 text-base md:text-xl
+  @apply w-1/2 text-lg p-2 h-48
+  md:text-xl
 }
 
 .title{
-  @apply text-xl z-10 md:text-4xl
+  @apply text-xl absolute top-10
+  md:text-2xl
 }
 
 .products{
-  @apply text-base z-10 md:text-2xl
+  @apply text-base absolute top-32
+  md:text-xl
 }

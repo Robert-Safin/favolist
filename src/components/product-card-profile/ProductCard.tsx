@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { BsBookmark } from 'react-icons/bs'
 import { IoMdAddCircleOutline } from 'react-icons/io'
 import { FaRegComment } from 'react-icons/fa'
-import {MdCopyAll} from 'react-icons/md'
+import { MdCopyAll } from 'react-icons/md'
 interface Props {
   title: string
   price: number
@@ -18,8 +18,7 @@ interface Props {
 
 const ProductCardProfile: FC<Props> = (props) => {
 
-  const productContentLength = 140
-
+  const productContentLength = 110
   let shortContent
   if (props.content.length > productContentLength) {
     shortContent = props.content.substring(0, productContentLength) + '...'
@@ -28,6 +27,13 @@ const ProductCardProfile: FC<Props> = (props) => {
   }
 
   const productHasReferral = props.referral.length > 0
+  const maxReferralLength = 25
+  let shortReferral
+  if (props.referral.length > maxReferralLength) {
+    shortReferral = props.referral.substring(0, maxReferralLength) + "..."
+  } else {
+    shortReferral = props.referral
+  }
 
   return (
     <div className={styles.cardContainer}>
@@ -48,8 +54,8 @@ const ProductCardProfile: FC<Props> = (props) => {
 
           {productHasReferral &&
             <div className={styles.referralContainer}>
-              <p>{props.referral}</p>
-              <MdCopyAll className={styles.refIcon}/>
+              <p>{shortReferral}</p>
+              <MdCopyAll className={styles.refIcon} />
             </div>}
 
 
