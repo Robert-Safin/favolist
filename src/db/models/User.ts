@@ -24,18 +24,17 @@ export interface UserModelSchema extends Document {
 }
 
 interface Social {
-  social: [
-    "Facebook",
-    "Github",
-    "Tiktok",
-    "Patreon",
-    "Youtube",
-    "Linkedin",
-    "Twitter",
-    "Twitch",
-    "Instagram",
-    "Snapchat"
-  ];
+  social:
+    | "Facebook"
+    | "Github"
+    | "Tiktok"
+    | "Patreon"
+    | "Youtube"
+    | "Linkedin"
+    | "Twitter"
+    | "Twitch"
+    | "Instagram"
+    | "Snapchat";
   link: string;
 }
 
@@ -91,12 +90,33 @@ const UserSchema = new mongoose.Schema<UserModelSchema>(
         default: [],
       },
     ],
-    socials: [
-      {
-        type: Object,
-        default: [],
-      },
-    ],
+    socials: {
+      type: [
+        {
+          social: {
+            type: String,
+            enum: [
+              "Facebook",
+              "Github",
+              "Tiktok",
+              "Patreon",
+              "Youtube",
+              "Linkedin",
+              "Twitter",
+              "Twitch",
+              "Instagram",
+              "Snapchat",
+            ],
+            required: true,
+          },
+          link: {
+            type: String,
+            required: true,
+          },
+        },
+      ],
+      default: [],
+    },
   },
   {
     timestamps: true,
