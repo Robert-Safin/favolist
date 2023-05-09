@@ -47,7 +47,8 @@
 }
 
 .listsContainer {
-  @apply flex flex-col md:flex-row md:justify-around md:flex-wrap mx-2
+  @apply flex flex-col mx-2
+  md:flex-row md:justify-around md:flex-wrap
 }
 
 .tabContainer {
@@ -59,4 +60,8 @@
 }
 .userHasNoLists {
   @apply text-center
+}
+
+.productsContainer {
+  @apply md:flex md:flex-wrap md:justify-between
 }
