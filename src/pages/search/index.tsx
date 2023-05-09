@@ -84,12 +84,17 @@ const SearchPage: NextPage<Props> = (props) => {
           productId={product.id}
           userId={product.user_id}
           listId={product.listId}
+          productName={product.productName}
           productListName={product.productListName}
           productLogo={product.productLogo}
           productImage={product.productImage}
           content={product.content}
           price={product.price}
           referral={product.referral}
+          userAvatar={product.user_id.avatar}
+          userName={product.user_id.username}
+
+
 
           />
         ))}

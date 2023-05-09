@@ -119,6 +119,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 
 
+
   if (!usernameSlug || !listIdSlug) {
     // to do
     return {
@@ -128,7 +129,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 
   const userDoc = await User.findOne({ email: userEmail })
-  console.log(userDoc);
+
+
 
 
 
