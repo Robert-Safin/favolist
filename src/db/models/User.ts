@@ -1,11 +1,4 @@
-import mongoose, {
-  Schema,
-  models,
-  model,
-  Model,
-  Document,
-  ObjectId,
-} from "mongoose";
+import mongoose, { Model, Document, ObjectId } from "mongoose";
 import { ListModelSchema } from "./List";
 import { ProductModelSchema } from "./Product";
 
