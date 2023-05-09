@@ -2,13 +2,12 @@
 import { ListModelSchema } from "@/db/models/List";
 import { ProductModelSchema } from "@/db/models/Product";
 import { connectDB } from "@/db/lib/connectDb";
-import { User, List, Product } from "@/db/models";
+import { User, List } from "@/db/models";
 import { GetServerSideProps, NextPage } from "next";
 import { getSession, signIn, useSession } from "next-auth/react";
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import ProfileTabs from "@/components/profile-tabs/ProfileTabs";
 import styles from './index.module.css';
 import ToggleView from "@/components/toggleViewListCard/ToggleView";
 
@@ -18,15 +17,17 @@ import { useState } from "react";
 
 
 interface UserProfileProps {
-  email: string;
-  avatar: string;
-  username: string;
-  bio: string;
-  follows: string[];
-  followers: string[];
-  lists: string[];
-  products: ProductModelSchema[]
-  userLists: ListModelSchema[]
+  user: {
+    email: string;
+    avatar: string;
+    username: string;
+    bio: string;
+    following: string[];
+    followers: string[];
+    lists: ListModelSchema[];
+    products: ProductModelSchema[]
+    userLists: ListModelSchema[]
+  }
 }
 
 
@@ -35,7 +36,7 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
   const router = useRouter()
   const usernameSlug = router.query.usernameSlug
   const userIsProfileOwner = usernameSlug === session?.user?.name
-  const userHasLists = props.lists.length > 0
+  const userHasLists = props.user.lists.length > 0
 
 
   const [productIsActive, setProductIsActive] = useState(false)
@@ -80,22 +81,22 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
       <div className={styles.containerDiv}>
         <div className={styles.userCard}>
           <Link href={`/users/edit`} className={styles.link}>
-            <Image className={styles.avatar} src={props.avatar!} alt='user avatar' width={64} height={64} />
+            <Image className={styles.avatar} src={props.user.avatar!} alt='user avatar' width={64} height={64} />
           </Link>
 
           <div className={styles.userStats}>
-            <h1 className={styles.username}>{props.username}</h1>
+            <h1 className={styles.username}>{props.user.username}</h1>
 
             <div className={styles.listProducts}>
-              <p>{props.lists.length} lists</p>
+              <p>{props.user.lists.length} lists</p>
               <p>·</p>
-              <p>{props.products.length}</p>
+              <p>{props.user.products.length}</p>
               <p>products</p>
             </div>
             <div className={styles.followersFollowing}>
-              <p>{props.followers.length} followers</p>
+              <p>{props.user.followers.length} followers</p>
               <p>·</p>
-              <p>{props.follows.length} following</p>
+              <p>{props.user.following.length} following</p>
             </div>
           </div>
 
@@ -117,7 +118,7 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
 
       <div className={styles.listsContainer}>
         {!userHasLists && <h1 className={styles.userHasNoLists}>User has no lists.<Link href={`/users/${session.user?.name}/lists/new-list`} className={styles.listLink}> Make new list</Link> </h1>}
-        {userHasLists && props.userLists.map(list =>
+        {userHasLists && props.user.lists.map(list =>
           <UserList
           key={String(list._id)}
           title={list.title}
@@ -150,15 +151,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       notFound: true,
     };
   }
-  const userListsDoc = await user.populate({ path: 'lists', model: List });
-  //console.log(userListsDoc);
+  const userWithLists = await user.populate('lists')
+  const fullyPopulatedUser = await user.populate('products')
 
-
-
-
-  const lists = await JSON.parse(JSON.stringify(user.lists))
-  const products = await JSON.parse(JSON.stringify(user.products))
-  const userLists = await JSON.parse(JSON.stringify(userListsDoc.lists))
 
 
 
@@ -166,15 +161,16 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   return {
     props: {
-      email: user.email,
-      avatar: user.avatar,
-      username: user.username,
-      bio: user.bio,
-      follows: user.follows,
-      followers: user.followers,
-      lists: lists,
-      products: products,
-      userLists: userLists,
+      user: {
+        email: fullyPopulatedUser.email,
+        avatar: fullyPopulatedUser.avatar,
+        username: fullyPopulatedUser.username,
+        bio: fullyPopulatedUser.bio,
+        followers: fullyPopulatedUser.followers,
+        following: fullyPopulatedUser.follows,
+        lists: await JSON.parse(JSON.stringify(fullyPopulatedUser.lists)),
+        products: await JSON.parse(JSON.stringify(fullyPopulatedUser.products))
+      }
     },
   };
 };
