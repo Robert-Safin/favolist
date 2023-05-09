@@ -21,6 +21,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const matchedFound = foundLists.length + foundUsers.length + foundProducts.length
 
 
+    //console.log(foundUsers);
 
 
 

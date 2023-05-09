@@ -1,0 +1,33 @@
+
+.userContainer {
+  @apply border border-gray-200 m-2 p-2 w-full
+}
+
+.avatar {
+  @apply object-contain w-16 h-16 rounded-full
+}
+
+
+.userInfo {
+  @apply flex justify-start
+}
+
+.button {
+  @apply bg-purple ml-auto mb-auto p-2 text-white rounded-md text-sm
+}
+
+.bio {
+  @apply mt-2 text-sm
+}
+
+.username {
+  @apply mb-1 font-bold
+}
+
+.userTrackers {
+  @apply text-sm
+}
+
+.userStats {
+  @apply ml-1
+}
