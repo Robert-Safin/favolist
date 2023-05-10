@@ -154,7 +154,15 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
         />)}
       </div>
 
-
+        <div className={styles.accountContainer}>
+          {accountIsActive &&
+          <>
+          <h1 className={styles.userBioTitle}>Bio</h1>
+          <p className={styles.userBio}>{props.user.bio}</p>
+          <h1 className={styles.userSocialsTitle}>Socials</h1>
+          </>
+          }
+        </div>
 
 
     </div>

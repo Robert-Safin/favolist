@@ -65,3 +65,14 @@
 .productsContainer {
   @apply md:flex md:flex-wrap md:justify-between
 }
+
+.userBioTitle {
+  @apply text-center text-xl font-bold
+}
+.userSocialsTitle {
+  @apply text-center text-xl font-bold
+}
+
+.userBio {
+  @apply m-4
+}
