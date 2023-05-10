@@ -16,8 +16,7 @@ interface Props {
   lists: ListModelSchema[],
   products: ProductModelSchema[]
   currentUsername: string
-  handleFollow: (username:string) => void
-
+  handleFollow: (userId: ObjectId) => void
 }
 
 const FoundUserCard: FC<Props> = (props) => {
@@ -41,7 +40,7 @@ const FoundUserCard: FC<Props> = (props) => {
                   <p className={styles.userTrackers}>{props.followers.length} followers . {props.follows.length} following</p>
               </div>
 
-              {!isCurrentUser && <button className={styles.button} onClick={() => props.handleFollow(props.username)}>Follow</button>}
+              {!isCurrentUser && <button className={styles.button} onClick={() => props.handleFollow(props.userId)}>Follow</button>}
 
 
       </div>

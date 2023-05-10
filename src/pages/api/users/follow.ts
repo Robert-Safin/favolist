@@ -4,16 +4,17 @@ import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 
 
 // to do: secure route
+// followers should be unique
 
 
 const handler: NextApiHandler = async (req: NextApiRequest,res: NextApiResponse) => {
   const currentUsername = req.body.currentUsername
-  const followTargetUsername = req.body.followTargetUsername
+  const followTargetID= req.body.followTargetID
 
   try {
     await connectDB()
     const currentUser = await User.findOne({username: currentUsername})
-    const followTarget = await User.findOne({username: followTargetUsername})
+    const followTarget = await User.findOne({_id: followTargetID})
 
     const userFollowing = await currentUser?.follows.push(followTarget!)
     const userGettingFollowed = await followTarget?.followers.push(currentUser!)
