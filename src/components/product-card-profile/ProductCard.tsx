@@ -18,22 +18,10 @@ interface Props {
 
 const ProductCardProfile: FC<Props> = (props) => {
 
-  const productContentLength = 110
-  let shortContent
-  if (props.content.length > productContentLength) {
-    shortContent = props.content.substring(0, productContentLength) + '...'
-  } else {
-    shortContent = props.content
-  }
+
 
   const productHasReferral = props.referral.length > 0
-  const maxReferralLength = 25
-  let shortReferral
-  if (props.referral.length > maxReferralLength) {
-    shortReferral = props.referral.substring(0, maxReferralLength) + "..."
-  } else {
-    shortReferral = props.referral
-  }
+
 
   return (
     <div className={styles.cardContainer}>
@@ -50,11 +38,11 @@ const ProductCardProfile: FC<Props> = (props) => {
           <h1 className={styles.listName}>{props.listName}</h1>
           <h2 className={styles.title}>{props.title}</h2>
           <h3 className={styles.price}>${props.price}</h3>
-          <p className={styles.content}>{shortContent}</p>
+          <p className={styles.content}>{props.content}</p>
 
           {productHasReferral &&
             <div className={styles.referralContainer}>
-              <p>{shortReferral}</p>
+              <p className={styles.referral}>{props.referral}</p>
               <MdCopyAll className={styles.refIcon} />
             </div>}
 

@@ -39,7 +39,7 @@ const FoundProductCard: FC<Props> = (props) => {
                 <h2 className={styles.listName}>{props.productListName}</h2>
                 <h1 className={styles.productName}>{props.productName}</h1>
                 <h3 className={styles.price}>${props.price}</h3>
-                <p>{shortContent}</p>
+                <p className={styles.content}>{props.content}</p>
               </div>
 
               <div className={styles.imageAndButton}>

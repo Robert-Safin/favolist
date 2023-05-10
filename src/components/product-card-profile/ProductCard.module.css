@@ -46,11 +46,14 @@
 }
 
 .content {
-  @apply text-sm
+  @apply text-sm overflow-auto h-20
 }
 
 .referralContainer {
   @apply flex border border-gray-400 border-dashed items-center justify-between
+}
+.referral {
+  @apply overflow-auto h-6
 }
 .refIcon {
   @apply text-gray-400

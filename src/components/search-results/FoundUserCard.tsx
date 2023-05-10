@@ -19,13 +19,7 @@ interface Props {
 
 const FoundUserCard: FC<Props> = (props) => {
 
-  const maxBioLength = 150
-  let shortBio
-  if (props.bio.length > maxBioLength) {
-    shortBio = props.bio.substring(0,maxBioLength) + "..."
-  } else {
-    shortBio = props.bio
-  }
+
 
   return (
     <div className={styles.userContainer}>
@@ -48,7 +42,7 @@ const FoundUserCard: FC<Props> = (props) => {
 
       </div>
 
-      <p className={styles.bio}>{shortBio}</p>
+      <p className={styles.bio}>{props.bio}</p>
 
 
 

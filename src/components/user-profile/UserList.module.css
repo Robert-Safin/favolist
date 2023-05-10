@@ -11,12 +11,12 @@
 }
 
 .about {
-  @apply w-1/2 text-lg p-2 h-48
+  @apply w-1/2 text-lg h-48 overflow-auto m-2 p-2
   md:text-xl
 }
 
 .title{
-  @apply text-xl absolute top-10
+  @apply text-xl absolute top-10 overflow-auto h-20
   md:text-2xl
 }
 

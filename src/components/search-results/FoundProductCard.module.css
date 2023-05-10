@@ -47,3 +47,7 @@
 .username {
   @apply text-sm font-bold
 }
+
+.content {
+  @apply overflow-auto h-28
+}

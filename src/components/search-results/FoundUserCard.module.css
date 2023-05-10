@@ -17,7 +17,7 @@
 }
 
 .bio {
-  @apply mt-2 text-sm
+  @apply mt-2 text-sm overflow-auto h-14
 }
 
 .username {
