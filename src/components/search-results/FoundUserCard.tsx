@@ -16,7 +16,7 @@ interface Props {
   lists: ListModelSchema[],
   products: ProductModelSchema[]
   currentUsername: string
-  handleFollow: (username: string) => void
+  handleFollow: (username:string) => void
 
 }
 
@@ -33,15 +33,15 @@ const FoundUserCard: FC<Props> = (props) => {
 
       <div className={styles.userInfo}>
 
-        <Image className={styles.avatar} src={props.avatar} alt={'user avatar'} width={30} height={30} />
+              <Image className={styles.avatar} src={props.avatar} alt={'user avatar'} width={30} height={30}/>
 
-        <div className={styles.userStats}>
-          <p className={styles.username}>{props.username}</p>
-          <p className={styles.userTrackers}>{props.lists.length} lists . {props.products.length} products</p>
-          <p className={styles.userTrackers}>{props.followers.length} followers . {props.follows.length} following</p>
-        </div>
+              <div className={styles.userStats}>
+                  <p className={styles.username}>{props.username}</p>
+                  <p className={styles.userTrackers}>{props.lists.length} lists . {props.products.length} products</p>
+                  <p className={styles.userTrackers}>{props.followers.length} followers . {props.follows.length} following</p>
+              </div>
 
-        {!isCurrentUser && <button className={styles.button} onClick={() => props.handleFollow(props.username)}>Follow</button>}
+              {!isCurrentUser && <button className={styles.button} onClick={() => props.handleFollow(props.username)}>Follow</button>}
 
 
       </div>
