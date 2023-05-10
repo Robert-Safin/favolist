@@ -9,8 +9,8 @@ export interface UserModelSchema extends Document {
   provider: "github" | "google";
   avatar?: string;
   bio: string;
-  follows: ObjectId[];
-  followers: ObjectId[];
+  follows: UserModelSchema[];
+  followers: UserModelSchema[];
   lists: ListModelSchema[];
   products: ProductModelSchema[];
   socials: Social[];
