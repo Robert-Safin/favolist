@@ -8,9 +8,11 @@ import { UserModelSchema } from '@/db/models/User';
 import { NextPage } from 'next';
 import { FormEventHandler, useState } from 'react';
 import styles from './index.module.css'
+import { useSession } from 'next-auth/react';
 interface Props { }
 
 const SearchPage: NextPage<Props> = (props) => {
+  const { data: session, status } = useSession()
   const [foundUsers, setFoundUsers] = useState<UserModelSchema[]>([]);
   const [foundLists, setFoundLists] = useState<ListModelSchema[]>([]);
   const [foundProducts, setFoundProducts] = useState<ProductModelSchema[]>([]);
@@ -36,6 +38,9 @@ const SearchPage: NextPage<Props> = (props) => {
     }
   };
 
+  const currentUsername = session?.user?.name
+
+
 
   const handleSubmit: FormEventHandler = (event) => {
     event.preventDefault();
@@ -57,6 +62,7 @@ const SearchPage: NextPage<Props> = (props) => {
             followers={user.followers}
             lists={user.lists}
             products={user.products}
+            currentUsername={currentUsername!}
           />
         ))}
 

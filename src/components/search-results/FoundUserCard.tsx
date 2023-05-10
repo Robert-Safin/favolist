@@ -14,10 +14,18 @@ interface Props {
   followers: ObjectId[],
   lists: ListModelSchema[],
   products: ProductModelSchema[]
+  currentUsername: string
 
 }
 
 const FoundUserCard: FC<Props> = (props) => {
+
+
+  const isCurrentUser = props.currentUsername.replace(/ /g, "-") === props.username
+
+  const userHasBio = props.bio.length > 0
+
+
 
 
 
@@ -38,11 +46,12 @@ const FoundUserCard: FC<Props> = (props) => {
                   <p className={styles.userTrackers}>{props.followers.length} followers . {props.follows.length} following</p>
               </div>
 
-              <button className={styles.button}>Follow</button>
+              {!isCurrentUser && <button className={styles.button}>Follow</button>}
+
 
       </div>
 
-      <p className={styles.bio}>{props.bio}</p>
+      {userHasBio && <p className={styles.bio}>{props.bio}</p>}
 
 
 
