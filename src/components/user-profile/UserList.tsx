@@ -17,8 +17,12 @@ const UserList: FC<Props> = (props) => {
     <div className={styles.listContainer} onClick={() => props.onClick(props.title)}>
       <div className={styles.imageContainer}>
         <Image src={props.thumbnail} alt={props.title} width={100} height={100} className={styles.image} />
-        <h1 className={styles.title}>{props.title}</h1>
-        <p className={styles.products}>{props.products.length} products</p>
+        <div
+          className={styles.titles}
+        >
+          <p className={styles.products}>{props.products.length} products</p>
+          <h1 className={styles.title}>{props.title}</h1>
+        </div>
       </div>
       <p className={styles.about}>{props.about}</p>
     </div>

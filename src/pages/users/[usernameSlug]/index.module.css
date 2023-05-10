@@ -47,7 +47,7 @@
 }
 
 .listsContainer {
-  @apply flex flex-col mx-2
+  @apply flex flex-col 
   md:flex-row md:justify-around md:flex-wrap
 }
 
