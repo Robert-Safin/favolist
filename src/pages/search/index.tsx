@@ -50,7 +50,6 @@ const SearchPage: NextPage<Props> = (props) => {
   };
 
   const handleFollow = async (userId: ObjectId) => {
-
     const data = {
       currentUsername: currentUsername,
       followTargetID: userId,
@@ -67,9 +66,30 @@ const SearchPage: NextPage<Props> = (props) => {
       console.log(error);
 
     }
-
   };
 
+  const handleUnfollow = async(userId: ObjectId) => {
+    const data = {
+      currentUsername: currentUsername,
+      unfollowTargetID: userId,
+    }
+    try {
+      const response = fetch("/api/users/unfollow", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+    } catch (error) {
+      console.log(error);
+
+    }
+  }
+
+  const isFollowed = (userId: ObjectId) => {
+    return currentUser!.follows.map(user => user).includes(userId)
+  }
 
 
   return (
@@ -78,7 +98,7 @@ const SearchPage: NextPage<Props> = (props) => {
       <h2 className={styles.foundCategory}>Users found</h2>
 
       <div className={styles.resultsContainer}>
-        {foundUsers.map((user: UserModelSchema) => (
+        {foundUsers.map((user) => (
           <FoundUserCard
             userId={user._id}
             key={String(user._id)}
@@ -91,7 +111,8 @@ const SearchPage: NextPage<Props> = (props) => {
             products={user.products}
             currentUsername={currentUsername!}
             handleFollow={handleFollow}
-
+            isFollowed={isFollowed}
+            handleUnfollow={handleUnfollow}
           />
         ))}
 
