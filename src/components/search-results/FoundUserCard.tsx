@@ -3,7 +3,7 @@ import { ListModelSchema } from '@/db/models/List'
 import { ProductModelSchema } from '@/db/models/Product'
 import { ObjectId } from 'mongoose'
 import Image from 'next/image'
-import { FC, ReactEventHandler, useRef, useState } from 'react'
+import { FC, useState } from 'react'
 import styles from './FoundUserCard.module.css'
 import { UserModelSchema } from '@/db/models/User'
 interface Props {
@@ -11,12 +11,14 @@ interface Props {
   username: string,
   avatar: string,
   bio: string,
-  follows: UserModelSchema[],
-  followers: UserModelSchema[],
+  follows: UserModelSchema[]
+  followers: UserModelSchema[]
   lists: ListModelSchema[],
   products: ProductModelSchema[]
   currentUsername: string
-  handleFollow: (username:string) => void
+  handleFollow: (userId: ObjectId) => void
+  handleUnfollow: (userId: ObjectId) => void
+  isFollowed: (userId: ObjectId) => boolean
 
 }
 
@@ -26,6 +28,9 @@ const FoundUserCard: FC<Props> = (props) => {
 
   const userHasBio = props.bio.length > 0
 
+  const alreadyFollowing = props.isFollowed(props.userId)
+
+  const [isFollowing, setIsFollowing] = useState(alreadyFollowing)
 
 
   return (
@@ -33,16 +38,23 @@ const FoundUserCard: FC<Props> = (props) => {
 
       <div className={styles.userInfo}>
 
-              <Image className={styles.avatar} src={props.avatar} alt={'user avatar'} width={30} height={30}/>
+        <Image className={styles.avatar} src={props.avatar} alt={'user avatar'} width={30} height={30} />
 
-              <div className={styles.userStats}>
-                  <p className={styles.username}>{props.username}</p>
-                  <p className={styles.userTrackers}>{props.lists.length} lists . {props.products.length} products</p>
-                  <p className={styles.userTrackers}>{props.followers.length} followers . {props.follows.length} following</p>
-              </div>
+        <div className={styles.userStats}>
+          <p className={styles.username}>{props.username}</p>
+          <p className={styles.userTrackers}>{props.lists.length} lists . {props.products.length} products</p>
+          <p className={styles.userTrackers}>{props.followers.length} followers . {props.follows.length} following</p>
+        </div>
 
-              {!isCurrentUser && <button className={styles.button} onClick={() => props.handleFollow(props.username)}>Follow</button>}
+        {!isCurrentUser && !isFollowing && <button className={styles.button} onClick={() => {
+          props.handleFollow(props.userId);
+          setIsFollowing(true);
+        }}>Follow</button>}
 
+        {!isCurrentUser && isFollowing && <button className={styles.button} onClick={() => {
+          props.handleUnfollow(props.userId);
+          setIsFollowing(false);
+        }}>Unfollow</button>}
 
       </div>
 

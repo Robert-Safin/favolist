@@ -6,9 +6,10 @@ import { ListModelSchema } from '@/db/models/List';
 import { ProductModelSchema } from '@/db/models/Product';
 import { UserModelSchema } from '@/db/models/User';
 import { NextPage } from 'next';
-import { FormEventHandler, ReactEventHandler, useState } from 'react';
+import { FormEventHandler, useState } from 'react';
 import styles from './index.module.css'
 import { useSession } from 'next-auth/react';
+import { ObjectId } from 'mongoose';
 interface Props { }
 
 const SearchPage: NextPage<Props> = (props) => {
@@ -16,6 +17,10 @@ const SearchPage: NextPage<Props> = (props) => {
   const [foundUsers, setFoundUsers] = useState<UserModelSchema[]>([]);
   const [foundLists, setFoundLists] = useState<ListModelSchema[]>([]);
   const [foundProducts, setFoundProducts] = useState<ProductModelSchema[]>([]);
+  const [currentUser, setCurrentUser] = useState<UserModelSchema>();
+
+
+
 
   const handleSearch = async (query: string) => {
     try {
@@ -32,6 +37,7 @@ const SearchPage: NextPage<Props> = (props) => {
       setFoundUsers(JSON.parse(data.foundUsers));
       setFoundLists(JSON.parse(data.foundLists));
       setFoundProducts(JSON.parse(data.foundProducts));
+      setCurrentUser(JSON.parse(data.currentUser))
 
     } catch (error) {
       console.log(error);
@@ -43,10 +49,10 @@ const SearchPage: NextPage<Props> = (props) => {
     event.preventDefault();
   };
 
-  const handleFollow = async (username: string) => {
+  const handleFollow = async (userId: ObjectId) => {
     const data = {
       currentUsername: currentUsername,
-      followTargetUsername: username,
+      followTargetID: userId,
     }
     try {
       const response = fetch("/api/users/follow", {
@@ -60,9 +66,30 @@ const SearchPage: NextPage<Props> = (props) => {
       console.log(error);
 
     }
-
   };
 
+  const handleUnfollow = async(userId: ObjectId) => {
+    const data = {
+      currentUsername: currentUsername,
+      unfollowTargetID: userId,
+    }
+    try {
+      const response = fetch("/api/users/unfollow", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+    } catch (error) {
+      console.log(error);
+
+    }
+  }
+
+  const isFollowed = (userId: ObjectId) => {
+    return currentUser!.follows.map(user => user).includes(userId)
+  }
 
 
   return (
@@ -71,7 +98,7 @@ const SearchPage: NextPage<Props> = (props) => {
       <h2 className={styles.foundCategory}>Users found</h2>
 
       <div className={styles.resultsContainer}>
-        {foundUsers.map((user: UserModelSchema) => (
+        {foundUsers.map((user) => (
           <FoundUserCard
             userId={user._id}
             key={String(user._id)}
@@ -84,7 +111,8 @@ const SearchPage: NextPage<Props> = (props) => {
             products={user.products}
             currentUsername={currentUsername!}
             handleFollow={handleFollow}
-
+            isFollowed={isFollowed}
+            handleUnfollow={handleUnfollow}
           />
         ))}
 

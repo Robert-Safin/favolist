@@ -9,21 +9,21 @@ import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 
 const handler: NextApiHandler = async (req: NextApiRequest,res: NextApiResponse) => {
   const currentUsername = req.body.currentUsername
-  const followTargetID= req.body.followTargetID
+  const unfollowTargetID= req.body.unfollowTargetID
 
   try {
     await connectDB()
     const currentUser = await User.findOne({username: currentUsername})
-    const followTarget = await User.findOne({_id: followTargetID})
+    const unfollowTarget = await User.findOne({_id: unfollowTargetID})
 
-    const userFollowing = await currentUser?.follows.push(followTarget!)
-    const userGettingFollowed = await followTarget?.followers.push(currentUser!)
+    const userFollowing = await currentUser?.follows.pull(unfollowTargetID)
+    const userGettingFollowed = await unfollowTarget?.followers.pull(currentUsername)
 
     await currentUser?.save()
-    await followTarget?.save()
+    await unfollowTarget?.save()
 
 
-    res.json({message: "ok"})
+    res.json({message: "unfollowed"})
 
   } catch (error) {
     res.json({message: 'there was an error', error: error})
