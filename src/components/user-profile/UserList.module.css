@@ -1,26 +1,34 @@
 .listContainer {
-  @apply m-2 flex border border-b-gray-200
+  @apply  flex border-b border-b-gray-200 text-white p-4
+
   md:w-2/5
 }
 .imageContainer {
-  @apply relative flex flex-col justify-center w-1/2 p-2
+  @apply relative flex flex-col justify-center w-1/2 bg-black bg-opacity-30
+}
+
+.titles {
+  @apply absolute p-2
+}
+.titles {
+  text-shadow: 2px 2px 4px #000000;
 }
 
 .image {
-  @apply object-cover opacity-75 h-48 w-48
+  @apply object-cover  h-48 w-48
 }
 
 .about {
-  @apply w-1/2 text-lg h-48 overflow-auto m-2 p-2
+  @apply w-1/2 text-base h-48 text-black pl-4 line-clamp-4
   md:text-xl
 }
 
 .title{
-  @apply text-xl absolute top-10 overflow-auto h-20
+  @apply text-2xl font-bold overflow-auto h-20
   md:text-2xl
 }
 
 .products{
-  @apply text-base absolute top-32
+  @apply text-base
   md:text-xl
 }
