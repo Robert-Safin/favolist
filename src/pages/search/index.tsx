@@ -6,11 +6,13 @@ import { ListModelSchema } from '@/db/models/List';
 import { ProductModelSchema } from '@/db/models/Product';
 import { UserModelSchema } from '@/db/models/User';
 import { NextPage } from 'next';
-import { FormEventHandler, useState } from 'react';
+import { FormEventHandler, ReactEventHandler, useState } from 'react';
 import styles from './index.module.css'
+import { useSession } from 'next-auth/react';
 interface Props { }
 
 const SearchPage: NextPage<Props> = (props) => {
+  const { data: session, status } = useSession()
   const [foundUsers, setFoundUsers] = useState<UserModelSchema[]>([]);
   const [foundLists, setFoundLists] = useState<ListModelSchema[]>([]);
   const [foundProducts, setFoundProducts] = useState<ProductModelSchema[]>([]);
@@ -36,15 +38,38 @@ const SearchPage: NextPage<Props> = (props) => {
     }
   };
 
-
+  const currentUsername = session?.user?.name!.replace(/ /g, "-")
   const handleSubmit: FormEventHandler = (event) => {
     event.preventDefault();
   };
+
+  const handleFollow = async (username: string) => {
+    const data = {
+      currentUsername: currentUsername,
+      followTargetUsername: username,
+    }
+    try {
+      const response = fetch("/api/users/follow", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+    } catch (error) {
+      console.log(error);
+
+    }
+
+  };
+
+
 
   return (
     <>
       <SearchBar handleSubmit={handleSubmit} handleSearch={handleSearch} />
       <h2 className={styles.foundCategory}>Users found</h2>
+
       <div className={styles.resultsContainer}>
         {foundUsers.map((user: UserModelSchema) => (
           <FoundUserCard
@@ -57,12 +82,16 @@ const SearchPage: NextPage<Props> = (props) => {
             followers={user.followers}
             lists={user.lists}
             products={user.products}
+            currentUsername={currentUsername!}
+            handleFollow={handleFollow}
+
           />
         ))}
 
       </div>
 
       <h2 className={styles.foundCategory}>Lists found</h2>
+
       <div className={styles.resultsContainer}>
         {foundLists.map((list: ListModelSchema) => (
           <FoundListCard
@@ -78,6 +107,7 @@ const SearchPage: NextPage<Props> = (props) => {
       </div>
 
       <h2 className={styles.foundCategory}>Products found</h2>
+
       <div className={styles.resultsContainer}>
         {foundProducts.map((product: ProductModelSchema) => {
           const user = product.user_id as any;

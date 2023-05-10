@@ -188,6 +188,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const fullyPopulatedUser = await user.populate('products')
 
 
+  console.log(fullyPopulatedUser);
 
 
 
@@ -199,8 +200,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         avatar: fullyPopulatedUser.avatar,
         username: fullyPopulatedUser.username,
         bio: fullyPopulatedUser.bio,
-        followers: fullyPopulatedUser.followers,
-        following: fullyPopulatedUser.follows,
+        followers: await JSON.parse(JSON.stringify(fullyPopulatedUser.followers)),
+        following: await JSON.parse(JSON.stringify(fullyPopulatedUser.follows)),
         lists: await JSON.parse(JSON.stringify(fullyPopulatedUser.lists)),
         products: await JSON.parse(JSON.stringify(fullyPopulatedUser.products))
       }

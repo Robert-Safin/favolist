@@ -3,30 +3,33 @@ import { ListModelSchema } from '@/db/models/List'
 import { ProductModelSchema } from '@/db/models/Product'
 import { ObjectId } from 'mongoose'
 import Image from 'next/image'
-import { FC } from 'react'
+import { FC, ReactEventHandler, useRef, useState } from 'react'
 import styles from './FoundUserCard.module.css'
+import { UserModelSchema } from '@/db/models/User'
 interface Props {
   userId: ObjectId
   username: string,
   avatar: string,
   bio: string,
-  follows: ObjectId[],
-  followers: ObjectId[],
+  follows: UserModelSchema[],
+  followers: UserModelSchema[],
   lists: ListModelSchema[],
   products: ProductModelSchema[]
+  currentUsername: string
+  handleFollow: (username:string) => void
 
 }
 
 const FoundUserCard: FC<Props> = (props) => {
 
+  const isCurrentUser = props.currentUsername.replace(/ /g, "-") === props.username
+
+  const userHasBio = props.bio.length > 0
+
 
 
   return (
     <div className={styles.userContainer}>
-
-
-
-
 
       <div className={styles.userInfo}>
 
@@ -38,11 +41,12 @@ const FoundUserCard: FC<Props> = (props) => {
                   <p className={styles.userTrackers}>{props.followers.length} followers . {props.follows.length} following</p>
               </div>
 
-              <button className={styles.button}>Follow</button>
+              {!isCurrentUser && <button className={styles.button} onClick={() => props.handleFollow(props.username)}>Follow</button>}
+
 
       </div>
 
-      <p className={styles.bio}>{props.bio}</p>
+      {userHasBio && <p className={styles.bio}>{props.bio}</p>}
 
 
 
