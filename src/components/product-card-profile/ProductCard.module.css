@@ -1,5 +1,5 @@
 .cardContainer {
-  @apply border border-gray-200 w-full p-2 m-2
+  @apply border-b border-gray-200 w-full p-2 relative mb-4
   md:m-3 md:w-2/5
 }
 
@@ -35,7 +35,7 @@
 }
 
 .image {
-  @apply w-32 h-32
+  @apply object-cover h-36 w-36
 }
 
 .iconContainer {
@@ -46,15 +46,9 @@
 }
 
 .content {
-  @apply text-sm overflow-auto h-20
+  @apply text-sm line-clamp-3
 }
 
-.referralContainer {
-  @apply flex border border-gray-400 border-dashed items-center justify-between
-}
-.referral {
-  @apply overflow-auto h-6
-}
-.refIcon {
-  @apply text-gray-400
+.suspensionPoints {
+  @apply absolute flex justify-end pr-4 top-0 right-0 text-gray-500 text-xl align-middle pt-2
 }

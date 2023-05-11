@@ -5,6 +5,7 @@ import { BsBookmark } from 'react-icons/bs'
 import { IoMdAddCircleOutline } from 'react-icons/io'
 import { FaRegComment } from 'react-icons/fa'
 import { MdCopyAll } from 'react-icons/md'
+import { RxDotsHorizontal } from 'react-icons/rx'
 interface Props {
   title: string
   price: number
@@ -27,7 +28,11 @@ const ProductCardProfile: FC<Props> = (props) => {
     <div className={styles.cardContainer}>
 
 
-
+      <div className={styles.suspensionPoints}>
+        <button>
+          <RxDotsHorizontal />
+        </button>
+      </div>
 
 
 
@@ -39,14 +44,6 @@ const ProductCardProfile: FC<Props> = (props) => {
           <h2 className={styles.title}>{props.title}</h2>
           <h3 className={styles.price}>${props.price}</h3>
           <p className={styles.content}>{props.content}</p>
-
-          {productHasReferral &&
-            <div className={styles.referralContainer}>
-              <p className={styles.referral}>{props.referral}</p>
-              <MdCopyAll className={styles.refIcon} />
-            </div>}
-
-
         </div>
 
         <div >
