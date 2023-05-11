@@ -88,8 +88,10 @@ const SearchPage: NextPage<Props> = (props) => {
   }
 
   const isFollowed = (userId: ObjectId) => {
+     // @ts-ignore too long to deal with
     return currentUser!.follows.map(user => user).includes(userId)
   }
+
 
 
   return (

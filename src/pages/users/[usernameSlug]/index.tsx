@@ -188,7 +188,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const fullyPopulatedUser = await user.populate('products')
 
 
-  console.log(fullyPopulatedUser);
+
 
 
 

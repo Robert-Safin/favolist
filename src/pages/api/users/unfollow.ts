@@ -15,8 +15,9 @@ const handler: NextApiHandler = async (req: NextApiRequest,res: NextApiResponse)
     await connectDB()
     const currentUser = await User.findOne({username: currentUsername})
     const unfollowTarget = await User.findOne({_id: unfollowTargetID})
-
+     // @ts-ignore missging mongoose models :(
     const userFollowing = await currentUser?.follows.pull(unfollowTargetID)
+     // @ts-ignore missging mongoose models :(
     const userGettingFollowed = await unfollowTarget?.followers.pull(currentUsername)
 
     await currentUser?.save()
