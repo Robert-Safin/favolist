@@ -16,7 +16,7 @@
 }
 
 .subNavigation {
-  @apply flex justify-evenly my-5
+  @apply flex justify-evenly mt-5
 }
 
 .listTitle {
@@ -32,13 +32,27 @@
 }
 
 .button {
-  @apply p-2 bg-flamingo mt-5
+  @apply p-2 bg-purple text-white rounded-md
 }
 
 .productsContainer {
-  @apply flex flex-col md:flex-row mx-3 flex-wrap md:justify-evenly
+  @apply flex flex-col md:flex-row mx-3 flex-wrap md:justify-between
 }
 
 .back {
   @apply text-center
+}
+
+
+.activeTab {
+  @apply border-b border-gray-200
+}
+
+
+.activeTab {
+@apply border-b border-purple
+}
+
+.buttonContainer {
+  @apply flex justify-evenly
 }

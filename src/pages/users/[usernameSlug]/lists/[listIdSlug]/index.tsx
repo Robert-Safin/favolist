@@ -1,7 +1,7 @@
 import { connectDB } from "@/db/lib/connectDb";
 
 import { User, List, Product } from "@/db/models";
-import  { ListModelSchema } from "@/db/models/List";
+import { ListModelSchema } from "@/db/models/List";
 import { UserModelSchema } from "@/db/models/User";
 import { GetServerSideProps, NextPage } from "next";
 import { getSession, useSession } from "next-auth/react";
@@ -12,7 +12,8 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import ProductCardProfile from "@/components/product-card-profile/ProductCard";
-import {MdOutlineArrowBackIos} from 'react-icons/md'
+import { MdOutlineArrowBackIos } from 'react-icons/md'
+import ToggleView from "@/components/toggleViewListCard/ToggleView";
 interface Props {
   user: UserModelSchema
 }
@@ -24,8 +25,8 @@ const ShowList: NextPage<Props> = (props) => {
   const usernameSlug = router.query.usernameSlug
   const listIdSlug = router.query.listIdSlug
 
-  const [showProducts, setShowProducts] = useState(false)
-  const [showListAbout, setShowListAbout] = useState(true)
+  const [showProducts, setShowProducts] = useState(true)
+  const [showListAbout, setShowListAbout] = useState(false)
 
   const listHasNoProducts = props.user.products.length === 0
 
@@ -40,9 +41,10 @@ const ShowList: NextPage<Props> = (props) => {
     )
   }
 
-  const handleClick = () => {
+  const handleAddToList = () => {
     router.push(`/users/${usernameSlug}/lists/${listIdSlug}/new-product`)
   }
+
 
 
   const handleShowProducts = () => {
@@ -61,7 +63,7 @@ const ShowList: NextPage<Props> = (props) => {
       <div className={styles.nav}>
 
 
-        <Link href={`/users/${session.user?.name}`} className={styles.backLink}><MdOutlineArrowBackIos/></Link>
+        <Link href={`/users/${session.user?.name}`} className={styles.backLink}><MdOutlineArrowBackIos /></Link>
 
         <div className={styles.userInfo}>
           <Image src={props.user.avatar!} alt={'user avatar'} className={styles.image} width={100} height={100} />
@@ -71,25 +73,34 @@ const ShowList: NextPage<Props> = (props) => {
       </div>
 
       <div className={styles.subNavigation}>
-        <h1 onClick={handleShowProducts}>product</h1>
-        <h1 onClick={handleShowAbout}>list info</h1>
+        <button className={showProducts ? styles.activeTab : styles.nonActiveTab} onClick={handleShowProducts}>Products</button>
+        <button className={showListAbout ? styles.activeTab : styles.nonActiveTab} onClick={handleShowAbout}>List description</button>
       </div>
+      <ToggleView />
+
+
 
       {showProducts &&
-        <div className={styles.productsContainer}>
-          <button onClick={handleClick} className={styles.button}>add product</button>
-          {listHasNoProducts && <p className={styles.listNoProducts}>No products in this list yet</p>}
-          {props.user.products.map((product) => <ProductCardProfile key={product.id}
-            title={product.productName}
-            price={product.price}
-            content={product.content}
-            referral={product.referral}
-            listName={product.productListName}
-            image={product.productImage}
-            avatar={props.user.avatar!}
-            username={props.user.username}
-          />)}
-        </div>}
+        <>
+          <div className={styles.buttonContainer}>
+            <button className={styles.button} onClick={handleAddToList}>Add to list </button>
+          </div>
+          <div className={styles.productsContainer}>
+            {listHasNoProducts && <p className={styles.listNoProducts}>No products in this list yet</p>}
+            {props.user.products.map((product) => <ProductCardProfile key={product.id}
+              title={product.productName}
+              price={product.price}
+              content={product.content}
+              referral={product.referral}
+              listName={product.productListName}
+              image={product.productImage}
+              avatar={props.user.avatar!}
+              username={props.user.username}
+            />)}
+          </div>
+        </>}
+
+
 
       {showListAbout &&
         <div className={styles.listInfoContainer}>
