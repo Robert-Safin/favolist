@@ -95,7 +95,6 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
     return product.referral.length > 0
   })
 
-  console.log(productsWithReferrals);
 
 
   return (
@@ -143,7 +142,7 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
 
 
       <div className={styles.productsContainer}>
-        {!userHasProducts && <h1 className={styles.userHasNoLists}>User has no products</h1>}
+        {!userHasProducts && productIsActive && <h1 className={styles.userHasNoLists}>User has no products</h1>}
         {userHasProducts && productIsActive && props.user.products.map(product =>
           <ProductCardProfile
             key={String(product._id)}

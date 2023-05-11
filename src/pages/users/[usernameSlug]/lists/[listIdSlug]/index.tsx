@@ -57,6 +57,9 @@ const ShowList: NextPage<Props> = (props) => {
     setShowListAbout(true)
   }
 
+  console.log(props.user);
+
+
   return (
 
     <>
@@ -74,7 +77,7 @@ const ShowList: NextPage<Props> = (props) => {
 
       <div className={styles.subNavigation}>
         <button className={showProducts ? styles.activeTab : styles.nonActiveTab} onClick={handleShowProducts}>Products</button>
-        <button className={showListAbout ? styles.activeTab : styles.nonActiveTab} onClick={handleShowAbout}>List description</button>
+        <button className={showListAbout ? styles.activeTab : styles.nonActiveTab} onClick={handleShowAbout}>List Description</button>
       </div>
       <ToggleView />
 
@@ -87,7 +90,8 @@ const ShowList: NextPage<Props> = (props) => {
           </div>
           <div className={styles.productsContainer}>
             {listHasNoProducts && <p className={styles.listNoProducts}>No products in this list yet</p>}
-            {props.user.products.map((product) => <ProductCardProfile
+            {props.user.products.map((product) =>
+              <ProductCardProfile
               key={product.id}
               title={product.productName}
               price={product.price}
@@ -123,6 +127,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const listIdSlug = context.params!.listIdSlug
 
 
+
   if (!usernameSlug || !listIdSlug) {
     // to do
     return {
@@ -131,10 +136,16 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
 
-  const userDoc = await User.findOne({ username: usernameSlug }).populate({
+  let userDoc = await User.findOne({ username: usernameSlug }).populate({
     path: 'products',
     match: { productListName: listIdSlug }
   });
+
+  await userDoc?.populate({
+    path: 'lists',
+    match: { title: listIdSlug }
+  })
+
 
 
 

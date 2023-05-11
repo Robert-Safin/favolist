@@ -66,7 +66,6 @@ const NewList: NextPage = () => {
 
   return (
     <div className={styles.formContainer}>
-      <p>{process.env.CLOUDINARY_API_KEY}</p>
       <h1 className={styles.title}>New List</h1>
       <form className={styles.form} onSubmit={handleSubmit}>
 
