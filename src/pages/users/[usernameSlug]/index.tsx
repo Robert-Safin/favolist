@@ -18,6 +18,7 @@ import { useState } from "react";
 import ProductCardProfile from "@/components/product-card-profile/ProductCard";
 
 
+
 interface UserProfileProps {
   user: {
     email: string;
@@ -35,6 +36,7 @@ interface UserProfileProps {
 
 const UserProfile: NextPage<UserProfileProps> = (props) => {
   const { data: session, status } = useSession()
+
   const router = useRouter()
   const usernameSlug = router.query.usernameSlug
   const userIsProfileOwner = usernameSlug === session?.user?.name

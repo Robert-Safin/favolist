@@ -61,9 +61,9 @@
 }
 .ldsCircle > div {
   display: inline-block;
-  width: 64px;
-  height: 64px;
-  margin: 8px;
+  width: 144px;
+  height: 144px;
+  margin: 2px;
   border-radius: 50%;
   background: #cef;
   animation: ldsCircle 2.4s cubic-bezier(0, 0.2, 0.8, 1) infinite;

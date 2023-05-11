@@ -15,7 +15,7 @@
 }
 
 .image {
-  @apply object-cover  h-48 w-48
+  @apply object-cover h-48 w-48
 }
 
 .about {
@@ -44,9 +44,9 @@
 }
 .ldsCircle > div {
   display: inline-block;
-  width: 64px;
-  height: 64px;
-  margin: 8px;
+  width: 192px;
+  height: 192px;
+  margin: 2px;
   border-radius: 50%;
   background: #cef;
   animation: ldsCircle 2.4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
