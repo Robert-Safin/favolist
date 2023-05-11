@@ -18,7 +18,9 @@ const NewProduct: NextPage = () => {
   const contentRef = useRef<HTMLTextAreaElement>(null)
   const priceRef = useRef<HTMLInputElement>(null)
   const referralRef = useRef<HTMLInputElement>(null)
+  const referralDescriptionRef = useRef<HTMLInputElement>(null)
   const imageRef = useRef<HTMLInputElement>(null)
+
 
 
   if (!session) {
@@ -38,6 +40,7 @@ const NewProduct: NextPage = () => {
     const enteredContent = contentRef.current?.value
     const enteredPrice = priceRef.current?.value
     const enteredReferral = referralRef.current?.value
+    const enteredReferralDiscription = referralDescriptionRef.current?.value
     const enteredImage = imageRef.current?.files
 
 
@@ -53,6 +56,7 @@ const NewProduct: NextPage = () => {
           enteredContent: enteredContent,
           enteredPrice: enteredPrice,
           enteredReferral: enteredReferral,
+          enteredReferralDiscription: enteredReferralDiscription,
 
           image: base64,
         };
@@ -106,6 +110,9 @@ const NewProduct: NextPage = () => {
 
         <label htmlFor="referral">referral</label>
         <input type="text" id='referral' ref={referralRef} />
+
+        <label htmlFor="referralDescription">referral description</label>
+        <input type="text" id='referralDescription' ref={referralDescriptionRef} />
 
         <label htmlFor="image">image</label>
         <input type="file" id='image' ref={imageRef} />

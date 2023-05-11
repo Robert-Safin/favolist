@@ -76,3 +76,7 @@
 .userBio {
   @apply m-4
 }
+
+.referralContainer {
+  @apply flex flex-wrap
+}

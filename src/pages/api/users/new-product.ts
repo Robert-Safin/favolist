@@ -22,6 +22,7 @@ const handler: NextApiHandler = async (
   const content = req.body.enteredContent;
   const price = req.body.enteredPrice;
   const referral = req.body.enteredReferral;
+  const referralDiscription = req.body.enteredReferralDiscription
   const image = req.body.image;
 
   try {
@@ -53,6 +54,7 @@ const handler: NextApiHandler = async (
       content: content,
       price: price,
       referral: referral,
+      referralDiscription: referralDiscription,
     })
 
     await newProduct.save()
