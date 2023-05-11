@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import styles from './ProductCard.module.css'
 import Image from 'next/image'
 import { BsBookmark } from 'react-icons/bs'
@@ -18,7 +18,11 @@ interface Props {
 }
 
 const ProductCardProfile: FC<Props> = (props) => {
+  const [isImageLoading, setImageLoading] = useState(true);
 
+  const handleImageLoad = () => {
+    setImageLoading(false);
+  };
 
 
   const productHasReferral = props.referral.length > 0
@@ -46,9 +50,11 @@ const ProductCardProfile: FC<Props> = (props) => {
           <p className={styles.content}>{props.content}</p>
         </div>
 
-        <div >
-          <Image className={styles.image} src={props.image} alt={props.listName} width={80} height={80} />
-        </div>
+        {isImageLoading && <div className={styles.ldsCircle}><div></div></div> }
+          <div>
+            <Image className={styles.image} src={props.image} alt={props.listName} width={80} height={80} onLoad={handleImageLoad} />
+          </div>
+
 
 
       </div>
