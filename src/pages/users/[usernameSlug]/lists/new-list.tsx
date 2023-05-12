@@ -18,7 +18,7 @@ const NewList: NextPage = () => {
       </>
     )
   }
-
+  const username = session.user?.name!.replace(/ /g, "-")
 
   const handleSubmit: FormEventHandler = async (event) => {
     event.preventDefault();
@@ -49,7 +49,7 @@ const NewList: NextPage = () => {
           });
           if (response.ok) {
             console.log(await response.json());
-            router.push(`/users/${session?.user?.name}`);
+            router.push(`/users/${username}`);
           }
         } catch (error) {
           // to do
