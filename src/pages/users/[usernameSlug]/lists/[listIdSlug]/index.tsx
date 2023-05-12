@@ -11,7 +11,7 @@ import styles from './index.module.css'
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import ProductCardProfile from "@/components/product-card-profile/ProductCard";
+import UserProduct from "@/components/user-profile/UserProduct";
 import { MdOutlineArrowBackIos } from 'react-icons/md'
 import ToggleView from "@/components/toggleViewListCard/ToggleView";
 interface Props {
@@ -57,7 +57,7 @@ const ShowList: NextPage<Props> = (props) => {
     setShowListAbout(true)
   }
 
-  console.log(props.user);
+
 
 
   return (
@@ -91,7 +91,7 @@ const ShowList: NextPage<Props> = (props) => {
           <div className={styles.productsContainer}>
             {listHasNoProducts && <p className={styles.listNoProducts}>No products in this list yet</p>}
             {props.user.products.map((product) =>
-              <ProductCardProfile
+              <UserProduct
               key={product.id}
               title={product.productName}
               price={product.price}

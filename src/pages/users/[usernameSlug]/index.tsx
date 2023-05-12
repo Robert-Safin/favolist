@@ -15,7 +15,7 @@ import ToggleView from "@/components/toggleViewListCard/ToggleView";
 import UserList from "@/components/user-profile/UserList";
 import { useState } from "react";
 
-import ProductCardProfile from "@/components/product-card-profile/ProductCard";
+import UserProduct from "@/components/user-profile/UserProduct";
 import UserReferral from "@/components/user-profile/UserReferral";
 
 
@@ -144,7 +144,7 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
       <div className={styles.productsContainer}>
         {!userHasProducts && productIsActive && <h1 className={styles.userHasNoLists}>User has no products</h1>}
         {userHasProducts && productIsActive && props.user.products.map(product =>
-          <ProductCardProfile
+          <UserProduct
             key={String(product._id)}
             title={product.productName}
             price={product.price}

@@ -1,10 +1,10 @@
 import { FC, useState } from 'react'
-import styles from './ProductCard.module.css'
+import styles from './UserProduct.module.css'
 import Image from 'next/image'
 import { BsBookmark } from 'react-icons/bs'
 import { IoMdAddCircleOutline } from 'react-icons/io'
 import { FaRegComment } from 'react-icons/fa'
-import { MdCopyAll } from 'react-icons/md'
+
 import { RxDotsHorizontal } from 'react-icons/rx'
 interface Props {
   title: string
@@ -17,7 +17,7 @@ interface Props {
   username: string
 }
 
-const ProductCardProfile: FC<Props> = (props) => {
+const UserProduct: FC<Props> = (props) => {
   const [isImageLoading, setImageLoading] = useState(true);
 
   const handleImageLoad = () => {
@@ -105,4 +105,4 @@ const ProductCardProfile: FC<Props> = (props) => {
   )
 }
 
-export default ProductCardProfile
+export default UserProduct
