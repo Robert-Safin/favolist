@@ -4,13 +4,24 @@ import { FormEventHandler, useRef } from "react";
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { signIn } from "next-auth/react";
+import { Session as NextAuthSession } from "next-auth";
 
+
+interface Session extends NextAuthSession {
+  user: {
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+    username?: string;
+  };
+}
 
 
 
 const NewProduct: NextPage = () => {
 
   const { data: session, status } = useSession();
+  const userSession = session as Session | null;
   const router = useRouter();
   const listSlug = router.query.listIdSlug
 
@@ -23,14 +34,14 @@ const NewProduct: NextPage = () => {
 
 
 
-  if (!session) {
+  if (!userSession) {
     return (
       <>
         <button onClick={() => signIn()}>Login</button>
       </>
     )
   }
-  const username = session.user?.name!.replace(/ /g, "-")
+  const username = userSession.user.username
 
 
 
@@ -51,7 +62,7 @@ const NewProduct: NextPage = () => {
       reader.onloadend = async (e) => {
         const base64 = e.target!.result;
         const data = {
-          userEmail: session?.user?.email,
+          userEmail: userSession.user.email,
           listName: listSlug,
           productName: enteredName,
           enteredContent: enteredContent,

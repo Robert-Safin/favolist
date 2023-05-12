@@ -4,7 +4,7 @@ import { ProductModelSchema } from "@/db/models/Product";
 import { connectDB } from "@/db/lib/connectDb";
 import { User, List } from "@/db/models";
 import { GetServerSideProps, NextPage } from "next";
-import { getSession, signIn, useSession } from "next-auth/react";
+import { getSession, signIn} from "next-auth/react";
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -18,6 +18,18 @@ import { useState } from "react";
 import UserProduct from "@/components/user-profile/UserProduct";
 import UserReferral from "@/components/user-profile/UserReferral";
 
+import { useSession } from "next-auth/react";
+import { Session as NextAuthSession } from "next-auth";
+
+
+interface Session extends NextAuthSession {
+  user: {
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+    username?: string;
+  };
+}
 
 
 interface UserProfileProps {
@@ -37,10 +49,11 @@ interface UserProfileProps {
 
 const UserProfile: NextPage<UserProfileProps> = (props) => {
   const { data: session, status } = useSession()
+  const userSession = session as Session | null;
 
   const router = useRouter()
   const usernameSlug = router.query.usernameSlug
-  const userIsProfileOwner = usernameSlug === session?.user?.name
+  const userIsProfileOwner = usernameSlug === userSession?.user.username
   const userHasLists = props.user.lists.length > 0
   const userHasProducts = props.user.products.length > 0
 
@@ -166,7 +179,7 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
 
 
       <div className={styles.listsContainer}>
-        {!userHasLists && <h1 className={styles.userHasNoLists}>User has no lists.<Link href={`/users/${session.user?.name}/lists/new-list`} className={styles.listLink}> Make new list</Link> </h1>}
+        {!userHasLists && <h1 className={styles.userHasNoLists}>User has no lists.<Link href={`/users/${userSession?.user.username}/lists/new-list`} className={styles.listLink}> Make new list</Link> </h1>}
         {userHasLists && listIsActive && props.user.lists.map(list =>
           <UserList
             key={String(list._id)}

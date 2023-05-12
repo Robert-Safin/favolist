@@ -1,19 +1,10 @@
 import { connectDB } from "@/db/lib/connectDb";
-import NextAuth, { NextAuthOptions, Session } from "next-auth";
+import NextAuth, { NextAuthOptions, User as NextAuthUser } from "next-auth";
 import GithubAuthProvider, { GithubProfile } from "next-auth/providers/github";
-import { User, List, Product } from "@/db/models";
-import { JWT } from "next-auth/jwt";
+import { User } from "@/db/models";
 
-interface CustomJWT extends JWT {
+interface User extends NextAuthUser {
   username?: string;
-}
-interface CustomSession extends Session {
-  user: {
-    name?: string;
-    email?: string;
-    image?: string;
-    username?: string;
-  }
 }
 
 const authOptions: NextAuthOptions = {
@@ -31,7 +22,6 @@ const authOptions: NextAuthOptions = {
         await connectDB();
         const oldUser = await User.findOne({ email: profile.email });
 
-
         if (!oldUser) {
           const newUser = new User({
             email: profile.email,
@@ -43,30 +33,22 @@ const authOptions: NextAuthOptions = {
           await newUser.save();
         }
 
-
         return { ...profile, username: profile.login };
       },
     }),
   ],
   callbacks: {
-    async session({session, token}) {
-      const customSession = session as CustomSession;
-      const customToken = token as CustomJWT;
-
-      customSession.user.username = customToken.username;
-
-      return customSession;
-    },
-
     async jwt({ token,  profile }) {
-      const customToken = token as CustomJWT;
       const githubProfile = profile as GithubProfile;
       if (profile) {
-        customToken.username = githubProfile.login
+        token.username = githubProfile.login
       }
-
-      return customToken;
+      return token;
     },
+    async session({ session, token }) {
+      const user = { ...session.user, username: token.username } as User;
+      return { ...session, user };
+    }
   }
 };
 

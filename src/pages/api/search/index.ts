@@ -7,10 +7,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const token = await getToken({ req })
 
-  console.log(token);
-
-
-
 
   try {
     const query = req.body;

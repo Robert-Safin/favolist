@@ -7,18 +7,26 @@ import { BiHomeAlt2 } from "react-icons/bi";
 import { RiAddFill } from "react-icons/ri";
 import Link from 'next/link'
 import { useSession } from "next-auth/react";
+import { Session as NextAuthSession } from "next-auth";
+
+interface Session extends NextAuthSession {
+  user: {
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+    username?: string;
+  };
+}
 
 const Footer: FC = () => {
 
   const { data: session, status } = useSession()
-  const username = session?.user?.name!.replace(/ /g, "-")
 
-  if (!session) {
+  const userSession = session as Session | null;
+
+  if (!userSession) {
     return <p>no session</p>
   }
-
-
-
 
   return (
     <div className={styles.footer}>
@@ -31,13 +39,13 @@ const Footer: FC = () => {
           <Link href="/search" className={styles.menulink}><GoSearch /></Link>
         </div>
         <div className={styles.menuitem}>
-          <Link href={`/users/${username}`} className={styles.menulink}><CgProfile /></Link>
+          <Link href={`/users/${userSession.user.username}`} className={styles.menulink}><CgProfile /></Link>
         </div>
         <div className={styles.menuitem}>
           <Link href="/users/edit" className={styles.menulink}><AiOutlineSetting /></Link>
         </div>
         <div className={styles.menuitem}>
-          <Link href={`/users/${username}/lists/new-list`} className={styles.menulink}><RiAddFill /></Link>
+          <Link href={`/users/${userSession.user.username}/lists/new-list`} className={styles.menulink}><RiAddFill /></Link>
         </div>
       </div>
     </div>
