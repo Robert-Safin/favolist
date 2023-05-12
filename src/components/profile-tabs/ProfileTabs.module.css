@@ -1,7 +1,0 @@
-.tabs {
-  @apply flex text-sm border-b justify-around px-2
-}
-
-.tabActive {
-  @apply border-b-2 border-purple text-purple pb-4 w-1/4 text-center
-}
