@@ -70,7 +70,7 @@ const ShowList: NextPage<Props> = (props) => {
 
         <div className={styles.userInfo}>
           <Image src={props.user.avatar!} alt={'user avatar'} className={styles.image} width={100} height={100} />
-          <h1 className={styles.lisTitle}>{props.user.lists[0].title}</h1>
+          {listHasNoProducts && <h1 className={styles.lisTitle}>{props.user.lists[0].title}</h1>}
         </div>
 
       </div>
