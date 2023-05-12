@@ -30,6 +30,7 @@ const NewProduct: NextPage = () => {
       </>
     )
   }
+  const username = session.user?.name!.replace(/ /g, "-")
 
 
 
@@ -76,7 +77,7 @@ const NewProduct: NextPage = () => {
 
 
           if (response.ok) {
-            router.push(`/users/${session?.user?.name}`);
+            router.push(`/users/${username}`);
           }
         } catch (error) {
           console.log(error);
