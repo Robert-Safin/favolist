@@ -126,7 +126,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const usernameSlug = (context.params!.usernameSlug! as string).replace(/\s/g, "-");
   const listIdSlug = context.params!.listIdSlug
 
-
+console.log(usernameSlug, listIdSlug);
 
   if (!usernameSlug || !listIdSlug) {
     // to do
@@ -145,6 +145,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     path: 'lists',
     match: { title: listIdSlug }
   })
+
 
 
 
