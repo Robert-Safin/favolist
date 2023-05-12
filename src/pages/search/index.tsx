@@ -10,22 +10,15 @@ import { FormEventHandler, useState } from 'react';
 import styles from './index.module.css'
 import { useSession } from 'next-auth/react';
 import { ObjectId } from 'mongoose';
-import { Session as NextAuthSession } from "next-auth";
+import CustomSession from '@/utils/Session';
 
 
-interface Session extends NextAuthSession {
-  user: {
-    name?: string | null;
-    email?: string | null;
-    image?: string | null;
-    username?: string;
-  };
-}
+
 interface Props { }
 
 const SearchPage: NextPage<Props> = (props) => {
   const { data: session, status } = useSession()
-  const userSession = session as Session | null;
+  const userSession = session as CustomSession
   const [foundUsers, setFoundUsers] = useState<UserModelSchema[]>([]);
   const [foundLists, setFoundLists] = useState<ListModelSchema[]>([]);
   const [foundProducts, setFoundProducts] = useState<ProductModelSchema[]>([]);

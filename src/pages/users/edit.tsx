@@ -6,21 +6,14 @@ import { useSession } from 'next-auth/react'
 import { UserProfileUpdateForm } from "../api/users/edit"
 import {useRouter} from 'next/router'
 import { signIn } from 'next-auth/react'
-import { Session as NextAuthSession } from "next-auth";
+import CustomSession from "@/utils/Session"
 
 
-interface Session extends NextAuthSession {
-  user: {
-    name?: string | null;
-    email?: string | null;
-    image?: string | null;
-    username?: string;
-  };
-}
+
 
 const EditProfile: NextPage = () => {
   const { data: session, status } = useSession()
-  const userSession = session as Session | null;
+  const userSession = session as CustomSession
   const router = useRouter()
   //const usernameRef = useRef<HTMLInputElement>(null)
   const bioRef = useRef<HTMLTextAreaElement>(null)

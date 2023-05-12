@@ -1,10 +1,9 @@
 import { connectDB } from "@/db/lib/connectDb";
 
-import { User, List, Product } from "@/db/models";
-import { ListModelSchema } from "@/db/models/List";
+import { User } from "@/db/models";
 import { UserModelSchema } from "@/db/models/User";
 import { GetServerSideProps, NextPage } from "next";
-import { getSession, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
 import styles from './index.module.css'
@@ -16,17 +15,10 @@ import { MdOutlineArrowBackIos } from 'react-icons/md'
 import ToggleView from "@/components/toggleViewListCard/ToggleView";
 
 
-import { Session as NextAuthSession } from "next-auth";
+import CustomSession from "@/utils/Session";
 
 
-interface Session extends NextAuthSession {
-  user: {
-    name?: string | null;
-    email?: string | null;
-    image?: string | null;
-    username?: string;
-  };
-}
+
 interface Props {
   user: UserModelSchema
 }
@@ -34,7 +26,7 @@ interface Props {
 const ShowList: NextPage<Props> = (props) => {
 
   const { data: session, status } = useSession()
-  const userSession = session as Session | null;
+  const userSession = session as CustomSession
   const router = useRouter()
   const usernameSlug = router.query.usernameSlug
   const listIdSlug = router.query.listIdSlug
