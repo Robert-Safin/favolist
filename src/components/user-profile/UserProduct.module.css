@@ -37,6 +37,9 @@
 .image {
   @apply object-cover h-36 w-36
 }
+.logo {
+  @apply object-cover w-6 h-6
+}
 
 .iconContainer {
   @apply flex flex-col items-center mr-2

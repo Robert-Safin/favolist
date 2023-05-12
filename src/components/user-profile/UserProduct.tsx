@@ -17,6 +17,7 @@ interface Props {
   image: string
   avatar: string
   username: string
+  logo: string
 }
 
 const UserProduct: FC<Props> = (props) => {
@@ -75,10 +76,14 @@ const UserProduct: FC<Props> = (props) => {
 
         <div className={styles.cardActionsContainer}>
 
+          <Link href={`/users/${props.username}`}>
           <div className={styles.userInfo}>
             <Image className={styles.avatar} src={props.avatar} alt='user avatar' width={40} height={40} />
             <p>{props.username}</p>
           </div>
+          </Link>
+
+          <Image  className={styles.logo} src={props.logo} alt={`product brand`} width={50} height={50}/>
 
           <div className={styles.iconsContainer}>
 

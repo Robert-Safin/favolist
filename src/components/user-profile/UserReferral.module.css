@@ -7,7 +7,7 @@
 }
 
 .image {
-  @apply object-cover w-48 h-48
+  @apply object-cover w-36 h-36
 }
 
 .listName {
@@ -31,4 +31,7 @@
 
 .copyIcon {
   @apply ml-auto text-gray-400 text-xl
+}
+.referralDiscription {
+  @apply line-clamp-2
 }

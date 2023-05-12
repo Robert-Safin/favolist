@@ -115,6 +115,7 @@ const ShowList: NextPage<Props> = (props) => {
               image={product.productImage}
               avatar={props.user.avatar!}
               username={props.user.username}
+              logo={product.productLogo}
             />)}
           </div>
         </>}

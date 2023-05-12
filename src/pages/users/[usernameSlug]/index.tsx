@@ -109,7 +109,20 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
     return product.referral.length > 0
   })
 
+  const handleFollow = () => {
+    const data = {
+      currentUsername: userSession?.user.username,
+      //followTargetID: props.user
+    }
 
+    try {
+
+    } catch(error) {
+      console.log(error);
+
+    }
+
+  }
 
   return (
 
@@ -138,8 +151,8 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
           </div>
 
           <div className={styles.buttonContainer}>
-            {userIsProfileOwner && <Link href={`#`} className={styles.button}>Edit profile</Link>}
-            {!userIsProfileOwner && <Link href={`#`} className={styles.button}>Follow</Link>}
+            {userIsProfileOwner && <Link href={`/users/edit`} className={styles.button}>Edit profile</Link>}
+            {!userIsProfileOwner && <button onClick={handleFollow} className={styles.button}>Follow</button>}
           </div>
         </div>
       </div>
@@ -168,6 +181,7 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
             listName={product.productListName}
             image={product.productImage}
             avatar={props.user.avatar}
+            logo={product.productLogo}
             username={props.user.username}
           />
         )}
@@ -254,6 +268,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 
 
+
   return {
     props: {
       user: {
@@ -261,6 +276,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         avatar: userDoc.avatar,
         username: userDoc.username,
         bio: userDoc.bio,
+        _id: await JSON.parse(JSON.stringify(userDoc._id)),
         followers: await JSON.parse(JSON.stringify(userDoc.followers)),
         following: await JSON.parse(JSON.stringify(userDoc.follows)),
         lists: await JSON.parse(JSON.stringify(userDoc.lists)),

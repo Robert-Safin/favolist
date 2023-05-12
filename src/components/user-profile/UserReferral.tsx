@@ -28,7 +28,7 @@ const UserReferral: FC<Props> = (props) => {
               <h1 className={styles.listName}>{props.listName}</h1>
               <h2 className={styles.title}>{props.title}</h2>
               <h3 className={styles.price}>${props.price}</h3>
-              <p>{props.referralDiscription}</p>
+              <p className={styles.referralDiscription}>{props.referralDiscription}</p>
             </div>
 
             <Image className={styles.image} src={props.image} alt={props.title} width={300} height={300} />

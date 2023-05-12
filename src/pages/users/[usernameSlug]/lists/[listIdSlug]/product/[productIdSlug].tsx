@@ -107,9 +107,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const userSlug = context.query.usernameSlug
   const listSlug = context.query.listIdSlug
   const productSlug = context.query.productIdSlug
-  // console.log(userSlug);
-  // console.log(listSlug);
-  // console.log(productSlug);
 
 
 
