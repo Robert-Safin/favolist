@@ -47,7 +47,7 @@ const NewList: NextPage = () => {
       reader.onloadend = async (e) => {
         const base64 = e.target!.result;
         const data = {
-          userEmail: userSession.user.username,
+          userEmail: userSession.user.email,
           listTitle: enteredTitle,
           listAbout: enteredAbout,
           image: base64,

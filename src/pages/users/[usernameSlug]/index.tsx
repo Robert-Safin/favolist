@@ -98,7 +98,6 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
       </>
     )
   }
-  console.log(session);
 
 
   const handleClick = (title: string) => {
