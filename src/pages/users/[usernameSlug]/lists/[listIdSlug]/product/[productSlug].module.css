@@ -1,0 +1,41 @@
+.mainContainer {
+  @apply w-full p-2
+}
+
+.productStats {
+  @apply text-center
+}
+
+.user {
+  @apply flex justify-between border-b border-gray-200 items-center my-4
+}
+
+.actions {
+  @apply flex
+}
+
+.iconContainer {
+  @apply flex flex-col items-center
+}
+
+.tabs {
+  @apply flex justify-between
+}
+
+.activeTab {
+  @apply border-b border-purple
+}
+
+.nonActiveTab {
+  @apply border-b border-gray-200
+}
+
+.image {
+  @apply object-cover w-96 h-96
+}
+.avatar {
+  @apply object-cover w-6 h-6 rounded-full
+}
+.logo {
+  @apply object-cover w-6 h-6
+}

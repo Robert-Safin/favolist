@@ -4,6 +4,7 @@ import { FC } from 'react'
 import styles from './FoundProductCard.module.css'
 import Image from 'next/image'
 import { UserModelSchema } from '@/db/models/User'
+import Link from 'next/link'
 interface Props {
   productId: ObjectId
   userId: ObjectId |UserModelSchema
@@ -21,13 +22,7 @@ interface Props {
 
 const FoundProductCard: FC<Props> = (props) => {
 
-  const maxContentLength = 100
-  let shortContent
-  if (props.content.length > maxContentLength) {
-    shortContent = props.content.substring(0, maxContentLength) + '...'
-  } else {
-    shortContent = props.content
-  }
+
   return (
     <div className={styles.productContainer}>
 
@@ -44,7 +39,9 @@ const FoundProductCard: FC<Props> = (props) => {
 
               <div className={styles.imageAndButton}>
                 <Image className={styles.image} src={props.productImage} alt={'product name'} width={100} height={100}/>
+                <Link href={`/users/${props.userName}/lists/${props.productListName}/product/${props.productName}`}>
                 <button className={styles.button}>View product</button>
+                </Link>
               </div>
 
       </div>
@@ -60,21 +57,3 @@ const FoundProductCard: FC<Props> = (props) => {
 }
 
 export default FoundProductCard
-
-// {props.productId}
-
-// {props.userId}
-
-// {props.listId}
-
-//
-
-// {props.productLogo}
-
-// {props.productImage}
-
-// {props.content}
-
-// {props.price}
-
-// {props.referral}
