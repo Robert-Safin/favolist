@@ -225,8 +225,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       notFound: true,
     };
   }
-  const userWithLists = await user.populate('lists')
-  const fullyPopulatedUser = await user.populate('products')
+  const userDoc = await user.populate('lists')
+
+  if (user.products.length > 0) {
+    await userDoc.populate('products')
+  }
+
 
 
 
@@ -237,14 +241,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       user: {
-        email: fullyPopulatedUser.email,
-        avatar: fullyPopulatedUser.avatar,
-        username: fullyPopulatedUser.username,
-        bio: fullyPopulatedUser.bio,
-        followers: await JSON.parse(JSON.stringify(fullyPopulatedUser.followers)),
-        following: await JSON.parse(JSON.stringify(fullyPopulatedUser.follows)),
-        lists: await JSON.parse(JSON.stringify(fullyPopulatedUser.lists)),
-        products: await JSON.parse(JSON.stringify(fullyPopulatedUser.products))
+        email: userDoc.email,
+        avatar: userDoc.avatar,
+        username: userDoc.username,
+        bio: userDoc.bio,
+        followers: await JSON.parse(JSON.stringify(userDoc.followers)),
+        following: await JSON.parse(JSON.stringify(userDoc.follows)),
+        lists: await JSON.parse(JSON.stringify(userDoc.lists)),
+        products: await JSON.parse(JSON.stringify(userDoc.products))
       }
     },
   };
