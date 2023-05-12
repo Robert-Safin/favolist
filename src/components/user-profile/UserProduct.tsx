@@ -22,7 +22,8 @@ interface Props {
 const UserProduct: FC<Props> = (props) => {
   const router = useRouter()
   const userSlug =  router.query.usernameSlug
-  const listSlug = router.query.listIdSlug
+
+
 
 
 
@@ -59,7 +60,7 @@ const UserProduct: FC<Props> = (props) => {
 
 
           <div>
-            <Link href={`/users/${userSlug}/lists/${listSlug}/product/${props.title}`}>
+            <Link href={`/users/${userSlug}/lists/${props.listName}/product/${props.title}`}>
             <Image className={styles.image} src={props.image} alt={props.listName} width={80} height={80} onLoad={handleImageLoad} />
             </Link>
           </div>

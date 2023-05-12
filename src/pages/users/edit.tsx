@@ -6,14 +6,26 @@ import { useSession } from 'next-auth/react'
 import { UserProfileUpdateForm } from "../api/users/edit"
 import {useRouter} from 'next/router'
 import { signIn } from 'next-auth/react'
+import { Session as NextAuthSession } from "next-auth";
+
+
+interface Session extends NextAuthSession {
+  user: {
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+    username?: string;
+  };
+}
 
 const EditProfile: NextPage = () => {
   const { data: session, status } = useSession()
+  const userSession = session as Session | null;
   const router = useRouter()
   //const usernameRef = useRef<HTMLInputElement>(null)
   const bioRef = useRef<HTMLTextAreaElement>(null)
 
-  if (!session) {
+  if (!userSession) {
     return (
       <>
         <button onClick={() => signIn()}>Login</button>
@@ -31,7 +43,7 @@ const EditProfile: NextPage = () => {
     const formData: UserProfileUpdateForm = {
       //newUsername: usernameRef.current?.value as string,
       newBio: bioRef.current?.value as string,
-      userEmail: session?.user?.email as string
+      userEmail: userSession.user.email as string
     }
     try {
       const response = await fetch('/api/users/edit', {
@@ -42,7 +54,7 @@ const EditProfile: NextPage = () => {
         body: JSON.stringify(formData)
       })
       if (response.ok) {
-        router.push(`/users/${session?.user?.name}`)
+        router.push(`/users/${userSession.user.username}`)
       }
     } catch (error) {
       console.log(error);

@@ -7,6 +7,7 @@ import { BsBookmark } from "react-icons/bs";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { FaRegComment } from "react-icons/fa";
 import { useState } from "react";
+import { RxLinkedinLogo } from "react-icons/rx";
 interface Props {
   user: UserModelSchema
 }
@@ -106,6 +107,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const userSlug = context.query.usernameSlug
   const listSlug = context.query.listIdSlug
   const productSlug = context.query.productIdSlug
+  // console.log(userSlug);
+  // console.log(listSlug);
+  // console.log(productSlug);
+
+
 
   const userDoc = await User.findOne({ username: userSlug })
 
