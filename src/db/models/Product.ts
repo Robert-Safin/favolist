@@ -9,8 +9,10 @@ export interface ProductModelSchema extends Document {
   productLogo: string;
   productImage: string;
   content: string;
+  specs: string;
   price: number;
   referral: string;
+  referralDiscription: string
 }
 
 const ProductSchema = new mongoose.Schema<ProductModelSchema>(
@@ -46,6 +48,10 @@ const ProductSchema = new mongoose.Schema<ProductModelSchema>(
       type: String,
       required: true,
     },
+    specs: {
+      type: String,
+      default: ''
+    },
     price: {
       type: Number,
       required: true,
@@ -54,6 +60,10 @@ const ProductSchema = new mongoose.Schema<ProductModelSchema>(
       type: String,
       default: "",
     },
+    referralDiscription : {
+      type: String,
+      default: "",
+    }
   },
   {
     timestamps: true,

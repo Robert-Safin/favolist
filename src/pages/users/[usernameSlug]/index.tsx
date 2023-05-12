@@ -16,6 +16,7 @@ import UserList from "@/components/user-profile/UserList";
 import { useState } from "react";
 
 import ProductCardProfile from "@/components/product-card-profile/ProductCard";
+import UserReferral from "@/components/user-profile/UserReferral";
 
 
 
@@ -47,22 +48,36 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
   const [productIsActive, setProductIsActive] = useState(false)
   const [listIsActive, setListIsActive] = useState(true)
   const [accountIsActive, setAccountIsActive] = useState(false)
+  const [referralIsActive, setReferralIsActive] = useState(false)
 
   const handleProductClick = () => {
     setProductIsActive(true)
     setListIsActive(false)
     setAccountIsActive(false)
+    setReferralIsActive(false)
   }
   const handleListClick = () => {
     setProductIsActive(false)
     setListIsActive(true)
     setAccountIsActive(false)
+    setReferralIsActive(false)
+
   }
   const handleProfileClick = () => {
     setProductIsActive(false)
     setListIsActive(false)
     setAccountIsActive(true)
+    setReferralIsActive(false)
   }
+
+  const handleReferralClick = () => {
+    setProductIsActive(false)
+    setListIsActive(false)
+    setAccountIsActive(false)
+    setReferralIsActive(true)
+  }
+
+
   if (!session) {
     return (
       <>
@@ -76,6 +91,9 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
   };
 
 
+  const productsWithReferrals = props.user.products.filter(product => {
+    return product.referral.length > 0
+  })
 
 
 
@@ -115,27 +133,29 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
       <div className={styles.tabContainer}>
         <button className={productIsActive ? styles.activeTab : styles.tabLink} onClick={handleProductClick}>Products</button>
         <button className={listIsActive ? styles.activeTab : styles.tabLink} onClick={handleListClick}>Lists</button>
+        <button className={referralIsActive ? styles.activeTab : styles.tabLink} onClick={handleReferralClick}>Referral</button>
         <button className={accountIsActive ? styles.activeTab : styles.tabLink} onClick={handleProfileClick}>Profile</button>
+
       </div>
 
       <ToggleView />
 
 
       <div className={styles.productsContainer}>
-        {!userHasProducts && <h1 className={styles.userHasNoLists}>User has no products</h1>}
+        {!userHasProducts && productIsActive && <h1 className={styles.userHasNoLists}>User has no products</h1>}
         {userHasProducts && productIsActive && props.user.products.map(product =>
           <ProductCardProfile
-          key={String(product._id)}
-          title={product.productName}
-          price={product.price}
-          content={product.content}
-          referral={product.referral}
-          listName={product.productListName}
-          image={product.productImage}
-          avatar={props.user.avatar}
-          username={props.user.username}
+            key={String(product._id)}
+            title={product.productName}
+            price={product.price}
+            content={product.content}
+            referral={product.referral}
+            listName={product.productListName}
+            image={product.productImage}
+            avatar={props.user.avatar}
+            username={props.user.username}
           />
-      )}
+        )}
       </div>
 
 
@@ -147,24 +167,43 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
         {!userHasLists && <h1 className={styles.userHasNoLists}>User has no lists.<Link href={`/users/${session.user?.name}/lists/new-list`} className={styles.listLink}> Make new list</Link> </h1>}
         {userHasLists && listIsActive && props.user.lists.map(list =>
           <UserList
-          key={String(list._id)}
-          title={list.title}
-          products={list.products}
-          about={list.about}
-          thumbnail={list.thumbnail}
-          onClick={() => handleClick(list.title)}
-        />)}
+            key={String(list._id)}
+            title={list.title}
+            products={list.products}
+            about={list.about}
+            thumbnail={list.thumbnail}
+            onClick={() => handleClick(list.title)}
+          />)}
       </div>
 
-        <div className={styles.accountContainer}>
-          {accountIsActive &&
+
+      <div className={styles.referralContainer}>
+        {userHasProducts && referralIsActive && productsWithReferrals.map(product =>
+          <UserReferral
+            key={String(product._id)}
+            title={product.productName}
+            price={product.price}
+            content={product.content}
+            referral={product.referral}
+            referralDiscription={product.referralDiscription}
+            listName={product.productListName}
+            image={product.productImage}
+            avatar={props.user.avatar}
+            username={props.user.username}
+          />
+        )}
+
+      </div>
+
+      <div className={styles.accountContainer}>
+        {accountIsActive &&
           <>
-          <h1 className={styles.userBioTitle}>Bio</h1>
-          <p className={styles.userBio}>{props.user.bio}</p>
-          <h1 className={styles.userSocialsTitle}>Socials</h1>
+            <h1 className={styles.userBioTitle}>Bio</h1>
+            <p className={styles.userBio}>{props.user.bio}</p>
+            <h1 className={styles.userSocialsTitle}>Socials</h1>
           </>
-          }
-        </div>
+        }
+      </div>
 
 
     </div>

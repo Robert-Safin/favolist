@@ -20,22 +20,25 @@ const UserList: FC<Props> = (props) => {
   };
 
   return (
-    <div className={styles.listContainer} onClick={() => props.onClick(props.title)}>
+    <>
+      {isImageLoading && <div className={styles.ldsGrid}><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>}
+      <div className={styles.listContainer} onClick={() => props.onClick(props.title)}>
 
-      <div className={styles.imageContainer}>
-        {isImageLoading && <div className={styles.ldsCircle}><div></div></div>}
-        <Image src={props.thumbnail} alt={props.title} width={500} height={500} className={styles.image} onLoad={handleImageLoad} />
+        <div className={styles.imageContainer}>
 
-        <div className={styles.titles}>
-          <p className={styles.products}>{props.products.length} products</p>
-          <h1 className={styles.title}>{props.title}</h1>
+          <Image src={props.thumbnail} alt={props.title} width={500} height={500} className={styles.image} onLoad={handleImageLoad} />
+
+          <div className={styles.titles}>
+            <p className={styles.products}>{props.products.length} products</p>
+            <h1 className={styles.title}>{props.title}</h1>
+          </div>
+
         </div>
 
+        <p className={styles.about}>{props.about}</p>
+
       </div>
-
-      <p className={styles.about}>{props.about}</p>
-
-    </div>
+    </>
   );
 };
 

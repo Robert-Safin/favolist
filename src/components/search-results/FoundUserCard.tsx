@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { FC, useState } from 'react'
 import styles from './FoundUserCard.module.css'
 import { UserModelSchema } from '@/db/models/User'
+import Link from 'next/link'
 interface Props {
   userId: ObjectId
   username: string,
@@ -38,7 +39,9 @@ const FoundUserCard: FC<Props> = (props) => {
 
       <div className={styles.userInfo}>
 
+        <Link href={`/users/${props.username}`}>
         <Image className={styles.avatar} src={props.avatar} alt={'user avatar'} width={30} height={30} />
+        </Link>
 
         <div className={styles.userStats}>
           <p className={styles.username}>{props.username}</p>
