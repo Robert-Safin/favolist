@@ -10,10 +10,22 @@ import { FormEventHandler, useState } from 'react';
 import styles from './index.module.css'
 import { useSession } from 'next-auth/react';
 import { ObjectId } from 'mongoose';
+import { Session as NextAuthSession } from "next-auth";
+
+
+interface Session extends NextAuthSession {
+  user: {
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+    username?: string;
+  };
+}
 interface Props { }
 
 const SearchPage: NextPage<Props> = (props) => {
   const { data: session, status } = useSession()
+  const userSession = session as Session | null;
   const [foundUsers, setFoundUsers] = useState<UserModelSchema[]>([]);
   const [foundLists, setFoundLists] = useState<ListModelSchema[]>([]);
   const [foundProducts, setFoundProducts] = useState<ProductModelSchema[]>([]);
@@ -44,14 +56,15 @@ const SearchPage: NextPage<Props> = (props) => {
     }
   };
 
-  const currentUsername = session?.user?.name!.replace(/ /g, "-")
+
+
   const handleSubmit: FormEventHandler = (event) => {
     event.preventDefault();
   };
 
   const handleFollow = async (userId: ObjectId) => {
     const data = {
-      currentUsername: currentUsername,
+      currentUserEmail: userSession?.user.email,
       followTargetID: userId,
     }
     try {
@@ -70,7 +83,7 @@ const SearchPage: NextPage<Props> = (props) => {
 
   const handleUnfollow = async(userId: ObjectId) => {
     const data = {
-      currentUsername: currentUsername,
+      currentUserEmail: userSession?.user.email,
       unfollowTargetID: userId,
     }
     try {
@@ -111,7 +124,7 @@ const SearchPage: NextPage<Props> = (props) => {
             followers={user.followers}
             lists={user.lists}
             products={user.products}
-            currentUsername={currentUsername!}
+            currentUsername={userSession?.user.email!}
             handleFollow={handleFollow}
             isFollowed={isFollowed}
             handleUnfollow={handleUnfollow}

@@ -8,12 +8,12 @@ import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 
 
 const handler: NextApiHandler = async (req: NextApiRequest,res: NextApiResponse) => {
-  const currentUsername = req.body.currentUsername
+  const currentUserEmail = req.body.currentUserEmail
   const unfollowTargetID= req.body.unfollowTargetID
 
   try {
     await connectDB()
-    const currentUser = await User.findOne({username: currentUsername})
+    const currentUser = await User.findOne({email: currentUserEmail})
     const unfollowTarget = await User.findOne({_id: unfollowTargetID})
      // @ts-ignore missging mongoose models :(
     const userFollowing = await currentUser?.follows.pull(unfollowTargetID)

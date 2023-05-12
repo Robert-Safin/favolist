@@ -8,12 +8,12 @@ import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 
 
 const handler: NextApiHandler = async (req: NextApiRequest,res: NextApiResponse) => {
-  const currentUsername = req.body.currentUsername
+  const currentUserEmail = req.body.currentUserEmail
   const followTargetID= req.body.followTargetID
 
   try {
     await connectDB()
-    const currentUser = await User.findOne({username: currentUsername})
+    const currentUser = await User.findOne({email: currentUserEmail})
     const followTarget = await User.findOne({_id: followTargetID})
 
     const userFollowing = await currentUser?.follows.push(followTarget!)
