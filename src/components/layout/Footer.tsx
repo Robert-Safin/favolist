@@ -11,6 +11,13 @@ import { useSession } from "next-auth/react";
 const Footer: FC = () => {
 
   const { data: session, status } = useSession()
+  const username = session?.user?.name!.replace(/ /g, "-")
+
+  if (!session) {
+    return <p>no session</p>
+  }
+
+
 
 
   return (
@@ -24,13 +31,13 @@ const Footer: FC = () => {
           <Link href="/search" className={styles.menulink}><GoSearch /></Link>
         </div>
         <div className={styles.menuitem}>
-          <Link href={`/users/${session?.user?.name}`} className={styles.menulink}><CgProfile /></Link>
+          <Link href={`/users/${username}`} className={styles.menulink}><CgProfile /></Link>
         </div>
         <div className={styles.menuitem}>
           <Link href="/users/edit" className={styles.menulink}><AiOutlineSetting /></Link>
         </div>
         <div className={styles.menuitem}>
-          <Link href={`/users/${session?.user?.name}/lists/new-list`} className={styles.menulink}><RiAddFill /></Link>
+          <Link href={`/users/${username}/lists/new-list`} className={styles.menulink}><RiAddFill /></Link>
         </div>
       </div>
     </div>

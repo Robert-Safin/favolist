@@ -215,9 +215,9 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   await connectDB();
-  const session = await getSession(context);
-  const userEmail = session?.user?.email;
-  const user = await User.findOne({ email: userEmail });
+  const username = context.params!.usernameSlug
+
+  const user = await User.findOne({ username: username });
 
   if (!user) {
     // to do
