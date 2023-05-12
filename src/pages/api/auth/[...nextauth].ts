@@ -1,7 +1,11 @@
 import { connectDB } from "@/db/lib/connectDb";
-import NextAuth, { NextAuthOptions } from "next-auth";
-import GithubAuthProvider from "next-auth/providers/github";
-import { User, List, Product } from "@/db/models";
+import NextAuth, { NextAuthOptions, User as NextAuthUser } from "next-auth";
+import GithubAuthProvider, { GithubProfile } from "next-auth/providers/github";
+import { User } from "@/db/models";
+
+interface User extends NextAuthUser {
+  username?: string;
+}
 
 const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
@@ -24,14 +28,28 @@ const authOptions: NextAuthOptions = {
             username: profile.login,
             provider: "github",
             avatar: profile.avatar_url,
-            products: [], // Add this line
+            products: [],
           });
           await newUser.save();
         }
-        return profile;
+
+        return { ...profile, username: profile.login };
       },
     }),
   ],
+  callbacks: {
+    async jwt({ token,  profile }) {
+      const githubProfile = profile as GithubProfile;
+      if (profile) {
+        token.username = githubProfile.login
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      const user = { ...session.user, username: token.username } as User;
+      return { ...session, user };
+    }
+  }
 };
 
 export default NextAuth(authOptions);

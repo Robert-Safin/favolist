@@ -4,21 +4,35 @@ import styles from './new-list.module.css';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
+
+import { Session as NextAuthSession } from "next-auth";
+
+
+interface Session extends NextAuthSession {
+  user: {
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+    username?: string;
+  };
+}
 const NewList: NextPage = () => {
   const { data: session, status } = useSession();
+  const userSession = session as Session | null;
+
   const router = useRouter();
   const titleRef = useRef<HTMLInputElement>(null);
   const imageRef = useRef<HTMLInputElement>(null);
   const aboutRef = useRef<HTMLTextAreaElement>(null);
 
-  if (!session) {
+  if (!userSession) {
     return (
       <>
         <button onClick={() => signIn()}>Login</button>
       </>
     )
   }
-  const username = session.user?.name!.replace(/ /g, "-")
+
 
   const handleSubmit: FormEventHandler = async (event) => {
     event.preventDefault();
@@ -33,7 +47,7 @@ const NewList: NextPage = () => {
       reader.onloadend = async (e) => {
         const base64 = e.target!.result;
         const data = {
-          userEmail: session?.user?.email,
+          userEmail: userSession.user.email,
           listTitle: enteredTitle,
           listAbout: enteredAbout,
           image: base64,
@@ -49,7 +63,7 @@ const NewList: NextPage = () => {
           });
           if (response.ok) {
             console.log(await response.json());
-            router.push(`/users/${username}`);
+            router.push(`/users/${userSession.user.username}`);
           }
         } catch (error) {
           // to do

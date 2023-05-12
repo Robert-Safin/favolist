@@ -8,8 +8,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const token = await getToken({ req })
 
 
-
-
   try {
     const query = req.body;
     await connectDB();

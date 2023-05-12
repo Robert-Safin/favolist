@@ -6,6 +6,8 @@ import { IoMdAddCircleOutline } from 'react-icons/io'
 import { FaRegComment } from 'react-icons/fa'
 
 import { RxDotsHorizontal } from 'react-icons/rx'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 interface Props {
   title: string
   price: number
@@ -18,14 +20,17 @@ interface Props {
 }
 
 const UserProduct: FC<Props> = (props) => {
+  const router = useRouter()
+  const userSlug =  router.query.usernameSlug
+  const listSlug = router.query.listIdSlug
+
+
+
   const [isImageLoading, setImageLoading] = useState(true);
 
   const handleImageLoad = () => {
     setImageLoading(false);
   };
-
-
-  const productHasReferral = props.referral.length > 0
 
 
   return (
@@ -54,7 +59,9 @@ const UserProduct: FC<Props> = (props) => {
 
 
           <div>
+            <Link href={`/users/${userSlug}/lists/${listSlug}/product/${props.title}`}>
             <Image className={styles.image} src={props.image} alt={props.listName} width={80} height={80} onLoad={handleImageLoad} />
+            </Link>
           </div>
 
 

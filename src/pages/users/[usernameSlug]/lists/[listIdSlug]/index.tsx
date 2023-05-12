@@ -14,6 +14,19 @@ import Image from "next/image";
 import UserProduct from "@/components/user-profile/UserProduct";
 import { MdOutlineArrowBackIos } from 'react-icons/md'
 import ToggleView from "@/components/toggleViewListCard/ToggleView";
+
+
+import { Session as NextAuthSession } from "next-auth";
+
+
+interface Session extends NextAuthSession {
+  user: {
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+    username?: string;
+  };
+}
 interface Props {
   user: UserModelSchema
 }
@@ -21,6 +34,7 @@ interface Props {
 const ShowList: NextPage<Props> = (props) => {
 
   const { data: session, status } = useSession()
+  const userSession = session as Session | null;
   const router = useRouter()
   const usernameSlug = router.query.usernameSlug
   const listIdSlug = router.query.listIdSlug
@@ -33,7 +47,7 @@ const ShowList: NextPage<Props> = (props) => {
 
 
 
-  if (!session) {
+  if (!userSession) {
     return (
       <>
         <button onClick={() => signIn()}>Login</button>
@@ -66,7 +80,7 @@ const ShowList: NextPage<Props> = (props) => {
       <div className={styles.nav}>
 
 
-        <Link href={`/users/${session.user?.name}`} className={styles.backLink}><MdOutlineArrowBackIos /></Link>
+        <Link href={`/users/${userSession.user.username}`} className={styles.backLink}><MdOutlineArrowBackIos /></Link>
 
         <div className={styles.userInfo}>
           <Image src={props.user.avatar!} alt={'user avatar'} className={styles.image} width={100} height={100} />
@@ -123,7 +137,7 @@ export default ShowList
 export const getServerSideProps: GetServerSideProps = async (context) => {
   await connectDB();
 
-  const usernameSlug = (context.params!.usernameSlug! as string).replace(/\s/g, "-");
+  const usernameSlug = context.params!.usernameSlug!
   const listIdSlug = context.params!.listIdSlug
 
 
