@@ -1,0 +1,21 @@
+
+
+.user {
+  @apply flex border-b border-gray-200 items-center justify-center
+}
+
+.avatar {
+  @apply rounded-full h-8 w-8
+}
+
+.tabs {
+  @apply flex justify-evenly my-3
+}
+
+.activeTab {
+  @apply border-b border-purple
+}
+
+.nonActiveTab {
+  @apply border-b border-gray-200
+}
