@@ -98,17 +98,17 @@ const ShowList: NextPage<Props> = (props) => {
             {listHasNoProducts && <p className={styles.listNoProducts}>No products in this list yet</p>}
             {props.user.products.map((product) =>
               <UserProduct
-              key={product.id}
-              title={product.productName}
-              price={product.price}
-              content={product.content}
-              referral={product.referral}
-              listName={product.productListName}
-              image={product.productImage}
-              avatar={props.user.avatar!}
-              username={props.user.username}
-              logo={product.productLogo}
-            />)}
+                key={product.id}
+                title={product.productName}
+                price={product.price}
+                content={product.content}
+                referral={product.referral}
+                listName={product.productListName}
+                image={product.productImage}
+                avatar={props.user.avatar!}
+                username={props.user.username}
+                logo={product.productLogo}
+              />)}
           </div>
         </>}
 
@@ -116,6 +116,7 @@ const ShowList: NextPage<Props> = (props) => {
 
       {showListAbout &&
         <div className={styles.listInfoContainer}>
+          <Link href={`/users/${usernameSlug}/lists/${listIdSlug}/edit-description`}><button className={styles.editListDescription}>Edit list</button></Link>
           <h1 className={styles.listTitle}>{props.user.lists[0].title}</h1>
           <p className={styles.listAbout}>{props.user.lists[0].about}</p>
         </div>}

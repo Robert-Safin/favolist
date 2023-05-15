@@ -56,3 +56,8 @@
 .buttonContainer {
   @apply flex justify-evenly
 }
+
+
+.editListDescription {
+  @apply bg-purple p-1
+}

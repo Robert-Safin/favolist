@@ -1,0 +1,7 @@
+
+.form {
+  @apply flex flex-col w-1/2 mx-auto
+}
+.input {
+  @apply border border-purple
+}
