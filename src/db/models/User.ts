@@ -14,6 +14,7 @@ export interface UserModelSchema extends Document {
   lists: ListModelSchema[];
   products: ProductModelSchema[];
   socials: Social[];
+  bookmarks: ProductModelSchema[];
 }
 
 interface Social {
@@ -109,7 +110,13 @@ const UserSchema = new mongoose.Schema<UserModelSchema>(
         },
       ],
       default: [],
+
     },
+    bookmarks: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Product",
+      default: [],
+    }],
   },
   {
     timestamps: true,

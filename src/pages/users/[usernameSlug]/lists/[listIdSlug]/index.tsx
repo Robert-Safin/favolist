@@ -51,8 +51,6 @@ const ShowList: NextPage<Props> = (props) => {
     router.push(`/users/${usernameSlug}/lists/${listIdSlug}/new-product`)
   }
 
-
-
   const handleShowProducts = () => {
     setShowProducts(true)
     setShowListAbout(false)
@@ -62,8 +60,6 @@ const ShowList: NextPage<Props> = (props) => {
     setShowProducts(false)
     setShowListAbout(true)
   }
-
-
 
 
   return (
@@ -76,7 +72,7 @@ const ShowList: NextPage<Props> = (props) => {
 
         <div className={styles.userInfo}>
           <Image src={props.user.avatar!} alt={'user avatar'} className={styles.image} width={100} height={100} />
-          {listHasNoProducts && <h1 className={styles.lisTitle}>{props.user.lists[0].title}</h1>}
+          {!listHasNoProducts && <h1 className={styles.lisTitle}>{props.user.lists[0].title}</h1>}
         </div>
 
       </div>
@@ -133,6 +129,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const usernameSlug = context.params!.usernameSlug!
   const listIdSlug = context.params!.listIdSlug
+  //console.log(listIdSlug);
 
 
 
@@ -144,21 +141,20 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
 
-  let userDoc = await User.findOne({ username: usernameSlug }).populate({
+  const userDoc = await User.findOne({ username: usernameSlug })
+
+
+    await userDoc!.populate({
     path: 'products',
     match: { productListName: listIdSlug }
   });
+  //console.log(userDoc);
+
 
   await userDoc?.populate({
     path: 'lists',
     match: { title: listIdSlug }
   })
-
-
-
-
-
-
 
 
   return {

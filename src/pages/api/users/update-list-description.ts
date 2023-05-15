@@ -1,5 +1,5 @@
 import { connectDB } from "@/db/lib/connectDb";
-import { List, User } from "@/db/models";
+import { List, Product, User } from "@/db/models";
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 import cloudinary from "cloudinary";
 
@@ -17,7 +17,7 @@ const handler: NextApiHandler = async (
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
-  const email = req.body.userEmail;
+  //const email = req.body.userEmail;
   const listId = req.body.listId;
   const title = req.body.listTitle;
   const about = req.body.listAbout;
@@ -45,12 +45,14 @@ const handler: NextApiHandler = async (
       res.json({message: "no secure url"})
     }
 
+    const listProducts = await Product.find({listId: listDoc?._id})
+    listProducts.forEach(async product => await product.updateOne({productListName: title }))
+
     await listDoc?.updateOne({title: title, about:about, thumbnail:thumbnail})
 
-
-
+    res.json({message:"updated"})
   } catch (error) {
-    console.log(error);
+    res.json({message: `there was an error:${error}`})
 
   }
 };
