@@ -17,10 +17,9 @@ const handler: NextApiHandler = async (req: NextApiRequest,res: NextApiResponse)
   try {
     await connectDB()
     const currentUser = await User.findOne({email: currentUserEmail})
-    //console.log('me:', currentUser);
+
 
     const unfollowTarget = await User.findOne({_id: unfollowTargetID})
-    //console.log('ante:',unfollowTarget );
 
 
 

@@ -133,7 +133,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const usernameSlug = context.params!.usernameSlug!
   const listIdSlug = context.params!.listIdSlug
 
-console.log(usernameSlug, listIdSlug);
+
 
   if (!usernameSlug || !listIdSlug) {
     // to do

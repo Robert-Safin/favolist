@@ -55,7 +55,7 @@ const NewList: NextPage = () => {
             body: JSON.stringify(data),
           });
           if (response.ok) {
-            console.log(await response.json());
+
             router.push(`/users/${userSession.user.username}`);
           }
         } catch (error) {
