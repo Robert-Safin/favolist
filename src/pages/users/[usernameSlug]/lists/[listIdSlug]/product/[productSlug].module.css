@@ -39,3 +39,6 @@
 .logo {
   @apply object-cover w-6 h-6
 }
+.userAvatarAndName {
+  @apply flex
+}

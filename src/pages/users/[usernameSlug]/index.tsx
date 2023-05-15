@@ -4,22 +4,23 @@ import { ProductModelSchema } from "@/db/models/Product";
 import { connectDB } from "@/db/lib/connectDb";
 import { User } from "@/db/models";
 import { GetServerSideProps, NextPage } from "next";
-import { signIn} from "next-auth/react";
+import { signIn } from "next-auth/react";
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import styles from './index.module.css';
 import ToggleView from "@/components/toggleViewListCard/ToggleView";
 
-
 import UserList from "@/components/user-profile/UserList";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import UserProduct from "@/components/user-profile/UserProduct";
 import UserReferral from "@/components/user-profile/UserReferral";
 
 import { useSession } from "next-auth/react";
 import CustomSession from "@/utils/Session";
+import { UserModelSchema } from "@/db/models/User";
+import { ObjectId } from "mongoose";
 
 
 
@@ -27,12 +28,13 @@ import CustomSession from "@/utils/Session";
 
 interface UserProfileProps {
   user: {
+    _id: ObjectId;
     email: string;
     avatar: string;
     username: string;
     bio: string;
-    following: string[];
-    followers: string[];
+    following: UserModelSchema[]
+    followers: UserModelSchema[]
     lists: ListModelSchema[];
     products: ProductModelSchema[]
     userLists: ListModelSchema[]
@@ -41,6 +43,7 @@ interface UserProfileProps {
 
 
 const UserProfile: NextPage<UserProfileProps> = (props) => {
+
   const { data: session, status } = useSession()
   const userSession = session as CustomSession
 
@@ -50,11 +53,30 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
   const userHasLists = props.user.lists.length > 0
   const userHasProducts = props.user.products.length > 0
 
+  const userIsAlreadyFollowed = props.user.followers && userSession && userSession.user && props.user.followers.some(follower => follower && follower.username === userSession.user.username);
 
   const [productIsActive, setProductIsActive] = useState(false)
   const [listIsActive, setListIsActive] = useState(true)
   const [accountIsActive, setAccountIsActive] = useState(false)
   const [referralIsActive, setReferralIsActive] = useState(false)
+  const [alreadyFollowed, setAlreadyFollowed] = useState(false)
+
+  useEffect(() => {
+    if (userIsAlreadyFollowed === true) {
+      setAlreadyFollowed(true)
+    } else {
+      setAlreadyFollowed(false)
+    }
+  }, [userIsAlreadyFollowed])
+
+  if (!session) {
+    return (
+      <>
+        <button onClick={() => signIn()}>Login</button>
+      </>
+    )
+  }
+
 
   const handleProductClick = () => {
     setProductIsActive(true)
@@ -67,7 +89,6 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
     setListIsActive(true)
     setAccountIsActive(false)
     setReferralIsActive(false)
-
   }
   const handleProfileClick = () => {
     setProductIsActive(false)
@@ -84,13 +105,6 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
   }
 
 
-  if (!session) {
-    return (
-      <>
-        <button onClick={() => signIn()}>Login</button>
-      </>
-    )
-  }
 
 
   const handleClick = (title: string) => {
@@ -102,19 +116,49 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
     return product.referral.length > 0
   })
 
-  const handleFollow = () => {
+
+
+
+  const handleFollow = async() => {
     const data = {
-      currentUsername: userSession?.user.username,
-      //followTargetID: props.user
+      currentUserEmail: userSession?.user.email,
+      followTargetID: props.user._id,
     }
-
     try {
-
-    } catch(error) {
+      const response = await fetch("/api/users/follow", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+      if (response.ok) {
+        setAlreadyFollowed(true)
+      }
+    } catch (error) {
       console.log(error);
-
     }
+  }
 
+  const handleUnfollow = async() => {
+    const data = {
+      currentUserEmail: userSession?.user.email,
+      unfollowTargetID: props.user._id,
+    }
+    try {
+      const response = await fetch("/api/users/unfollow", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+      if (response.ok) {
+        setAlreadyFollowed(false)
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -145,7 +189,9 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
 
           <div className={styles.buttonContainer}>
             {userIsProfileOwner && <Link href={`/users/edit`} className={styles.button}>Edit profile</Link>}
-            {!userIsProfileOwner && <button onClick={handleFollow} className={styles.button}>Follow</button>}
+            {!userIsProfileOwner && !alreadyFollowed && <button onClick={handleFollow} className={styles.button}>Follow</button>}
+            {!userIsProfileOwner && alreadyFollowed && <button onClick={handleUnfollow} className={styles.button}>Unfollow</button>}
+
           </div>
         </div>
       </div>
@@ -250,15 +296,17 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
   const userDoc = await user.populate('lists')
 
-  if (user.products.length > 0) {
+  if (userDoc.products.length > 0) {
     await userDoc.populate('products')
   }
 
+  if (user.followers.length > 0) {
+    await userDoc.populate("followers")
+  }
 
-
-
-
-
+  if (user.follows.length > 0) {
+    await userDoc.populate("follows")
+  }
 
 
 

@@ -50,6 +50,7 @@ const ShowProduct: NextPage<Props> = (props) => {
 
         <div className={styles.userAvatarAndName}>
           <Image src={props.user.avatar!} alt={props.user.username} width={50} height={50} className={styles.avatar}/>
+          <p>{props.user.username}</p>
         </div>
 
         <Image src={props.user.products[0].productLogo} alt={`product logo`} width={50} height={50} className={styles.logo}/>
@@ -122,6 +123,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     match: { productName: productSlug }
   })
 
+  console.log(userDoc);
 
   return {
     props: {

@@ -117,7 +117,7 @@ const SearchPage: NextPage<Props> = (props) => {
             followers={user.followers}
             lists={user.lists}
             products={user.products}
-            currentUsername={userSession?.user.email!}
+            currentUsername={userSession?.user.username!}
             handleFollow={handleFollow}
             isFollowed={isFollowed}
             handleUnfollow={handleUnfollow}

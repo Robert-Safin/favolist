@@ -11,14 +11,27 @@ const handler: NextApiHandler = async (req: NextApiRequest,res: NextApiResponse)
   const currentUserEmail = req.body.currentUserEmail
   const unfollowTargetID= req.body.unfollowTargetID
 
+
+
+
   try {
     await connectDB()
     const currentUser = await User.findOne({email: currentUserEmail})
+    //console.log('me:', currentUser);
+
     const unfollowTarget = await User.findOne({_id: unfollowTargetID})
+    //console.log('ante:',unfollowTarget );
+
+
+
+
      // @ts-ignore missging mongoose models :(
-    const userFollowing = await currentUser?.follows.pull(unfollowTargetID)
+    await currentUser?.follows.pull(unfollowTargetID)
      // @ts-ignore missging mongoose models :(
-    const userGettingFollowed = await unfollowTarget?.followers.pull(currentUsername)
+    await unfollowTarget?.followers.pull(currentUser)
+
+
+
 
     await currentUser?.save()
     await unfollowTarget?.save()

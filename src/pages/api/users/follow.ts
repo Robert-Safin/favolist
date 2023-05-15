@@ -9,7 +9,8 @@ import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 
 const handler: NextApiHandler = async (req: NextApiRequest,res: NextApiResponse) => {
   const currentUserEmail = req.body.currentUserEmail
-  const followTargetID= req.body.followTargetID
+  const followTargetID = req.body.followTargetID
+
 
   try {
     await connectDB()
@@ -23,7 +24,7 @@ const handler: NextApiHandler = async (req: NextApiRequest,res: NextApiResponse)
     await followTarget?.save()
 
 
-    res.json({message: "ok"})
+    res.json({message: "followed"})
 
   } catch (error) {
     res.json({message: 'there was an error', error: error})
