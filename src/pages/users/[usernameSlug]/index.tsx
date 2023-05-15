@@ -180,10 +180,15 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
               <p>{props.user.products.length}</p>
               <p>products</p>
             </div>
+
             <div className={styles.followersFollowing}>
+              <Link href={`/users/${props.user.username}/followers-and-following`}>
               <p>{props.user.followers.length} followers</p>
+              </Link>
               <p>·</p>
+              <Link href={`#`}>
               <p>{props.user.following.length} following</p>
+              </Link>
             </div>
           </div>
 

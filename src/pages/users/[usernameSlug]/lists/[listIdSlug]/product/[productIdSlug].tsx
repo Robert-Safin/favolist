@@ -123,7 +123,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     match: { productName: productSlug }
   })
 
-  console.log(userDoc);
+
 
   return {
     props: {

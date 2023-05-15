@@ -1,0 +1,30 @@
+
+
+.cardContainer {
+  @apply w-full p-2 justify-between items-center
+}
+
+.userInfo {
+  @apply mr-auto
+}
+
+.avatar {
+  @apply w-16 h-16 rounded-full mr-2
+}
+
+.cardContainer {
+  @apply flex
+}
+
+.username {
+@apply text-xl
+}
+
+
+.count {
+  @apply flex text-sm
+}
+
+.button {
+  @apply bg-purple p-1 text-white
+}
