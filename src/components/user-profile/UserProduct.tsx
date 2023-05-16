@@ -8,7 +8,11 @@ import { FaRegComment } from 'react-icons/fa'
 import { RxDotsHorizontal } from 'react-icons/rx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useSession } from 'next-auth/react'
+import CustomSession from '@/utils/Session'
+import { ObjectId } from 'mongoose'
 interface Props {
+
   title: string
   price: number
   content: string
@@ -23,28 +27,57 @@ interface Props {
 const UserProduct: FC<Props> = (props) => {
   const router = useRouter()
   const userSlug =  router.query.usernameSlug
+  const { data: session, status } = useSession();
+  const userSession = session as CustomSession
 
 
+  const [popoverIsVisible, setPopoverIsVisible] = useState(false);
 
 
+  const managePopover = () => {
+    setPopoverIsVisible(true)
+    setTimeout(() => {
+      setPopoverIsVisible(false)
+    }, 4000);
+  }
 
-  const [isImageLoading, setImageLoading] = useState(true);
+  const handleDeleteProduct = async() => {
+    const data = {
+      email: userSession.user.email,
+      listName: props.listName,
+      product: props.title,
+    }
+    const response = await fetch('/api/users/delete-product', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    if (response.ok) {
 
-  const handleImageLoad = () => {
-    setImageLoading(false);
-  };
+      router.push(`/users/${userSlug}/lists/${props.listName}`)
+    }
+  }
+
 
 
   return (
     <>
-      {isImageLoading && <div className={styles.ldsGrid}><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>}
       <div className={styles.cardContainer}>
 
 
         <div className={styles.suspensionPoints}>
           <button>
-            <RxDotsHorizontal />
+            <RxDotsHorizontal onClick={managePopover}/>
           </button>
+          {popoverIsVisible &&
+            <div className={styles.popover}>
+              <div className={styles.popoverButtonContainer}>
+              <button className={styles.popoverButton}>Edit</button>
+              <button className={styles.popoverButton} onClick={handleDeleteProduct}>Delete</button>
+              </div>
+            </div> }
         </div>
 
 
@@ -62,7 +95,7 @@ const UserProduct: FC<Props> = (props) => {
 
           <div>
             <Link href={`/users/${userSlug}/lists/${props.listName}/product/${props.title}`}>
-            <Image className={styles.image} src={props.image} alt={props.listName} width={80} height={80} onLoad={handleImageLoad} />
+            <Image className={styles.image} src={props.image} alt={props.listName} width={80} height={80} />
             </Link>
           </div>
 
