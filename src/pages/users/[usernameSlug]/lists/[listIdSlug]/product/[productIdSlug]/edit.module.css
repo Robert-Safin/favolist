@@ -1,0 +1,14 @@
+.formContainer {
+  @apply w-full
+}
+.form {
+  @apply flex flex-col w-1/2 mx-auto
+}
+
+.textarea {
+  @apply border border-purple
+}
+
+.input {
+  @apply border border-purple
+}

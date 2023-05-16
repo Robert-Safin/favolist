@@ -60,6 +60,9 @@ const UserProduct: FC<Props> = (props) => {
     }
   }
 
+  const handleEditProduct = () => {
+    router.push(`/users/${userSession.user.username}/lists/${props.listName}/product/${props.title}/edit`)
+  }
 
 
   return (
@@ -74,7 +77,7 @@ const UserProduct: FC<Props> = (props) => {
           {popoverIsVisible &&
             <div className={styles.popover}>
               <div className={styles.popoverButtonContainer}>
-              <button className={styles.popoverButton}>Edit</button>
+              <button className={styles.popoverButton} onClick={handleEditProduct}>Edit</button>
               <button className={styles.popoverButton} onClick={handleDeleteProduct}>Delete</button>
               </div>
             </div> }
