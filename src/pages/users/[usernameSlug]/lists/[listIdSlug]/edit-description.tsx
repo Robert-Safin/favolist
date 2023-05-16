@@ -68,12 +68,11 @@ const handleSubmit: FormEventHandler = async (event) => {
           body: JSON.stringify(data),
         });
 
+        router.push(`/users/${userSession.user.username}`);
 
       } catch (error) {
         // to do
         console.log(error);
-      } finally {
-        router.push(`/users/${userSession.user.username}`);
       }
     };
     reader.readAsDataURL(enteredImage[0]);
