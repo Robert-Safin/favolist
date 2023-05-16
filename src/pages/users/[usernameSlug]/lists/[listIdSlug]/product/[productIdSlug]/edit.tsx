@@ -30,6 +30,7 @@ const EditProduct: NextPage<Props> = (props) => {
   const priceRef = useRef<HTMLInputElement>(null)
   const referralRef = useRef<HTMLInputElement>(null)
   const referralLinkRef = useRef<HTMLInputElement>(null)
+  const imageRef= useRef<HTMLInputElement>(null)
 
 
 
@@ -44,6 +45,23 @@ const EditProduct: NextPage<Props> = (props) => {
     const enteredPrice = priceRef.current?.value
     const enteredReferral = referralRef.current?.value
     const enteredReferralLink = referralLinkRef.current?.value
+    const enteredImage = imageRef.current?.files![0]
+
+
+    const formData = new FormData();
+    formData.append('file', enteredImage!);
+    formData.append('upload_preset', 'favolist');
+
+    const response = await fetch(`https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/upload`, {
+      method: 'POST',
+      body: formData,
+    });
+
+
+    const responseData = await response.json()
+
+    const secureUrl = responseData.secure_url
+
 
     const data = {
       email: userSession.user.email,
@@ -54,6 +72,7 @@ const EditProduct: NextPage<Props> = (props) => {
       price: enteredPrice,
       referral: enteredReferral,
       referralLink: enteredReferralLink,
+      productImage: secureUrl,
     }
 
     try {
@@ -95,6 +114,9 @@ const EditProduct: NextPage<Props> = (props) => {
 
         <label htmlFor="referral-link">Referral Link</label>
         <input className={styles.input} type="text" id="referral-link" defaultValue={props.product.referral} ref={referralLinkRef} />
+
+        <label htmlFor="image">Thumbnail</label>
+        <input className={styles.input} type="file" id="image" ref={imageRef} />
 
 
         <button type="submit">Submit</button>

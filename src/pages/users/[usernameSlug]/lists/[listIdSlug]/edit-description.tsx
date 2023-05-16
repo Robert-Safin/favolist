@@ -43,20 +43,26 @@ const handleSubmit: FormEventHandler = async (event) => {
 
   const enteredTitle = titleRef.current?.value;
   const enteredAbout = aboutRef.current?.value;
-  const enteredImage = imageRef.current?.files;
+  const enteredImage = imageRef.current?.files![0];
 
-  if (enteredImage && enteredImage.length > 0) {
-    // to do: validate file type
-    const reader = new FileReader();
+  const formData = new FormData();
+    formData.append('file', enteredImage!);
+    formData.append('upload_preset', 'favolist');
 
-    reader.onloadend = async (e) => {
-      const base64 = e.target!.result;
+    const response = await fetch(`https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/upload`, {
+      method: 'POST',
+      body: formData,
+    });
+
+    const responseData = await response.json()
+    const secureUrl = responseData.secure_url
+
       const data = {
         userEmail: userSession.user.email,
         listId: props.list._id,
         listTitle: enteredTitle,
         listAbout: enteredAbout,
-        image: base64,
+        image: secureUrl,
       };
 
       try {
@@ -74,11 +80,7 @@ const handleSubmit: FormEventHandler = async (event) => {
         // to do
         console.log(error);
       }
-    };
-    reader.readAsDataURL(enteredImage[0]);
-  } else {
-    console.log('missing image');
-  }
+
 };
   return (
     <>

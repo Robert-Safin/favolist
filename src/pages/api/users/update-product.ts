@@ -11,6 +11,7 @@ import { NextApiRequest, NextApiResponse } from "next";
   const price = req.body.price;
   const referral = req.body.referral;
   const referralLink = req.body.referralLink;
+  const image = req.body.productImage
 
     await connectDB()
 
@@ -22,6 +23,7 @@ import { NextApiRequest, NextApiResponse } from "next";
       price: price,
       referral: referralLink,
       referralDiscriptio: referral,
+      productImage: image,
     })
     await productDoc?.save()
 
