@@ -1,30 +1,21 @@
 import { connectDB } from "@/db/lib/connectDb";
 import { User, List, Product } from "@/db/models";
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
-import cloudinary from "cloudinary";
 
-// to do: secure route
-cloudinary.v2.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
+
 
 
 
 const handler: NextApiHandler = async (req: NextApiRequest,res: NextApiResponse) => {
   const email = req.body.userEmail;
   const listTitle = req.body.listTitle;
-  const thumbnail = req.body.image;
+  const secure_url = req.body.secure_url;
   const listAbout = req.body.listAbout
 
   try {
-    const uploadResponse = await cloudinary.v2.uploader.upload(thumbnail, {
-      folder: "FAVOLIST/lists",
-      format: 'webp',
-    });
 
-    const secure_url = uploadResponse.secure_url
+
+
     await connectDB();
     const user = await User.findOne({ email: email });
     const newList = new List({

@@ -4,8 +4,10 @@ import styles from './new-list.module.css';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
+import cloudinary from "cloudinary";
 
 import CustomSession from '@/utils/Session';
+
 
 
 
@@ -31,44 +33,50 @@ const NewList: NextPage = () => {
     event.preventDefault();
 
     const enteredTitle = titleRef.current?.value;
-    const enteredImage = imageRef.current?.files;
     const enteredAbout = aboutRef.current?.value;
+    const enteredImage = imageRef.current?.files![0];
 
-    if (enteredImage && enteredImage.length > 0) {
-      // to do: validate file type
-      const reader = new FileReader();
-      reader.onloadend = async (e) => {
-        const base64 = e.target!.result;
-        const data = {
-          userEmail: userSession.user.email,
-          listTitle: enteredTitle,
-          listAbout: enteredAbout,
-          image: base64,
-        };
+    if (enteredImage) {
+      const formData = new FormData();
+      formData.append('file', enteredImage);
+      formData.append('upload_preset', 'favolist');
 
-        try {
-          const response = await fetch('/api/users/new-list', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-          });
-          if (response.ok) {
+      const response = await fetch(`https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/upload`, {
+        method: 'POST',
+        body: formData,
+      });
 
-            router.push(`/users/${userSession.user.username}`);
-          }
-        } catch (error) {
-          // to do
-          console.log(error);
+      const responseData = await response.json()
+      const secureUrl = responseData.secure_url
+
+
+
+
+      const data = {
+        userEmail: userSession.user.email,
+        listTitle: enteredTitle,
+        secure_url: secureUrl,
+        listAbout: enteredAbout,
+      }
+      try {
+        const response = await fetch('/api/users/new-list', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+        if (response.ok) {
+
+          router.push(`/users/${userSession.user.username}`);
         }
-      };
-      reader.readAsDataURL(enteredImage[0]);
-    } else {
-      console.log('missing image');
-    }
-  };
+      } catch (error) {
+        console.log(error);
 
+      }
+
+    };
+  }
 
 
   return (
