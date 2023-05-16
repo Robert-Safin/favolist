@@ -1,7 +1,7 @@
 import { User } from "@/db/models";
 import { UserModelSchema } from "@/db/models/User";
 import { GetServerSideProps, NextPage } from "next";
-import styles from './[productSlug].module.css'
+import styles from './index.module.css'
 import Image from "next/image";
 import { BsBookmark } from "react-icons/bs";
 import { IoMdAddCircleOutline } from "react-icons/io";

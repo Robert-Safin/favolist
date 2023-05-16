@@ -20,6 +20,7 @@ const NewProduct: NextPage = () => {
 
   const nameRef = useRef<HTMLInputElement>(null)
   const contentRef = useRef<HTMLTextAreaElement>(null)
+  const specsRef= useRef<HTMLTextAreaElement>(null)
   const priceRef = useRef<HTMLInputElement>(null)
   const referralRef = useRef<HTMLInputElement>(null)
   const referralDescriptionRef = useRef<HTMLInputElement>(null)
@@ -43,6 +44,7 @@ const NewProduct: NextPage = () => {
     event.preventDefault()
     const enteredName = nameRef.current?.value
     const enteredContent = contentRef.current?.value
+    const enteredSpecs = specsRef.current?.value
     const enteredPrice = priceRef.current?.value
     const enteredReferral = referralRef.current?.value
     const enteredReferralDiscription = referralDescriptionRef.current?.value
@@ -59,6 +61,7 @@ const NewProduct: NextPage = () => {
           listName: listSlug,
           productName: enteredName,
           enteredContent: enteredContent,
+          enteredSpecs: enteredSpecs,
           enteredPrice: enteredPrice,
           enteredReferral: enteredReferral,
           enteredReferralDiscription: enteredReferralDiscription,
@@ -81,7 +84,7 @@ const NewProduct: NextPage = () => {
 
 
           if (response.ok) {
-            router.push(`/users/${username}`);
+            router.push(`/users/${username}/lists/${listSlug}`);
           }
         } catch (error) {
           console.log(error);
@@ -102,13 +105,16 @@ const NewProduct: NextPage = () => {
 
   return (
     <>
-      <form action="" className={styles.form} onSubmit={handleSubmit}>
+      <form className={styles.form} onSubmit={handleSubmit}>
 
         <label htmlFor="name">name</label>
         <input type="text" id='name' ref={nameRef} />
 
         <label htmlFor="content">content</label>
         <textarea id='content' ref={contentRef} />
+
+        <label htmlFor="specs">specs</label>
+        <textarea id='specs' ref={specsRef} />
 
         <label htmlFor="price">price</label>
         <input type="number" id='price' ref={priceRef} />
