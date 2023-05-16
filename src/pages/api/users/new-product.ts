@@ -1,16 +1,10 @@
 import { connectDB } from "@/db/lib/connectDb";
 import { User, List, Product } from "@/db/models";
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
-import cloudinary from "cloudinary";
 
 
 // to do: secure route
 
-cloudinary.v2.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
 
 const handler: NextApiHandler = async (
   req: NextApiRequest,
@@ -24,14 +18,12 @@ const handler: NextApiHandler = async (
   const price = req.body.enteredPrice;
   const referral = req.body.enteredReferral;
   const referralDiscription = req.body.enteredReferralDiscription
-  const image = req.body.image;
+  const secure_url = req.body.image;
 
   try {
-    const uploadResponse = await cloudinary.v2.uploader.upload(image, {
-      folder: "FAVOLIST/products",
-    })
 
-    const secure_url = uploadResponse.secure_url;
+
+
     await connectDB();
     const userDoc = await User.findOne({ email: email })
       .populate({

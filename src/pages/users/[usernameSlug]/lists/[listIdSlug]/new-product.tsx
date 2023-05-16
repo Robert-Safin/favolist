@@ -20,7 +20,7 @@ const NewProduct: NextPage = () => {
 
   const nameRef = useRef<HTMLInputElement>(null)
   const contentRef = useRef<HTMLTextAreaElement>(null)
-  const specsRef= useRef<HTMLTextAreaElement>(null)
+  const specsRef = useRef<HTMLTextAreaElement>(null)
   const priceRef = useRef<HTMLInputElement>(null)
   const referralRef = useRef<HTMLInputElement>(null)
   const referralDescriptionRef = useRef<HTMLInputElement>(null)
@@ -48,50 +48,58 @@ const NewProduct: NextPage = () => {
     const enteredPrice = priceRef.current?.value
     const enteredReferral = referralRef.current?.value
     const enteredReferralDiscription = referralDescriptionRef.current?.value
-    const enteredImage = imageRef.current?.files
+    const enteredImage = imageRef.current?.files![0]
 
 
     // to do valiadation
-    if (enteredImage && enteredImage.length > 0) {
-      const reader = new FileReader();
-      reader.onloadend = async (e) => {
-        const base64 = e.target!.result;
-        const data = {
-          userEmail: userSession.user.email,
-          listName: listSlug,
-          productName: enteredName,
-          enteredContent: enteredContent,
-          enteredSpecs: enteredSpecs,
-          enteredPrice: enteredPrice,
-          enteredReferral: enteredReferral,
-          enteredReferralDiscription: enteredReferralDiscription,
 
-          image: base64,
-        };
+    const formData = new FormData();
+    formData.append('file', enteredImage!);
+    formData.append('upload_preset', 'favolist');
 
-        try {
-          const response = await fetch('/api/users/new-product', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-          });
-          const status = await response.json()
-          console.log(status);
+    const response = await fetch(`https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/upload`, {
+      method: 'POST',
+      body: formData,
+    });
+    const responseData = await response.json()
+    const secureUrl = responseData.secure_url
 
 
-
-
-          if (response.ok) {
-            router.push(`/users/${username}/lists/${listSlug}`);
-          }
-        } catch (error) {
-          console.log(error);
-        }
-      };
-      reader.readAsDataURL(enteredImage[0]);
+    const data = {
+      userEmail: userSession.user.email,
+      listName: listSlug,
+      productName: enteredName,
+      enteredContent: enteredContent,
+      enteredSpecs: enteredSpecs,
+      enteredPrice: enteredPrice,
+      enteredReferral: enteredReferral,
+      enteredReferralDiscription: enteredReferralDiscription,
+      image: secureUrl,
     }
+
+    try {
+      const response = await fetch('/api/users/new-product', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      const status = await response.json()
+      console.log(status);
+
+
+
+
+      if (response.ok) {
+        router.push(`/users/${username}/lists/${listSlug}`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
+
+
   }
 
 
