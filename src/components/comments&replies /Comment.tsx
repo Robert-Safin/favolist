@@ -20,9 +20,11 @@ interface Props {
 }
 const Comment: FC<Props> = (props) => {
   const router = useRouter()
+
   const usernameSlug = router.query.usernameSlug
   const listSlug = router.query.listIdSlug
   const productSlug = router.query.productIdSlug
+
 
 
 
@@ -62,7 +64,7 @@ const Comment: FC<Props> = (props) => {
       });
 
       if (response.ok) {
-        router.push(`users/${usernameSlug}/lists/${listSlug}/product/${productSlug}/comments`)
+        await router.push(`/users/${usernameSlug}/lists/${listSlug}/product/${productSlug}/comments`)
       }
 
     } catch (error) {

@@ -25,7 +25,7 @@ const handler = async(req:NextApiRequest, res:NextApiResponse) => {
   await targetComment?.replies.push(newReply)
   await targetComment?.save()
 
-  console.log(newReply);
+
   res.json({message: 'ok'})
 
 }
