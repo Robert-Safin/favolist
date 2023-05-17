@@ -1,9 +1,10 @@
 import mongoose, { Model, Document, ObjectId } from "mongoose";
+import { UserModelSchema } from "./User";
 
 export interface ReplyModelSchema extends Document {
   _id: ObjectId;
   commentId: ObjectId;
-  userId: ObjectId;
+  userId: UserModelSchema;
   content: string;
 }
 

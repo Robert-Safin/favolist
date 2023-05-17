@@ -71,6 +71,8 @@ const CommentsPage: NextPage<Props> = (props) => {
         username={comment.userId.username}
         avatar={comment.userId.avatar!}
         timestamp={comment.createdAt}
+        replies={comment.replies}
+        _id={comment._id}
         />
       )}
 
@@ -94,23 +96,23 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const currentUser = await getSession(context)
 
-  const userDoc = await User.findOne({ username: usernameSlug })
-  await userDoc!.populate('products')
-  const targetProduct = userDoc?.products.find(product => product.productName === productSlug)
-
-  const targetProductWithComments = await targetProduct?.populate('comments')
-
-
-
-  // return product with populated comments and for each comment populate user object
-
-    await Promise.all(
-        targetProductWithComments!.comments.map(async comment => await comment.populate('userId'))
-    );
-
-
-
-
+  const targetProduct = await User.findOne({ username: usernameSlug })
+  .populate({
+    path: 'products',
+    match: { productName: productSlug },
+    populate: {
+      path: 'comments',
+      populate: [
+        { path: 'userId' },
+        {
+          path: 'replies',
+          populate: {
+            path: 'userId'
+          }
+        }
+      ]
+    }
+  });
 
 
 
@@ -126,7 +128,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     props: {
       currentUserEmail: currentUser?.user?.email,
       targetProductId: JSON.stringify(targetProduct?._id),
-      comments: JSON.parse(JSON.stringify(targetProductWithComments?.comments))
+      comments: JSON.parse(JSON.stringify(targetProduct?.products[0].comments))
     }
   }
 
