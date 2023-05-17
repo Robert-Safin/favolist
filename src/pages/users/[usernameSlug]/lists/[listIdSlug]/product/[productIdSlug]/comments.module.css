@@ -1,0 +1,23 @@
+.mainContainer {
+  @apply w-full text-center
+}
+
+.title {
+  @apply mx-auto border-b border-gray-200 text-xl
+}
+
+.formContainer {
+  @apply flex flex-col w-full
+}
+.textareaAndButton {
+  @apply flex mx-auto
+}
+
+.textarea {
+  @apply border border-purple
+}
+
+
+.button {
+  @apply bg-purple p-2
+}

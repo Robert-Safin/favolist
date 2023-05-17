@@ -56,34 +56,34 @@ const UserSchema = new mongoose.Schema<UserModelSchema>(
       type: String,
       default: "",
     },
-    follows: [
+    follows:
       {
-        type: mongoose.Schema.Types.ObjectId,
+        type: [mongoose.Schema.Types.ObjectId],
         ref: "User",
         default: [],
       },
-    ],
-    followers: [
+
+    followers:
       {
-        type: mongoose.Schema.Types.ObjectId,
+        type: [mongoose.Schema.Types.ObjectId],
         ref: "User",
         default: [],
       },
-    ],
-    lists: [
+
+    lists:
       {
-        type: mongoose.Schema.Types.ObjectId,
+        type: [mongoose.Schema.Types.ObjectId],
         ref: "List",
         default: [],
       },
-    ],
-    products: [
+
+    products:
       {
-        type: mongoose.Schema.Types.ObjectId,
+        type: [mongoose.Schema.Types.ObjectId],
         ref: "Product",
         default: [],
       },
-    ],
+
     socials: {
       type: [
         {
@@ -112,11 +112,11 @@ const UserSchema = new mongoose.Schema<UserModelSchema>(
       default: [],
 
     },
-    bookmarks: [{
-      type: mongoose.Schema.Types.ObjectId,
+    bookmarks: {
+      type: [mongoose.Schema.Types.ObjectId],
       ref: "Product",
       default: [],
-    }],
+    }
   },
   {
     timestamps: true,
