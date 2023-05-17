@@ -124,17 +124,17 @@ const UserProduct: FC<Props> = (props) => {
           <div className={styles.iconsContainer}>
 
             <div className={styles.iconContainer}>
-              <BsBookmark />
+              <BsBookmark className={styles.icons}/>
               <p>0</p>
             </div>
 
             <div className={styles.iconContainer}>
-              <IoMdAddCircleOutline />
+              <IoMdAddCircleOutline  className={styles.icons}/>
               <p>1</p>
             </div>
 
             <div className={styles.iconContainer}>
-              <FaRegComment />
+              <FaRegComment  className={styles.icons}/>
               <p>3</p>
             </div>
 
