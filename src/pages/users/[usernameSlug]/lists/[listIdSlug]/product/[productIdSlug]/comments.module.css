@@ -7,17 +7,16 @@
 }
 
 .formContainer {
-  @apply flex flex-col w-full
+  @apply flex w-full
 }
 .textareaAndButton {
-  @apply flex mx-auto
+  @apply flex w-full px-2
 }
 
 .textarea {
-  @apply border border-purple
+  @apply border border-purple w-full
 }
 
-
 .button {
-  @apply bg-purple p-2
+  @apply bg-purple p-1 text-white
 }

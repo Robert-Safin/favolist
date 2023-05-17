@@ -24,7 +24,38 @@ const SearchPage: NextPage<Props> = (props) => {
   const [foundProducts, setFoundProducts] = useState<ProductModelSchema[]>([]);
   const [currentUser, setCurrentUser] = useState<UserModelSchema>();
 
+  const [showProducts, setShowProducts] = useState(true)
+  const [showLists, setShowLists] = useState(false)
+  const [showReferrals, setShowReferrals] = useState(false)
+  const [showUsers, setShowUsers] = useState(false)
 
+  const handleShowProducts = () => {
+    setShowProducts(true)
+    setShowLists(false)
+    setShowReferrals(false)
+    setShowUsers(false)
+  }
+
+  const handleShowLists = () => {
+    setShowProducts(false)
+    setShowLists(true)
+    setShowReferrals(false)
+    setShowUsers(false)
+  }
+
+  const handleShowReferrals = () => {
+    setShowProducts(false)
+    setShowLists(false)
+    setShowReferrals(true)
+    setShowUsers(false)
+  }
+
+  const handleShowUsers = () => {
+    setShowProducts(false)
+    setShowLists(false)
+    setShowReferrals(false)
+    setShowUsers(true)
+  }
 
 
   const handleSearch = async (query: string) => {
@@ -74,7 +105,7 @@ const SearchPage: NextPage<Props> = (props) => {
     }
   };
 
-  const handleUnfollow = async(userId: ObjectId) => {
+  const handleUnfollow = async (userId: ObjectId) => {
     const data = {
       currentUserEmail: userSession?.user.email,
       unfollowTargetID: userId,
@@ -94,7 +125,7 @@ const SearchPage: NextPage<Props> = (props) => {
   }
 
   const isFollowed = (userId: ObjectId) => {
-     // @ts-ignore too long to deal with
+    // @ts-ignore too long to deal with
     return currentUser!.follows.map(user => user).includes(userId)
   }
 
@@ -103,9 +134,18 @@ const SearchPage: NextPage<Props> = (props) => {
   return (
     <>
       <SearchBar handleSubmit={handleSubmit} handleSearch={handleSearch} />
-      <h2 className={styles.foundCategory}>Users found</h2>
+      <div className={styles.tabs}>
+        <p onClick={handleShowProducts} className={showProducts ? styles.activeTab : styles.nonActiveTab}>Products</p>
+        <p onClick={handleShowLists} className={showLists ? styles.activeTab : styles.nonActiveTab}>Lists</p>
+        <p onClick={handleShowReferrals} className={showReferrals ? styles.activeTab : styles.nonActiveTab}>Referrals</p>
+        <p onClick={handleShowUsers} className={showUsers ? styles.activeTab : styles.nonActiveTab}>Users</p>
+      </div>
 
-      <div className={styles.resultsContainer}>
+
+
+
+
+      {showUsers && <div className={styles.resultsContainer}>
         {foundUsers.map((user) => (
           <FoundUserCard
             userId={user._id}
@@ -124,11 +164,11 @@ const SearchPage: NextPage<Props> = (props) => {
           />
         ))}
 
-      </div>
+      </div>}
 
-      <h2 className={styles.foundCategory}>Lists found</h2>
 
-      <div className={styles.resultsContainer}>
+
+      {showLists && <div className={styles.resultsContainer}>
         {foundLists.map((list: ListModelSchema) => (
           <FoundListCard
             key={String(list._id)}
@@ -140,11 +180,10 @@ const SearchPage: NextPage<Props> = (props) => {
             products={list.products}
           />
         ))}
-      </div>
+      </div>}
 
-      <h2 className={styles.foundCategory}>Products found</h2>
 
-      <div className={styles.resultsContainer}>
+      {showProducts && <div className={styles.resultsContainer}>
         {foundProducts.map((product: ProductModelSchema) => {
           const user = product.user_id as any;
           return (
@@ -166,7 +205,7 @@ const SearchPage: NextPage<Props> = (props) => {
         })}
 
 
-      </div>
+      </div>}
     </>
   );
 };

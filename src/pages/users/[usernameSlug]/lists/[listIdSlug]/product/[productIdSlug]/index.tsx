@@ -55,7 +55,7 @@ const ShowProduct: NextPage<Props> = (props) => {
       <div className={styles.user}>
 
         <div className={styles.userAvatarAndName}>
-          <Image src={props.user.avatar!} alt={props.user.username} width={50} height={50} className={styles.avatar}/>
+          <Link href={`/users/${props.user.username}`}><Image src={props.user.avatar!} alt={props.user.username} width={50} height={50} className={styles.avatar}/></Link>
           <p>{props.user.username}</p>
         </div>
 
@@ -67,19 +67,19 @@ const ShowProduct: NextPage<Props> = (props) => {
         <div className={styles.actions}>
           <div className={styles.iconContainer}>
             <BsBookmark />
-            <p>0</p>
+            <p>x</p>
           </div>
 
           <div className={styles.iconContainer}>
             <IoMdAddCircleOutline />
-            <p>1</p>
+            <p>x</p>
           </div>
 
           <div className={styles.iconContainer}>
             <Link href={`/users/${usernameSlug}/lists/${listSlug}/product/${productSlug}/comments`}>
             <FaRegComment />
             </Link>
-            <p>3</p>
+            <p>{props.user.products[0].comments.length}</p>
           </div>
         </div>
 

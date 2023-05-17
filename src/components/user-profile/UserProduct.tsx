@@ -11,6 +11,7 @@ import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import CustomSession from '@/utils/Session'
 import { ObjectId } from 'mongoose'
+import { CommentModelSchema } from '@/db/models/Comment'
 interface Props {
 
   title: string
@@ -22,6 +23,7 @@ interface Props {
   avatar: string
   username: string
   logo: string
+  comments: CommentModelSchema[]
 }
 
 const UserProduct: FC<Props> = (props) => {
@@ -125,17 +127,17 @@ const UserProduct: FC<Props> = (props) => {
 
             <div className={styles.iconContainer}>
               <BsBookmark className={styles.icons}/>
-              <p>0</p>
+              <p>x</p>
             </div>
 
             <div className={styles.iconContainer}>
               <IoMdAddCircleOutline  className={styles.icons}/>
-              <p>1</p>
+              <p>x</p>
             </div>
 
             <div className={styles.iconContainer}>
-              <FaRegComment  className={styles.icons}/>
-              <p>3</p>
+              <Link href={`/users/${userSlug}/lists/${props.listName}/product/${props.title}/comments`}><FaRegComment  className={styles.icons}/></Link>
+              <p>{props.comments.length}</p>
             </div>
 
           </div>

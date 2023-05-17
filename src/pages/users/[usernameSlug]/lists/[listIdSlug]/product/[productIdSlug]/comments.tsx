@@ -36,8 +36,6 @@ const CommentsPage: NextPage<Props> = (props) => {
       comment: enteredComment,
     }
 
-
-
     try {
       const response = await fetch('/api/comments/', {
         method: 'POST',
@@ -80,12 +78,12 @@ const CommentsPage: NextPage<Props> = (props) => {
       )}
 
       <form className={styles.formContainer} onSubmit={handleNewComment}>
-        <label className={styles.label} htmlFor="new-comment">New Comment</label>
 
         <div className={styles.textareaAndButton}>
-          <textarea className={styles.textarea} id="new-comment" ref={commentRef}></textarea>
+          <textarea className={styles.textarea} id="new-comment" placeholder="New Comment" ref={commentRef}></textarea>
           <button className={styles.button} type="submit">Submit</button>
         </div>
+
       </form>
     </div>
   )
@@ -134,5 +132,3 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 
 export default CommentsPage
-
-// 646480b6d67c38c79d3fdcf2 = product id

@@ -227,6 +227,7 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
             avatar={props.user.avatar}
             logo={product.productLogo}
             username={props.user.username}
+            comments={product.comments}
           />
         )}
       </div>

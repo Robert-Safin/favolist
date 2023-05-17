@@ -33,7 +33,7 @@
 }
 
 .replyContainer {
-  @apply flex items-center space-x-1
+  @apply flex items-start space-x-1 my-1
 }
 
 .replyAvatar {
@@ -43,6 +43,16 @@
 .replyUsername {
   @apply font-bold
 }
+
+.replyContent {
+  @apply flex-1
+}
+.replyFrom {
+  @apply flex
+}
 .replyInput {
-  @apply border border-purple
+  @apply border border-purple w-full
+}
+.replyButton {
+  @apply bg-purple p-1 text-white
 }

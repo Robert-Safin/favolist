@@ -1,6 +1,5 @@
 import { FC, ReactEventHandler, useRef, useState } from "react";
 import styles from './Comment.module.css'
-import { UserModelSchema } from "@/db/models/User";
 import Image from "next/image";
 import { ReplyModelSchema } from "@/db/models/Reply";
 import { useSession } from "next-auth/react";
@@ -101,13 +100,13 @@ const Comment: FC<Props> = (props) => {
             <div key={String(reply._id)} className={styles.replyContainer}>
               <Image className={styles.replyAvatar} src={reply.userId.avatar!} alt={`user avatar`} width={300} height={300}/>
               <p className={styles.replyUsername}>{reply.userId.username}</p>
-              <p >{reply.content}</p>
+              <p className={styles.replyContent}>{reply.content}</p>
             </div>
             )}
 
-            <form onSubmit={handleReplySubmit}>
+            <form className={styles.replyFrom} onSubmit={handleReplySubmit}>
               <input className={styles.replyInput} type="text" ref={replyRef} placeholder="New reply" />
-              <button type="submit">Submit</button>
+              <button className={styles.replyButton} type="submit">Submit</button>
             </form>
 
           </>}

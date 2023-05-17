@@ -5,3 +5,15 @@
 .foundCategory {
   @apply text-2xl
 }
+
+.tabs{
+  @apply flex justify-evenly
+}
+
+.activeTab {
+  @apply border-b border-purple
+}
+
+.nonActiveTab {
+  @apply border-b border-gray-200
+}
