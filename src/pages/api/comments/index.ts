@@ -10,13 +10,16 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
 
 
+
   const productObjectId = new mongoose.Types.ObjectId(JSON.parse(productId));
 
+  console.log(productObjectId);
 
 
   try {
     await connectDB()
     const productDoc = await Product.findOne({_id: productObjectId})
+
     const userDoc = await User.findOne({email: userEmail})
 
     const newComment = new Comment({

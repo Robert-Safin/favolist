@@ -36,6 +36,8 @@ const CommentsPage: NextPage<Props> = (props) => {
       comment: enteredComment,
     }
 
+
+
     try {
       const response = await fetch('/api/comments/', {
         method: 'POST',
@@ -44,6 +46,7 @@ const CommentsPage: NextPage<Props> = (props) => {
         },
         body: JSON.stringify(data),
       });
+      console.log(response);
 
       if (response.ok) {
         router.push(`/users/${usernameSlug}/lists/${listSlug}/product/${productSlug}/comments`)
@@ -96,6 +99,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const currentUser = await getSession(context)
 
+  await connectDB()
   const targetProduct = await User.findOne({ username: usernameSlug })
   .populate({
     path: 'products',
@@ -119,15 +123,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 
 
-
-
-
-  await connectDB()
-
   return {
     props: {
       currentUserEmail: currentUser?.user?.email,
-      targetProductId: JSON.stringify(targetProduct?._id),
+      targetProductId: JSON.stringify(targetProduct?.products[0]._id),
       comments: JSON.parse(JSON.stringify(targetProduct?.products[0].comments))
     }
   }
@@ -135,3 +134,5 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 
 export default CommentsPage
+
+// 646480b6d67c38c79d3fdcf2 = product id
