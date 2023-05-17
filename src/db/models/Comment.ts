@@ -1,12 +1,14 @@
 import mongoose, { Model, Document, ObjectId } from "mongoose";
 import { ReplyModelSchema } from "./Reply";
+import { UserModelSchema } from "./User";
 
 export interface CommentModelSchema extends Document {
   _id: ObjectId;
   productId: ObjectId;
-  userId: ObjectId;
+  userId: UserModelSchema
   content: string;
   replies: ReplyModelSchema[];
+  createdAt: string;
 }
 
 const CommentSchema = new mongoose.Schema<CommentModelSchema>(
@@ -25,13 +27,11 @@ const CommentSchema = new mongoose.Schema<CommentModelSchema>(
       type: String,
       required: true,
     },
-    replies: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Reply",
-        default: [],
-      },
-    ],
+    replies: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "Reply",
+      default: [],
+    },
   },
   {
     timestamps: true,

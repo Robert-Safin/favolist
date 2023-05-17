@@ -1,4 +1,5 @@
 import mongoose, { ObjectId, Model, Document } from "mongoose";
+import { CommentModelSchema } from "./Comment";
 
 export interface ProductModelSchema extends Document {
   _id: ObjectId;
@@ -12,7 +13,8 @@ export interface ProductModelSchema extends Document {
   specs: string;
   price: number;
   referral: string;
-  referralDiscription: string
+  referralDiscription: string;
+  comments: CommentModelSchema[];
 }
 
 const ProductSchema = new mongoose.Schema<ProductModelSchema>(
@@ -50,7 +52,7 @@ const ProductSchema = new mongoose.Schema<ProductModelSchema>(
     },
     specs: {
       type: String,
-      default: ''
+      default: "",
     },
     price: {
       type: Number,
@@ -60,10 +62,17 @@ const ProductSchema = new mongoose.Schema<ProductModelSchema>(
       type: String,
       default: "",
     },
-    referralDiscription : {
+    referralDiscription: {
       type: String,
       default: "",
-    }
+    },
+    comments:
+      {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: "Comment",
+        default: [],
+      },
+
   },
   {
     timestamps: true,

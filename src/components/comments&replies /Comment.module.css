@@ -1,0 +1,21 @@
+.commentContainer {
+  @apply flex w-full p-2
+}
+
+.mainAvatarContainer {
+  @apply w-1/12
+}
+.mainAvatar {
+  @apply w-8 h-8 rounded-full
+}
+.mainUsername {
+  @apply font-bold
+}
+
+.commentContent {
+  @apply flex flex-col bg-gray-200 w-full text-justify p-1 ml-2
+}
+
+.actions {
+  @apply bg-white
+}

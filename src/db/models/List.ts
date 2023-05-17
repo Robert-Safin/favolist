@@ -30,13 +30,13 @@ const ListSchema = new mongoose.Schema<ListModelSchema>(
       type: String,
       required: true,
     },
-    products: [
+    products:
       {
-        type: mongoose.Schema.Types.ObjectId,
+        type: [mongoose.Schema.Types.ObjectId],
         ref: "Product",
         default: [],
       },
-    ],
+
   },
   {
     timestamps: true,

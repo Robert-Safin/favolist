@@ -8,11 +8,17 @@ import { IoMdAddCircleOutline } from "react-icons/io";
 import { FaRegComment } from "react-icons/fa";
 import { useState } from "react";
 import { RxLinkedinLogo } from "react-icons/rx";
+import Link from "next/link";
+import { useRouter } from "next/router";
 interface Props {
   user: UserModelSchema
 }
 
 const ShowProduct: NextPage<Props> = (props) => {
+  const router = useRouter()
+  const usernameSlug = router.query.usernameSlug
+  const listSlug = router.query.listIdSlug
+  const productSlug = router.query.productIdSlug
 
   const [reviewIsActive, setReviewIsActive] = useState(true)
   const [descriptionIsActive, setDescriptionIsActive] = useState(false)
@@ -70,7 +76,9 @@ const ShowProduct: NextPage<Props> = (props) => {
           </div>
 
           <div className={styles.iconContainer}>
+            <Link href={`/users/${usernameSlug}/lists/${listSlug}/product/${productSlug}/comments`}>
             <FaRegComment />
+            </Link>
             <p>3</p>
           </div>
         </div>

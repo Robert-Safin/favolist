@@ -94,7 +94,7 @@ const ShowList: NextPage<Props> = (props) => {
             {listHasNoProducts && <p className={styles.listNoProducts}>No products in this list yet</p>}
             {props.user.products.map((product) =>
               <UserProduct
-                key={product.id}
+                key={String(product._id)}
                 title={product.productName}
                 price={product.price}
                 content={product.content}
