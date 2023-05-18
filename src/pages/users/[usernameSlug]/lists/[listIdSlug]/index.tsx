@@ -16,14 +16,17 @@ import ToggleView from "@/components/toggleViewListCard/ToggleView";
 
 
 import CustomSession from "@/utils/Session";
+import { getToken } from "next-auth/jwt";
 
 
 
 interface Props {
   user: UserModelSchema
+  currentUser: UserModelSchema;
 }
 
 const ShowList: NextPage<Props> = (props) => {
+
 
   const { data: session, status } = useSession()
   const userSession = session as CustomSession
@@ -62,6 +65,8 @@ const ShowList: NextPage<Props> = (props) => {
   }
 
 
+
+
   return (
 
     <>
@@ -95,6 +100,7 @@ const ShowList: NextPage<Props> = (props) => {
             {props.user.products.map((product) =>
               <UserProduct
                 key={String(product._id)}
+                _id={product._id}
                 title={product.productName}
                 price={product.price}
                 content={product.content}
@@ -105,6 +111,9 @@ const ShowList: NextPage<Props> = (props) => {
                 username={props.user.username}
                 logo={product.productLogo}
                 comments={product.comments}
+                bookmarkedBy={product.bookmarkedBy}
+                currentUserId={props.currentUser._id}
+
               />)}
           </div>
         </>}
@@ -130,9 +139,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const usernameSlug = context.params!.usernameSlug!
   const listIdSlug = context.params!.listIdSlug
-  //console.log(listIdSlug);
-
-
 
   if (!usernameSlug || !listIdSlug) {
     // to do
@@ -140,6 +146,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       notFound: true,
     };
   }
+  const token = await getToken(context)
+  const currentUserEmail = token?.email
+
+  const currentUserDoc  = await User.findOne({email:currentUserEmail})
+
+
 
 
   const userDoc = await User.findOne({ username: usernameSlug })
@@ -149,7 +161,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     path: 'products',
     match: { productListName: listIdSlug }
   });
-  //console.log(userDoc);
 
 
   await userDoc?.populate({
@@ -161,6 +172,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       user: JSON.parse(JSON.stringify(userDoc)),
+      currentUser: JSON.parse(JSON.stringify(currentUserDoc))
     },
   };
 };
