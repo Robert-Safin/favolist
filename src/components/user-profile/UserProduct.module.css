@@ -76,3 +76,28 @@
 .popoverButton:hover {
   @apply bg-gray-200
 }
+
+.modal {
+  @apply flex flex-col bg-white border shadow-md text-center mt-52 mx-2 p-8
+}
+.trash {
+  @apply  text-black  text-3xl mx-auto
+}
+
+.cross {
+  @apply absolute
+}
+
+.modalHeading {
+  @apply text-lg font-bold
+}
+.modalWarning {
+  @apply text-sm font-thin mb-5
+}
+.deleteButton {
+  @apply w-full bg-red rounded-md text-white mb-2 p-2
+}
+
+.abortButton {
+  @apply w-full border border-gray-200 rounded-md p-2
+}

@@ -1,11 +1,11 @@
 import { FC, useState } from 'react'
 import styles from './UserProduct.module.css'
 import Image from 'next/image'
-import { BsBookmark, BsFillBookmarkFill } from 'react-icons/bs'
+import { BsBookmark, BsFillBookmarkFill, BsTrash } from 'react-icons/bs'
 import { IoMdAddCircleOutline } from 'react-icons/io'
 import { FaRegComment } from 'react-icons/fa'
 
-import { RxDotsHorizontal } from 'react-icons/rx'
+import { RxCross2, RxDotsHorizontal } from 'react-icons/rx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
@@ -13,6 +13,8 @@ import CustomSession from '@/utils/Session'
 import { ObjectId } from 'mongoose'
 import { CommentModelSchema } from '@/db/models/Comment'
 import { UserModelSchema } from '@/db/models/User'
+
+import Modal from 'react-modal';
 interface Props {
   _id: ObjectId
   title: string
@@ -36,12 +38,21 @@ const UserProduct: FC<Props> = (props) => {
   const { data: session, status } = useSession();
   const userSession = session as CustomSession
 
+  Modal.setAppElement('#__next')
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const openModal = () => {
+    setIsOpen(true)
+  }
+
+  const closeModal = () => {
+    setIsOpen(false)
+  }
 
   const [popoverIsVisible, setPopoverIsVisible] = useState(false);
 
   const userIsProfileOwner = props.username === userSession.user.username
 
-    // @ts-ignore ??????
+  // @ts-ignore ??????
   const currentUserAlreadyBookmarked = props.bookmarkedBy.includes(props.currentUserId)
 
 
@@ -80,7 +91,7 @@ const UserProduct: FC<Props> = (props) => {
     router.push(`/users/${userSession.user.username}/lists/${props.listName}/product/${props.title}/edit`)
   }
 
-  const handleAddBookmark = async() => {
+  const handleAddBookmark = async () => {
     const data = {
       bookmarkedByEmail: userSession.user.email,
       productId: props._id,
@@ -96,7 +107,7 @@ const UserProduct: FC<Props> = (props) => {
     router.push(`/users/${userSlug}/lists/${listSlug}`)
   }
 
-  const handleRemoveBookmark = async() => {
+  const handleRemoveBookmark = async () => {
     const data = {
       bookmarkedByEmail: userSession.user.email,
       productId: props._id,
@@ -115,6 +126,26 @@ const UserProduct: FC<Props> = (props) => {
 
   return (
     <>
+
+
+      <div>
+        <Modal className={styles.modal} isOpen={modalIsOpen} onRequestClose={closeModal} contentLabel="Example Modal">
+          <RxCross2 className={styles.cross} onClick={closeModal} />
+          <BsTrash className={styles.trash} />
+          <h1 className={styles.modalHeading}>Are you sure you want to delete this listing?</h1>
+          <p className={styles.modalWarning}>All related data including comments will be permanently deleted.</p>
+          <button className={styles.deleteButton} onClick={handleDeleteProduct}>Yes, please delete</button>
+          <button className={styles.abortButton} onClick={closeModal}>No, I want to keep this listing</button>
+        </Modal>
+      </div>
+
+
+
+
+
+
+
+
       <div className={styles.cardContainer}>
 
         {userIsProfileOwner &&
@@ -126,7 +157,7 @@ const UserProduct: FC<Props> = (props) => {
               <div className={styles.popover}>
                 <div className={styles.popoverButtonContainer}>
                   <button className={styles.popoverButton} onClick={handleEditProduct}>Edit</button>
-                  <button className={styles.popoverButton} onClick={handleDeleteProduct}>Delete</button>
+                  <button className={styles.popoverButton} onClick={openModal}>Delete</button>
                 </div>
               </div>}
           </div>}
@@ -173,12 +204,12 @@ const UserProduct: FC<Props> = (props) => {
           <div className={styles.iconsContainer}>
 
             {currentUserAlreadyBookmarked && <div className={styles.iconContainer}>
-              <BsFillBookmarkFill className={styles.icons} onClick={handleRemoveBookmark}/>
+              <BsFillBookmarkFill className={styles.icons} onClick={handleRemoveBookmark} />
               <p>{props.bookmarkedBy.length}</p>
             </div>}
 
             {!currentUserAlreadyBookmarked && <div className={styles.iconContainer}>
-              <BsBookmark className={styles.icons} onClick={handleAddBookmark}/>
+              <BsBookmark className={styles.icons} onClick={handleAddBookmark} />
               <p>{props.bookmarkedBy.length}</p>
             </div>}
 
