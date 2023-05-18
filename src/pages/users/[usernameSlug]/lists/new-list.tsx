@@ -1,4 +1,4 @@
-import { FormEventHandler, useRef } from 'react';
+import { FormEventHandler, useRef, useState } from 'react';
 import { NextPage } from 'next';
 import styles from './new-list.module.css';
 import { useSession } from 'next-auth/react';
@@ -20,6 +20,9 @@ const NewList: NextPage = () => {
   const imageRef = useRef<HTMLInputElement>(null);
   const aboutRef = useRef<HTMLTextAreaElement>(null);
 
+  const [buttonIsDisabled, setButtonIsDisabled] = useState(false)
+
+
   if (!userSession) {
     return (
       <>
@@ -31,7 +34,7 @@ const NewList: NextPage = () => {
 
   const handleSubmit: FormEventHandler = async (event) => {
     event.preventDefault();
-
+    setButtonIsDisabled(true)
     const enteredTitle = titleRef.current?.value;
     const enteredAbout = aboutRef.current?.value;
     const enteredImage = imageRef.current?.files![0];
@@ -67,7 +70,6 @@ const NewList: NextPage = () => {
           body: JSON.stringify(data),
         });
         if (response.ok) {
-
           router.push(`/users/${userSession.user.username}`);
         }
       } catch (error) {
@@ -92,7 +94,7 @@ const NewList: NextPage = () => {
 
         <input type="file" accept="image/*" ref={imageRef} />
 
-        <button type="submit">Create</button>
+        <button type="submit" disabled={buttonIsDisabled}>Create</button>
       </form>
     </div>
   );

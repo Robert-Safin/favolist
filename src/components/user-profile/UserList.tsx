@@ -13,20 +13,16 @@ interface Props {
 
 const UserList: FC<Props> = (props) => {
 
-  const [isImageLoading, setImageLoading] = useState(true);
 
-  const handleImageLoad = () => {
-    setImageLoading(false);
-  };
+
 
   return (
     <>
-      {isImageLoading && <div className={styles.ldsGrid}><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>}
       <div className={styles.listContainer} onClick={() => props.onClick(props.title)}>
 
         <div className={styles.imageContainer}>
 
-          <Image src={props.thumbnail} alt={props.title} width={500} height={500} className={styles.image} onLoad={handleImageLoad} />
+          <Image src={props.thumbnail} alt={props.title} width={500} height={500} className={styles.image} />
 
           <div className={styles.titles}>
             <p className={styles.products}>{props.products.length} products</p>

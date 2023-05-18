@@ -208,7 +208,6 @@ const SearchPage: NextPage<Props> = (props) => {
         })}
       </div>}
 
-
         {showReferrals && <div className={styles.resultsContainer}>
           {foundReferrals.map((referral:ProductModelSchema) => {
             const user = referral.user_id as any;
