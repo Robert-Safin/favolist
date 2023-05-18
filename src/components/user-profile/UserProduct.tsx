@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 import styles from './UserProduct.module.css'
 import Image from 'next/image'
-import { BsBookmark } from 'react-icons/bs'
+import { BsBookmark, BsFillBookmarkFill } from 'react-icons/bs'
 import { IoMdAddCircleOutline } from 'react-icons/io'
 import { FaRegComment } from 'react-icons/fa'
 
@@ -173,7 +173,7 @@ const UserProduct: FC<Props> = (props) => {
           <div className={styles.iconsContainer}>
 
             {currentUserAlreadyBookmarked && <div className={styles.iconContainer}>
-              <BsBookmark className={styles.icons} onClick={handleRemoveBookmark}/>
+              <BsFillBookmarkFill className={styles.icons} onClick={handleRemoveBookmark}/>
               <p>{props.bookmarkedBy.length}</p>
             </div>}
 
