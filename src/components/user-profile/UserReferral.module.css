@@ -35,3 +35,7 @@
 .referralDiscription {
   @apply line-clamp-2
 }
+
+.referralContainerCopy {
+  @apply flex border border-dashed border-purple items-center my-4
+}

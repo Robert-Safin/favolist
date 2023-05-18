@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import styles from './new-product.module.css'
-import { FormEventHandler, useRef } from "react";
+import { FormEventHandler, useRef, useState } from "react";
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { signIn } from "next-auth/react";
@@ -26,7 +26,7 @@ const NewProduct: NextPage = () => {
   const referralDescriptionRef = useRef<HTMLInputElement>(null)
   const imageRef = useRef<HTMLInputElement>(null)
 
-
+  const [buttonIsDisabled, setButtonIsDisbaled] = useState(false)
 
   if (!userSession) {
     return (
@@ -42,6 +42,7 @@ const NewProduct: NextPage = () => {
 
   const handleSubmit: FormEventHandler = async (event) => {
     event.preventDefault()
+    setButtonIsDisbaled(true)
     const enteredName = nameRef.current?.value
     const enteredContent = contentRef.current?.value
     const enteredSpecs = specsRef.current?.value
@@ -86,9 +87,6 @@ const NewProduct: NextPage = () => {
         body: JSON.stringify(data),
       });
       const status = await response.json()
-      console.log(status);
-
-
 
 
       if (response.ok) {
@@ -136,7 +134,7 @@ const NewProduct: NextPage = () => {
         <label htmlFor="image">image</label>
         <input type="file" id='image' ref={imageRef} />
 
-        <button type="submit">Submit</button>
+        <button type="submit" disabled={buttonIsDisabled}>Submit</button>
       </form>
     </>
   )

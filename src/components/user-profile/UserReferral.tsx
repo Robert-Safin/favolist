@@ -2,6 +2,7 @@ import { FC } from 'react'
 import styles from './UserReferral.module.css'
 import Image from 'next/image'
 import { MdOutlineCopyAll } from 'react-icons/md'
+import { useState, useRef } from 'react';
 
 
 
@@ -20,6 +21,18 @@ interface Props {
 
 
 const UserReferral: FC<Props> = (props) => {
+
+  const [copySuccess, setCopySuccess] = useState(false);
+  const textRef = useRef<HTMLParagraphElement>(null);
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(textRef.current!.innerText)
+    setCopySuccess(true)
+    setTimeout(() => {
+      setCopySuccess(false)
+    }, 2000);
+  }
+
   return (
     <div className={styles.referralCard}>
 
@@ -36,8 +49,8 @@ const UserReferral: FC<Props> = (props) => {
 
       <div>
 
-        <div className={styles.referralContainer}>
-        <p className={styles.referral}>{props.referral}</p>
+        <div className={copySuccess ? styles.referralContainerCopy : styles.referralContainer} onClick={copyToClipboard}>
+        {copySuccess ? <p className={styles.referral}>Copied to clipboard</p> : <p className={styles.referral} ref={textRef} >{props.referral}</p>}
         <MdOutlineCopyAll className={styles.copyIcon}/>
         </div>
 
