@@ -11,6 +11,7 @@ import styles from './index.module.css'
 import { useSession } from 'next-auth/react';
 import { ObjectId } from 'mongoose';
 import CustomSession from '@/utils/Session';
+import UserReferral from '@/components/user-profile/UserReferral';
 
 
 
@@ -19,9 +20,11 @@ interface Props { }
 const SearchPage: NextPage<Props> = (props) => {
   const { data: session, status } = useSession()
   const userSession = session as CustomSession
+
   const [foundUsers, setFoundUsers] = useState<UserModelSchema[]>([]);
   const [foundLists, setFoundLists] = useState<ListModelSchema[]>([]);
   const [foundProducts, setFoundProducts] = useState<ProductModelSchema[]>([]);
+  const [foundReferrals, setFoundReferrals] = useState<ProductModelSchema[]>([]);
   const [currentUser, setCurrentUser] = useState<UserModelSchema>();
 
   const [showProducts, setShowProducts] = useState(true)
@@ -73,8 +76,8 @@ const SearchPage: NextPage<Props> = (props) => {
       setFoundUsers(JSON.parse(data.foundUsers));
       setFoundLists(JSON.parse(data.foundLists));
       setFoundProducts(JSON.parse(data.foundProducts));
-      setCurrentUser(JSON.parse(data.currentUser))
-
+      setFoundReferrals(JSON.parse(data.foundReferrals));
+      setCurrentUser(JSON.parse(data.currentUser));
     } catch (error) {
       console.log(error);
     }
@@ -203,9 +206,30 @@ const SearchPage: NextPage<Props> = (props) => {
             />
           )
         })}
-
-
       </div>}
+
+
+        {showReferrals && <div className={styles.resultsContainer}>
+          {foundReferrals.map((referral:ProductModelSchema) => {
+            const user = referral.user_id as any;
+            return (
+              <UserReferral
+              key={String(referral._id)}
+              title={referral.productName}
+              price={referral.price}
+              content={referral.content}
+              referral={referral.referral}
+              referralDiscription={referral.referralDiscription}
+              listName={referral.productListName}
+              image={referral.productImage}
+              avatar={user.avatar}
+              username={user.username}
+              />
+            )
+
+          })}
+        </div> }
+
     </>
   );
 };

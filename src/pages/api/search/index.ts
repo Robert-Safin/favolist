@@ -19,8 +19,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const foundLists = await List.find({ title: { $in: regexWords } }).populate('user_id');
     const foundUsers = await User.find({ username: { $in: regexWords } })
     const foundProducts = await Product.find({ productName: { $in: regexWords } }).populate('user_id');
+    const foundReferrals = foundProducts.filter(product => product.referral.length > 0)
 
-    const matchedFound = foundLists.length + foundUsers.length + foundProducts.length
 
 
     const currentUser = await User.findOne({email: token?.email})
@@ -31,10 +31,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     res.json({
       message: "ok",
-      matchedFound: matchedFound,
       foundUsers: JSON.stringify(foundUsers),
       foundLists: JSON.stringify(foundLists),
       foundProducts: JSON.stringify(foundProducts),
+      foundReferrals: JSON.stringify(foundReferrals),
       currentUser: JSON.stringify(currentUser)
     });
   } catch (error) {
