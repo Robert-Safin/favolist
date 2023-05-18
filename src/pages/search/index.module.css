@@ -17,3 +17,15 @@
 .nonActiveTab {
   @apply border-b border-gray-200
 }
+
+.popupFollow {
+  @apply absolute bottom-0 right-0 mb-14 z-10 flex bg-lightLime border border-meduimLime items-center justify-between px-3
+}
+
+.popupUnfollow {
+  @apply absolute bottom-0 right-0 mb-14 z-10 flex bg-lightLime border border-meduimLime items-center justify-between px-3
+}
+
+.popupText {
+  @apply text-strongLime mx-3
+}

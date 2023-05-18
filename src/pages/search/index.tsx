@@ -12,6 +12,8 @@ import { useSession } from 'next-auth/react';
 import { ObjectId } from 'mongoose';
 import CustomSession from '@/utils/Session';
 import UserReferral from '@/components/user-profile/UserReferral';
+import { MdThumbUp } from 'react-icons/md';
+import { RxCross2 } from 'react-icons/rx';
 
 
 
@@ -31,6 +33,10 @@ const SearchPage: NextPage<Props> = (props) => {
   const [showLists, setShowLists] = useState(false)
   const [showReferrals, setShowReferrals] = useState(false)
   const [showUsers, setShowUsers] = useState(false)
+
+  const [showPopupFollow, setShowPopupFollow] = useState(false)
+  const [showPopupUnfollow, setShowPopupUnfollow] = useState(false)
+
 
   const handleShowProducts = () => {
     setShowProducts(true)
@@ -102,6 +108,10 @@ const SearchPage: NextPage<Props> = (props) => {
         },
         body: JSON.stringify(data),
       })
+      setShowPopupFollow(true)
+      setTimeout(() => {
+        setShowPopupFollow(false)
+      }, 2000);
     } catch (error) {
       console.log(error);
 
@@ -121,6 +131,10 @@ const SearchPage: NextPage<Props> = (props) => {
         },
         body: JSON.stringify(data),
       })
+      setShowPopupUnfollow(true)
+      setTimeout(() => {
+        setShowPopupUnfollow(false)
+      }, 2000);
     } catch (error) {
       console.log(error);
 
@@ -208,11 +222,11 @@ const SearchPage: NextPage<Props> = (props) => {
         })}
       </div>}
 
-        {showReferrals && <div className={styles.resultsContainer}>
-          {foundReferrals.map((referral:ProductModelSchema) => {
-            const user = referral.user_id as any;
-            return (
-              <UserReferral
+      {showReferrals && <div className={styles.resultsContainer}>
+        {foundReferrals.map((referral: ProductModelSchema) => {
+          const user = referral.user_id as any;
+          return (
+            <UserReferral
               key={String(referral._id)}
               title={referral.productName}
               price={referral.price}
@@ -223,12 +237,22 @@ const SearchPage: NextPage<Props> = (props) => {
               image={referral.productImage}
               avatar={user.avatar}
               username={user.username}
-              />
-            )
+            />
+          )
 
-          })}
-        </div> }
+        })}
+      </div>}
+      {showPopupFollow && <div className={styles.popupFollow}>
+        <MdThumbUp />
+        <p className={styles.popupText}>User followed</p>
+        <RxCross2 />
+      </div>}
 
+      {showPopupUnfollow && <div className={styles.popupUnfollow}>
+        <MdThumbUp />
+        <p className={styles.popupText}>User unfollowed</p>
+        <RxCross2 />
+      </div>}
     </>
   );
 };

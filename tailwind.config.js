@@ -14,6 +14,9 @@ module.exports = {
       'white': '#FFFFFF',
       'purple': '#6366F1',
       'black': '#000000',
+      'lightLime': '#F0FDF4',
+      'meduimLime': '#BBF7D0',
+      'strongLime' : '#166534',
       'gray': {
         50: '#FAFAFA',
         200: '#E5E5E5',
