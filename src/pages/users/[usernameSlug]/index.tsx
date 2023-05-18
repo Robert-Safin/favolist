@@ -21,6 +21,8 @@ import { useSession } from "next-auth/react";
 import CustomSession from "@/utils/Session";
 import { UserModelSchema } from "@/db/models/User";
 import { ObjectId } from "mongoose";
+import { MdThumbUp } from "react-icons/md";
+import { RxCross2 } from "react-icons/rx";
 
 
 
@@ -60,6 +62,9 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
   const [accountIsActive, setAccountIsActive] = useState(false)
   const [referralIsActive, setReferralIsActive] = useState(false)
   const [alreadyFollowed, setAlreadyFollowed] = useState(false)
+
+  const [showPopupFollow, setShowPopupFollow] = useState(false)
+  const [showPopupUnfollow, setShowPopupUnfollow] = useState(false)
 
   useEffect(() => {
     if (userIsAlreadyFollowed === true) {
@@ -134,6 +139,10 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
       })
       if (response.ok) {
         setAlreadyFollowed(true)
+        setShowPopupFollow(true)
+        setTimeout(() => {
+          setShowPopupFollow(false)
+        },2000);
       }
     } catch (error) {
       console.log(error);
@@ -155,6 +164,10 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
       })
       if (response.ok) {
         setAlreadyFollowed(false)
+        setShowPopupUnfollow(true)
+        setTimeout(() => {
+          setShowPopupUnfollow(false)
+        },2000);
       }
     } catch (error) {
       console.log(error);
@@ -282,7 +295,17 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
           </>
         }
       </div>
+      {showPopupFollow && <div className={styles.popupFollow}>
+          <MdThumbUp/>
+          <p className={styles.popupText}>You now follow {props.user.username}</p>
+          <RxCross2/>
+      </div> }
 
+      {showPopupUnfollow && <div className={styles.popupUnfollow}>
+          <MdThumbUp/>
+          <p className={styles.popupText}>You unfollowed {props.user.username}</p>
+          <RxCross2/>
+      </div> }
 
     </div>
   )
