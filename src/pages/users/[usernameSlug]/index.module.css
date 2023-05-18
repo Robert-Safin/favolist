@@ -3,6 +3,11 @@
   md:w-1/2 mx-auto
 }
 
+.productContainer {
+  @apply px-4
+
+}
+
 .username {
   @apply text-base font-semibold
 }
@@ -53,7 +58,7 @@
 }
 
 .tabContainer {
-  @apply flex justify-evenly
+  @apply flex justify-between px-4
           md:w-2/3 md:mx-auto
 }
 

@@ -1,0 +1,15 @@
+.header {
+  @apply text-lg
+}
+
+.container {
+  @apply h-20 flex
+}
+
+.titlecontainer {
+  @apply w-full items-center flex justify-center
+}
+
+.backbutton {
+  @apply absolute left-2
+}

@@ -70,8 +70,6 @@ const UserProduct: FC<Props> = (props) => {
   return (
     <>
       <div className={styles.cardContainer}>
-
-
         <div className={styles.suspensionPoints}>
           <button>
             <RxDotsHorizontal onClick={managePopover}/>

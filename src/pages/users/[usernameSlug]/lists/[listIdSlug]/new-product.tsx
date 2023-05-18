@@ -5,6 +5,9 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { signIn } from "next-auth/react";
 import CustomSession from "@/utils/Session";
+import  BackNavHeader  from '@/components/back-nav-header/BackNavHeader'
+
+
 
 
 
@@ -88,18 +91,12 @@ const NewProduct: NextPage = () => {
       const status = await response.json()
       console.log(status);
 
-
-
-
       if (response.ok) {
         router.push(`/users/${username}/lists/${listSlug}`);
       }
     } catch (error) {
       console.log(error);
     }
-
-
-
   }
 
 
@@ -113,6 +110,7 @@ const NewProduct: NextPage = () => {
 
   return (
     <>
+    <BackNavHeader title={"Title"} link={"#"}/>
       <form className={styles.form} onSubmit={handleSubmit}>
 
         <label htmlFor="name">name</label>
