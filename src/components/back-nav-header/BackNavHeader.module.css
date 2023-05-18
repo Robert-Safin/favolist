@@ -3,7 +3,7 @@
 }
 
 .container {
-  @apply h-20 flex
+  @apply h-10 flex border-b border-gray-400 mb-4
 }
 
 .titlecontainer {

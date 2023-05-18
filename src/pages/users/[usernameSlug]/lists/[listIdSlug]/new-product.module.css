@@ -1,7 +1,7 @@
 
 
 .form {
-  @apply flex flex-col
+  @apply flex flex-col px-4
 }
 
 .form label {
@@ -10,9 +10,17 @@
 
 
 .form input {
-  @apply px-3 border w-full border-l-gray-300 rounded-md h-10
+  @apply px-3 border w-full border-l-gray-300 rounded-md h-10  mb-4
 }
 
 .form textarea {
-  @apply px-3 border w-full border-l-gray-300 rounded-md
+  @apply px-3 border w-full border-l-gray-300 rounded-md mb-4
+}
+
+.form select {
+  @apply  px-3 border w-full border-l-gray-300 rounded-md h-10  mb-4
+}
+
+.placeholder {
+  @apply text-gray-400
 }
