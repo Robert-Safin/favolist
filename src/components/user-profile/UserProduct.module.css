@@ -4,7 +4,7 @@
 }
 
 .productContainer {
-  @apply flex
+  @apply flex justify-between
 }
 .listName {
   @apply text-lg font-medium
@@ -19,7 +19,7 @@
 }
 
 .userInfo {
-  @apply flex items-center ml-2 font-semibold text-sm
+  @apply flex items-center font-semibold text-sm
 }
 
 .cardActionsContainer {

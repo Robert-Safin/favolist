@@ -5,14 +5,14 @@
 }
 
 .form label {
-  @apply mx-auto text-xl
+  @apply  text-sm w-full
 }
 
 
 .form input {
-  @apply mx-auto border border-purple
+  @apply px-3 border w-full border-l-gray-300 rounded-md h-10
 }
 
 .form textarea {
-  @apply mx-auto border border-purple
+  @apply px-3 border w-full border-l-gray-300 rounded-md
 }
