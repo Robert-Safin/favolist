@@ -186,7 +186,7 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
               <p>{props.user.followers.length} followers</p>
               </Link>
               <p>·</p>
-              <Link href={`#`}>
+              <Link href={`/users/${props.user.username}/followers-and-following`}>
               <p>{props.user.following.length} following</p>
               </Link>
             </div>
@@ -238,7 +238,7 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
 
 
       <div className={styles.listsContainer}>
-        {!userHasLists && <h1 className={styles.userHasNoLists}>User has no lists.<Link href={`/users/${userSession?.user.username}/lists/new-list`} className={styles.listLink}> Make new list</Link> </h1>}
+        {!userHasLists && <h1 className={styles.userHasNoLists}>User has no lists. </h1>}
         {userHasLists && listIsActive && props.user.lists.map(list =>
           <UserList
             key={String(list._id)}
