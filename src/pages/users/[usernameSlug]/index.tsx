@@ -228,6 +228,9 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
             logo={product.productLogo}
             username={props.user.username}
             comments={product.comments}
+            _id={product._id}
+            bookmarkedBy={product.bookmarkedBy}
+            currentUserId={props.user._id}
           />
         )}
       </div>
