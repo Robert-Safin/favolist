@@ -113,25 +113,33 @@ const NewProduct: NextPage = () => {
     <BackNavHeader title={"Title"} link={"#"}/>
       <form className={styles.form} onSubmit={handleSubmit}>
 
-        <label htmlFor="name">name</label>
+        <label htmlFor="name">Product</label>
         <input type="text" id='name' ref={nameRef} />
 
-        <label htmlFor="content">content</label>
-        <textarea id='content' ref={contentRef} />
-
-        <label htmlFor="specs">specs</label>
-        <textarea id='specs' ref={specsRef} />
-
-        <label htmlFor="price">price</label>
+        <label htmlFor="price">Price</label>
         <input type="number" id='price' ref={priceRef} />
 
-        <label htmlFor="referral">referral</label>
+        {/* <label htmlFor="list">List</label>
+        <select name="languages" id="lang">
+          <option value="someList" className={styles.placeholder}>Select a list...</option>
+          <option value="someList">list 1</option>
+          <option value="someOtherList">list 2 </option>
+          <option value="robsBananas">robs bananas</option>
+        </select> */}
+
+        <label htmlFor="content">Review</label>
+        <textarea id='content' ref={contentRef} />
+
+        <label htmlFor="specs">Description</label>
+        <textarea id='specs' ref={specsRef} />
+
+        <label htmlFor="referral">Referral</label>
         <input type="text" id='referral' ref={referralRef} />
 
-        <label htmlFor="referralDescription">referral description</label>
+        <label htmlFor="referralDescription">Referral details</label>
         <input type="text" id='referralDescription' ref={referralDescriptionRef} />
 
-        <label htmlFor="image">image</label>
+        <label htmlFor="image">Product image</label>
         <input type="file" id='image' ref={imageRef} />
 
         <button type="submit" disabled={buttonIsDisabled}>Submit</button>
