@@ -1,0 +1,26 @@
+
+.header {
+  @apply text-xl text-gray-500
+}
+
+.optionText {
+  @apply text-base
+}
+
+
+.optionContainer {
+  @apply flex items-center justify-between my-6
+}
+
+.optionsBlock {
+  @apply border-b border-gray-400 mx-5
+}
+
+.optionsBlock2 {
+  @apply border-b border-gray-400 mx-5 mt-4
+}
+
+
+.icon {
+  @apply text-xl
+}

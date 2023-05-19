@@ -1,0 +1,36 @@
+.formContainer {
+  @apply flex flex-col w-full mx-auto
+}
+
+.title {
+  @apply mx-auto mt-10
+}
+
+.form {
+  @apply flex flex-col mx-auto
+}
+
+
+.formLabel {
+  @apply text-2xl pt-5 tracking-wide
+}
+
+.formInput {
+  @apply border rounded border-purple
+}
+
+.submitButton {
+  @apply bg-purple mt-5
+}
+
+.socialContainer {
+  @apply flex my-2
+}
+
+.socialContainer input{
+  @apply border border-gray-200
+}
+
+.logo {
+  @apply w-6 h-6 object-cover mr-2
+}
