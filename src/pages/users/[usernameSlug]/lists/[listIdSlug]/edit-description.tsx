@@ -106,7 +106,7 @@ export const getServerSideProps:GetServerSideProps = async(context) => {
   const userSlug = context.params!.usernameSlug
   const listSlug = context.params!.listIdSlug
 
-  await connectDB()
+  //await connectDB()
 
   const userDoc = await User.findOne({username: userSlug})
   const userDocWithLists = await userDoc?.populate('lists')

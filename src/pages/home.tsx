@@ -9,7 +9,6 @@ import { useState, FormEventHandler } from "react";
 
 const Home: NextPage = () => {
   const { data: session, status } = useSession();
-
   const [foundUsers, setFoundUsers] = useState([]);
   const [foundLists, setFoundLists] = useState([]);
   const [foundProducts, setFoundProducts] = useState([]);

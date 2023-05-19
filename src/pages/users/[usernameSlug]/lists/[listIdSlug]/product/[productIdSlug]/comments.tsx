@@ -97,7 +97,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const currentUser = await getSession(context)
 
-  await connectDB()
+  //await connectDB()
   const targetProduct = await User.findOne({ username: usernameSlug })
   .populate({
     path: 'products',

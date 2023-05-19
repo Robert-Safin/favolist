@@ -8,7 +8,7 @@ const handler = async(req:NextApiRequest, res:NextApiResponse) => {
   const email = req.body.repliedBy
   const commentId = req.body.commentId
 
-  await connectDB()
+  //await connectDB()
 
   const replyByUser = await User.findOne({email: email})
 

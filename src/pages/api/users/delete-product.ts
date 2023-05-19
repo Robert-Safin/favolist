@@ -13,7 +13,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   // delete Product from User's List
 
   try {
-    await connectDB()
+    //await connectDB()
     const userDoc  = await User.findOne({email:  email})
     await userDoc?.populate('lists')
     const targetList = userDoc?.lists.find(list => list.title === listName )

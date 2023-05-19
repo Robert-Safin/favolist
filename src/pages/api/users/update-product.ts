@@ -13,7 +13,7 @@ import { NextApiRequest, NextApiResponse } from "next";
   const referralLink = req.body.referralLink;
   const image = req.body.productImage
 
-    await connectDB()
+    //await connectDB()
 
     const productDoc = await Product.findById(productId)
     await productDoc?.updateOne({

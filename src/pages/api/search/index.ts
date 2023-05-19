@@ -10,7 +10,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     const query = req.body;
-    await connectDB();
+    //await connectDB();
 
     const words = query.split(' ');
 

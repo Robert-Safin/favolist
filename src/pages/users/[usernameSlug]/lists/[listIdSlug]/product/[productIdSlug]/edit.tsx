@@ -130,7 +130,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const listSlug = context.query.listIdSlug
   const productSlug = context.query.productIdSlug
 
-  await connectDB()
+  //await connectDB()
 
 
   const userDoc = await User.findOne({ username: usernameSlug })

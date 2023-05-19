@@ -17,7 +17,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
 
   try {
-    await connectDB()
+    //await connectDB()
     const productDoc = await Product.findOne({_id: productObjectId})
 
     const userDoc = await User.findOne({email: userEmail})

@@ -206,7 +206,7 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
           </div>
 
           <div className={styles.buttonContainer}>
-            {userIsProfileOwner && <Link href={`/users/edit`} className={styles.button}>Edit profile</Link>}
+            {userIsProfileOwner && <Link href={`/settings/edit-profile`} className={styles.button}>Edit profile</Link>}
             {!userIsProfileOwner && !alreadyFollowed && <button onClick={handleFollow} className={styles.button}>Follow</button>}
             {!userIsProfileOwner && alreadyFollowed && <button onClick={handleUnfollow} className={styles.button}>Unfollow</button>}
 
@@ -315,7 +315,7 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
 
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  await connectDB();
+  //await connectDB();
   const username = context.params!.usernameSlug
 
   const user = await User.findOne({ username: username });

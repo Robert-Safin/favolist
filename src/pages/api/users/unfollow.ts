@@ -15,7 +15,7 @@ const handler: NextApiHandler = async (req: NextApiRequest,res: NextApiResponse)
 
 
   try {
-    await connectDB()
+    //await connectDB()
     const currentUser = await User.findOne({email: currentUserEmail})
 
 
