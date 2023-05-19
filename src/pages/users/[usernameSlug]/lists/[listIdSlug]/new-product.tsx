@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { signIn } from "next-auth/react";
 import CustomSession from "@/utils/Session";
 import  BackNavHeader  from '@/components/back-nav-header/BackNavHeader'
+import { BiImage } from 'react-icons/bi'
 
 
 
@@ -110,14 +111,14 @@ const NewProduct: NextPage = () => {
 
   return (
     <>
-    <BackNavHeader title={"Title"} link={"#"}/>
+    <BackNavHeader title={"New listing"} />
       <form className={styles.form} onSubmit={handleSubmit}>
 
         <label htmlFor="name">Product</label>
-        <input type="text" id='name' ref={nameRef} />
+        <input type="text" id='name' placeholder="Type the product name here..." ref={nameRef} />
 
         <label htmlFor="price">Price</label>
-        <input type="number" id='price' ref={priceRef} />
+        <input type="number" id='price' placeholder="Enter product price..." ref={priceRef} />
 
         {/* <label htmlFor="list">List</label>
         <select name="languages" id="lang">
@@ -128,19 +129,22 @@ const NewProduct: NextPage = () => {
         </select> */}
 
         <label htmlFor="content">Review</label>
-        <textarea id='content' ref={contentRef} />
+        <textarea id='content' placeholder="Write a review here..." ref={contentRef} />
 
         <label htmlFor="specs">Description</label>
-        <textarea id='specs' ref={specsRef} />
+        <textarea id='specs' placeholder="Provide a product description here..." ref={specsRef} />
 
         <label htmlFor="referral">Referral</label>
-        <input type="text" id='referral' ref={referralRef} />
+        <input type="text" id='referral' placeholder="Copy your referral code or link here..." ref={referralRef} />
 
         <label htmlFor="referralDescription">Referral details</label>
-        <input type="text" id='referralDescription' ref={referralDescriptionRef} />
+        <input type="text" id='referralDescription' placeholder="Enter referral details..." ref={referralDescriptionRef} />
 
-        <label htmlFor="image">Product image</label>
-        <input type="file" id='image' ref={imageRef} />
+        <label htmlFor="image" className={styles.imageupload}>
+          <BiImage className={styles.imageuploadicon} />
+          <div>Upload product image...</div>
+        </label>
+        <input type="file" id='image' className="hidden" ref={imageRef} />
 
         <button type="submit" disabled={buttonIsDisabled}>Submit</button>
       </form>

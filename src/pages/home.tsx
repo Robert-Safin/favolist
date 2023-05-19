@@ -55,9 +55,7 @@ const Home: NextPage = () => {
       <SearchBar handleSubmit={handleSubmit} handleSearch={handleSearch} />
       <ToggleView />
       {/* to do logic for homefeed once follower relationship established */}
-      <Card />
-      <Card />
-      <Card />
+
     </>
   );
 };

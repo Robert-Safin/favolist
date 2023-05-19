@@ -4,7 +4,8 @@ import styles from './new-list.module.css';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
-import cloudinary from "cloudinary";
+import cloudinary from 'cloudinary';
+import { BiImage } from 'react-icons/bi';
 
 import CustomSession from '@/utils/Session';
 import BackNavHeader from '@/components/back-nav-header/BackNavHeader';
@@ -80,17 +81,22 @@ const NewList: NextPage = () => {
 
   return (
     <>
-      <BackNavHeader title={"New list"} />
+      <BackNavHeader title={'New list'} />
       <div className={styles.formContainer}>
         <form className={styles.form} onSubmit={handleSubmit}>
           <label htmlFor="title">List name</label>
           <input type="text" id="title" placeholder="Give your list a name..." ref={titleRef} />
 
           <label htmlFor="about">Description</label>
-          <textarea id="about" placeholder="Enter a list description here..." ref={aboutRef} />
+          <textarea
+            id="about"
+            placeholder="Enter a list description here..."
+            ref={aboutRef}
+          />
 
           <label htmlFor="image" className={styles.imageupload}>
-            Add Image
+            <BiImage className={styles.imageuploadicon} />
+            <div>Upload list image...</div>
           </label>
           <input
             type="file"
