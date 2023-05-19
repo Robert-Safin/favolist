@@ -34,7 +34,7 @@ const Footer: FC = () => {
           <Link href={`/users/${userSession.user.username}`} className={styles.menulink}><CgProfile /></Link>
         </div>
         <div className={styles.menuitem}>
-          <Link href="/users/edit" className={styles.menulink}><AiOutlineSetting /></Link>
+          <Link href="/settings" className={styles.menulink}><AiOutlineSetting /></Link>
         </div>
         <div className={styles.menuitem}>
           <Link href={`/users/${userSession.user.username}/lists/new-list`} className={styles.menulink}><RiAddFill /></Link>
