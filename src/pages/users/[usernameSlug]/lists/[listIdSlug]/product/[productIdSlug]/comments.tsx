@@ -8,6 +8,7 @@ import { CommentModelSchema } from "@/db/models/Comment";
 import { ReactEventHandler, useRef } from "react";
 import { useRouter } from "next/router";
 import Comment from "@/components/comments&replies /Comment";
+import BackNavHeader from "@/components/back-nav-header/BackNavHeader";
 
 
 interface Props {
@@ -59,10 +60,9 @@ const CommentsPage: NextPage<Props> = (props) => {
 
   return (
     <div className={styles.mainContainer}>
-
+      <BackNavHeader title="Comments"/>
       <div className={styles.title}>
-        <h1>Comments</h1>
-        {productHasNoComments && <p>This product has no comments</p>}
+        {productHasNoComments && <p>This product has no comments yet. </p>}
       </div>
 
       {!productHasNoComments && props.comments.map(comment =>
@@ -80,7 +80,9 @@ const CommentsPage: NextPage<Props> = (props) => {
       <form className={styles.formContainer} onSubmit={handleNewComment}>
 
         <div className={styles.textareaAndButton}>
-          <textarea className={styles.textarea} id="new-comment" placeholder="New Comment" ref={commentRef}></textarea>
+        {/* <Image className={styles.avatar} src={props.user.avatar!} alt='user avatar' width={20} height={20} /> */}
+
+          <input className={styles.textarea} id="new-comment" placeholder="New Comment" ref={commentRef}></input>
           <button className={styles.button} type="submit">Submit</button>
         </div>
 
