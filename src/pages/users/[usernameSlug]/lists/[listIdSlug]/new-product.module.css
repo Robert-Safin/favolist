@@ -8,9 +8,16 @@
   @apply  text-sm w-full
 }
 
+.imageupload {
+  @apply flex flex-col items-center justify-center text-gray-500 border cursor-pointer border-dashed border-l-gray-300 rounded-md mb-4 h-24
+}
+
+.imageuploadicon {
+  @apply text-2xl mb-2
+}
 
 .form input {
-  @apply px-2 border w-full border-l-gray-300 rounded-md mb-4 h-24  placeholder-gray-400 text-sm
+  @apply px-2 border w-full border-l-gray-300 rounded-md mb-4 h-10  placeholder-gray-400 text-sm
 }
 
 .form textarea {
@@ -23,4 +30,8 @@
 
 .placeholder {
   @apply text-gray-400
+}
+
+.form button {
+  @apply bg-purple rounded-md mt-4 text-base text-white h-12 mb-20
 }

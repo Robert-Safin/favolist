@@ -18,7 +18,7 @@ const BackNavHeader: FC<Props> = (props) => {
 
   return (
     <div className={styles.container}>
-      <div className="flex relative items-center space-x-2">
+      <div className={styles.subcontainer}>
         <button className={styles.backbutton}>
           <div onClick={handleGoBack}><FiChevronLeft className={styles.iconCard} /></div>
         </button>
