@@ -7,34 +7,31 @@ import { signIn } from 'next-auth/react';
 import cloudinary from "cloudinary";
 
 import CustomSession from '@/utils/Session';
-
-
-
+import BackNavHeader from '@/components/back-nav-header/BackNavHeader';
 
 const NewList: NextPage = () => {
   const { data: session, status } = useSession();
-  const userSession = session as CustomSession
+  const userSession = session as CustomSession;
 
   const router = useRouter();
   const titleRef = useRef<HTMLInputElement>(null);
   const imageRef = useRef<HTMLInputElement>(null);
   const aboutRef = useRef<HTMLTextAreaElement>(null);
 
-  const [buttonIsDisabled, setButtonIsDisabled] = useState(false)
-
+  const [buttonIsDisabled, setButtonIsDisabled] = useState(false);
+  const [isImageAttached, setIsImageAttached] = useState(false);
 
   if (!userSession) {
     return (
       <>
         <button onClick={() => signIn()}>Login</button>
       </>
-    )
+    );
   }
-
 
   const handleSubmit: FormEventHandler = async (event) => {
     event.preventDefault();
-    setButtonIsDisabled(true)
+    setButtonIsDisabled(true);
     const enteredTitle = titleRef.current?.value;
     const enteredAbout = aboutRef.current?.value;
     const enteredImage = imageRef.current?.files![0];
@@ -49,18 +46,16 @@ const NewList: NextPage = () => {
         body: formData,
       });
 
-      const responseData = await response.json()
-      const secureUrl = responseData.secure_url
-
-
-
+      const responseData = await response.json();
+      const secureUrl = responseData.secure_url;
 
       const data = {
         userEmail: userSession.user.email,
         listTitle: enteredTitle,
         secure_url: secureUrl,
         listAbout: enteredAbout,
-      }
+      };
+
       try {
         const response = await fetch('/api/users/new-list', {
           method: 'POST',
@@ -69,34 +64,51 @@ const NewList: NextPage = () => {
           },
           body: JSON.stringify(data),
         });
+
         if (response.ok) {
           router.push(`/users/${userSession.user.username}`);
         }
       } catch (error) {
         console.log(error);
-
       }
+    }
+  };
 
-    };
-  }
-
+  const handleImageChange = () => {
+    setIsImageAttached(true);
+  };
 
   return (
-    <div className={styles.formContainer}>
-      <h1 className={styles.title}>New List</h1>
-      <form className={styles.form} onSubmit={handleSubmit}>
+    <>
+      <BackNavHeader title={"New list"} />
+      <div className={styles.formContainer}>
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <label htmlFor="title">List name</label>
+          <input type="text" id="title" placeholder="Give your list a name..." ref={titleRef} />
 
-        <label htmlFor="title"> List title</label>
-        <input type="text" id="title" placeholder="Hangover cures" ref={titleRef} />
+          <label htmlFor="about">Description</label>
+          <textarea id="about" placeholder="Enter a list description here..." ref={aboutRef} />
 
-        <label htmlFor="about"> About the list</label>
-        <textarea id="about" placeholder="List of charcoal pills" ref={aboutRef} />
+          <label htmlFor="image" className={styles.imageupload}>
+            Add Image
+          </label>
+          <input
+            type="file"
+            id="image"
+            accept="image/*"
+            ref={imageRef}
+            className="hidden"
+            onChange={handleImageChange}
+          />
 
-        <input type="file" accept="image/*" ref={imageRef} />
+          {isImageAttached && <p>Image attached</p>}
 
-        <button type="submit" disabled={buttonIsDisabled}>Create</button>
-      </form>
-    </div>
+          <button type="submit" disabled={buttonIsDisabled}>
+            Create
+          </button>
+        </form>
+      </div>
+    </>
   );
 };
 

@@ -10,11 +10,11 @@
 
 
 .form input {
-  @apply px-3 border w-full border-l-gray-300 rounded-md h-10  mb-4
+  @apply px-2 border w-full border-l-gray-300 rounded-md mb-4 h-24  placeholder-gray-400 text-sm
 }
 
 .form textarea {
-  @apply px-3 border w-full border-l-gray-300 rounded-md mb-4
+  @apply px-2 border w-full border-l-gray-300 rounded-md mb-4 h-24  placeholder-gray-400 text-sm pt-1
 }
 
 .form select {

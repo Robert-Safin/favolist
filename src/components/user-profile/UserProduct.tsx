@@ -15,6 +15,7 @@ import { CommentModelSchema } from '@/db/models/Comment'
 import { UserModelSchema } from '@/db/models/User'
 
 import Modal from 'react-modal';
+
 interface Props {
   _id: ObjectId
   title: string

@@ -7,7 +7,6 @@ import { useRouter } from 'next/router';
 
 interface Props {
   title: string
-  link : string
  }
 
 const BackNavHeader:FC<Props> = (props) => {
@@ -21,7 +20,7 @@ const BackNavHeader:FC<Props> = (props) => {
     <div className={styles.container}>
       <div className="flex relative items-center space-x-2">
         <button className={styles.backbutton}>
-         <Link href={props.link} onClick={handleGoBack}><FiChevronLeft className={styles.iconCard} /></Link>
+         <button onClick={handleGoBack}><FiChevronLeft className={styles.iconCard} /></button>
         </button>
       </div>
       <div className={styles.titlecontainer}>
