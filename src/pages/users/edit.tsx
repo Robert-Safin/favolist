@@ -74,6 +74,10 @@ const EditProfile: NextPage = () => {
         <button type="submit" className={styles.submitButton}> Submit</button>
       </form>
 
+      <div>
+        <h1>Add social</h1>
+      </div>
+
     </div>
   )
 }

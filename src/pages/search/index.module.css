@@ -1,5 +1,5 @@
 .resultsContainer {
-  @apply border border-b-purple border-t-purple justify-evenly flex flex-wrap
+  @apply border  justify-evenly flex flex-wrap
 }
 
 .foundCategory {
@@ -11,11 +11,15 @@
 }
 
 .activeTab {
-  @apply border-b border-purple
+  @apply border-b border-purple flex flex-row items-center py-5
 }
 
 .nonActiveTab {
-  @apply border-b border-gray-200
+  @apply border-b border-gray-200 flex flex-row items-center py-5
+}
+
+.searchIcons {
+  @apply mr-2
 }
 
 .popupFollow {

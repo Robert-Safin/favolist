@@ -1,4 +1,4 @@
-import { NextPage } from "next";
+import { GetServerSideProps, NextPage } from "next";
 import styles from './new-product.module.css'
 import { FormEventHandler, useRef, useState } from "react";
 import { useSession } from 'next-auth/react';
@@ -147,6 +147,19 @@ const NewProduct: NextPage = () => {
     </>
   )
 }
+
+export const getServerSideProps:GetServerSideProps = async (context) => {
+
+
+
+  return {
+    props: {
+
+    }
+  }
+}
+
+
 
 
 export default NewProduct

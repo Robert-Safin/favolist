@@ -42,3 +42,7 @@
 .userAvatarAndName {
   @apply flex
 }
+
+.productContent {
+  @apply line-clamp-5
+}

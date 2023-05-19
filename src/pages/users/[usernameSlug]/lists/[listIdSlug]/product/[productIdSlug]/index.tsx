@@ -94,7 +94,7 @@ const ShowProduct: NextPage<Props> = (props) => {
       </div>
 
       {reviewIsActive && <div className={styles.tabWindow}>
-        <p>{props.user.products[0].content}</p>
+        <p className={styles.productContent}>{props.user.products[0].content}</p>
       </div>}
 
       {descriptionIsActive && <div className={styles.tabWindow}>

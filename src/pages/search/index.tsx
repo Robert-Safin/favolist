@@ -14,6 +14,8 @@ import CustomSession from '@/utils/Session';
 import UserReferral from '@/components/user-profile/UserReferral';
 import { MdThumbUp } from 'react-icons/md';
 import { RxCross2 } from 'react-icons/rx';
+import { BsGrid3X3Gap, BsPeople, BsSquare, BsTag } from 'react-icons/bs';
+import ToggleView from '@/components/toggleViewListCard/ToggleView';
 
 
 
@@ -152,11 +154,13 @@ const SearchPage: NextPage<Props> = (props) => {
     <>
       <SearchBar handleSubmit={handleSubmit} handleSearch={handleSearch} />
       <div className={styles.tabs}>
-        <p onClick={handleShowProducts} className={showProducts ? styles.activeTab : styles.nonActiveTab}>Products</p>
-        <p onClick={handleShowLists} className={showLists ? styles.activeTab : styles.nonActiveTab}>Lists</p>
-        <p onClick={handleShowReferrals} className={showReferrals ? styles.activeTab : styles.nonActiveTab}>Referrals</p>
-        <p onClick={handleShowUsers} className={showUsers ? styles.activeTab : styles.nonActiveTab}>Users</p>
+        <p onClick={handleShowProducts} className={showProducts ? styles.activeTab : styles.nonActiveTab}> <BsSquare className={styles.searchIcons}/>Products</p>
+        <p onClick={handleShowLists} className={showLists ? styles.activeTab : styles.nonActiveTab}> <BsGrid3X3Gap className={styles.searchIcons}/>Lists</p>
+        <p onClick={handleShowReferrals} className={showReferrals ? styles.activeTab : styles.nonActiveTab}> <BsTag className={styles.searchIcons}/>Referrals</p>
+        <p onClick={handleShowUsers} className={showUsers ? styles.activeTab : styles.nonActiveTab}><BsPeople className={styles.searchIcons}/>Users</p>
       </div>
+
+      <ToggleView/>
 
 
 
