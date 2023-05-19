@@ -13,7 +13,7 @@ export interface UserModelSchema extends Document {
   followers: UserModelSchema[];
   lists: ListModelSchema[];
   products: ProductModelSchema[];
-  socials: SocialModelSchema[];
+  socials: SocialModelSchema;
   bookmarks: ProductModelSchema[];
 }
 
@@ -72,9 +72,8 @@ const UserSchema = new mongoose.Schema<UserModelSchema>(
       default: [],
     },
     socials: {
-      type: [mongoose.Schema.Types.ObjectId],
+      type: mongoose.Schema.Types.ObjectId,
       ref: "Social",
-      default:[]
     },
   },
   {
