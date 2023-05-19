@@ -23,6 +23,7 @@ import { UserModelSchema } from "@/db/models/User";
 import { ObjectId } from "mongoose";
 import { MdThumbUp } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
+import Social, { SocialModelSchema } from "@/db/models/Social";
 
 
 
@@ -40,6 +41,7 @@ interface UserProfileProps {
     lists: ListModelSchema[];
     products: ProductModelSchema[]
     userLists: ListModelSchema[]
+    socials: SocialModelSchema,
   }
 }
 
@@ -52,9 +54,9 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
   const router = useRouter()
   const usernameSlug = router.query.usernameSlug
   const userIsProfileOwner = usernameSlug === userSession?.user.username
+
   const userHasLists = props.user.lists.length > 0
   const userHasProducts = props.user.products.length > 0
-
   const userIsAlreadyFollowed = props.user.followers && userSession && userSession.user && props.user.followers.some(follower => follower && follower.username === userSession.user.username);
 
   const [productIsActive, setProductIsActive] = useState(false)
@@ -124,7 +126,7 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
 
 
 
-  const handleFollow = async() => {
+  const handleFollow = async () => {
     const data = {
       currentUserEmail: userSession?.user.email,
       followTargetID: props.user._id,
@@ -142,14 +144,14 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
         setShowPopupFollow(true)
         setTimeout(() => {
           setShowPopupFollow(false)
-        },2000);
+        }, 2000);
       }
     } catch (error) {
       console.log(error);
     }
   }
 
-  const handleUnfollow = async() => {
+  const handleUnfollow = async () => {
     const data = {
       currentUserEmail: userSession?.user.email,
       unfollowTargetID: props.user._id,
@@ -167,12 +169,13 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
         setShowPopupUnfollow(true)
         setTimeout(() => {
           setShowPopupUnfollow(false)
-        },2000);
+        }, 2000);
       }
     } catch (error) {
       console.log(error);
     }
   }
+
 
   return (
 
@@ -196,11 +199,11 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
 
             <div className={styles.followersFollowing}>
               <Link href={`/users/${props.user.username}/followers-and-following`}>
-              <p>{props.user.followers.length} followers</p>
+                <p>{props.user.followers.length} followers</p>
               </Link>
               <p>·</p>
               <Link href={`/users/${props.user.username}/followers-and-following`}>
-              <p>{props.user.following.length} following</p>
+                <p>{props.user.following.length} following</p>
               </Link>
             </div>
           </div>
@@ -219,15 +222,16 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
         <button className={listIsActive ? styles.activeTab : styles.tabLink} onClick={handleListClick}>Lists</button>
         <button className={referralIsActive ? styles.activeTab : styles.tabLink} onClick={handleReferralClick}>Referral</button>
         <button className={accountIsActive ? styles.activeTab : styles.tabLink} onClick={handleProfileClick}>Profile</button>
-
       </div>
 
       <ToggleView />
 
 
-      <div className={styles.productsContainer}>
 
-        {!userHasProducts && productIsActive && <h1 className={styles.userHasNoLists}>User has no products</h1>}
+
+
+      <div className={styles.productsContainer}>
+        {!userHasProducts && productIsActive && <h1 className={styles.userHasNoThing}>{props.user.username} has no products</h1>}
         {userHasProducts && productIsActive && props.user.products.map(product =>
           <UserProduct
             key={String(product._id)}
@@ -254,7 +258,7 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
 
 
       <div className={styles.listsContainer}>
-        {!userHasLists && <h1 className={styles.userHasNoLists}>User has no lists. </h1>}
+        {!userHasLists && listIsActive && <h1 className={styles.userHasNoThing}>{props.user.username} has no lists</h1>}
         {userHasLists && listIsActive && props.user.lists.map(list =>
           <UserList
             key={String(list._id)}
@@ -268,7 +272,7 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
 
 
       <div className={styles.referralContainer}>
-
+        {productsWithReferrals && referralIsActive && <h1 className={styles.userHasNoThing}>{props.user.username} has no referrals</h1>}
         {userHasProducts && referralIsActive && productsWithReferrals.map(product =>
           <UserReferral
             key={String(product._id)}
@@ -283,8 +287,10 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
             username={props.user.username}
           />
         )}
-
       </div>
+
+
+
 
       <div className={styles.accountContainer}>
         {accountIsActive &&
@@ -292,20 +298,159 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
             <h1 className={styles.userBioTitle}>Bio</h1>
             <p className={styles.userBio}>{props.user.bio}</p>
             <h1 className={styles.userSocialsTitle}>Socials</h1>
+
+            <div className={styles.socialsContainer}>
+
+
+              {props.user.socials.facebook.length > 0 &&
+              <div>
+                <a href={props.user.socials.facebook} target="_blank" rel="noopener noreferrer">
+                <Image className={styles.socialIcon} src={`/socials/facebook-icon.svg`} alt={'facebook'} height={50} width={50}/>
+                </a>
+
+              </div> }
+
+
+
+
+
+
+              {props.user.socials.github.length > 0 &&
+              <div>
+                <a href={props.user.socials.github} target="_blank" rel="noopener noreferrer">
+                <Image className={styles.socialIcon} src={`/socials/github-icon.svg`} alt={'github'} height={50} width={50}/>
+                </a>
+
+              </div> }
+
+
+
+
+
+              {props.user.socials.instagram.length > 0 &&
+              <div>
+                <a href={props.user.socials.instagram} target="_blank" rel="noopener noreferrer">
+                <Image className={styles.socialIcon} src={`/socials/instagram-icon.png`} alt={'instagram'} height={50} width={50}/>
+                </a>
+
+              </div> }
+
+
+
+
+
+              {props.user.socials.linkedin.length > 0 &&
+              <div>
+                <a href={props.user.socials.linkedin} target="_blank" rel="noopener noreferrer">
+                <Image className={styles.socialIcon} src={`/socials/linkedin-icon.svg`} alt={'linkedin'} height={50} width={50}/>
+                </a>
+
+              </div> }
+
+
+
+
+
+              {props.user.socials.medium.length > 0 &&
+              <div>
+                <a href={props.user.socials.medium} target="_blank" rel="noopener noreferrer">
+                <Image className={styles.socialIcon} src={`/socials/medium-icon.svg`} alt={'medium'} height={50} width={50}/>
+                </a>
+
+              </div> }
+
+
+
+              {props.user.socials.patreon.length > 0 &&
+              <div>
+                <a href={props.user.socials.patreon} target="_blank" rel="noopener noreferrer">
+                <Image className={styles.socialIcon} src={`/socials/patreon-icon.svg`} alt={'patreon'} height={50} width={50}/>
+                </a>
+
+              </div> }
+
+
+
+              {props.user.socials.snapchat.length > 0 &&
+              <div>
+                <a href={props.user.socials.snapchat} target="_blank" rel="noopener noreferrer">
+                <Image className={styles.socialIcon} src={`/socials/snapchat-icon.png`} alt={'snapchat'} height={50} width={50}/>
+                </a>
+
+              </div> }
+
+
+
+              {props.user.socials.tiktok.length > 0 &&
+              <div>
+                <a href={props.user.socials.tiktok} target="_blank" rel="noopener noreferrer">
+                <Image className={styles.socialIcon} src={`/socials/tiktok-icon.svg`} alt={'tiktok'} height={50} width={50}/>
+                </a>
+
+              </div> }
+
+
+
+              {props.user.socials.twitch.length > 0 &&
+              <div>
+                <a href={props.user.socials.twitch} target="_blank" rel="noopener noreferrer">
+                <Image className={styles.socialIcon} src={`/socials/twitch-icon.png`} alt={'twitch'} height={50} width={50}/>
+                </a>
+
+              </div> }
+
+
+              {props.user.socials.twitter.length > 0 &&
+              <div>
+                <a href={props.user.socials.twitter} target="_blank" rel="noopener noreferrer">
+                <Image className={styles.socialIcon} src={`/socials/twitter-icon.png`} alt={'twitter'} height={50} width={50}/>
+                </a>
+
+              </div> }
+
+
+              {props.user.socials.youtube.length > 0 &&
+              <div>
+                <a href={props.user.socials.youtube} target="_blank" rel="noopener noreferrer">
+                <Image className={styles.socialIcon} src={`/socials/youtube-icon.svg`} alt={'youtube'} height={50} width={50}/>
+                </a>
+
+              </div> }
+
+
+
+
+            </div>
+
+
+
           </>
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
       </div>
       {showPopupFollow && <div className={styles.popupFollow}>
-          <MdThumbUp/>
-          <p className={styles.popupText}>You now follow {props.user.username}</p>
-          <RxCross2/>
-      </div> }
+        <MdThumbUp />
+        <p className={styles.popupText}>You now follow {props.user.username}</p>
+        <RxCross2 />
+      </div>}
 
       {showPopupUnfollow && <div className={styles.popupUnfollow}>
-          <MdThumbUp/>
-          <p className={styles.popupText}>You unfollowed {props.user.username}</p>
-          <RxCross2/>
-      </div> }
+        <MdThumbUp />
+        <p className={styles.popupText}>You unfollowed {props.user.username}</p>
+        <RxCross2 />
+      </div>}
 
     </div>
   )
@@ -318,27 +463,20 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   //await connectDB();
   const username = context.params!.usernameSlug
 
-  const user = await User.findOne({ username: username });
+  const userDoc = await User.findOne({ username: username });
 
-  if (!user) {
+  if (!userDoc) {
     // to do
     return {
       notFound: true,
     };
   }
-  const userDoc = await user.populate('lists')
+  await userDoc.populate('lists')
+  await userDoc.populate('products')
+  await userDoc.populate("followers")
+  await userDoc.populate("follows")
 
-  if (userDoc.products.length > 0) {
-    await userDoc.populate('products')
-  }
-
-  if (user.followers.length > 0) {
-    await userDoc.populate("followers")
-  }
-
-  if (user.follows.length > 0) {
-    await userDoc.populate("follows")
-  }
+  const socialDoc = await Social.findOne({ userId: userDoc._id })
 
 
 
@@ -353,7 +491,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         followers: await JSON.parse(JSON.stringify(userDoc.followers)),
         following: await JSON.parse(JSON.stringify(userDoc.follows)),
         lists: await JSON.parse(JSON.stringify(userDoc.lists)),
-        products: await JSON.parse(JSON.stringify(userDoc.products))
+        products: await JSON.parse(JSON.stringify(userDoc.products)),
+        socials: await JSON.parse(JSON.stringify(socialDoc)),
       }
     },
   };

@@ -70,25 +70,24 @@ const SearchPage: NextPage<Props> = (props) => {
 
 
   const handleSearch = async (query: string) => {
-    try {
-      const response = await fetch('/api/search', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(query),
-      });
-      const data = await response.json();
+      try {
+        const response = await fetch('/api/search', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(query),
+        });
+        const data = await response.json();
+        setFoundUsers(JSON.parse(data.foundUsers));
+        setFoundLists(JSON.parse(data.foundLists));
+        setFoundProducts(JSON.parse(data.foundProducts));
+        setFoundReferrals(JSON.parse(data.foundReferrals));
+        setCurrentUser(JSON.parse(data.currentUser));
+      } catch (error) {
+        console.log(error);
+      }
 
-
-      setFoundUsers(JSON.parse(data.foundUsers));
-      setFoundLists(JSON.parse(data.foundLists));
-      setFoundProducts(JSON.parse(data.foundProducts));
-      setFoundReferrals(JSON.parse(data.foundReferrals));
-      setCurrentUser(JSON.parse(data.currentUser));
-    } catch (error) {
-      console.log(error);
-    }
   };
 
 

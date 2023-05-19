@@ -65,8 +65,8 @@
 .listLink {
   @apply text-purple underline
 }
-.userHasNoLists {
-  @apply text-center
+.userHasNoThing {
+  @apply mx-auto
 }
 
 .productsContainer {
@@ -98,4 +98,12 @@
 
 .popupText {
   @apply text-strongLime mx-3
+}
+
+.socialsContainer {
+  @apply bg-gray-200 m-4 flex flex-wrap justify-center space-x-3
+}
+
+.socialIcon {
+  @apply h-8 w-8 my-3
 }
