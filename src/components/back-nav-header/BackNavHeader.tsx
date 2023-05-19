@@ -7,9 +7,9 @@ import { useRouter } from 'next/router';
 
 interface Props {
   title: string
- }
+}
 
-const BackNavHeader:FC<Props> = (props) => {
+const BackNavHeader: FC<Props> = (props) => {
   const router = useRouter();
 
   const handleGoBack = () => {
@@ -20,11 +20,11 @@ const BackNavHeader:FC<Props> = (props) => {
     <div className={styles.container}>
       <div className="flex relative items-center space-x-2">
         <button className={styles.backbutton}>
-         <button onClick={handleGoBack}><FiChevronLeft className={styles.iconCard} /></button>
+          <div onClick={handleGoBack}><FiChevronLeft className={styles.iconCard} /></div>
         </button>
       </div>
       <div className={styles.titlecontainer}>
-       <h1 className={styles.header}>{props.title}</h1>
+        <h1 className={styles.header}>{props.title}</h1>
       </div>
     </div>
   )
