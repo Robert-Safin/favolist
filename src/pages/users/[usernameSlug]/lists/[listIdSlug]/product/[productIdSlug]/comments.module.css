@@ -2,21 +2,17 @@
   @apply w-full text-center
 }
 
-.title {
-  @apply mx-auto border-b border-gray-200 text-xl
-}
-
 .formContainer {
   @apply flex w-full
 }
 .textareaAndButton {
-  @apply flex w-full px-2
+  @apply flex w-full px-2 border rounded-md h-10 mx-4 my-2 items-center
 }
 
 .textarea {
-  @apply border border-purple w-full
+  @apply px-2 w-full h-8  placeholder-gray-400 text-sm p-1 flex items-center
 }
 
 .button {
-  @apply bg-purple p-1 text-white
+  @apply p-1 text-purple h-5 rounded-md text-sm text-center flex items-center justify-center
 }
