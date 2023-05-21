@@ -1,7 +1,7 @@
 import mongoose, { Model, Document, ObjectId } from "mongoose";
 import { ListModelSchema } from "./List";
 import { ProductModelSchema } from "./Product";
-
+import { SocialModelSchema } from "./Social";
 export interface UserModelSchema extends Document {
   _id: ObjectId;
   username: string;
@@ -13,24 +13,11 @@ export interface UserModelSchema extends Document {
   followers: UserModelSchema[];
   lists: ListModelSchema[];
   products: ProductModelSchema[];
-  socials: Social[];
+  socials: SocialModelSchema;
   bookmarks: ProductModelSchema[];
 }
 
-interface Social {
-  social:
-    | "Facebook"
-    | "Github"
-    | "Tiktok"
-    | "Patreon"
-    | "Youtube"
-    | "Linkedin"
-    | "Twitter"
-    | "Twitch"
-    | "Instagram"
-    | "Snapchat";
-  link: string;
-}
+
 
 const UserSchema = new mongoose.Schema<UserModelSchema>(
   {
@@ -56,67 +43,38 @@ const UserSchema = new mongoose.Schema<UserModelSchema>(
       type: String,
       default: "",
     },
-    follows:
-      {
-        type: [mongoose.Schema.Types.ObjectId],
-        ref: "User",
-        default: [],
-      },
-
-    followers:
-      {
-        type: [mongoose.Schema.Types.ObjectId],
-        ref: "User",
-        default: [],
-      },
-
-    lists:
-      {
-        type: [mongoose.Schema.Types.ObjectId],
-        ref: "List",
-        default: [],
-      },
-
-    products:
-      {
-        type: [mongoose.Schema.Types.ObjectId],
-        ref: "Product",
-        default: [],
-      },
-
-    socials: {
-      type: [
-        {
-          social: {
-            type: String,
-            enum: [
-              "Facebook",
-              "Github",
-              "Tiktok",
-              "Patreon",
-              "Youtube",
-              "Linkedin",
-              "Twitter",
-              "Twitch",
-              "Instagram",
-              "Snapchat",
-            ],
-            required: true,
-          },
-          link: {
-            type: String,
-            required: true,
-          },
-        },
-      ],
+    follows: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "User",
       default: [],
+    },
 
+    followers: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "User",
+      default: [],
+    },
+
+    lists: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "List",
+      default: [],
+    },
+
+    products: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "Product",
+      default: [],
     },
     bookmarks: {
       type: [mongoose.Schema.Types.ObjectId],
       ref: "Product",
       default: [],
-    }
+    },
+    socials: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Social",
+    },
   },
   {
     timestamps: true,

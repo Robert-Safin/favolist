@@ -1,7 +1,7 @@
 import { connectDB } from "@/db/lib/connectDb";
 import NextAuth, { NextAuthOptions, User as NextAuthUser } from "next-auth";
 import GithubAuthProvider, { GithubProfile } from "next-auth/providers/github";
-import { User } from "@/db/models";
+import { Social, User } from "@/db/models";
 
 interface User extends NextAuthUser {
   username?: string;
@@ -31,6 +31,12 @@ const authOptions: NextAuthOptions = {
             products: [],
           });
           await newUser.save();
+
+          const socials = await new Social({
+            userId: newUser._id
+          }).save()
+          newUser.socials = socials
+          await newUser.save()
         }
 
         return { ...profile, username: profile.login };

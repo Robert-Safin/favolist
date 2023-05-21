@@ -20,7 +20,7 @@ const handler: NextApiHandler = async (
   const thumbnail = req.body.image;
 
   try {
-    await connectDB();
+await connectDB();
 
     const listDoc = await List.findById(listId);
     if (!listDoc) {

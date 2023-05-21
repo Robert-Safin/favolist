@@ -75,9 +75,10 @@ const FollowingPage: NextPage<Props> = (props) => {
 
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  await connectDB();
   const userSlug = context.params!.usernameSlug
 
-  await connectDB()
+
   const userDoc = await User.findOne({ username: userSlug })
 
   if (userDoc?.follows.length! > 0) {

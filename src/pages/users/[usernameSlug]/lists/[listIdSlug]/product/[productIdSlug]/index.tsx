@@ -10,6 +10,7 @@ import { useState } from "react";
 import { RxLinkedinLogo } from "react-icons/rx";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { connectDB } from "@/db/lib/connectDb";
 interface Props {
   user: UserModelSchema
 }
@@ -112,7 +113,7 @@ const ShowProduct: NextPage<Props> = (props) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-
+  await connectDB();
   const userSlug = context.query.usernameSlug
   const listSlug = context.query.listIdSlug
   const productSlug = context.query.productIdSlug
