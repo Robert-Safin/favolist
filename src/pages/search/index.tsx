@@ -39,6 +39,7 @@ const SearchPage: NextPage<Props> = (props) => {
   const [showPopupFollow, setShowPopupFollow] = useState(false)
   const [showPopupUnfollow, setShowPopupUnfollow] = useState(false)
 
+  const [searchInput, setSearchInput] = useState('');
 
   const handleShowProducts = () => {
     setShowProducts(true)
@@ -69,26 +70,29 @@ const SearchPage: NextPage<Props> = (props) => {
   }
 
 
-  const handleSearch = async (query: string) => {
-      try {
-        const response = await fetch('/api/search', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(query),
-        });
-        const data = await response.json();
-        setFoundUsers(JSON.parse(data.foundUsers));
-        setFoundLists(JSON.parse(data.foundLists));
-        setFoundProducts(JSON.parse(data.foundProducts));
-        setFoundReferrals(JSON.parse(data.foundReferrals));
-        setCurrentUser(JSON.parse(data.currentUser));
-      } catch (error) {
-        console.log(error);
-      }
+  const handleSearch: FormEventHandler = async (event: React.FormEvent) => {
+    event.preventDefault();
+    try {
 
+      const response = await fetch('/api/search', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ query: searchInput }),
+      });
+      const data = await response.json();
+      console.log(data);
+      setFoundUsers(JSON.parse(data.foundUsers));
+      setFoundLists(JSON.parse(data.foundLists));
+      setFoundProducts(JSON.parse(data.foundProducts));
+      setFoundReferrals(JSON.parse(data.foundReferrals));
+      setCurrentUser(JSON.parse(data.currentUser));
+    } catch (error) {
+      console.log(error);
+    }
   };
+
 
 
 
@@ -151,7 +155,7 @@ const SearchPage: NextPage<Props> = (props) => {
 
   return (
     <>
-      <SearchBar handleSubmit={handleSubmit} handleSearch={handleSearch} />
+      <SearchBar handleSubmit={handleSubmit} handleSearch={handleSearch} setSearchInput={setSearchInput} />
       <div className={styles.tabs}>
         <p onClick={handleShowProducts} className={showProducts ? styles.activeTab : styles.nonActiveTab}> <BsSquare className={styles.searchIcons}/>Products</p>
         <p onClick={handleShowLists} className={showLists ? styles.activeTab : styles.nonActiveTab}> <BsGrid3X3Gap className={styles.searchIcons}/>Lists</p>

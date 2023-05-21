@@ -23,7 +23,7 @@ const CommentsPage: NextPage<Props> = (props) => {
   const listSlug = router.query.listIdSlug
   const productSlug = router.query.productIdSlug
 
-  const commentRef = useRef<HTMLTextAreaElement>(null)
+  const commentRef = useRef<HTMLInputElement>(null)
   const productHasNoComments = props.comments.length === 0
 
   const handleNewComment: ReactEventHandler = async (e) => {
@@ -99,7 +99,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const currentUser = await getSession(context)
 
-  //await connectDB()
+  await connectDB()
   const targetProduct = await User.findOne({ username: usernameSlug })
   .populate({
     path: 'products',

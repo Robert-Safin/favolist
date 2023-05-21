@@ -16,7 +16,7 @@ const handler: NextApiHandler = async (req: NextApiRequest,res: NextApiResponse)
 
 
 
-    //await connectDB();
+    await connectDB();
     const user = await User.findOne({ email: email });
     const newList = new List({
       user_id: user?._id,

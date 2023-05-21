@@ -460,7 +460,7 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
 
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  //await connectDB();
+  await connectDB();
   const username = context.params!.usernameSlug
 
   const userDoc = await User.findOne({ username: username });

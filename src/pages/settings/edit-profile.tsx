@@ -9,6 +9,7 @@ import CustomSession from "@/utils/Session"
 import { Social, User } from "@/db/models"
 import Image from "next/image"
 import { SocialModelSchema } from "@/db/models/Social"
+import { connectDB } from "@/db/lib/connectDb"
 
 interface Props {
   bio: string
@@ -180,7 +181,7 @@ const EditProfile: NextPage<Props> = (props) => {
 
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-
+  await connectDB();
   const session = await getSession(context)
   const userEmail = session?.user?.email
 

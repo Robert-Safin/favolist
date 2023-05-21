@@ -24,7 +24,7 @@ const handler: NextApiHandler = async (
 
 
 
-    //await connectDB();
+    await connectDB();
     const userDoc = await User.findOne({ email: email })
       .populate({
         path: "lists",

@@ -13,7 +13,7 @@ const handler: NextApiHandler = async (req: NextApiRequest,res: NextApiResponse)
 
 
   try {
-    //await connectDB()
+    await connectDB()
     const currentUser = await User.findOne({email: currentUserEmail})
     const followTarget = await User.findOne({_id: followTargetID})
 

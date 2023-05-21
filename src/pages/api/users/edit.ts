@@ -32,7 +32,7 @@ const handler:NextApiHandler = async(req:NextApiRequest, res:NextApiResponse) =>
 
 
   try {
-    //await connectDB()
+    await connectDB()
     const userDoc = await User.findOne({email: email})
     await userDoc?.updateOne({bio:bio})
 

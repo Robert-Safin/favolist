@@ -135,7 +135,7 @@ export default ShowList
 
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  //await connectDB();
+  await connectDB();
 
   const usernameSlug = context.params!.usernameSlug!
   const listIdSlug = context.params!.listIdSlug
