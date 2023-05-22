@@ -2,8 +2,7 @@ import { ProductModelSchema } from "@/db/models/Product";
 import { FC, useState } from "react";
 import styles from "./UserList.module.css";
 import Image from "next/image";
-import Link from 'next'
-import  Converter  from 'quill-delta-to-html';
+import { QuillDeltaToHtmlConverter } from 'quill-delta-to-html';
 
 interface Props {
   title: string;
@@ -16,6 +15,10 @@ interface Props {
 const UserList: FC<Props> = (props) => {
 
 
+  const deltaString = props.about;
+  const deltaObject = JSON.parse(deltaString);
+  const converter = new QuillDeltaToHtmlConverter(deltaObject.ops, {});
+  const html = converter.convert();
 
 
 
@@ -35,7 +38,7 @@ const UserList: FC<Props> = (props) => {
 
         </div>
 
-        <p className={styles.about}>{props.about}</p>
+        <div className={styles.about} dangerouslySetInnerHTML={{ __html: html }} />
 
       </div>
     </>

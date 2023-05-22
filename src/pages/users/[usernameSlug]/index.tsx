@@ -28,7 +28,6 @@ import Social, { SocialModelSchema } from "@/db/models/Social";
 
 
 
-
 interface UserProfileProps {
   user: {
     _id: ObjectId;

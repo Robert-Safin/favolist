@@ -124,7 +124,7 @@ const ShowList: NextPage<Props> = (props) => {
 
       {showListAbout &&
         <div className={styles.listInfoContainer}>
-          <Link href={`/users/${usernameSlug}/lists/${listIdSlug}/edit-description`}><button className={styles.editListDescription}>Edit list</button></Link>
+          <Link href={`/users/${usernameSlug}/lists/${listIdSlug}/edit-description`}><button className={styles.button}>Edit list</button></Link>
           <h1 className={styles.listTitle}>{props.user.lists[0].title}</h1>
           <div className={styles.about} dangerouslySetInnerHTML={{ __html: html }} />
         </div>}
