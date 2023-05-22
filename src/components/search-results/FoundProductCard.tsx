@@ -5,6 +5,8 @@ import styles from './FoundProductCard.module.css'
 import Image from 'next/image'
 import { UserModelSchema } from '@/db/models/User'
 import Link from 'next/link'
+import { QuillDeltaToHtmlConverter } from 'quill-delta-to-html';
+
 interface Props {
   productId: ObjectId
   userId: ObjectId |UserModelSchema
@@ -22,6 +24,12 @@ interface Props {
 
 const FoundProductCard: FC<Props> = (props) => {
 
+  const deltaString = props.content;
+  const deltaObject = JSON.parse(deltaString);
+  const converter = new QuillDeltaToHtmlConverter(deltaObject.ops, {});
+  const html = converter.convert();
+
+
 
   return (
     <div className={styles.productContainer}>
@@ -34,7 +42,7 @@ const FoundProductCard: FC<Props> = (props) => {
                 <h2 className={styles.listName}>{props.productListName}</h2>
                 <h1 className={styles.productName}>{props.productName}</h1>
                 <h3 className={styles.price}>${props.price}</h3>
-                <p className={styles.content}>{props.content}</p>
+                <p className={styles.content} dangerouslySetInnerHTML={{ __html: html }} />
               </div>
 
               <div className={styles.imageAndButton}>
