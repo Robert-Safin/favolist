@@ -36,14 +36,14 @@ const SettingPage: NextPage = () => {
         <div>
           <Link href={`#`} className={styles.optionContainer}>
             <p className={styles.optionText}>Push notifications</p>
-            <button>I am button</button>
+            <button>One day I will be toggle button</button>
           </Link>
         </div>
 
         <div>
           <Link href={`#`} className={styles.optionContainer}>
             <p className={styles.optionText}>Dark mode</p>
-            <button>I am button</button>
+            <button>One day I will be toggle button</button>
           </Link>
         </div>
 
@@ -78,12 +78,6 @@ const SettingPage: NextPage = () => {
           </Link>
         </div>
 
-        <div>
-          <Link href={`#`} className={styles.optionContainer}>
-            <p className={styles.optionText}>Dark mode</p>
-            <AiOutlineRight className={styles.icon} />
-          </Link>
-        </div>
 
       </div>
 

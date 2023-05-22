@@ -18,7 +18,7 @@ import ToggleView from "@/components/toggleViewListCard/ToggleView";
 import CustomSession from "@/utils/Session";
 import { getToken } from "next-auth/jwt";
 
-
+import { QuillDeltaToHtmlConverter } from 'quill-delta-to-html';
 
 interface Props {
   user: UserModelSchema
@@ -64,8 +64,10 @@ const ShowList: NextPage<Props> = (props) => {
     setShowListAbout(true)
   }
 
-
-
+  const deltaString = props.user.lists[0].about;
+  const deltaObject = JSON.parse(deltaString);
+  const converter = new QuillDeltaToHtmlConverter(deltaObject.ops, {});
+  const html = converter.convert();
 
   return (
 
@@ -122,9 +124,9 @@ const ShowList: NextPage<Props> = (props) => {
 
       {showListAbout &&
         <div className={styles.listInfoContainer}>
-          <Link href={`/users/${usernameSlug}/lists/${listIdSlug}/edit-description`}><button className={styles.editListDescription}>Edit list</button></Link>
+          <Link href={`/users/${usernameSlug}/lists/${listIdSlug}/edit-description`}><button className={styles.button}>Edit list</button></Link>
           <h1 className={styles.listTitle}>{props.user.lists[0].title}</h1>
-          <p className={styles.listAbout}>{props.user.lists[0].about}</p>
+          <div className={styles.about} dangerouslySetInnerHTML={{ __html: html }} />
         </div>}
 
     </>

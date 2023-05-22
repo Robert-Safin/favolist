@@ -10,6 +10,10 @@ import { BiImage } from 'react-icons/bi';
 import CustomSession from '@/utils/Session';
 import BackNavHeader from '@/components/back-nav-header/BackNavHeader';
 
+
+import { useQuill } from "react-quilljs";
+import "quill/dist/quill.snow.css";
+
 const NewList: NextPage = () => {
   const { data: session, status } = useSession();
   const userSession = session as CustomSession;
@@ -21,6 +25,27 @@ const NewList: NextPage = () => {
 
   const [buttonIsDisabled, setButtonIsDisabled] = useState(false);
   const [isImageAttached, setIsImageAttached] = useState(false);
+
+  const { quill, quillRef } = useQuill({
+    modules: {
+      toolbar: [
+        ['bold', 'italic', 'underline', 'strike'],
+        ['blockquote', 'code-block'],
+        [{ 'header': 1 }, { 'header': 2 }],
+        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+        [{ 'script': 'sub'}, { 'script': 'super' }],
+        [{ 'indent': '-1'}, { 'indent': '+1' }],
+        [{ 'direction': 'rtl' }],
+        [{ 'size': ['small', false, 'large', 'huge'] }],
+        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+        [{ 'color': [] }, { 'background': [] }],
+        [{ 'font': [] }],
+        [{ 'align': [] }],
+        ['clean'],
+        ['link', 'video']
+      ],
+    },
+  });
 
   if (!userSession) {
     return (
@@ -36,6 +61,8 @@ const NewList: NextPage = () => {
     const enteredTitle = titleRef.current?.value;
     const enteredAbout = aboutRef.current?.value;
     const enteredImage = imageRef.current?.files![0];
+
+
 
     if (enteredImage) {
       const formData = new FormData();
@@ -54,7 +81,7 @@ const NewList: NextPage = () => {
         userEmail: userSession.user.email,
         listTitle: enteredTitle,
         secure_url: secureUrl,
-        listAbout: enteredAbout,
+        listAbout: JSON.stringify(quill?.getContents()),
       };
 
       try {
@@ -88,28 +115,24 @@ const NewList: NextPage = () => {
           <input type="text" id="title" placeholder="Give your list a name..." ref={titleRef} />
 
           <label htmlFor="about">Description</label>
-          <textarea
-            id="about"
-            placeholder="Enter a list description here..."
-            ref={aboutRef}
-          />
+          <div ref={quillRef} />
+
 
           <label htmlFor="image" className={styles.imageupload}>
             <BiImage className={styles.imageuploadicon} />
             <div>Upload list image...</div>
           </label>
-          <input
+          <input className={styles.hide}
             type="file"
             id="image"
             accept="image/*"
             ref={imageRef}
-            className="hidden"
             onChange={handleImageChange}
           />
 
           {isImageAttached && <p>Image attached</p>}
 
-          <button type="submit" disabled={buttonIsDisabled}>
+          <button type="submit" disabled={buttonIsDisabled} className={styles.button}>
             Create
           </button>
         </form>

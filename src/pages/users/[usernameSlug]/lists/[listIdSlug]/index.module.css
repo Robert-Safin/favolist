@@ -61,3 +61,6 @@
 .editListDescription {
   @apply bg-purple p-1
 }
+.about {
+  @apply px-2
+}
