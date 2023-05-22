@@ -273,7 +273,7 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
 
 
       <div className={styles.referralContainer}>
-        {productsWithReferrals && referralIsActive && <h1 className={styles.userHasNoThing}>{props.user.username} has no referrals</h1>}
+        {productsWithReferrals.length < 0 && referralIsActive && <h1 className={styles.userHasNoThing}>{props.user.username} has no referrals</h1>}
         {userHasProducts && referralIsActive && productsWithReferrals.map(product =>
           <UserReferral
             key={String(product._id)}
