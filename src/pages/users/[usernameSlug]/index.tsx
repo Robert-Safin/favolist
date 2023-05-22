@@ -177,6 +177,8 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
   }
 
 
+
+
   return (
 
     <div>
@@ -426,13 +428,6 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
 
           </>
         }
-
-
-
-
-
-
-
 
 
 
