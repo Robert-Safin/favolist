@@ -4,11 +4,15 @@ import styles from './edit.module.css'
 import { connectDB } from "@/db/lib/connectDb"
 import { User } from "@/db/models"
 import Product, { ProductModelSchema } from "@/db/models/Product"
-import { EventHandler, FormEventHandler, useRef, useState } from "react"
+import { EventHandler, FormEventHandler, useEffect, useRef, useState } from "react"
 import { useSession } from "next-auth/react"
 import CustomSession from "@/utils/Session"
 import { useRouter } from "next/router"
 
+import { useQuill } from "react-quilljs";
+import "quill/dist/quill.snow.css";
+import BackNavHeader from "@/components/back-nav-header/BackNavHeader"
+import { BiImage } from "react-icons/bi"
 
 interface Props {
   product: ProductModelSchema
@@ -32,7 +36,36 @@ const EditProduct: NextPage<Props> = (props) => {
   const referralLinkRef = useRef<HTMLInputElement>(null)
   const imageRef= useRef<HTMLInputElement>(null)
 
+  const [isImageAttached, setIsImageAttached] = useState(false);
 
+
+  const { quill, quillRef } = useQuill({
+    modules: {
+      toolbar: [
+        ['bold', 'italic', 'underline', 'strike'],
+        ['blockquote', 'code-block'],
+        [{ 'header': 1 }, { 'header': 2 }],
+        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+        [{ 'script': 'sub'}, { 'script': 'super' }],
+        [{ 'indent': '-1'}, { 'indent': '+1' }],
+        [{ 'direction': 'rtl' }],
+        [{ 'size': ['small', false, 'large', 'huge'] }],
+        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+        [{ 'color': [] }, { 'background': [] }],
+        [{ 'font': [] }],
+        [{ 'align': [] }],
+        ['clean'],
+        ['link', 'video']
+      ],
+    },
+  });
+
+  useEffect(() => {
+    if (quill) {
+      const delta = JSON.parse(props.product.content);
+      quill.setContents(delta);
+    }
+  }, [quill, props.product.content]);
 
 
 
@@ -40,7 +73,8 @@ const EditProduct: NextPage<Props> = (props) => {
   const handleSubmit: FormEventHandler = async (e) => {
     e.preventDefault()
     const enteredTitle = titleRef.current?.value
-    const enteredReview = reviewRef.current?.value
+    //const enteredReview = reviewRef.current?.value
+    const enteredReview = JSON.stringify(quill?.getContents())
     const enteredSpecs = specsRef.current?.value
     const enteredPrice = priceRef.current?.value
     const enteredReferral = referralRef.current?.value
@@ -92,16 +126,23 @@ const EditProduct: NextPage<Props> = (props) => {
     }
 
   }
+
+  const handleImageChange = () => {
+    setIsImageAttached(true);
+  };
+
   return (
+    <>
+    <BackNavHeader title={'New product'}/>
     <div className={styles.formContainer}>
       <form className={styles.form} onSubmit={handleSubmit}>
-        <h1>Edit product</h1>
 
         <label htmlFor="title">Product Title</label>
         <input className={styles.input} type="text" id="title" defaultValue={props.product.productName} ref={titleRef} />
 
         <label htmlFor="review">Review</label>
-        <textarea className={styles.textarea} id="review" defaultValue={props.product.content} ref={reviewRef} />
+        <div ref={quillRef} />
+        {/* <textarea className={styles.textarea} id="review" defaultValue={props.product.content} ref={reviewRef} /> */}
 
         <label htmlFor="specs">Specs</label>
         <textarea className={styles.textarea} id="specs" defaultValue={props.product.specs} ref={specsRef} />
@@ -115,13 +156,16 @@ const EditProduct: NextPage<Props> = (props) => {
         <label htmlFor="referral-link">Referral Link</label>
         <input className={styles.input} type="text" id="referral-link" defaultValue={props.product.referral} ref={referralLinkRef} />
 
-        <label htmlFor="image">Thumbnail</label>
-        <input className={styles.input} type="file" id="image" ref={imageRef} />
+        <label htmlFor="image" className={styles.imageupload}>Upload product image..
+        <BiImage className={styles.imageuploadicon} />
+        </label>
+        <input className={styles.hideInput} type="file" id="image" ref={imageRef}  onChange={handleImageChange} />
 
-
-        <button type="submit">Submit</button>
+        {isImageAttached && <p>Image attached</p>}
+        <button className={styles.button} type="submit">Create</button>
       </form>
     </div>
+    </>
   )
 }
 

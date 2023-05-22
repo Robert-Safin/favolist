@@ -15,6 +15,7 @@ import { CommentModelSchema } from '@/db/models/Comment'
 import { UserModelSchema } from '@/db/models/User'
 
 import Modal from 'react-modal';
+import { QuillDeltaToHtmlConverter } from 'quill-delta-to-html';
 
 interface Props {
   _id: ObjectId
@@ -57,7 +58,10 @@ const UserProduct: FC<Props> = (props) => {
   const currentUserAlreadyBookmarked = props.bookmarkedBy.includes(props.currentUserId)
 
 
-
+  const deltaString = props.content;
+  const deltaObject = JSON.parse(deltaString);
+  const converter = new QuillDeltaToHtmlConverter(deltaObject.ops, {});
+  const html = converter.convert();
 
 
 
@@ -173,7 +177,7 @@ const UserProduct: FC<Props> = (props) => {
             <h1 className={styles.listName}>{props.listName}</h1>
             <h2 className={styles.title}>{props.title}</h2>
             <h3 className={styles.price}>${props.price}</h3>
-            <p className={styles.content}>{props.content}</p>
+            <p className={styles.content} dangerouslySetInnerHTML={{ __html: html }} />
           </div>
 
 

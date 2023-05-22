@@ -38,3 +38,7 @@
   width: 400px;
   height: 400px;
 }
+
+.hide {
+  @apply hidden
+}

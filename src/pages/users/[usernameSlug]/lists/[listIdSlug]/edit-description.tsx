@@ -61,6 +61,7 @@ const EditListDescription:NextPage<Props> = (props) => {
       quill.setContents(delta);
     }
   }, [quill, props.list.about]);
+
   if (!userSession) {
     return <p>no session</p>
   }

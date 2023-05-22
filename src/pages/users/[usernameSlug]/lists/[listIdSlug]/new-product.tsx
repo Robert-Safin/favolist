@@ -10,7 +10,8 @@ import { BiImage } from 'react-icons/bi'
 
 
 
-
+import { useQuill } from "react-quilljs";
+import "quill/dist/quill.snow.css";
 
 
 
@@ -31,6 +32,27 @@ const NewProduct: NextPage = () => {
   const imageRef = useRef<HTMLInputElement>(null)
 
   const [buttonIsDisabled, setButtonIsDisbaled] = useState(false)
+
+  const { quill, quillRef } = useQuill({
+    modules: {
+      toolbar: [
+        ['bold', 'italic', 'underline', 'strike'],
+        ['blockquote', 'code-block'],
+        [{ 'header': 1 }, { 'header': 2 }],
+        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+        [{ 'script': 'sub'}, { 'script': 'super' }],
+        [{ 'indent': '-1'}, { 'indent': '+1' }],
+        [{ 'direction': 'rtl' }],
+        [{ 'size': ['small', false, 'large', 'huge'] }],
+        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+        [{ 'color': [] }, { 'background': [] }],
+        [{ 'font': [] }],
+        [{ 'align': [] }],
+        ['clean'],
+        ['link', 'video']
+      ],
+    },
+  });
 
   if (!userSession) {
     return (
@@ -74,7 +96,7 @@ const NewProduct: NextPage = () => {
       userEmail: userSession.user.email,
       listName: listSlug,
       productName: enteredName,
-      enteredContent: enteredContent,
+      enteredContent: JSON.stringify(quill?.getContents()),
       enteredSpecs: enteredSpecs,
       enteredPrice: enteredPrice,
       enteredReferral: enteredReferral,
@@ -128,8 +150,11 @@ const NewProduct: NextPage = () => {
           <option value="robsBananas">robs bananas</option>
         </select> */}
 
+
         <label htmlFor="content">Review</label>
-        <textarea id='content' placeholder="Write a review here..." ref={contentRef} />
+        <div ref={quillRef} />
+        {/* <textarea id='content' placeholder="Write a review here..." ref={contentRef} /> */}
+
 
         <label htmlFor="specs">Description</label>
         <textarea id='specs' placeholder="Provide a product description here..." ref={specsRef} />
@@ -146,7 +171,7 @@ const NewProduct: NextPage = () => {
         </label>
         <input type="file" id='image' className="hidden" ref={imageRef} />
 
-        <button type="submit" disabled={buttonIsDisabled}>Submit</button>
+        <button className={styles.button} type="submit" disabled={buttonIsDisabled}>Submit</button>
       </form>
     </>
   )

@@ -10,7 +10,7 @@ import { BiImage } from 'react-icons/bi';
 import CustomSession from '@/utils/Session';
 import BackNavHeader from '@/components/back-nav-header/BackNavHeader';
 
-import React from "react";
+
 import { useQuill } from "react-quilljs";
 import "quill/dist/quill.snow.css";
 
@@ -122,12 +122,11 @@ const NewList: NextPage = () => {
             <BiImage className={styles.imageuploadicon} />
             <div>Upload list image...</div>
           </label>
-          <input
+          <input className={styles.hide}
             type="file"
             id="image"
             accept="image/*"
             ref={imageRef}
-            className="hidden"
             onChange={handleImageChange}
           />
 
