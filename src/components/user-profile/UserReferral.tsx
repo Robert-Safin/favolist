@@ -3,6 +3,9 @@ import styles from './UserReferral.module.css'
 import Image from 'next/image'
 import { MdOutlineCopyAll } from 'react-icons/md'
 import { useState, useRef } from 'react';
+import Link from 'next/link';
+import { useSession } from 'next-auth/react';
+import CustomSession from '@/utils/Session';
 
 
 
@@ -21,6 +24,9 @@ interface Props {
 
 
 const UserReferral: FC<Props> = (props) => {
+  const { data: session, status } = useSession()
+  const userSession = session as CustomSession
+
 
   const [copySuccess, setCopySuccess] = useState(false);
   const textRef = useRef<HTMLParagraphElement>(null);
@@ -43,8 +49,9 @@ const UserReferral: FC<Props> = (props) => {
               <h3 className={styles.price}>${props.price}</h3>
               <p className={styles.referralDiscription}>{props.referralDiscription}</p>
             </div>
-
+              <Link href={`/users/${userSession.user.username}/lists/${props.listName}/product/${props.title}`}>
             <Image className={styles.image} src={props.image} alt={props.title} width={300} height={300} />
+              </Link>
       </div>
 
       <div>

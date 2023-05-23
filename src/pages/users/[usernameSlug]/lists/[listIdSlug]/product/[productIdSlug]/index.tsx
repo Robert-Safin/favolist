@@ -11,19 +11,41 @@ import { RxLinkedinLogo } from "react-icons/rx";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { connectDB } from "@/db/lib/connectDb";
+import { QuillDeltaToHtmlConverter } from "quill-delta-to-html";
+import { getSession, useSession } from "next-auth/react";
+import CustomSession from "@/utils/Session";
+import { ObjectId } from "mongoose";
+
 interface Props {
   user: UserModelSchema
+  bookmarkedBy: UserModelSchema[]
+  currentUserId: ObjectId
 }
 
+
 const ShowProduct: NextPage<Props> = (props) => {
+  console.log(props);
+
   const router = useRouter()
   const usernameSlug = router.query.usernameSlug
   const listSlug = router.query.listIdSlug
   const productSlug = router.query.productIdSlug
 
+  const { data: session, status } = useSession()
+  const userSession = session as CustomSession
+
+  const deltaString = props.user.products[0].content
+  const deltaObject = JSON.parse(deltaString);
+  const converter = new QuillDeltaToHtmlConverter(deltaObject.ops, {});
+  const html = converter.convert();
+
+
   const [reviewIsActive, setReviewIsActive] = useState(true)
   const [descriptionIsActive, setDescriptionIsActive] = useState(false)
   const [referralIsActive, setReferralIsActive] = useState(false)
+
+ // @ts-ignore ??????
+  const currentUserAlreadyBookmarked = props.user.products[0].bookmarkedBy.includes(props.currentUserId)
 
 
   const handleReviewActive = () => {
@@ -42,6 +64,37 @@ const ShowProduct: NextPage<Props> = (props) => {
     setReferralIsActive(true)
   }
 
+  const handleAddBookmark = async () => {
+    const data = {
+      bookmarkedByEmail: userSession.user.email,
+      productId: props.user.products[0]._id,
+    }
+    const response = await fetch('/api/bookmarks/add-bookmark', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    router.push(`/users/${userSession.user.email}/lists/${listSlug}`)
+  }
+
+  const handleRemoveBookmark = async () => {
+    const data = {
+      bookmarkedByEmail: userSession.user.email,
+      productId: props.user.products[0]._id,
+    }
+    const response = await fetch('/api/bookmarks/remove-bookmark', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    router.push(`/users/${userSession.user.email}/lists/${listSlug}`)
+  }
 
 
   return (
@@ -95,7 +148,7 @@ const ShowProduct: NextPage<Props> = (props) => {
       </div>
 
       {reviewIsActive && <div className={styles.tabWindow}>
-        <p className={styles.productContent}>{props.user.products[0].content}</p>
+        <p className={styles.productContent} dangerouslySetInnerHTML={{ __html: html }} />
       </div>}
 
       {descriptionIsActive && <div className={styles.tabWindow}>
@@ -133,10 +186,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   })
 
 
-
   return {
     props: {
-      user: JSON.parse(JSON.stringify(userDoc))
+      user: JSON.parse(JSON.stringify(userDoc)),
+
     }
   }
 }

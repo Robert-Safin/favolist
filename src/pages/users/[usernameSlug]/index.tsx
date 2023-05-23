@@ -286,6 +286,9 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
             image={product.productImage}
             avatar={props.user.avatar}
             username={props.user.username}
+            //@ts-ignore
+            bookmarkedBy={product.bookmarkedBy}
+            currentUserId={props.user._id}
           />
         )}
       </div>
