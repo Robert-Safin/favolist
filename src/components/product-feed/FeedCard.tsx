@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './Card.module.css';
+import styles from './FeedCard.module.css'
 import Avatar from '../avatar/Avatar';
 import { FC } from 'react';
 import Image from 'next/image';
