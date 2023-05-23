@@ -34,18 +34,18 @@ const ShowProduct: NextPage<Props> = (props) => {
   const { data: session, status } = useSession()
   const userSession = session as CustomSession
 
-  const deltaString = props.user.products[0].content
-  const deltaObject = JSON.parse(deltaString);
-  const converter = new QuillDeltaToHtmlConverter(deltaObject.ops, {});
-  const html = converter.convert();
+  // const deltaString = props.user.products[0].content
+  // const deltaObject = JSON.parse(deltaString);
+  // const converter = new QuillDeltaToHtmlConverter(deltaObject.ops, {});
+  // const html = converter.convert();
 
 
   const [reviewIsActive, setReviewIsActive] = useState(true)
   const [descriptionIsActive, setDescriptionIsActive] = useState(false)
   const [referralIsActive, setReferralIsActive] = useState(false)
 
- // @ts-ignore ??????
-  const currentUserAlreadyBookmarked = props.user.products[0].bookmarkedBy.includes(props.currentUserId)
+
+  //const currentUserAlreadyBookmarked = props.user.products[0].bookmarkedBy.includes(props.currentUserId)
 
 
   const handleReviewActive = () => {
@@ -64,37 +64,37 @@ const ShowProduct: NextPage<Props> = (props) => {
     setReferralIsActive(true)
   }
 
-  const handleAddBookmark = async () => {
-    const data = {
-      bookmarkedByEmail: userSession.user.email,
-      productId: props.user.products[0]._id,
-    }
-    const response = await fetch('/api/bookmarks/add-bookmark', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
+  // const handleAddBookmark = async () => {
+  //   const data = {
+  //     bookmarkedByEmail: userSession.user.email,
+  //     productId: props.user.products[0]._id,
+  //   }
+  //   const response = await fetch('/api/bookmarks/add-bookmark', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify(data),
+  //   });
 
-    router.push(`/users/${userSession.user.email}/lists/${listSlug}`)
-  }
+  //   router.push(`/users/${userSession.user.email}/lists/${listSlug}`)
+  // }
 
-  const handleRemoveBookmark = async () => {
-    const data = {
-      bookmarkedByEmail: userSession.user.email,
-      productId: props.user.products[0]._id,
-    }
-    const response = await fetch('/api/bookmarks/remove-bookmark', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
+  // const handleRemoveBookmark = async () => {
+  //   const data = {
+  //     bookmarkedByEmail: userSession.user.email,
+  //     productId: props.user.products[0]._id,
+  //   }
+  //   const response = await fetch('/api/bookmarks/remove-bookmark', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify(data),
+  //   });
 
-    router.push(`/users/${userSession.user.email}/lists/${listSlug}`)
-  }
+  //   router.push(`/users/${userSession.user.email}/lists/${listSlug}`)
+  // }
 
 
   return (
@@ -148,7 +148,7 @@ const ShowProduct: NextPage<Props> = (props) => {
       </div>
 
       {reviewIsActive && <div className={styles.tabWindow}>
-        <p className={styles.productContent} dangerouslySetInnerHTML={{ __html: html }} />
+        <p className={styles.productContent} >{props.user.products[0].content} </p>
       </div>}
 
       {descriptionIsActive && <div className={styles.tabWindow}>
