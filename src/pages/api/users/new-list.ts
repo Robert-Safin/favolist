@@ -12,10 +12,8 @@ const handler: NextApiHandler = async (req: NextApiRequest,res: NextApiResponse)
   const secure_url = req.body.secure_url;
   const listAbout = req.body.listAbout
 
+
   try {
-
-
-
     await connectDB();
     const user = await User.findOne({ email: email });
     const newList = new List({
