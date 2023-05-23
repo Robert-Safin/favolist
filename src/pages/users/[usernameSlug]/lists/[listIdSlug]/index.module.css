@@ -36,7 +36,7 @@
 }
 
 .productsContainer {
-  @apply flex flex-col md:flex-row mx-3 flex-wrap md:justify-between
+  @apply flex flex-wrap p-2 justify-center
 }
 
 .back {

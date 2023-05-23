@@ -74,7 +74,9 @@ const NewList: NextPage = () => {
         body: formData,
       });
 
+
       const responseData = await response.json();
+
       const secureUrl = responseData.secure_url;
 
       const data = {

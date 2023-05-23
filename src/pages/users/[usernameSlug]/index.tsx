@@ -184,9 +184,9 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
 
       <div className={styles.containerDiv}>
         <div className={styles.userCard}>
-          <Link href={`/users/edit`} className={styles.link}>
+
             <Image className={styles.avatar} src={props.user.avatar!} alt='user avatar' width={64} height={64} />
-          </Link>
+
 
           <div className={styles.userStats}>
             <h1 className={styles.username}>{props.user.username}</h1>
@@ -273,7 +273,7 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
 
 
       <div className={styles.referralContainer}>
-        {productsWithReferrals.length < 0 && referralIsActive && <h1 className={styles.userHasNoThing}>{props.user.username} has no referrals</h1>}
+        {productsWithReferrals.length === 0 && referralIsActive && <h1 className={styles.userHasNoThing}>{props.user.username} has no referrals</h1>}
         {userHasProducts && referralIsActive && productsWithReferrals.map(product =>
           <UserReferral
             key={String(product._id)}
