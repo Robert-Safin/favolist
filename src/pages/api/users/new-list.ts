@@ -11,6 +11,7 @@ const handler: NextApiHandler = async (req: NextApiRequest,res: NextApiResponse)
   const listTitle = req.body.listTitle;
   const secure_url = req.body.secure_url;
   const listAbout = req.body.listAbout
+  console.log(req.body);
 
 
   try {

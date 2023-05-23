@@ -54,7 +54,7 @@
 
 .listsContainer {
   @apply flex flex-col mx-2
-  md:flex-row md:justify-between md:flex-wrap
+  md:flex-row md:justify-between md:flex-wrap md:px-32
 }
 
 .tabContainer {
@@ -70,7 +70,8 @@
 }
 
 .productsContainer {
-  @apply md:flex md:flex-wrap md:justify-between
+  @apply flex flex-col mx-2
+         md:flex-row md:flex-wrap justify-center
 }
 
 .userBioTitle {
@@ -85,7 +86,8 @@
 }
 
 .referralContainer {
-  @apply flex flex-wrap
+  @apply flex flex-wrap justify-between px-32
+
 }
 
 .popupFollow {

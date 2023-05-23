@@ -123,7 +123,7 @@ const NewProduct: NextPage<Props> = (props) => {
         const status = await response.json()
 
         if (response.ok) {
-          router.push(`/users/${username}/lists/${listSlug}`);
+          router.push(`/users/${username}/lists/${listName}`);
         }
       } catch (error) {
         console.log(error);

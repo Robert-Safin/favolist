@@ -50,9 +50,9 @@ const ShowList: NextPage<Props> = (props) => {
     )
   }
 
-  const handleAddToList = () => {
-    router.push(`/users/${usernameSlug}/lists/${listIdSlug}/new-product`)
-  }
+  // const handleAddToList = () => {
+  //   router.push(`/users/${usernameSlug}/lists/${listIdSlug}/new-product`)
+  // }
 
   const handleShowProducts = () => {
     setShowProducts(true)
@@ -95,7 +95,7 @@ const ShowList: NextPage<Props> = (props) => {
       {showProducts &&
         <>
           <div className={styles.buttonContainer}>
-            <button className={styles.button} onClick={handleAddToList}>Add to list </button>
+            {/* <button className={styles.button} onClick={handleAddToList}>Add to list </button> */}
           </div>
           <div className={styles.productsContainer}>
             {listHasNoProducts && <p className={styles.listNoProducts}>No products in this list yet</p>}
