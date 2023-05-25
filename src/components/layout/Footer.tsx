@@ -45,7 +45,6 @@ const Footer: FC = () => {
     setIsOpen(false)
   }
 
-  //http://localhost:3000/users/Robert-Safin/new-list
 
   return (
     <div className={styles.footer}>

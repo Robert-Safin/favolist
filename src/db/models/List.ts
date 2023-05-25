@@ -8,6 +8,7 @@ export interface ListModelSchema extends Document {
   title: string;
   thumbnail: string;
   about: string;
+  shortAbout: string
   products: ProductModelSchema[];
 }
 
@@ -27,6 +28,10 @@ const ListSchema = new mongoose.Schema<ListModelSchema>(
       required: true,
     },
     about: {
+      type: String,
+      required: true,
+    },
+    shortAbout: {
       type: String,
       required: true,
     },

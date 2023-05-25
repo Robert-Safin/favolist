@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
 import styles from './index.module.css'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import UserProduct from "@/components/user-profile/UserProduct";
@@ -17,8 +17,8 @@ import ToggleView from "@/components/toggleViewListCard/ToggleView";
 
 import CustomSession from "@/utils/Session";
 import { getToken } from "next-auth/jwt";
+import { useQuill } from "react-quilljs";
 
-import { QuillDeltaToHtmlConverter } from 'quill-delta-to-html';
 
 interface Props {
   user: UserModelSchema
@@ -37,9 +37,23 @@ const ShowList: NextPage<Props> = (props) => {
   const [showProducts, setShowProducts] = useState(true)
   const [showListAbout, setShowListAbout] = useState(false)
 
+
+  const { quill, quillRef } = useQuill({readOnly: true,});
+    const deltaString = props.user.lists[0].about;
+    const deltaObject = JSON.parse(deltaString);
+    quill?.setContents(deltaObject)
+
+    useEffect(() => {
+      if (quill) {
+          const toolbar = quill.getModule('toolbar');
+          if (toolbar && toolbar.container) {
+              toolbar.container.style.display = 'none';
+          }
+      }
+  }, [quill]);
+
+
   const listHasNoProducts = props.user.products.length === 0
-
-
 
 
   if (!userSession) {
@@ -50,9 +64,6 @@ const ShowList: NextPage<Props> = (props) => {
     )
   }
 
-  // const handleAddToList = () => {
-  //   router.push(`/users/${usernameSlug}/lists/${listIdSlug}/new-product`)
-  // }
 
   const handleShowProducts = () => {
     setShowProducts(true)
@@ -64,10 +75,8 @@ const ShowList: NextPage<Props> = (props) => {
     setShowListAbout(true)
   }
 
-  const deltaString = props.user.lists[0].about;
-  const deltaObject = JSON.parse(deltaString);
-  const converter = new QuillDeltaToHtmlConverter(deltaObject.ops, {});
-  const html = converter.convert();
+
+
 
   return (
 
@@ -95,7 +104,6 @@ const ShowList: NextPage<Props> = (props) => {
       {showProducts &&
         <>
           <div className={styles.buttonContainer}>
-            {/* <button className={styles.button} onClick={handleAddToList}>Add to list </button> */}
           </div>
           <div className={styles.productsContainer}>
             {listHasNoProducts && <p className={styles.listNoProducts}>No products in this list yet</p>}
@@ -126,7 +134,7 @@ const ShowList: NextPage<Props> = (props) => {
         <div className={styles.listInfoContainer}>
           <Link href={`/users/${usernameSlug}/lists/${listIdSlug}/edit-description`}><button className={styles.button}>Edit list</button></Link>
           <h1 className={styles.listTitle}>{props.user.lists[0].title}</h1>
-          <div className={styles.about} dangerouslySetInnerHTML={{ __html: html }} />
+          <div ref={quillRef} />
         </div>}
 
     </>

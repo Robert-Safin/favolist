@@ -4,9 +4,19 @@ import Image from 'next/image'
 import { NextPage } from 'next'
 import styles from './index.module.css'
 import { motion } from 'framer-motion'
+import { signIn, useSession } from 'next-auth/react'
 
 
 const LandingPage: NextPage = () => {
+  const session = useSession()
+
+  if (session.status === "unauthenticated") {
+    return (
+      <>
+      <button onClick={() => signIn()}>Login</button>
+    </>
+    )
+  }
 
   return (
     <>
