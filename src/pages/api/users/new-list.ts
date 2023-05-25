@@ -11,7 +11,7 @@ const handler: NextApiHandler = async (req: NextApiRequest,res: NextApiResponse)
   const listTitle = req.body.listTitle;
   const secure_url = req.body.secure_url;
   const listAbout = req.body.listAbout
-  console.log(req.body);
+  const shortAbout = req.body.shortAbout
 
 
   try {
@@ -22,6 +22,7 @@ const handler: NextApiHandler = async (req: NextApiRequest,res: NextApiResponse)
       title: listTitle,
       thumbnail: secure_url,
       about: listAbout,
+      shortAbout: shortAbout
     });
     await newList.save();
     user?.lists.push(newList);

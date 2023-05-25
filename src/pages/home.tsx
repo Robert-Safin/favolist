@@ -45,7 +45,7 @@ export const getServerSideProps:GetServerSideProps = async(context) => {
   const session = await getSession(context)
   const userDoc = await User.findOne({email: session?.user?.email})
 
-  await userDoc?.populate('follows')
+  await userDoc?.populate('follow')
 
   // if (!userDoc) {
   //   return {

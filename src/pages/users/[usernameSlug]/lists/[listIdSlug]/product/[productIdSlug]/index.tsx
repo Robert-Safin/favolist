@@ -6,7 +6,7 @@ import Image from "next/image";
 import { BsBookmark } from "react-icons/bs";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { FaRegComment } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { RxLinkedinLogo } from "react-icons/rx";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -15,6 +15,7 @@ import { QuillDeltaToHtmlConverter } from "quill-delta-to-html";
 import { getSession, useSession } from "next-auth/react";
 import CustomSession from "@/utils/Session";
 import { ObjectId } from "mongoose";
+import { useQuill } from "react-quilljs";
 
 interface Props {
   user: UserModelSchema
@@ -34,11 +35,19 @@ const ShowProduct: NextPage<Props> = (props) => {
   const { data: session, status } = useSession()
   const userSession = session as CustomSession
 
-  // const deltaString = props.user.products[0].content
-  // const deltaObject = JSON.parse(deltaString);
-  // const converter = new QuillDeltaToHtmlConverter(deltaObject.ops, {});
-  // const html = converter.convert();
+  const { quill, quillRef } = useQuill({readOnly: true,});
+    const deltaString = props.user.lists[0].about;
+    const deltaObject = JSON.parse(deltaString);
+    quill?.setContents(deltaObject)
 
+    useEffect(() => {
+      if (quill) {
+          const toolbar = quill.getModule('toolbar');
+          if (toolbar && toolbar.container) {
+              toolbar.container.style.display = 'none';
+          }
+      }
+  }, [quill]);
 
   const [reviewIsActive, setReviewIsActive] = useState(true)
   const [descriptionIsActive, setDescriptionIsActive] = useState(false)
@@ -148,7 +157,9 @@ const ShowProduct: NextPage<Props> = (props) => {
       </div>
 
       {reviewIsActive && <div className={styles.tabWindow}>
-        <p className={styles.productContent} >{props.user.products[0].content} </p>
+        <div className={styles.productContent}  ref={quillRef}/>
+
+
       </div>}
 
       {descriptionIsActive && <div className={styles.tabWindow}>

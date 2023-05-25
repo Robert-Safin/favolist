@@ -266,6 +266,7 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
             title={list.title}
             products={list.products}
             about={list.about}
+            shortAbout={list.shortAbout}
             thumbnail={list.thumbnail}
             onClick={() => handleClick(list.title)}
           />)}

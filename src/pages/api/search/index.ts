@@ -17,7 +17,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const regexWords = words.map((word: string) => new RegExp(word, 'i'));
 
-    const foundLists = await List.find({ title: { $in: regexWords } }).populate('user_id');
+    const foundLists = await List.find({ shortAbout: { $in: regexWords } }).populate('user_id');
     const foundUsers = await User.find({ username: { $in: regexWords } })
     const foundProducts = await Product.find({ productName: { $in: regexWords } }).populate('user_id');
     const foundReferrals = foundProducts.filter(product => product.referral.length > 0)

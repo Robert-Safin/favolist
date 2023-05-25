@@ -4,6 +4,7 @@ import Layout from '@/components/layout/Layout'
 import { SessionProvider } from "next-auth/react";
 import { Session } from 'next-auth';
 import Head from 'next/head';
+import 'quill/dist/quill.snow.css';
 
 interface Props {
   session? : Session

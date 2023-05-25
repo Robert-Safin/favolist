@@ -14,6 +14,7 @@ import { useQuill } from "react-quilljs";
 import "quill/dist/quill.snow.css";
 import { connectDB } from "@/db/lib/connectDb";
 import { User } from "@/db/models";
+import Link from "next/link";
 
 
 interface Props {
@@ -68,66 +69,73 @@ const NewProduct: NextPage<Props> = (props) => {
   }
   const username = userSession.user.username
 
-
+  if (props.userListTitles.length === 0) {
+    return (
+      <>
+        <h1>You have no lists</h1>
+        <Link href={`/users/${userSession.user.username}/lists/new-list`}>Make list</Link>
+      </>
+    )
+  }
 
 
   const handleSubmit: FormEventHandler = async (event) => {
     event.preventDefault()
     console.log(listRef.current?.value);
 
-      setButtonIsDisbaled(true)
-      const enteredName = nameRef.current?.value
-      const enteredContent = contentRef.current?.value
-      const enteredSpecs = specsRef.current?.value
-      const enteredPrice = priceRef.current?.value
-      const enteredReferral = referralRef.current?.value
-      const enteredReferralDiscription = referralDescriptionRef.current?.value
-      const enteredImage = imageRef.current?.files![0]
-      const listName = listRef.current?.value
+    setButtonIsDisbaled(true)
+    const enteredName = nameRef.current?.value
+    const enteredContent = contentRef.current?.value
+    const enteredSpecs = specsRef.current?.value
+    const enteredPrice = priceRef.current?.value
+    const enteredReferral = referralRef.current?.value
+    const enteredReferralDiscription = referralDescriptionRef.current?.value
+    const enteredImage = imageRef.current?.files![0]
+    const listName = listRef.current?.value
 
 
-      // to do valiadation
+    // to do valiadation
 
-      const formData = new FormData();
-      formData.append('file', enteredImage!);
-      formData.append('upload_preset', 'favolist');
+    const formData = new FormData();
+    formData.append('file', enteredImage!);
+    formData.append('upload_preset', 'favolist');
 
-      const response = await fetch(`https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/upload`, {
+    const response = await fetch(`https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/upload`, {
+      method: 'POST',
+      body: formData,
+    });
+    const responseData = await response.json()
+    const secureUrl = responseData.secure_url
+
+
+    const data = {
+      userEmail: userSession.user.email,
+      productName: enteredName,
+      enteredContent: JSON.stringify(quill?.getContents()),
+      enteredSpecs: enteredSpecs,
+      enteredPrice: enteredPrice,
+      enteredReferral: enteredReferral,
+      enteredReferralDiscription: enteredReferralDiscription,
+      image: secureUrl,
+      listName: listName,
+    }
+
+    try {
+      const response = await fetch('/api/users/new-product', {
         method: 'POST',
-        body: formData,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
       });
-      const responseData = await response.json()
-      const secureUrl = responseData.secure_url
+      const status = await response.json()
 
-
-      const data = {
-        userEmail: userSession.user.email,
-        productName: enteredName,
-        enteredContent: JSON.stringify(quill?.getContents()),
-        enteredSpecs: enteredSpecs,
-        enteredPrice: enteredPrice,
-        enteredReferral: enteredReferral,
-        enteredReferralDiscription: enteredReferralDiscription,
-        image: secureUrl,
-        listName: listName,
+      if (response.ok) {
+        router.push(`/users/${username}/lists/${listName}`);
       }
-
-      try {
-        const response = await fetch('/api/users/new-product', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data),
-        });
-        const status = await response.json()
-
-        if (response.ok) {
-          router.push(`/users/${username}/lists/${listName}`);
-        }
-      } catch (error) {
-        console.log(error);
-      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
 

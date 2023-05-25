@@ -22,7 +22,7 @@ const NewList: NextPage = () => {
   const titleRef = useRef<HTMLInputElement>(null);
   const imageRef = useRef<HTMLInputElement>(null);
   const aboutRef = useRef<HTMLTextAreaElement>(null);
-
+  const shortAboutRef = useRef<HTMLInputElement>(null);
   const [buttonIsDisabled, setButtonIsDisabled] = useState(false);
   const [isImageAttached, setIsImageAttached] = useState(false);
 
@@ -37,12 +37,12 @@ const NewList: NextPage = () => {
         [{ 'indent': '-1'}, { 'indent': '+1' }],
         [{ 'direction': 'rtl' }],
         [{ 'size': ['small', false, 'large', 'huge'] }],
-        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+        // [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
         [{ 'color': [] }, { 'background': [] }],
-        [{ 'font': [] }],
+        // [{ 'font': [] }],
         [{ 'align': [] }],
         ['clean'],
-        ['link', 'video']
+        // ['link', 'video']
       ],
     },
   });
@@ -60,6 +60,7 @@ const NewList: NextPage = () => {
     setButtonIsDisabled(true);
     const enteredTitle = titleRef.current?.value;
     const enteredAbout = aboutRef.current?.value;
+    const enteredShortAbout = shortAboutRef.current?.value
     const enteredImage = imageRef.current?.files![0];
 
 
@@ -84,6 +85,7 @@ const NewList: NextPage = () => {
         listTitle: enteredTitle,
         secure_url: secureUrl,
         listAbout: JSON.stringify(quill?.getContents()),
+        shortAbout: enteredShortAbout,
       };
 
       try {
@@ -119,6 +121,9 @@ const NewList: NextPage = () => {
           <label htmlFor="about">Description</label>
           <div ref={quillRef} />
 
+
+          <label htmlFor="shortAbout">Short Description</label>
+          <input type="text" id="shortAbout" placeholder='search tags and card text' ref={shortAboutRef}/>
 
           <label htmlFor="image" className={styles.imageupload}>
             <BiImage className={styles.imageuploadicon} />
