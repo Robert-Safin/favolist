@@ -3,7 +3,7 @@ import { UserModelSchema } from "@/db/models/User";
 import { GetServerSideProps, NextPage } from "next";
 import styles from './index.module.css'
 import Image from "next/image";
-import { BsBookmark } from "react-icons/bs";
+import { BsBookmark, BsFillBookmarkFill } from "react-icons/bs";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { FaRegComment } from "react-icons/fa";
 import { useEffect, useState } from "react";
@@ -19,13 +19,13 @@ import { useQuill } from "react-quilljs";
 
 interface Props {
   user: UserModelSchema
-  bookmarkedBy: UserModelSchema[]
   currentUserId: ObjectId
+  isAlreadyBookmarked: boolean
 }
 
 
 const ShowProduct: NextPage<Props> = (props) => {
-  console.log(props);
+  console.log(props.user);
 
   const router = useRouter()
   const usernameSlug = router.query.usernameSlug
@@ -39,6 +39,9 @@ const ShowProduct: NextPage<Props> = (props) => {
     const deltaString = props.user.lists[0].about;
     const deltaObject = JSON.parse(deltaString);
     quill?.setContents(deltaObject)
+
+
+
 
     useEffect(() => {
       if (quill) {
@@ -54,7 +57,8 @@ const ShowProduct: NextPage<Props> = (props) => {
   const [referralIsActive, setReferralIsActive] = useState(false)
 
 
-  //const currentUserAlreadyBookmarked = props.user.products[0].bookmarkedBy.includes(props.currentUserId)
+
+
 
 
   const handleReviewActive = () => {
@@ -73,37 +77,45 @@ const ShowProduct: NextPage<Props> = (props) => {
     setReferralIsActive(true)
   }
 
-  // const handleAddBookmark = async () => {
-  //   const data = {
-  //     bookmarkedByEmail: userSession.user.email,
-  //     productId: props.user.products[0]._id,
-  //   }
-  //   const response = await fetch('/api/bookmarks/add-bookmark', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify(data),
-  //   });
+  const handleAddBookmark = async () => {
+    const data = {
+      bookmarkedByEmail: userSession.user.email,
+      productId: props.user.products[0]._id,
+    }
+    const response = await fetch('/api/bookmarks/add-bookmark', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    if (response.ok) {
+      router.push(`/users/${userSession.user.username}/lists/${listSlug}/product/${props.user.products[0].productName}`)
+    } else {
+      console.log(await response.json())
+    }
+  }
 
-  //   router.push(`/users/${userSession.user.email}/lists/${listSlug}`)
-  // }
+  const handleRemoveBookmark = async () => {
 
-  // const handleRemoveBookmark = async () => {
-  //   const data = {
-  //     bookmarkedByEmail: userSession.user.email,
-  //     productId: props.user.products[0]._id,
-  //   }
-  //   const response = await fetch('/api/bookmarks/remove-bookmark', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify(data),
-  //   });
+    const data = {
+      bookmarkedByEmail: userSession.user.email,
+      productId: props.user.products[0]._id,
+    }
 
-  //   router.push(`/users/${userSession.user.email}/lists/${listSlug}`)
-  // }
+    const response = await fetch('/api/bookmarks/remove-bookmark', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    if (response.ok) {
+      router.push(`/users/${userSession.user.username}/lists/${listSlug}/product/${props.user.products[0].productName}`)
+    } else {
+      console.log(await response.json())
+    }
+  }
 
 
   return (
@@ -128,15 +140,27 @@ const ShowProduct: NextPage<Props> = (props) => {
 
 
         <div className={styles.actions}>
+
+
+
+          {props.isAlreadyBookmarked &&
           <div className={styles.iconContainer}>
-            <BsBookmark />
-            <p>x</p>
-          </div>
+            <BsFillBookmarkFill onClick={handleRemoveBookmark}/>
+            <p>{props.user.products[0].bookmarkedBy.length}</p>
+          </div>}
+
+          {!props.isAlreadyBookmarked &&
+          <div className={styles.iconContainer}>
+            <BsBookmark onClick={handleAddBookmark}/>
+            <p>{props.user.products[0].bookmarkedBy.length}</p>
+          </div>}
 
           <div className={styles.iconContainer}>
             <IoMdAddCircleOutline />
             <p>x</p>
           </div>
+
+
 
           <div className={styles.iconContainer}>
             <Link href={`/users/${usernameSlug}/lists/${listSlug}/product/${productSlug}/comments`}>
@@ -144,6 +168,8 @@ const ShowProduct: NextPage<Props> = (props) => {
             </Link>
             <p>{props.user.products[0].comments.length}</p>
           </div>
+
+
         </div>
 
 
@@ -181,8 +207,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const userSlug = context.query.usernameSlug
   const listSlug = context.query.listIdSlug
   const productSlug = context.query.productIdSlug
+  const session = await getSession(context)
 
-
+  const currentUserDoc = await User.findOne({email: session?.user?.email})
+  const currentUserId = currentUserDoc?._id
 
   const userDoc = await User.findOne({ username: userSlug })
 
@@ -196,11 +224,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     match: { productName: productSlug }
   })
 
+  //@ts-ignore
+  const isAlreadyBookmarked = userDoc?.products[0].bookmarkedBy.includes(currentUserId)
+
 
   return {
     props: {
       user: JSON.parse(JSON.stringify(userDoc)),
-
+      currentUserId : JSON.stringify(currentUserId),
+      isAlreadyBookmarked: isAlreadyBookmarked
     }
   }
 }
