@@ -86,7 +86,8 @@
 }
 
 .referralContainer {
-  @apply flex flex-wrap justify-between px-32
+  @apply flex flex-wrap justify-evenly px-0
+  md:px-24
 
 }
 

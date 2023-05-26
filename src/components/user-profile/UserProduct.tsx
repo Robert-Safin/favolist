@@ -31,6 +31,7 @@ interface Props {
   comments: CommentModelSchema[]
   bookmarkedBy: UserModelSchema[]
   currentUserId: ObjectId
+  shortContent: string
 }
 
 const UserProduct: FC<Props> = (props) => {
@@ -108,8 +109,11 @@ const UserProduct: FC<Props> = (props) => {
       },
       body: JSON.stringify(data),
     });
-
-    router.push(`/users/${userSlug}/lists/${listSlug}`)
+    if (response.ok) {
+      router.push(`/users/${userSlug}/lists/${listSlug}`)
+    } else {
+      console.log(await response.json());
+    }
   }
 
   const handleRemoveBookmark = async () => {
@@ -124,8 +128,11 @@ const UserProduct: FC<Props> = (props) => {
       },
       body: JSON.stringify(data),
     });
-
-    router.push(`/users/${userSlug}/lists/${listSlug}`)
+    if (response.ok) {
+      router.push(`/users/${userSlug}/lists/${listSlug}`)
+    } else {
+      console.log(await response.json());
+    }
   }
 
 
@@ -177,7 +184,7 @@ const UserProduct: FC<Props> = (props) => {
             <h1 className={styles.listName}>{props.listName}</h1>
             <h2 className={styles.title}>{props.title}</h2>
             <h3 className={styles.price}>${props.price}</h3>
-            <p className={styles.content} dangerouslySetInnerHTML={{ __html: html }} />
+            <p className={styles.content}>{props.shortContent} </p>
           </div>
 
 

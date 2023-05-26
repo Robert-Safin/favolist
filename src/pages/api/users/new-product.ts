@@ -14,6 +14,7 @@ const handler: NextApiHandler = async (
   const listName = req.body.listName;
   const name = req.body.productName;
   const content = req.body.enteredContent;
+  const shortContent = req.body.enteredShortContent
   const specs = req.body.enteredSpecs;
   const price = req.body.enteredPrice;
   const referral = req.body.enteredReferral;
@@ -45,6 +46,7 @@ const handler: NextApiHandler = async (
       productName: name,
       productImage: secure_url,
       content: content,
+      shortContent: shortContent,
       specs: specs,
       price: price,
       referral: referral,

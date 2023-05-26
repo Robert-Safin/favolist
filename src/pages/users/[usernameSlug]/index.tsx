@@ -249,6 +249,7 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
             _id={product._id}
             bookmarkedBy={product.bookmarkedBy}
             currentUserId={props.user._id}
+            shortContent={product.shortContent}
           />
         )}
       </div>
