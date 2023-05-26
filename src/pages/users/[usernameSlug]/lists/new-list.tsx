@@ -42,7 +42,7 @@ const NewList: NextPage = () => {
         // [{ 'font': [] }],
         [{ 'align': [] }],
         ['clean'],
-        // ['link', 'video']
+        ['link', 'video', 'image']
       ],
     },
   });

@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  api: {
+    responseLimit: "10mb",
+  },
   env: {
     MONGO_PASSWORD: "banana123",
     MONGO_USER: "admin",
