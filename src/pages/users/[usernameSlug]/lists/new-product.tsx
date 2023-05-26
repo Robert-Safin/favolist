@@ -30,6 +30,7 @@ const NewProduct: NextPage<Props> = (props) => {
 
   const nameRef = useRef<HTMLInputElement>(null)
   const contentRef = useRef<HTMLTextAreaElement>(null)
+  const shortContentRef = useRef<HTMLInputElement>(null)
   const specsRef = useRef<HTMLTextAreaElement>(null)
   const priceRef = useRef<HTMLInputElement>(null)
   const referralRef = useRef<HTMLInputElement>(null)
@@ -85,7 +86,8 @@ const NewProduct: NextPage<Props> = (props) => {
 
     setButtonIsDisbaled(true)
     const enteredName = nameRef.current?.value
-    const enteredContent = contentRef.current?.value
+    //const enteredContent = contentRef.current?.value
+    const enteredShortContent = shortContentRef.current?.value
     const enteredSpecs = specsRef.current?.value
     const enteredPrice = priceRef.current?.value
     const enteredReferral = referralRef.current?.value
@@ -112,6 +114,7 @@ const NewProduct: NextPage<Props> = (props) => {
       userEmail: userSession.user.email,
       productName: enteredName,
       enteredContent: JSON.stringify(quill?.getContents()),
+      enteredShortContent: enteredShortContent,
       enteredSpecs: enteredSpecs,
       enteredPrice: enteredPrice,
       enteredReferral: enteredReferral,
@@ -172,6 +175,10 @@ const NewProduct: NextPage<Props> = (props) => {
         <label htmlFor="content">Review</label>
         <div ref={quillRef} />
         {/* <textarea id='content' placeholder="Write a review here..." ref={contentRef} /> */}
+
+
+        <label htmlFor="shortContent">Short Content</label>
+        <input id='shortContent' placeholder="Provide a seo content here" ref={shortContentRef} />
 
 
         <label htmlFor="specs">Description</label>
