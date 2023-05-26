@@ -72,3 +72,8 @@ const handler:NextApiHandler = async(req:NextApiRequest, res:NextApiResponse) =>
 }
 
 export default handler
+export const config = {
+  api: {
+    responseLimit: '10mb',
+  },
+}

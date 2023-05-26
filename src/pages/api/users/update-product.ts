@@ -32,3 +32,9 @@ import { NextApiRequest, NextApiResponse } from "next";
 };
 
 export default handler
+
+export const config = {
+  api: {
+    responseLimit: '10mb',
+  },
+}

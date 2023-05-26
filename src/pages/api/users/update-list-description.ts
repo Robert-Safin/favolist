@@ -42,3 +42,9 @@ await connectDB();
 };
 
 export default handler;
+
+export const config = {
+  api: {
+    responseLimit: '10mb',
+  },
+}
