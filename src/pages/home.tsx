@@ -9,8 +9,14 @@ import { connectDB } from "@/db/lib/connectDb";
 import CustomSession from "@/utils/Session";
 import { User } from "@/db/models";
 import { ProductModelSchema } from "@/db/models/Product";
+import UserProduct from "@/components/user-profile/UserProduct";
+import HomepageProduct from "@/components/homepage/HomepageProduct";
 
-const Home: NextPage = (props) => {
+interface Props {
+  followedProducts: ProductModelSchema[]
+}
+
+const Home: NextPage<Props> = (props) => {
   const { data: session, status } = useSession()
   const userSession = session as CustomSession
 
@@ -32,6 +38,11 @@ const Home: NextPage = (props) => {
     <>
       <ToggleView />
       {/* to do logic for homefeed once follower relationship established */}
+      {props.followedProducts.map(product => {
+      <HomepageProduct
+      image={product.productImage}
+      />
+      })}
 
 
     </>
@@ -45,7 +56,7 @@ export const getServerSideProps:GetServerSideProps = async(context) => {
   const session = await getSession(context)
   const userDoc = await User.findOne({email: session?.user?.email})
 
-  await userDoc?.populate('follow')
+  await userDoc?.populate('follows')
 
   // if (!userDoc) {
   //   return {

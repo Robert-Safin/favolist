@@ -45,7 +45,7 @@ const NewList: NextPage = () => {
         { indent: '-1' },
         { indent: '+1' },
       ],
-      ['link', 'image', 'video'],
+      ['link',  'video'],
       ['clean'],
     ],
     clipboard: {
@@ -66,7 +66,7 @@ const NewList: NextPage = () => {
     'bullet',
     'indent',
     'link',
-    'image',
+    //'image',
     'video',
   ]
 

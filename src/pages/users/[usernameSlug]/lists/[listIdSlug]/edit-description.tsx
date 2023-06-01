@@ -52,7 +52,7 @@ const EditListDescription:NextPage<Props> = (props) => {
         { indent: '-1' },
         { indent: '+1' },
       ],
-      ['link', 'image', 'video'],
+      ['link', 'video'],
       ['clean'],
     ],
     clipboard: {
@@ -73,7 +73,7 @@ const EditListDescription:NextPage<Props> = (props) => {
     'bullet',
     'indent',
     'link',
-    'image',
+    //'image',
     'video',
   ]
 
