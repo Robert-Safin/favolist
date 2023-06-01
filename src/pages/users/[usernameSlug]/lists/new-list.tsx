@@ -4,7 +4,7 @@ import styles from './new-list.module.css';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
-import cloudinary from 'cloudinary';
+
 import { BiImage } from 'react-icons/bi';
 
 import CustomSession from '@/utils/Session';
@@ -13,6 +13,12 @@ import BackNavHeader from '@/components/back-nav-header/BackNavHeader';
 
 import { useQuill } from "react-quilljs";
 import "quill/dist/quill.snow.css";
+import dynamic from 'next/dynamic';
+
+const QuillNoSSRWrapper = dynamic(import('react-quill'), {
+	ssr: false,
+	loading: () => <p>Loading ...</p>,
+	})
 
 const NewList: NextPage = () => {
   const { data: session, status } = useSession();
@@ -26,26 +32,43 @@ const NewList: NextPage = () => {
   const [buttonIsDisabled, setButtonIsDisabled] = useState(false);
   const [isImageAttached, setIsImageAttached] = useState(false);
 
-  const { quill, quillRef } = useQuill({
-    modules: {
-      toolbar: [
-        ['bold', 'italic', 'underline', 'strike'],
-        ['blockquote', 'code-block'],
-        [{ 'header': 1 }, { 'header': 2 }],
-        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-        [{ 'script': 'sub'}, { 'script': 'super' }],
-        [{ 'indent': '-1'}, { 'indent': '+1' }],
-        [{ 'direction': 'rtl' }],
-        [{ 'size': ['small', false, 'large', 'huge'] }],
-        // [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-        [{ 'color': [] }, { 'background': [] }],
-        // [{ 'font': [] }],
-        [{ 'align': [] }],
-        ['clean'],
-        ['link', 'video', 'image']
+  const [quillValue, setQuillValue] = useState('');
+
+  const modules = {
+    toolbar: [
+      [{ header: '1' }, { header: '2' }, { font: [] }],
+      [{ size: [] }],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      [
+        { list: 'ordered' },
+        { list: 'bullet' },
+        { indent: '-1' },
+        { indent: '+1' },
       ],
+      ['link', 'image', 'video'],
+      ['clean'],
+    ],
+    clipboard: {
+      matchVisual: false,
     },
-  });
+  }
+
+  const formats = [
+    'header',
+    'font',
+    'size',
+    'bold',
+    'italic',
+    'underline',
+    'strike',
+    'blockquote',
+    'list',
+    'bullet',
+    'indent',
+    'link',
+    'image',
+    'video',
+  ]
 
   if (!userSession) {
     return (
@@ -84,7 +107,7 @@ const NewList: NextPage = () => {
         userEmail: userSession.user.email,
         listTitle: enteredTitle,
         secure_url: secureUrl,
-        listAbout: JSON.stringify(quill?.getContents()),
+        listAbout: JSON.stringify(quillValue),
         shortAbout: enteredShortAbout,
       };
 
@@ -119,7 +142,8 @@ const NewList: NextPage = () => {
           <input type="text" id="title" placeholder="Give your list a name..." ref={titleRef} />
 
           <label htmlFor="about">Description</label>
-          <div ref={quillRef} />
+
+          <QuillNoSSRWrapper modules={modules} formats={formats} value={quillValue} onChange={setQuillValue}  theme="snow" />
 
 
           <label htmlFor="shortAbout">Short Description</label>

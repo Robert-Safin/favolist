@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // experimental: {
+  //   largePageDataBytes: 400 * 100000,
+  // },
   env: {
     MONGO_PASSWORD: "banana123",
     MONGO_USER: "admin",
