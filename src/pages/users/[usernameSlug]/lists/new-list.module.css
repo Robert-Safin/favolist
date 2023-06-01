@@ -34,11 +34,6 @@
   @apply bg-purple rounded-md mt-4 text-base text-white h-12 mb-20
 }
 
-.ql-editor img {
-  width: 400px;
-  height: 400px;
-}
-
 .hide {
   @apply hidden
 }

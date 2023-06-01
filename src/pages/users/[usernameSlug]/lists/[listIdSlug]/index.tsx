@@ -18,8 +18,14 @@ import ToggleView from "@/components/toggleViewListCard/ToggleView";
 import CustomSession from "@/utils/Session";
 import { getToken } from "next-auth/jwt";
 import { useQuill } from "react-quilljs";
+import dynamic from "next/dynamic";
 
+import "quill/dist/quill.snow.css";
 
+const QuillNoSSRWrapper = dynamic(import('react-quill'), {
+  ssr: false,
+  loading: () => <p>Loading ...</p>,
+  })
 interface Props {
   user: UserModelSchema
   currentUser: UserModelSchema;
@@ -38,19 +44,23 @@ const ShowList: NextPage<Props> = (props) => {
   const [showListAbout, setShowListAbout] = useState(false)
 
 
-  const { quill, quillRef } = useQuill({readOnly: true,});
-    const deltaString = props.user.lists[0].about;
-    const deltaObject = JSON.parse(deltaString);
-    quill?.setContents(deltaObject)
 
-    useEffect(() => {
-      if (quill) {
-          const toolbar = quill.getModule('toolbar');
-          if (toolbar && toolbar.container) {
-              toolbar.container.style.display = 'none';
-          }
-      }
-  }, [quill]);
+  // const { quill, quillRef } = useQuill({readOnly: true,});
+  //   const deltaString = props.user.lists[0].about;
+  //   const deltaObject = JSON.parse(deltaString);
+  //   quill?.setContents(deltaObject)
+
+  //   useEffect(() => {
+  //     if (quill) {
+  //         const toolbar = quill.getModule('toolbar');
+  //         if (toolbar && toolbar.container) {
+  //             toolbar.container.style.display = 'none';
+  //         }
+  //     }
+  // }, [quill]);
+
+
+  const [quillValue, setQuillValue] = useState(JSON.parse(props.user.lists[0].about));
 
 
   const listHasNoProducts = props.user.products.length === 0
@@ -114,6 +124,7 @@ const ShowList: NextPage<Props> = (props) => {
                 title={product.productName}
                 price={product.price}
                 content={product.content}
+                shortContent={product.shortContent}
                 referral={product.referral}
                 listName={product.productListName}
                 image={product.productImage}
@@ -134,7 +145,7 @@ const ShowList: NextPage<Props> = (props) => {
         <div className={styles.listInfoContainer}>
           <Link href={`/users/${usernameSlug}/lists/${listIdSlug}/edit-description`}><button className={styles.button}>Edit list</button></Link>
           <h1 className={styles.listTitle}>{props.user.lists[0].title}</h1>
-          <div ref={quillRef} />
+          <QuillNoSSRWrapper modules={{toolbar: false}} readOnly={true} value={quillValue} onChange={setQuillValue} theme="snow" />
         </div>}
 
     </>
