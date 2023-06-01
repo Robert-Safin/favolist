@@ -10,7 +10,12 @@ import { ListModelSchema } from "@/db/models/List";
 import { useQuill } from "react-quilljs";
 import "quill/dist/quill.snow.css";
 
+import dynamic from 'next/dynamic';
 
+const QuillNoSSRWrapper = dynamic(import('react-quill'), {
+	ssr: false,
+	loading: () => <p>Loading ...</p>,
+	})
 
 
 interface Props {
@@ -34,37 +39,43 @@ const EditListDescription:NextPage<Props> = (props) => {
   const [about, setAbout] = useState(props.list.about)
   //const [thumbnail, setThumbnail] = useState(props.list.thumbnail)
 
-  const { quill, quillRef } = useQuill({
-    modules: {
-      toolbar: [
-        ['bold', 'italic', 'underline', 'strike'],
-        ['blockquote', 'code-block'],
-        [{ 'header': 1 }, { 'header': 2 }],
-        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-        [{ 'script': 'sub'}, { 'script': 'super' }],
-        [{ 'indent': '-1'}, { 'indent': '+1' }],
-        [{ 'direction': 'rtl' }],
-        [{ 'size': ['small', false, 'large', 'huge'] }],
-        //[{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-        [{ 'color': [] }, { 'background': [] }],
-        //[{ 'font': [] }],
-        [{ 'align': [] }],
-        ['clean'],
-        ['link', 'video','image']
+  const [quillValue, setQuillValue] = useState(JSON.parse(props.list.about));
+
+  const modules = {
+    toolbar: [
+      [{ header: '1' }, { header: '2' }, { font: [] }],
+      [{ size: [] }],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      [
+        { list: 'ordered' },
+        { list: 'bullet' },
+        { indent: '-1' },
+        { indent: '+1' },
       ],
+      ['link', 'image', 'video'],
+      ['clean'],
+    ],
+    clipboard: {
+      matchVisual: false,
     },
-  });
-
-  useEffect(() => {
-    if (quill) {
-      const delta = JSON.parse(props.list.about);
-      quill.setContents(delta);
-    }
-  }, [quill, props.list.about]);
-
-  if (!userSession) {
-    return <p>no session</p>
   }
+
+  const formats = [
+    'header',
+    'font',
+    'size',
+    'bold',
+    'italic',
+    'underline',
+    'strike',
+    'blockquote',
+    'list',
+    'bullet',
+    'indent',
+    'link',
+    'image',
+    'video',
+  ]
 
 
 
@@ -73,7 +84,7 @@ const handleSubmit: FormEventHandler = async (event) => {
 
   const enteredTitle = titleRef.current?.value;
   const enteredImage = imageRef.current?.files![0];
-  const enteredAbout = JSON.stringify(quill?.getContents())
+  const enteredAbout = JSON.stringify(quillValue)
 
 
 
@@ -125,7 +136,7 @@ const handleSubmit: FormEventHandler = async (event) => {
       <input className={styles.input} type="text" id="title" defaultValue={title} ref={titleRef}/>
 
       <label htmlFor="about">About</label>
-      <div ref={quillRef} />
+      <QuillNoSSRWrapper modules={modules} formats={formats} value={quillValue} onChange={setQuillValue}  theme="snow" />
 
       {/* <textarea className={styles.input} id="about" defaultValue={about} ref={aboutRef}/> */}
 
