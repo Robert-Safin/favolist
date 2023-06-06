@@ -39,6 +39,7 @@ const NewProduct: NextPage<Props> = (props) => {
   const listRef = useRef<HTMLSelectElement>(null)
 
   const [buttonIsDisabled, setButtonIsDisbaled] = useState(false)
+  const [isImageAttached, setIsImageAttached] = useState(false);
 
   const { quill, quillRef } = useQuill({
     modules: {
@@ -50,9 +51,9 @@ const NewProduct: NextPage<Props> = (props) => {
         [{ 'script': 'sub' }, { 'script': 'super' }],
         [{ 'indent': '-1' }, { 'indent': '+1' }],
         [{ 'direction': 'rtl' }],
-        [{ 'size': ['small', false, 'large', 'huge'] }],
+        //[{ 'size': ['small', false, 'large', 'huge'] }],
         //[{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-        [{ 'color': [] }, { 'background': [] }],
+        //[{ 'color': [] }, { 'background': [] }],
         //[{ 'font': [] }],
         [{ 'align': [] }],
         ['clean'],
@@ -143,6 +144,9 @@ const NewProduct: NextPage<Props> = (props) => {
 
 
 
+  const handleImageChange = () => {
+    setIsImageAttached(true);
+  };
 
 
 
@@ -194,7 +198,9 @@ const NewProduct: NextPage<Props> = (props) => {
           <BiImage className={styles.imageuploadicon} />
           <div>Upload product image...</div>
         </label>
-        <input type="file" id='image' className="hidden" ref={imageRef} />
+        <input type="file" id='image' className="hidden" ref={imageRef} onChange={handleImageChange} />
+        {isImageAttached && <p className={styles.imageAttached}>Image attached</p>}
+
 
         <button className={styles.button} type="submit" disabled={buttonIsDisabled}>Submit</button>
       </form>

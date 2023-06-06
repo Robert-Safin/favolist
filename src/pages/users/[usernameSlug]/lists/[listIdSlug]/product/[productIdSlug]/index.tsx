@@ -14,6 +14,12 @@ import { getSession, useSession } from "next-auth/react";
 import CustomSession from "@/utils/Session";
 import { ObjectId } from "mongoose";
 import { useQuill } from "react-quilljs";
+import dynamic from "next/dynamic";
+
+const QuillNoSSRWrapper = dynamic(import('react-quill'), {
+  ssr: false,
+  loading: () => <p>Loading ...</p>,
+})
 
 interface Props {
   user: UserModelSchema
@@ -22,8 +28,8 @@ interface Props {
 }
 
 
+
 const ShowProduct: NextPage<Props> = (props) => {
-  console.log(props.user);
 
   const router = useRouter()
   const usernameSlug = router.query.usernameSlug
@@ -33,22 +39,8 @@ const ShowProduct: NextPage<Props> = (props) => {
   const { data: session, status } = useSession()
   const userSession = session as CustomSession
 
-  const { quill, quillRef } = useQuill({readOnly: true,});
-    const deltaString = props.user.lists[0].about;
-    const deltaObject = JSON.parse(deltaString);
-    quill?.setContents(deltaObject)
+  const [quillValue, setQuillValue] = useState(JSON.parse(props.user.products[0].content));
 
-
-
-
-    useEffect(() => {
-      if (quill) {
-          const toolbar = quill.getModule('toolbar');
-          if (toolbar && toolbar.container) {
-              toolbar.container.style.display = 'none';
-          }
-      }
-  }, [quill]);
 
   const [reviewIsActive, setReviewIsActive] = useState(true)
   const [descriptionIsActive, setDescriptionIsActive] = useState(false)
@@ -181,7 +173,7 @@ const ShowProduct: NextPage<Props> = (props) => {
       </div>
 
       {reviewIsActive && <div className={styles.tabWindow}>
-        <div className={styles.productContent}  ref={quillRef}/>
+      <QuillNoSSRWrapper modules={{ toolbar: false }} readOnly={true} value={quillValue} onChange={setQuillValue} theme="snow" />
 
 
       </div>}

@@ -35,3 +35,6 @@
 .button {
   @apply bg-purple rounded-md mt-4 text-base text-white h-12 mb-20
 }
+.imageAttached {
+  @apply text-center
+}
