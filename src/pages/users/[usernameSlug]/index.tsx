@@ -84,6 +84,9 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
   }
 
 
+
+
+
   const handleProductClick = () => {
     setProductIsActive(true)
     setListIsActive(false)
@@ -302,8 +305,13 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
         {accountIsActive &&
           <>
             <h1 className={styles.userBioTitle}>Bio</h1>
-            <p className={styles.userBio}>{props.user.bio}</p>
-            <h1 className={styles.userSocialsTitle}>Socials</h1>
+            {props.user.bio.length > 0 ? <p className={styles.userBio}>{props.user.bio}</p>: <p className={styles.userBio}>{`${props.user.username} has no bio.`}</p> }
+
+
+
+
+
+
 
             <div className={styles.socialsContainer}>
 

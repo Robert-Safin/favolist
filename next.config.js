@@ -7,7 +7,7 @@ const nextConfig = {
     MONGO_PASSWORD: process.env.MONGO_PASSWORD,
     MONGO_USER: process.env.MONGO_USER,
     MONGO_CLUSTER: process.env.MONGO_CLUSTER,
-    MONGO_DATABASE: process.env.MONGO_PASSWORD,
+    MONGO_DATABASE: process.env.MONGO_DATABASE,
 
     GITHUB_SECRET_ID: process.env.GITHUB_SECRET_ID,
     GITHUB_SECRET_CLIENT: process.env.GITHUB_SECRET_CLIENT,
