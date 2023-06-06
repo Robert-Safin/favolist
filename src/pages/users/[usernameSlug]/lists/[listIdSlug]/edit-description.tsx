@@ -12,6 +12,7 @@ import "quill/dist/quill.snow.css";
 
 import dynamic from 'next/dynamic';
 import BackNavHeader from "@/components/back-nav-header/BackNavHeader";
+import { BiImage } from "react-icons/bi";
 
 const QuillNoSSRWrapper = dynamic(import('react-quill'), {
 	ssr: false,
@@ -41,6 +42,7 @@ const EditListDescription:NextPage<Props> = (props) => {
   //const [thumbnail, setThumbnail] = useState(props.list.thumbnail)
 
   const [quillValue, setQuillValue] = useState(JSON.parse(props.list.about));
+  const [isImageAttached, setIsImageAttached] = useState(false);
 
   const modules = {
     toolbar: [
@@ -126,7 +128,9 @@ const handleSubmit: FormEventHandler = async (event) => {
         // to do
         console.log(error);
       }
-
+};
+const handleImageChange = () => {
+  setIsImageAttached(true);
 };
   return (
     <>
@@ -142,8 +146,25 @@ const handleSubmit: FormEventHandler = async (event) => {
 
       {/* <textarea className={styles.input} id="about" defaultValue={about} ref={aboutRef}/> */}
 
-      <label className={styles.label} htmlFor="thumbnail">Thumbnail</label>
-      <input className={styles.input} type="file" id="thumbnail" ref={imageRef}/>
+
+
+
+      <label htmlFor="image" className={styles.imageupload}>
+            <BiImage className={styles.imageuploadicon} />
+            <div>Upload list image</div>
+          </label>
+          <input className={styles.hide}
+            type="file"
+            id="image"
+            accept="image/*"
+            ref={imageRef}
+            onChange={handleImageChange}
+          />
+
+{isImageAttached && <p className={styles.imageAttached}>Image attached</p>}
+
+
+
 
       <button className={styles.button} type="submit">Submit</button>
     </form>
