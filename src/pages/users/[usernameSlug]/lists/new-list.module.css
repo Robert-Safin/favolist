@@ -37,3 +37,6 @@
 .hide {
   @apply hidden
 }
+.imageAttached {
+  @apply text-center
+}

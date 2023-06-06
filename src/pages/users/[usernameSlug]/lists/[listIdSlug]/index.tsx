@@ -25,7 +25,7 @@ import "quill/dist/quill.snow.css";
 const QuillNoSSRWrapper = dynamic(import('react-quill'), {
   ssr: false,
   loading: () => <p>Loading ...</p>,
-  })
+})
 interface Props {
   user: UserModelSchema
   currentUser: UserModelSchema;
@@ -98,7 +98,7 @@ const ShowList: NextPage<Props> = (props) => {
 
         <div className={styles.userInfo}>
           <Image src={props.user.avatar!} alt={'user avatar'} className={styles.image} width={100} height={100} />
-          {!listHasNoProducts && <h1 className={styles.lisTitle}>{props.user.lists[0].title}</h1>}
+          {!listHasNoProducts && <h1 className={styles.lisTitle}>{props.user.lists[0].title} </h1>}
         </div>
 
       </div>
@@ -143,9 +143,8 @@ const ShowList: NextPage<Props> = (props) => {
 
       {showListAbout &&
         <div className={styles.listInfoContainer}>
-          <Link href={`/users/${usernameSlug}/lists/${listIdSlug}/edit-description`}><button className={styles.button}>Edit list</button></Link>
-          <h1 className={styles.listTitle}>{props.user.lists[0].title}</h1>
-          <QuillNoSSRWrapper modules={{toolbar: false}} readOnly={true} value={quillValue} onChange={setQuillValue} theme="snow" />
+          <h1 className={styles.listTitle}>{props.user.lists[0].title} <Link href={`/users/${usernameSlug}/lists/${listIdSlug}/edit-description`}><button className={styles.button}>Edit list</button></Link></h1>
+          <QuillNoSSRWrapper modules={{ toolbar: false }} readOnly={true} value={quillValue} onChange={setQuillValue} theme="snow" />
         </div>}
 
     </>
@@ -170,7 +169,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const token = await getToken(context)
   const currentUserEmail = token?.email
 
-  const currentUserDoc  = await User.findOne({email:currentUserEmail})
+  const currentUserDoc = await User.findOne({ email: currentUserEmail })
 
 
 
@@ -178,7 +177,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const userDoc = await User.findOne({ username: usernameSlug })
 
 
-    await userDoc!.populate({
+  await userDoc!.populate({
     path: 'products',
     match: { productListName: listIdSlug }
   });

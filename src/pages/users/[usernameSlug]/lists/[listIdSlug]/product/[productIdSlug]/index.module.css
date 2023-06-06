@@ -46,3 +46,7 @@
 .productContent {
   @apply line-clamp-5
 }
+
+.ql-editor {
+  @apply bg-flamingo
+}

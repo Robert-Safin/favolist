@@ -56,7 +56,7 @@ const NewProduct: NextPage<Props> = (props) => {
         //[{ 'font': [] }],
         [{ 'align': [] }],
         ['clean'],
-        ['link', 'video', 'image']
+        ['link']
       ],
     },
   });

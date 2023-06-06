@@ -55,7 +55,7 @@ const EditProduct: NextPage<Props> = (props) => {
         //[{ 'font': [] }],
         [{ 'align': [] }],
         ['clean'],
-        ['link', 'video', 'image']
+        ['link']
       ],
     },
   });

@@ -28,7 +28,7 @@ const NewList: NextPage = () => {
   const titleRef = useRef<HTMLInputElement>(null);
   const imageRef = useRef<HTMLInputElement>(null);
   const aboutRef = useRef<HTMLTextAreaElement>(null);
-  const shortAboutRef = useRef<HTMLInputElement>(null);
+  const shortAboutRef = useRef<HTMLTextAreaElement>(null);
   const [buttonIsDisabled, setButtonIsDisabled] = useState(false);
   const [isImageAttached, setIsImageAttached] = useState(false);
 
@@ -45,7 +45,7 @@ const NewList: NextPage = () => {
         { indent: '-1' },
         { indent: '+1' },
       ],
-      ['link',  'video'],
+      ['link'],
       ['clean'],
     ],
     clipboard: {
@@ -67,7 +67,7 @@ const NewList: NextPage = () => {
     'indent',
     'link',
     //'image',
-    'video',
+    //'video',
   ]
 
   if (!userSession) {
@@ -147,11 +147,11 @@ const NewList: NextPage = () => {
 
 
           <label htmlFor="shortAbout">Short Description</label>
-          <input type="text" id="shortAbout" placeholder='search tags and card text' ref={shortAboutRef}/>
+          <textarea id="shortAbout" placeholder='Short descripion...' ref={shortAboutRef}/>
 
           <label htmlFor="image" className={styles.imageupload}>
             <BiImage className={styles.imageuploadicon} />
-            <div>Upload list image...</div>
+            <div>Upload list image</div>
           </label>
           <input className={styles.hide}
             type="file"
@@ -161,7 +161,7 @@ const NewList: NextPage = () => {
             onChange={handleImageChange}
           />
 
-          {isImageAttached && <p>Image attached</p>}
+          {isImageAttached && <p className={styles.imageAttached}>Image attached</p>}
 
           <button type="submit" disabled={buttonIsDisabled} className={styles.button}>
             Create

@@ -11,6 +11,7 @@ import { useQuill } from "react-quilljs";
 import "quill/dist/quill.snow.css";
 
 import dynamic from 'next/dynamic';
+import BackNavHeader from "@/components/back-nav-header/BackNavHeader";
 
 const QuillNoSSRWrapper = dynamic(import('react-quill'), {
 	ssr: false,
@@ -52,7 +53,7 @@ const EditListDescription:NextPage<Props> = (props) => {
         { indent: '-1' },
         { indent: '+1' },
       ],
-      ['link', 'video'],
+      ['link'],
       ['clean'],
     ],
     clipboard: {
@@ -74,7 +75,7 @@ const EditListDescription:NextPage<Props> = (props) => {
     'indent',
     'link',
     //'image',
-    'video',
+    //'video',
   ]
 
 
@@ -129,21 +130,22 @@ const handleSubmit: FormEventHandler = async (event) => {
 };
   return (
     <>
-    <form className={styles.form} onSubmit={handleSubmit}>
-    <h1>Edit List Description</h1>
+    <BackNavHeader title={'Edit List'} />
 
-      <label htmlFor="title">Title</label>
+    <form className={styles.form} onSubmit={handleSubmit}>
+
+      <label className={styles.label} htmlFor="title">Title</label>
       <input className={styles.input} type="text" id="title" defaultValue={title} ref={titleRef}/>
 
-      <label htmlFor="about">About</label>
+      <label className={styles.label} htmlFor="about">About</label>
       <QuillNoSSRWrapper modules={modules} formats={formats} value={quillValue} onChange={setQuillValue}  theme="snow" />
 
       {/* <textarea className={styles.input} id="about" defaultValue={about} ref={aboutRef}/> */}
 
-      <label htmlFor="thumbnail">Thumbnail</label>
+      <label className={styles.label} htmlFor="thumbnail">Thumbnail</label>
       <input className={styles.input} type="file" id="thumbnail" ref={imageRef}/>
 
-      <button type="submit">Submit</button>
+      <button className={styles.button} type="submit">Submit</button>
     </form>
     </>
   )

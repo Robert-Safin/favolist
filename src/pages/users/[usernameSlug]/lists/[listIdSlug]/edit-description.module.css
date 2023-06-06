@@ -1,7 +1,15 @@
 
 .form {
-  @apply flex flex-col w-1/2 mx-auto
+  @apply flex flex-col w-full mx-auto px-4 mb-24
 }
 .input {
-  @apply border border-purple
+  @apply border border-gray-200 rounded-lg p-2
+}
+
+.label {
+  @apply text-sm
+}
+
+.button {
+  @apply bg-purple w-full p-3 text-white rounded-lg
 }
