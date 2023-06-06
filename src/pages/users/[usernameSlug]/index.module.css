@@ -83,11 +83,13 @@
 
 .userBio {
   @apply m-4
+          md:w-1/2 md:mx-auto
 }
 
 .referralContainer {
   @apply flex flex-wrap justify-evenly px-0
   md:px-24
+
 
 }
 
@@ -105,8 +107,10 @@
 
 .socialsContainer {
   @apply bg-gray-200 m-4 flex flex-wrap justify-center space-x-3
+          md:w-1/2 md:mx-auto md:space-x-8
 }
 
 .socialIcon {
   @apply h-8 w-8 my-3
+          md:h-10 md:w-10
 }
