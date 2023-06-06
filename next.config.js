@@ -4,19 +4,19 @@ const nextConfig = {
   //   largePageDataBytes: 400 * 100000,
   // },
   env: {
-    MONGO_PASSWORD: "banana123",
-    MONGO_USER: "admin",
-    MONGO_CLUSTER: "cluster0",
-    MONGO_DATABASE: "favolist",
+    MONGO_PASSWORD: process.env.MONGO_PASSWORD,
+    MONGO_USER: process.env.MONGO_USER,
+    MONGO_CLUSTER: process.env.MONGO_CLUSTER,
+    MONGO_DATABASE: process.env.MONGO_PASSWORD,
 
-    GITHUB_SECRET_ID: "13f08b92c5ae4e6923f7",
-    GITHUB_SECRET_CLIENT: "76fa3b8f54cddf28c11362fb9be43dc7ea9387ab",
-    NEXTAUTH_URL: "http://localhost:3000",
-    NEXTAUTH_SECRET: "banana",
+    GITHUB_SECRET_ID: process.env.GITHUB_SECRET_ID,
+    GITHUB_SECRET_CLIENT: process.env.GITHUB_SECRET_CLIENT,
+    NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+    NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
 
-    CLOUDINARY_API_KEY: "396848765696647",
-    CLOUDINARY_API_SECRET: "Z3QtiZ53WrxdUNOKdhJm0POmXdg",
-    CLOUDINARY_CLOUD_NAME: "dxgkclowd",
+    CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY,
+    CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET,
+    CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME,
   },
   images: {
     remotePatterns: [
