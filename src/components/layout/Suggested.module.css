@@ -1,0 +1,4 @@
+.suggestedContainer {
+  @apply hidden
+  md:block md:absolute top-0 right-0 w-1/4 h-full border-l border-gray-200
+}

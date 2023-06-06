@@ -2,7 +2,8 @@
 
 /* custom styles */
 .bottomNav {
-  @apply bg-white grid grid-cols-5 border-t border-gray-200 fixed bottom-0 left-0 w-full p-4;
+  @apply bg-white grid grid-cols-5 border-t border-gray-200 fixed bottom-0 left-0 w-full p-4
+  md:hidden
 }
 
 .menuitem {

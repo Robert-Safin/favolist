@@ -1,0 +1,17 @@
+.nav {
+  @apply hidden
+  md:block md:absolute md:left-0 md:top-0 w-1/4 h-full border-r border-gray-200
+}
+.title {
+  @apply font-extrabold text-2xl ml-4
+}
+.logo {
+  @apply flex items-center mb-24 mt-4 ml-5
+}
+.navTab {
+  @apply flex items-center text-xl font-semibold ml-5 my-10
+}
+
+.icon {
+  @apply mr-6 text-xl
+}

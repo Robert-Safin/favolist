@@ -1,5 +1,5 @@
 .mainContainer {
-  @apply w-full mx-auto
+  @apply w-full mx-auto mb-14
   md:w-1/2
 }
 
