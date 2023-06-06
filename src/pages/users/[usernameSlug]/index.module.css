@@ -87,8 +87,7 @@
 }
 
 .userBio {
-  @apply m-4
-          md:w-1/2 md:mx-auto
+  @apply m-4 mx-auto px-4
 }
 
 .referralContainer {
@@ -110,8 +109,8 @@
 }
 
 .socialsContainer {
-  @apply bg-gray-200 m-4 flex flex-wrap justify-center space-x-3
-          md:w-1/2 md:mx-auto md:space-x-8
+  @apply bg-gray-200 m-4 flex flex-wrap justify-center space-x-3 px-4
+          md:mx-auto md:space-x-12
 }
 
 .socialIcon {
