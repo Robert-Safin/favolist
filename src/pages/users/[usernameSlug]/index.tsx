@@ -183,7 +183,7 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
 
   return (
 
-    <div>
+    <div className={styles.mainContainer}>
 
       <div className={styles.containerDiv}>
         <div className={styles.userCard}>

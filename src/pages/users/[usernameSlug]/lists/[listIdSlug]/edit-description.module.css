@@ -1,6 +1,7 @@
 
 .form {
   @apply flex flex-col w-full mx-auto px-4 mb-24
+  md:w-1/2
 }
 .input {
   @apply border border-gray-200 rounded-lg p-2

@@ -133,7 +133,7 @@ const EditProduct: NextPage<Props> = (props) => {
 
   return (
     <>
-    <BackNavHeader title={'New product'}/>
+    <BackNavHeader title={'Edit product'}/>
     <div className={styles.formContainer}>
       <form className={styles.form} onSubmit={handleSubmit}>
 

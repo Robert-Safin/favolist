@@ -1,7 +1,7 @@
 .listContainer {
   @apply  flex border-b border-b-gray-200 text-white p-2 my-2
 
-  md:w-2/5
+  md:w-1/2
 }
 .imageContainer {
   @apply relative flex flex-col justify-center

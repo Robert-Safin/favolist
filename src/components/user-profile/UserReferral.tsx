@@ -43,7 +43,7 @@ const UserReferral: FC<Props> = (props) => {
     <div className={styles.referralCard}>
 
       <div className={styles.textAndImage}>
-            <div>
+            <div className={styles.refInfo}>
               <h1 className={styles.listName}>{props.listName}</h1>
               <h2 className={styles.title}>{props.title}</h2>
               <h3 className={styles.price}>${props.price}</h3>

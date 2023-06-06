@@ -1,3 +1,8 @@
+.mainContainer {
+  @apply w-full mx-auto
+  md:w-1/2
+}
+
 .containerDiv {
   @apply flex
   md:w-1/2 mx-auto
@@ -37,7 +42,7 @@
 }
 
 .button {
-  @apply  bg-purple rounded-md text-white text-center text-xs px-4 py-2
+  @apply  bg-purple rounded-md text-white text-xs p-2
 }
 
 .userStats {
@@ -54,7 +59,7 @@
 
 .listsContainer {
   @apply flex flex-col mx-2
-  md:flex-row md:justify-between md:flex-wrap md:px-32
+  md:flex-row md:justify-between md:flex-wrap
 }
 
 .tabContainer {
@@ -88,7 +93,6 @@
 
 .referralContainer {
   @apply flex flex-wrap justify-evenly px-0
-  md:px-24
 
 
 }

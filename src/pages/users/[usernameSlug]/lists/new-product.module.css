@@ -1,7 +1,8 @@
 
 
 .form {
-  @apply flex flex-col px-4
+  @apply flex flex-col px-4 w-full mx-auto
+  md:w-1/2
 }
 
 .form label {

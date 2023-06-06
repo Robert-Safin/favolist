@@ -156,7 +156,7 @@ const NewProduct: NextPage<Props> = (props) => {
 
   return (
     <>
-      <BackNavHeader title={"New listing"} />
+      <BackNavHeader title={"New Product"} />
       <form className={styles.form} onSubmit={handleSubmit}>
 
         <label htmlFor="name">Product</label>

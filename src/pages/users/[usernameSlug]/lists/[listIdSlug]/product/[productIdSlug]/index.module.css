@@ -1,13 +1,15 @@
 .mainContainer {
-  @apply w-full p-2
+  @apply w-full p-2 mb-20
+  md:w-1/2 md:mx-auto
 }
 
 .productStats {
-  @apply text-center
+  @apply text-center mx-auto
 }
 
 .user {
   @apply flex justify-between border-b border-gray-200 items-center my-4
+
 }
 
 .actions {
@@ -19,7 +21,8 @@
 }
 
 .tabs {
-  @apply flex justify-between
+  @apply flex justify-between mb-1
+
 }
 
 .activeTab {
@@ -31,7 +34,7 @@
 }
 
 .image {
-  @apply object-cover w-96 h-96
+  @apply object-cover w-96 h-96 mx-auto
 }
 .avatar {
   @apply object-cover w-6 h-6 rounded-full

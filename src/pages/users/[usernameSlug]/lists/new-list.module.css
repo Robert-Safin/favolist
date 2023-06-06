@@ -1,6 +1,7 @@
 
 .formContainer {
-  @apply flex flex-col
+  @apply flex flex-col w-full mx-auto
+  md:w-1/2
 }
 
 .title {

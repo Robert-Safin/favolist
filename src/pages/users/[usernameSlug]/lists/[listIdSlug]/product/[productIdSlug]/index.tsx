@@ -124,7 +124,7 @@ const ShowProduct: NextPage<Props> = (props) => {
           <p>{props.user.username}</p>
         </div>
 
-        <Image src={props.user.products[0].productLogo} alt={`product logo`} width={50} height={50} className={styles.logo}/>
+        {/* <Image src={props.user.products[0].productLogo} alt={`product logo`} width={50} height={50} className={styles.logo}/> */}
 
 
 
@@ -174,8 +174,6 @@ const ShowProduct: NextPage<Props> = (props) => {
 
       {reviewIsActive && <div className={styles.tabWindow}>
       <QuillNoSSRWrapper modules={{ toolbar: false }} readOnly={true} value={quillValue} onChange={setQuillValue} theme="snow" />
-
-
       </div>}
 
       {descriptionIsActive && <div className={styles.tabWindow}>
@@ -183,7 +181,12 @@ const ShowProduct: NextPage<Props> = (props) => {
       </div>}
 
       {referralIsActive && <div className={styles.tabWindow}>
+        <br />
+        <h1>Referral Offer:</h1>
         <p>{props.user.products[0].referralDiscription}</p>
+        <br />
+        <br />
+        <h1>Referral Code:</h1>
         <p>{props.user.products[0].referral}</p>
       </div>}
 

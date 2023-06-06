@@ -1,5 +1,6 @@
 .formContainer {
-  @apply w-full
+  @apply w-full mx-auto
+  md:w-1/2
 }
 .form {
   @apply flex flex-col w-full mx-auto p-4
