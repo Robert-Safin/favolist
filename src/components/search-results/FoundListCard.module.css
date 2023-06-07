@@ -1,5 +1,5 @@
 .cardContainer {
-  @apply my-2 border border-b-gray-200 p-2
+  @apply my-2 border border-b-gray-200 w-1/2 md:px-8
 }
 
 .imageContainer {

@@ -7,5 +7,6 @@
 }
 
 .container {
-  @apply flex items-center  h-8 w-full px-4 py-2 mb-2 bg-gray-50;
+  @apply flex items-center  h-8 w-full px-4 py-2 mb-2 bg-gray-50
+ md:mx-auto
 }

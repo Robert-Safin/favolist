@@ -25,7 +25,7 @@ const FoundListCard: FC<Props> = (props) => {
 
       <div className={styles.imageContainer}>
         <Link href={`/users/${props.userId.username}/lists/${props.title}`}>
-        <Image src={props.thumbnail} alt={props.title} fill className={styles.image} />
+        <Image src={props.thumbnail} alt={props.title} fill className={styles.image}  />
         </Link>
 
         <div className={styles.textItems}>

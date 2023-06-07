@@ -15,3 +15,26 @@
 .icon {
   @apply mr-6 text-xl
 }
+
+.modal {
+  @apply shadow-lg bg-white w-3/4 mx-auto p-6 mt-52
+}
+
+.titleAndClose {
+  @apply flex
+}
+.cross {
+  @apply relative left-0
+}
+
+.title {
+  @apply mx-auto mb-4
+}
+
+.modalButton {
+  @apply flex flex-col space-y-2
+}
+
+.actionButton {
+  @apply border border-gray-300 rounded-md p-1
+}

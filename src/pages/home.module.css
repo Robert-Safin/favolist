@@ -1,0 +1,4 @@
+.mainContainer {
+  @apply w-full
+  md:w-1/2 md:mx-auto
+}

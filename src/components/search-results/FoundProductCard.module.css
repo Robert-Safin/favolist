@@ -5,7 +5,7 @@
 }
 
 .productContainer {
-  @apply w-full border border-gray-200 m-2 p-2 md:w-1/3
+  @apply w-full border border-gray-200 md:w-1/2
 }
 
 .productInfo {
@@ -17,11 +17,11 @@
 }
 
 .listName {
-  @apply text-xl
+  @apply text-base
 }
 
 .productName {
-  @apply text-2xl
+  @apply text-xl line-clamp-1 font-semibold
 }
 
 .price {
@@ -37,11 +37,11 @@
 }
 
 .imageAndButton {
-  @apply flex flex-col
+  @apply flex flex-col items-end
 }
 
 .button {
-  @apply text-center text-purple relative top-8
+  @apply text-center text-purple relative top-8 right-2
 }
 
 .username {

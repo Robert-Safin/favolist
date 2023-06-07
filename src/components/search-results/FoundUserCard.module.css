@@ -1,6 +1,6 @@
 
 .userContainer {
-  @apply border border-gray-200 m-2 p-2 w-full md:w-1/3
+  @apply border border-gray-200 m-2 p-2 w-full
 }
 
 .avatar {

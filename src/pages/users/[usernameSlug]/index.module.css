@@ -4,8 +4,8 @@
 }
 
 .containerDiv {
-  @apply flex
-  md:w-1/2 mx-auto
+  @apply flex w-full
+  mx-auto
 }
 
 .productContainer {
@@ -91,7 +91,7 @@
 }
 
 .referralContainer {
-  @apply flex flex-wrap justify-evenly px-0
+  @apply flex flex-wrap justify-evenly mx-2
 
 
 }

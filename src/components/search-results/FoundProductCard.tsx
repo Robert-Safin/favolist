@@ -16,6 +16,7 @@ interface Props {
   productLogo: string
   productImage: string
   content: string
+  shortContent: string
   price: number
   referral: string
   userAvatar: string
@@ -42,7 +43,7 @@ const FoundProductCard: FC<Props> = (props) => {
                 <h2 className={styles.listName}>{props.productListName}</h2>
                 <h1 className={styles.productName}>{props.productName}</h1>
                 <h3 className={styles.price}>${props.price}</h3>
-                <p className={styles.content} dangerouslySetInnerHTML={{ __html: html }} />
+                <p className={styles.content}>{props.shortContent} </p>
               </div>
 
               <div className={styles.imageAndButton}>

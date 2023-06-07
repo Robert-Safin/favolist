@@ -1,5 +1,11 @@
+.mainContainer {
+  @apply w-full mx-auto
+  md:w-1/2
+}
+
+
 .resultsContainer {
-  @apply border  justify-evenly flex flex-wrap
+  @apply border  justify-between flex flex-wrap p-2
 }
 
 .foundCategory {

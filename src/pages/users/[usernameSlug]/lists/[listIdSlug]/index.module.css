@@ -1,5 +1,6 @@
 .nav {
   @apply flex py-1 border-b relative
+          md:w-1/2 md:mx-auto
 }
 
 
@@ -32,11 +33,11 @@
 }
 
 .button {
-  @apply p-2 bg-purple text-white rounded-md text-sm my-1
+  @apply p-3 bg-purple text-white rounded-md text-sm my-2 w-full
 }
 
 .productsContainer {
-  @apply flex flex-wrap p-2 justify-center
+  @apply flex flex-wrap p-2 justify-center md:w-1/2 md:mx-auto
 }
 
 .back {
@@ -63,4 +64,7 @@
 }
 .about {
   @apply px-2
+}
+.listInfoContainer {
+  @apply md:w-1/2 md:mx-auto mb-20
 }

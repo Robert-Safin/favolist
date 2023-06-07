@@ -15,11 +15,11 @@
 }
 
 .listName {
-  @apply text-xl
+  @apply text-base
 }
 
 .title {
-  @apply text-2xl font-bold
+  @apply text-xl font-bold line-clamp-1
 }
 
 .price {
@@ -34,10 +34,10 @@
 }
 
 .copyIcon {
-  @apply ml-auto text-gray-400 text-xl
+  @apply ml-auto text-gray-400 text-base
 }
 .referralDiscription {
-  @apply line-clamp-2
+  @apply line-clamp-3 text-sm
 }
 
 .referralContainerCopy {

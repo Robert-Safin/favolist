@@ -154,7 +154,7 @@ const SearchPage: NextPage<Props> = (props) => {
 
 
   return (
-    <>
+    <div className={styles.mainContainer}>
       <SearchBar handleSubmit={handleSubmit} handleSearch={handleSearch} setSearchInput={setSearchInput} />
       <div className={styles.tabs}>
         <p onClick={handleShowProducts} className={showProducts ? styles.activeTab : styles.nonActiveTab}> <BsSquare className={styles.searchIcons}/>Products</p>
@@ -220,6 +220,7 @@ const SearchPage: NextPage<Props> = (props) => {
               productLogo={product.productLogo}
               productImage={product.productImage}
               content={product.content}
+              shortContent={product.shortContent}
               price={product.price}
               referral={product.referral}
               userAvatar={user.avatar}
@@ -260,7 +261,7 @@ const SearchPage: NextPage<Props> = (props) => {
         <p className={styles.popupText}>User unfollowed</p>
         <RxCross2 />
       </div>}
-    </>
+    </div>
   );
 };
 

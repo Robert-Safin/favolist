@@ -83,7 +83,6 @@ const NewProduct: NextPage<Props> = (props) => {
 
   const handleSubmit: FormEventHandler = async (event) => {
     event.preventDefault()
-    console.log(listRef.current?.value);
 
     setButtonIsDisbaled(true)
     const enteredName = nameRef.current?.value

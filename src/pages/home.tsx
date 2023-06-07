@@ -35,10 +35,10 @@ const Home: NextPage<Props> = (props) => {
 
 
   return (
-    <>
+    <div className={styles.mainContainer}>
       <ToggleView />
       {/* to do logic for homefeed once follower relationship established */}
-    </>
+    </div>
   );
 };
 

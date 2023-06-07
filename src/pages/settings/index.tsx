@@ -8,6 +8,7 @@ const SettingPage: NextPage = () => {
   return (
     <>
       <BackNavHeader title={"Settings"} />
+    <div className={styles.mainContainer}>
 
       <div className={styles.optionsBlock}>
         <h1 className={styles.header}>Account</h1>
@@ -88,6 +89,7 @@ const SettingPage: NextPage = () => {
 
 
 
+    </div>
     </>
   )
 }
