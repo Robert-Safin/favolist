@@ -6,3 +6,7 @@
 .title {
   @apply ml-4 font-semibold
 }
+
+.subTitle {
+  @apply ml-4 mt-8
+}

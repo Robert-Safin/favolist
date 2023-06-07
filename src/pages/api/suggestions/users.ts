@@ -1,0 +1,25 @@
+import { User } from "@/db/models";
+import { UserModelSchema } from "@/db/models/User";
+import { ObjectId } from "mongoose";
+import { NextApiRequest, NextApiResponse } from "next";
+import { getToken } from "next-auth/jwt";
+
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const token = await getToken({ req });
+
+  const userDoc = await User.findOne({ email: token?.email });
+
+  const getRandomValue = (arr:UserModelSchema[]) => {
+    let randomIndex = Math.floor(Math.random() * arr.length);
+    return arr[randomIndex];
+  };
+
+  const randomFriendId = getRandomValue(userDoc?.follows!)
+  const randomFriendDoc = await User.findOne({_id: randomFriendId})
+
+
+  const filteredFollows = randomFriendDoc?.follows.filter(id => !userDoc?.follows.includes(id));
+
+  res.json({filteredFollows})
+};
+export default handler;

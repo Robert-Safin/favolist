@@ -10,7 +10,7 @@ import { signIn, useSession } from 'next-auth/react'
 const LandingPage: NextPage = () => {
   const session = useSession()
 
-  if (session.status === "unauthenticated") {
+  if (!session) {
     return (
       <>
       <button onClick={() => signIn()}>Login</button>
@@ -19,10 +19,9 @@ const LandingPage: NextPage = () => {
   }
 
   return (
-    <>
+    <div className={styles.mainContainer}>
 
-
-      <motion.div
+      {/* <motion.div
         initial={{ y: 200, opacity: 0 }}
         whileInView={{ y:0 , opacity: 1}}
         viewport={{ once: true }}
@@ -70,8 +69,8 @@ const LandingPage: NextPage = () => {
         className={styles.rightCard}>
         <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quod saepe possimus inventore quis, perferendis non maiores sint repellat, mollitia dolore officia ipsum eos incidunt unde ducimus distinctio aliquam quibusdam pariatur!</p>
         <Image src={'landing-page-images/buy.svg'} alt='buy products' width={600} height={600} />
-      </motion.div>
-    </>
+      </motion.div> */}
+    </div>
 
 
 
