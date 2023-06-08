@@ -1,5 +1,9 @@
+
+
+
 .formContainer{
-  @apply w-full text-center p-4
+  @apply w-full text-center p-4 mx-auto
+  md:w-1/2
 }
 
 .bioContainer {
@@ -7,21 +11,24 @@
 }
 
 .formInput {
-  @apply border border-gray-200
+  @apply border border-gray-200 my-4
 }
-
-/* .socialMainContainer {
-  @apply w-full
-} */
 
 .logo {
   @apply w-6 h-6 object-cover mr-2
 }
 
 .socialContainer {
-  @apply flex justify-center my-2
+  @apply flex justify-center my-4 items-center
 }
 
 .socialContainer input {
-  @apply border border-gray-200 w-full
+  @apply border border-gray-200 w-full rounded-md p-1
+}
+
+.submitButton {
+  @apply w-full bg-purple p-1 text-white rounded-lg mt-4
+}
+.formLabel {
+  @apply text-left text-base font-semibold
 }

@@ -11,6 +11,7 @@ import { User } from "@/db/models";
 import { ProductModelSchema } from "@/db/models/Product";
 import UserProduct from "@/components/user-profile/UserProduct";
 import HomepageProduct from "@/components/homepage/HomepageProduct";
+import FeedProductCard from "@/components/product-feed/FeedCard";
 
 interface Props {
   followedProducts: ProductModelSchema[]
@@ -37,7 +38,10 @@ const Home: NextPage<Props> = (props) => {
   return (
     <div className={styles.mainContainer}>
       <ToggleView />
-      {/* to do logic for homefeed once follower relationship established */}
+        <FeedProductCard/>
+        <FeedProductCard/>
+        <FeedProductCard/>
+        <FeedProductCard/>
     </div>
   );
 };

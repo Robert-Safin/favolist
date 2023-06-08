@@ -11,19 +11,19 @@ import { RxDotsHorizontal } from 'react-icons/rx';
 import { ObjectId } from 'mongoose';
 
 interface Props {
-  id: ObjectId;
-  userId: ObjectId,
-  productListName: string
-  productName: string
-  productLogo: string;
-  productImage: string;
-  content: string;
-  price: number;
-  referral: string,
-  onClick: () => void;
+  // id: ObjectId;
+  // userId: ObjectId,
+  // productListName: string
+  // productName: string
+  // productLogo: string;
+  // productImage: string;
+  // content: string;
+  // price: number;
+  // referral: string,
+  // onClick: () => void;
 }
 
-const Card: FC<Props> = (props) => {
+const FeedProductCard: FC<Props> = (props) => {
 
   return (
     <div className={styles.container}>
@@ -71,4 +71,4 @@ const Card: FC<Props> = (props) => {
   );
 };
 
-export default Card;
+export default FeedProductCard;

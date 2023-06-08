@@ -1,9 +1,10 @@
 .nav {
   @apply hidden
-  md:block md:absolute md:left-0 md:top-0 w-1/4 h-full border-r border-gray-200
+  md:block md:fixed md:top-0 w-1/4 h-full border-r border-gray-200 pl-10
 }
 .title {
-  @apply font-extrabold text-2xl ml-4
+  @apply font-extrabold text-xl pl-4
+
 }
 .logo {
   @apply flex items-center mb-24 mt-4 ml-5
@@ -27,9 +28,6 @@
   @apply relative left-0
 }
 
-.title {
-  @apply mx-auto mb-4
-}
 
 .modalButton {
   @apply flex flex-col space-y-2

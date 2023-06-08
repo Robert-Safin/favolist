@@ -63,6 +63,7 @@ const Comment: FC<Props> = (props) => {
       });
 
       if (response.ok) {
+        replyRef.current!.value = ''
         await router.push(`/users/${usernameSlug}/lists/${listSlug}/product/${productSlug}/comments`)
       }
 
@@ -74,9 +75,9 @@ const Comment: FC<Props> = (props) => {
   return (
     <div className={styles.commentContainer}>
 
-      <div className={styles.mainAvatarContainer}>
+
         <Image className={styles.mainAvatar} src={props.avatar} alt={`user avatar`} width={300} height={300} />
-      </div>
+
 
       <div className={styles.commentContent}>
 

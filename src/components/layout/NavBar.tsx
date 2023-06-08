@@ -17,7 +17,6 @@ const NavBar: FC = () => {
   const { data: session, status } = useSession()
   const userSession = session as CustomSession
   const router = useRouter()
-  const userSlug = router.query.usernameSlug
 
   Modal.setAppElement('#__next')
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -38,11 +37,11 @@ const NavBar: FC = () => {
   }
 
   const handleNewProduct = () => {
-    router.push(`/users/${userSlug}/lists/new-product`)
+    router.push(`/users/${userSession.user.username}/lists/new-product`)
     setIsOpen(false)
   }
   const handleNewList = () => {
-    router.push(`/users/${userSlug}/lists/new-list`)
+    router.push(`/users/${userSession.user.username}/lists/new-list`)
     setIsOpen(false)
   }
 
@@ -50,9 +49,11 @@ const NavBar: FC = () => {
   return (
     <div className={styles.nav}>
 
-      <div className={styles.logo}>
-        <Image src={`/logo.png`} width={50} height={50} alt={`Fabolist Logo`} />
-        <h1 className={styles.title}>FAVOLIST</h1>
+      <div>
+        <Link href={'/home'} className={styles.logo}>
+          <Image src={`/logo.png`} width={50} height={50} alt={`Fabolist Logo`} />
+          <h1 className={styles.title}>FAVOLIST</h1>
+        </Link>
       </div>
 
 
@@ -78,10 +79,10 @@ const NavBar: FC = () => {
       </Link>
 
 
-        <div className={styles.navTab} onClick={openModal}>
-          <RiAddFill className={styles.icon} />
-          <h1>Add</h1>
-        </div>
+      <div className={styles.navTab} onClick={openModal}>
+        <RiAddFill className={styles.icon} />
+        <h1>Add</h1>
+      </div>
 
 
       <Link href={`/search`}>
@@ -92,19 +93,19 @@ const NavBar: FC = () => {
       </Link>
       <div>
 
-<Modal className={styles.modal} isOpen={modalIsOpen} onRequestClose={closeModal} contentLabel="Example Modal">
+        <Modal className={styles.modal} isOpen={modalIsOpen} onRequestClose={closeModal}>
 
-  <div className={styles.titleAndClose}>
-    <RxCross2 className={styles.cross} onClick={closeModal} />
-    <h1 className={styles.title}>What do you want to create?</h1>
-  </div>
-  <div className={styles.modalButton}>
-    <button className={styles.actionButton} onClick={handleNewProduct}>Product</button>
-    <button className={styles.actionButton} onClick={handleNewList}>List</button>
-  </div>
+          <div className={styles.titleAndClose}>
+            <RxCross2 className={styles.cross} onClick={closeModal} />
+            <h1 className={styles.title}>What do you want to create?</h1>
+          </div>
+          <div className={styles.modalButton}>
+            <button className={styles.actionButton} onClick={handleNewProduct}>Product</button>
+            <button className={styles.actionButton} onClick={handleNewList}>List</button>
+          </div>
 
-</Modal>
-</div>
+        </Modal>
+      </div>
 
 
     </div>

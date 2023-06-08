@@ -1,5 +1,6 @@
 .mainContainer {
-  @apply w-full text-center
+  @apply w-full text-center mx-auto
+  md:w-1/2
 }
 
 .formContainer {

@@ -48,6 +48,7 @@ const CommentsPage: NextPage<Props> = (props) => {
       console.log(response);
 
       if (response.ok) {
+        commentRef.current!.value = ''
         router.push(`/users/${usernameSlug}/lists/${listSlug}/product/${productSlug}/comments`)
       }
 
@@ -59,8 +60,9 @@ const CommentsPage: NextPage<Props> = (props) => {
   }
 
   return (
-    <div className={styles.mainContainer}>
+    <>
       <BackNavHeader title="Comments"/>
+    <div className={styles.mainContainer}>
       <div className={styles.title}>
         {productHasNoComments && <p>This product has no comments yet. </p>}
       </div>
@@ -88,6 +90,7 @@ const CommentsPage: NextPage<Props> = (props) => {
 
       </form>
     </div>
+    </>
   )
 }
 

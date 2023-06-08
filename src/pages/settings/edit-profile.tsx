@@ -10,6 +10,7 @@ import { Social, User } from "@/db/models"
 import Image from "next/image"
 import { SocialModelSchema } from "@/db/models/Social"
 import { connectDB } from "@/db/lib/connectDb"
+import BackNavHeader from "@/components/back-nav-header/BackNavHeader"
 
 interface Props {
   bio: string
@@ -98,10 +99,9 @@ const EditProfile: NextPage<Props> = (props) => {
 
 
   return (
-
+    <>
+      <BackNavHeader title={'Update profile'}/>
     <div className={styles.formContainer}>
-
-      <h1 className={styles.title}>Update Profile</h1>
 
       <form onSubmit={handleSubmit} className={styles.form}>
 
@@ -112,7 +112,7 @@ const EditProfile: NextPage<Props> = (props) => {
 
 
         <div className={styles.socialMainContainer}>
-          <h1>Add your socials links</h1>
+          <h1 className={styles.formLabel}>Add your socials links</h1>
           <div className={styles.socialContainer}>
             <Image className={styles.logo} src={'/socials/facebook-icon.svg'} alt={'facebook'} width={50} height={50} />
             <input type="text" ref={facebookRef} defaultValue={props.socials.facebook}/>
@@ -174,6 +174,7 @@ const EditProfile: NextPage<Props> = (props) => {
         <button type="submit" className={styles.submitButton}> Submit</button>
       </form>
     </div>
+    </>
   )
 }
 
