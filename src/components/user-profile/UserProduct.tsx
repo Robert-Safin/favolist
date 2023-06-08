@@ -225,10 +225,10 @@ const UserProduct: FC<Props> = (props) => {
               <p>{props.bookmarkedBy.length}</p>
             </div>}
 
-            <div className={styles.iconContainer}>
+            {/* <div className={styles.iconContainer}>
               <IoMdAddCircleOutline className={styles.icons} />
               <p>x</p>
-            </div>
+            </div> */}
 
             <div className={styles.iconContainer}>
               <Link href={`/users/${userSlug}/lists/${props.listName}/product/${props.title}/comments`}><FaRegComment className={styles.icons} /></Link>

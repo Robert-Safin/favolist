@@ -3,10 +3,7 @@
   md:w-1/2
 }
 
-.containerDiv {
-  @apply flex w-full
-  mx-auto
-}
+
 
 .productContainer {
   @apply px-4
@@ -18,7 +15,8 @@
 }
 
 .userCard {
-  @apply flex h-20 w-full py-2 mb-4
+  @apply flex  mb-8 justify-between md:px-44
+
 }
 
 .avatar {
@@ -38,7 +36,7 @@
 }
 
 .buttonContainer {
-  @apply w-1/4 place-items-center flex justify-end mr-4
+  @apply place-items-center flex justify-end mr-4
 }
 
 .button {
@@ -46,7 +44,7 @@
 }
 
 .userStats {
-  @apply flex text-sm flex-col w-1/2
+  @apply flex text-sm flex-col
 }
 
 .tabs {
@@ -109,7 +107,7 @@
 }
 
 .socialsContainer {
-  @apply bg-gray-200 m-4 flex flex-wrap justify-center space-x-3 px-4
+  @apply bg-gray-200 m-4 flex flex-wrap justify-center space-x-3 px-4 w-[96%]
           md:mx-auto md:space-x-12
 }
 

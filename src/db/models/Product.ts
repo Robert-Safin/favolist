@@ -18,6 +18,8 @@ export interface ProductModelSchema extends Document {
   referralDiscription: string;
   comments: CommentModelSchema[];
   bookmarkedBy: UserModelSchema[];
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const ProductSchema = new mongoose.Schema<ProductModelSchema>(

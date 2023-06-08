@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './FeedCard.module.css'
 import Avatar from '../avatar/Avatar';
 import { FC } from 'react';
@@ -9,21 +9,83 @@ import { BiCommentDetail } from 'react-icons/bi';
 import { IoMdAdd } from 'react-icons/io';
 import { RxDotsHorizontal } from 'react-icons/rx';
 import { ObjectId } from 'mongoose';
+import { UserModelSchema } from '@/db/models/User';
+import { BsBookmark, BsFillBookmarkFill } from 'react-icons/bs';
+import { FaRegComment } from 'react-icons/fa';
+import { useSession } from 'next-auth/react';
+import CustomSession from '@/utils/Session';
+import { useRouter } from 'next/router';
 
 interface Props {
-  // id: ObjectId;
-  // userId: ObjectId,
-  // productListName: string
-  // productName: string
-  // productLogo: string;
-  // productImage: string;
-  // content: string;
-  // price: number;
-  // referral: string,
-  // onClick: () => void;
+  id: ObjectId;
+  userId: ObjectId,
+  productListName: string
+  productName: string
+  productLogo: string;
+  productImage: string;
+  shortContent: string;
+  price: number;
+  referral: string,
+  user: UserModelSchema
+  currentUserDoc: UserModelSchema
+
 }
 
 const FeedProductCard: FC<Props> = (props) => {
+  const { data: session, status } = useSession()
+  const userSession = session as CustomSession
+  const router = useRouter()
+
+  const [isBookmarked, setIsBookmarked] = useState(false)
+
+  useEffect(() => {
+    const productIsBookmarked = props.currentUserDoc.bookmarks.some(bookmark=> props.id)
+    setIsBookmarked(productIsBookmarked)
+  },[props.currentUserDoc.bookmarks, props.id ])
+
+
+
+
+  const handleAddBookmark = async () => {
+    const data = {
+      bookmarkedByEmail: userSession.user.email,
+      productId: props.user.products[0]._id,
+    }
+    const response = await fetch('/api/bookmarks/add-bookmark', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    if (response.ok) {
+      router.push(`/users/${userSession.user.username}/lists/${listSlug}/product/${props.user.products[0].productName}`)
+    } else {
+      console.log(await response.json())
+    }
+  }
+
+  const handleRemoveBookmark = async () => {
+
+    const data = {
+      bookmarkedByEmail: userSession.user.email,
+      productId: props.user.products[0]._id,
+    }
+
+    const response = await fetch('/api/bookmarks/remove-bookmark', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    if (response.ok) {
+      router.push(`/users/${userSession.user.username}/lists/${listSlug}/product/${props.user.products[0].productName}`)
+    } else {
+      console.log(await response.json())
+    }
+  }
+
 
   return (
     <div className={styles.container}>
@@ -33,38 +95,39 @@ const FeedProductCard: FC<Props> = (props) => {
         </button>
       </div>
 
-      <h2 className={styles.category}>Sleep Enhancers</h2>
-      <h2 className={styles.title}>Oura Ring 3.0</h2>
-      <h2 className={styles.price}>$300</h2>
+      <h2 className={styles.category}>{props.productListName}</h2>
+      <h2 className={styles.title}>{props.productName}</h2>
+      <h2 className={styles.price}>${props.price}</h2>
       <div className={styles.imgContainer}>
         <Image className={styles.image}
-          fill
-          style={{ objectFit: 'contain' }}
-          alt=''
-          src='https://ouraring-images.imgix.net/https%3A%2F%2Fs3.amazonaws.com%2Fouraring.com%2Fimages%2Fproduct%2Fsimple%2Fpdp-img-carousel-black-01-heritage%402x.png?ixlib=js-2.3.2&fm=webp&w=684&s=ba64f7df7020d604ae2f2a0acaae219c'
+          width={500}
+          height={500}
+          alt='product'
+          src={props.productImage}
         />
       </div>
 
       <div className={styles.cardBar}>
-        <div className={styles.avatar}><Avatar />Tim</div>
-        <div className={styles.brandLogo}>Peloton</div>
+        <div className={styles.userInfo}>
+        <Image className={styles.avatar} src={props.user.avatar!} alt={'user avatar'} width={50} height={50}/>
+        <p>{props.user.username}</p>
+        </div>
+
         <div className={styles.actions}>
-          <div><HiOutlineBookmark /></div>
-          <div><BiCommentDetail /></div>
-          <div><IoMdAdd /></div>
+          {!isBookmarked &&
+          <div><BsBookmark /></div>
+          }
+          {isBookmarked &&
+          <div><BsFillBookmarkFill /></div>
+          }
+
+          <div><FaRegComment /></div>
+
         </div>
       </div>
 
       <div className={styles.descriptionContainer}>
-        <p className={styles.descriptionList}>
-          Each style has identical technical and hardware capabilities.
-          Water resistant up to 100 m (more than 328 ft.)
-          Lighter than a conventional ring (4 to 6 grams)
-          Titanium: durable and wearable
-          Includes size-specific charger and USB-C cable
-          With daily wear, the ring may develop scratches
-
-          Ring sensors should be on the palm side of your finger for the most accurate reading. To help ensure optimal positioning, Oura Horizon has a sleek, uninterrupted circular design with a pill-shaped dimple on the bottom, and Oura Heritage has a classic, plateau design with a flat surface on top.</p>
+        <p className={styles.descriptionList}>{props.shortContent}</p>
       </div>
 
     </div>

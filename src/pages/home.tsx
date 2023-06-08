@@ -12,9 +12,12 @@ import { ProductModelSchema } from "@/db/models/Product";
 import UserProduct from "@/components/user-profile/UserProduct";
 import HomepageProduct from "@/components/homepage/HomepageProduct";
 import FeedProductCard from "@/components/product-feed/FeedCard";
+import BackNavHeader from "@/components/back-nav-header/BackNavHeader";
+import { UserModelSchema } from "@/db/models/User";
 
 interface Props {
-  followedProducts: ProductModelSchema[]
+  populatedSortedProducts: ProductModelSchema[]
+  currentUserDoc: UserModelSchema
 }
 
 const Home: NextPage<Props> = (props) => {
@@ -36,13 +39,29 @@ const Home: NextPage<Props> = (props) => {
 
 
   return (
+    <>
+    <BackNavHeader title={'Home Feed'}/>
     <div className={styles.mainContainer}>
       <ToggleView />
-        <FeedProductCard/>
-        <FeedProductCard/>
-        <FeedProductCard/>
-        <FeedProductCard/>
+        {props.populatedSortedProducts.map(product =>
+          <FeedProductCard
+          key={String(product._id)}
+          id={product._id}
+          userId={product.user_id}
+          productImage={product.productImage}
+          productListName={product.productListName}
+          productLogo="/logo.png"
+          productName={product.productName}
+          shortContent={product.shortContent}
+          price={product.price}
+          referral={product.referral}
+          currentUserDoc={props.currentUserDoc}
+          // @ts-ignore
+          user={product.user_id}
+          />
+          )}
     </div>
+    </>
   );
 };
 
@@ -54,6 +73,7 @@ export const getServerSideProps:GetServerSideProps = async(context) => {
   const userDoc = await User.findOne({email: session?.user?.email})
 
   await userDoc?.populate('follows')
+  await userDoc?.populate('products')
 
   // if (!userDoc) {
   //   return {
@@ -61,14 +81,28 @@ export const getServerSideProps:GetServerSideProps = async(context) => {
   //   }
   // }
   let followedProducts:ProductModelSchema[] = [];
+
   for(let i = 0; i < userDoc!.follows.length; i++) {
     let followedUser = await User.findById(userDoc!.follows[i]).populate('products').limit(10);
     followedProducts = [...followedProducts, ...followedUser!.products];
   }
 
+  followedProducts = [ ...userDoc!.products]
+
+
+  const productsSortedByDate = followedProducts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+
+  const populatedSortedProductsPromises = productsSortedByDate.map(product => product.populate('user_id'));
+  const populatedSortedProducts = await Promise.all(populatedSortedProductsPromises);
+
+
+  const currentUserDoc = await User.findOne({email: session?.user?.email})
+
+
   return {
     props: {
-      followedProducts: followedProducts
+      populatedSortedProducts: JSON.parse(JSON.stringify(populatedSortedProducts)),
+      currentUserDoc: JSON.parse(JSON.stringify(currentUserDoc))
     }
   }
 }

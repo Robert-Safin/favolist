@@ -3,6 +3,17 @@
   md:w-1/2 md:mx-auto
 }
 
+.listTitle{
+@apply text-2xl
+}
+.productName {
+@apply text-2xl font-extrabold
+}
+
+.productPrice {
+@apply text-base
+}
+
 .productStats {
   @apply text-center mx-auto
 }
@@ -17,7 +28,7 @@
 }
 
 .iconContainer {
-  @apply flex flex-col items-center
+  @apply flex flex-col items-center mx-1
 }
 
 .tabs {
@@ -52,4 +63,8 @@
 
 .ql-editor {
   @apply bg-flamingo
+}
+
+.icon {
+  @apply text-xl
 }

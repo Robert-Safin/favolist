@@ -24,6 +24,7 @@ import { ObjectId } from "mongoose";
 import { MdThumbUp } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
 import Social, { SocialModelSchema } from "@/db/models/Social";
+import BackNavHeader from "@/components/back-nav-header/BackNavHeader";
 
 
 
@@ -182,7 +183,8 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
 
 
   return (
-
+    <>
+  <BackNavHeader title={'Profile'}/>
     <div className={styles.mainContainer}>
 
       <div className={styles.containerDiv}>
@@ -460,6 +462,7 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
       </div>}
 
     </div>
+    </>
   )
 
 

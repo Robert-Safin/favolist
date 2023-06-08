@@ -79,6 +79,7 @@
 
 .modal {
   @apply flex flex-col bg-white border shadow-md text-center mt-52 mx-2 p-8
+  md:w-1/2 md:mx-auto
 }
 .trash {
   @apply text-black  text-3xl mx-auto

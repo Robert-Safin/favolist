@@ -111,9 +111,9 @@ const ShowProduct: NextPage<Props> = (props) => {
   return (
     <div className={styles.mainContainer}>
       <div className={styles.productStats}>
-        <h2>{props.user.lists[0].title}</h2>
-        <h1>{props.user.products[0].productName}</h1>
-        <h3>${props.user.products[0].price}</h3>
+        <h2 className={styles.listTitle}>{props.user.lists[0].title}</h2>
+        <h1 className={styles.productName}>{props.user.products[0].productName}</h1>
+        <h3 className={styles.productPrice}>${props.user.products[0].price}</h3>
         <Image src={props.user.products[0].productImage} alt={props.user.products[0].productName} width={500} height={500} className={styles.image}/>
       </div>
 
@@ -135,26 +135,26 @@ const ShowProduct: NextPage<Props> = (props) => {
 
           {props.isAlreadyBookmarked &&
           <div className={styles.iconContainer}>
-            <BsFillBookmarkFill onClick={handleRemoveBookmark}/>
+            <BsFillBookmarkFill className={styles.icon} onClick={handleRemoveBookmark}/>
             <p>{props.user.products[0].bookmarkedBy.length}</p>
           </div>}
 
           {!props.isAlreadyBookmarked &&
           <div className={styles.iconContainer}>
-            <BsBookmark onClick={handleAddBookmark}/>
+            <BsBookmark className={styles.icon} onClick={handleAddBookmark}/>
             <p>{props.user.products[0].bookmarkedBy.length}</p>
           </div>}
 
-          <div className={styles.iconContainer}>
+          {/* <div className={styles.iconContainer}>
             <IoMdAddCircleOutline />
             <p>x</p>
-          </div>
+          </div> */}
 
 
 
           <div className={styles.iconContainer}>
             <Link href={`/users/${usernameSlug}/lists/${listSlug}/product/${productSlug}/comments`}>
-            <FaRegComment />
+            <FaRegComment className={styles.icon}/>
             </Link>
             <p>{props.user.products[0].comments.length}</p>
           </div>
