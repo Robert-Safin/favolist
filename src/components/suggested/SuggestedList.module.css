@@ -1,0 +1,30 @@
+
+.mainContainer {
+  @apply ml-4 flex flex-col w-full
+}
+
+
+.image {
+  @apply w-64 h-64 relative
+}
+
+.avatar {
+  @apply w-8 h-8
+}
+
+.list {
+  @apply w-64 h-64
+}
+
+.listLength {
+  @apply  text-white z-10 relative bottom-40 text-2xl drop-shadow-2xl text-center
+}
+.listTitle {
+  @apply  text-white z-10 relative bottom-40 text-3xl drop-shadow-2xl text-center
+}
+.userInfo {
+  @apply flex items-center justify-between w-64 text-sm
+}
+.avatarAndUsername {
+  @apply flex items-center text-sm font-semibold
+}

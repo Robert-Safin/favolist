@@ -4,6 +4,7 @@ import { useSession } from "next-auth/react";
 import CustomSession from "@/utils/Session";
 import SuggestedUser from "../suggested/SuggestedUser";
 import { useRouter } from "next/router";
+import SuggestedList from "../suggested/SuggestedList";
 
 
 
@@ -12,11 +13,14 @@ const Suggested: FC = () => {
   const { data: session, status } = useSession()
   const userSession = session as CustomSession
   const [suggestedUsers, setSuggestedUsers] = useState([]);
+  const [suggestedList, setSuggestedList] = useState(null);
+  const [suggestedListUser, setSuggestedListUser] = useState(null);
+
   const router = useRouter()
   const usernameSlug = router.query.usernameSlug
 
   useEffect(() => {
-    async function fetchUsers() {
+    const fetchUsers = async () => {
       const response = await fetch('/api/suggestions/users');
       const data = await response.json();
 
@@ -26,6 +30,21 @@ const Suggested: FC = () => {
     fetchUsers();
   }, []);
 
+  useEffect(() => {
+    const fetchList = async () => {
+      const response = await fetch('/api/suggestions/list');
+
+      if (response.ok) {
+        const data = await response.json();
+        setSuggestedList(data.listDoc);
+        setSuggestedListUser(data.userDoc)
+      } else {
+        return
+      }
+    }
+    fetchList()
+  }, [])
+
 
   if (!session) {
     return (
@@ -34,26 +53,29 @@ const Suggested: FC = () => {
     )
   }
 
-  if (!usernameSlug) {
-    return (
-    <>
-    </>
-    )
-  }
+
   return (
 
     <div className={styles.suggestedContainer}>
+
       <h1 className={styles.title}>Suggestioned for you</h1>
 
       <div className={styles.suggestedUsers}>
-        <h2 className={styles.subTitle}>Profile {usernameSlug} follows</h2>
+        {suggestedUsers.length > 0 &&
+          <h2 className={styles.subTitle}>Profile {usernameSlug} follows</h2>
+        }
         {suggestedUsers.length > 0 && suggestedUsers.map(user =>
-          <SuggestedUser key={user} user={user}/>
-          )}
+          <SuggestedUser key={user} user={user} />
+        )}
       </div>
 
       <div className={styles.suggestedLists}>
-        <h2 className={styles.subTitle}>Lists</h2>
+        {suggestedList && suggestedListUser &&
+        <h2 className={styles.subTitle}>List</h2>
+        }
+        {suggestedList && suggestedListUser &&
+        <SuggestedList list={suggestedList!} user={suggestedListUser!}/>
+        }
       </div>
     </div>
 

@@ -44,27 +44,27 @@ const Home: NextPage<Props> = (props) => {
 
 export default Home;
 
-// export const getServerSideProps:GetServerSideProps = async(context) => {
-//   await connectDB()
-//   const session = await getSession(context)
-//   const userDoc = await User.findOne({email: session?.user?.email})
+export const getServerSideProps:GetServerSideProps = async(context) => {
+  await connectDB()
+  const session = await getSession(context)
+  const userDoc = await User.findOne({email: session?.user?.email})
 
-//   await userDoc?.populate('follows')
+  await userDoc?.populate('follows')
 
-//   // if (!userDoc) {
-//   //   return {
-//   //     props: { error: 'User not found' }
-//   //   }
-//   // }
-//   let followedProducts:ProductModelSchema[] = [];
-//   for(let i = 0; i < userDoc!.follows.length; i++) {
-//     let followedUser = await User.findById(userDoc!.follows[i]).populate('products');
-//     followedProducts = [...followedProducts, ...followedUser!.products];
-//   }
+  // if (!userDoc) {
+  //   return {
+  //     props: { error: 'User not found' }
+  //   }
+  // }
+  let followedProducts:ProductModelSchema[] = [];
+  for(let i = 0; i < userDoc!.follows.length; i++) {
+    let followedUser = await User.findById(userDoc!.follows[i]).populate('products').limit(10);
+    followedProducts = [...followedProducts, ...followedUser!.products];
+  }
 
-//   return {
-//     props: {
-//       followedProducts: followedProducts
-//     }
-//   }
-// }
+  return {
+    props: {
+      followedProducts: followedProducts
+    }
+  }
+}

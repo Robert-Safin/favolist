@@ -17,8 +17,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const randomFriendId = getRandomValue(userDoc?.follows!)
   const randomFriendDoc = await User.findOne({_id: randomFriendId})
 
+  const randomFriendFriendsDoc = await randomFriendDoc?.populate('follows')
+  const filteredFollows = randomFriendFriendsDoc?.follows.filter(id => !userDoc?.follows.includes(id));
 
-  const filteredFollows = randomFriendDoc?.follows.filter(id => !userDoc?.follows.includes(id));
+
 
   res.json({filteredFollows})
 };
