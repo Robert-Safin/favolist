@@ -15,6 +15,7 @@ import CustomSession from "@/utils/Session";
 import { ObjectId } from "mongoose";
 import { useQuill } from "react-quilljs";
 import dynamic from "next/dynamic";
+import BackNavHeader from "@/components/back-nav-header/BackNavHeader";
 
 const QuillNoSSRWrapper = dynamic(import('react-quill'), {
   ssr: false,
@@ -109,6 +110,8 @@ const ShowProduct: NextPage<Props> = (props) => {
 
 
   return (
+    <>
+    <BackNavHeader title={`Product`}/>
     <div className={styles.mainContainer}>
       <div className={styles.productStats}>
         <h2 className={styles.listTitle}>{props.user.lists[0].title}</h2>
@@ -192,6 +195,7 @@ const ShowProduct: NextPage<Props> = (props) => {
 
 
     </div>
+    </>
   )
 }
 

@@ -14,7 +14,9 @@ import { BsBookmark, BsFillBookmarkFill } from 'react-icons/bs';
 import { FaRegComment } from 'react-icons/fa';
 import { useSession } from 'next-auth/react';
 import CustomSession from '@/utils/Session';
-import { useRouter } from 'next/router';
+import { Router, useRouter } from 'next/router';
+import Link from 'next/link';
+import { CommentModelSchema } from '@/db/models/Comment';
 
 interface Props {
   id: ObjectId;
@@ -29,13 +31,14 @@ interface Props {
   user: UserModelSchema
   currentUserDoc: UserModelSchema
   bookmarkedBy: ObjectId[]
+  comments: CommentModelSchema[]
 
 }
 
 const FeedProductCard: FC<Props> = (props) => {
   const { data: session, status } = useSession()
   const userSession = session as CustomSession
-  //const router = useRouter()
+  const router = useRouter()
 
   const [isBookmarked, setIsBookmarked] = useState(false)
 
@@ -47,7 +50,7 @@ const FeedProductCard: FC<Props> = (props) => {
     const productIsBookmarked = props.bookmarkedBy.some(bookmark => bookmark === props.currentUserDoc._id)
 
     setIsBookmarked(productIsBookmarked)
-  },[props.currentUserDoc.bookmarks, props.id, props.bookmarkedBy,props.currentUserDoc._id ])
+  }, [props.currentUserDoc.bookmarks, props.id, props.bookmarkedBy, props.currentUserDoc._id])
 
 
 
@@ -95,35 +98,44 @@ const FeedProductCard: FC<Props> = (props) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.suspensionPoints}>
-        <button className="p-2">
-          <RxDotsHorizontal />
-        </button>
-      </div>
+
 
       <h2 className={styles.category}>{props.productListName}</h2>
       <h2 className={styles.title}>{props.productName}</h2>
       <h2 className={styles.price}>${props.price}</h2>
       <div className={styles.imgContainer}>
-        <Image className={styles.image}
-          width={500}
-          height={500}
-          alt='product'
-          src={props.productImage}
-        />
+        <Link href={`/users/${props.user.username}/lists/${props.productListName}/product/${props.productName}`}>
+          <Image className={styles.image} width={500} height={500} alt='product' src={props.productImage} />
+        </Link>
       </div>
 
       <div className={styles.cardBar}>
-        <div className={styles.userInfo}>
-        <Image className={styles.avatar} src={props.user.avatar!} alt={'user avatar'} width={50} height={50}/>
-        <p>{props.user.username}</p>
-        </div>
+        <Link href={`/users/${props.user.username}`}>
+          <div className={styles.userInfo}>
+            <Image className={styles.avatar} src={props.user.avatar!} alt={'user avatar'} width={50} height={50} />
+            <p className={styles.username}>{props.user.username}</p>
+          </div>
+        </Link>
 
         <div className={styles.actions}>
-          {!isBookmarked &&<div onClick={handleAddBookmark}><BsBookmark /></div>}
-          {isBookmarked &&<div onClick={handleRemoveBookmark}><BsFillBookmarkFill /></div>}
+          {!isBookmarked &&
+            <div className={styles.actionContainer} onClick={handleAddBookmark}>
+              <BsBookmark className={styles.icon} />
+              <p className={styles.count}>{props.bookmarkedBy.length}</p>
+            </div>}
 
-          <div><FaRegComment /></div>
+          {isBookmarked &&
+            <div className={styles.actionContainer} onClick={handleRemoveBookmark}>
+              <BsFillBookmarkFill className={styles.icon} />
+              <p className={styles.count}>{props.bookmarkedBy.length}</p>
+            </div>}
+
+          <Link href={`/users/${props.user.username}/lists/${props.productListName}/product/${props.productName}/comments`}>
+            <div className={styles.actionContainer}>
+              <FaRegComment className={styles.icon} />
+              <p className={styles.count}>{props.comments.length}</p>
+            </div>
+          </Link>
 
         </div>
       </div>

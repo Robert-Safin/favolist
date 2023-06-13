@@ -36,6 +36,7 @@ const Home: NextPage<Props> = (props) => {
 
 
 
+
   return (
     <>
     <BackNavHeader title={'Home Feed'}/>
@@ -54,6 +55,7 @@ const Home: NextPage<Props> = (props) => {
           price={product.price}
           referral={product.referral}
           currentUserDoc={props.currentUserDoc}
+          comments={product.comments}
           // @ts-ignore
           user={product.user_id}
           // @ts-ignore

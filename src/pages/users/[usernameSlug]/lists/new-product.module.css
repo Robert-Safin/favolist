@@ -39,3 +39,11 @@
 .imageAttached {
   @apply text-center
 }
+
+.modal {
+  @apply absolute right-0 bottom-0 bg-red m-4
+}
+
+.modalHeading {
+  @apply text-white p-2
+}

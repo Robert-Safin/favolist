@@ -21,7 +21,7 @@
 
 .about {
   @apply w-1/2 text-base h-48 text-black pl-4 line-clamp-4
-  md:text-xl
+  md:text-base
 }
 
 .title{

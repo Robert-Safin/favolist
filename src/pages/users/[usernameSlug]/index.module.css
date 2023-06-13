@@ -15,7 +15,7 @@
 }
 
 .userCard {
-  @apply flex  mb-8 justify-between md:px-44
+  @apply flex mb-8 justify-between
 
 }
 

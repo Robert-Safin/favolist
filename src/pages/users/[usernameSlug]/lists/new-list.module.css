@@ -21,14 +21,14 @@
 }
 
 .form label {
-  @apply  text-sm w-full mb-1
+  @apply  text-sm w-full mb-1 my-6
 }
 
 .form input  {
-  @apply px-2 border w-full border-l-gray-300 rounded-md mb-4 h-10 placeholder-gray-400 text-sm
+  @apply px-2 border w-full border-l-gray-300 rounded-md h-10 placeholder-gray-400 text-sm
 }
 .form textarea  {
-  @apply px-2 border w-full border-l-gray-300 rounded-md mb-4 h-24  placeholder-gray-400 text-sm pt-1
+  @apply px-2 border w-full border-l-gray-300 rounded-md h-24  placeholder-gray-400 text-sm pt-1
 }
 
 .button {
@@ -40,4 +40,12 @@
 }
 .imageAttached {
   @apply text-center
+}
+
+.modal {
+  @apply absolute right-0 bottom-0 bg-red m-4
+}
+
+.modalHeading {
+  @apply text-white p-2
 }

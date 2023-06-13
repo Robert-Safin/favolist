@@ -11,16 +11,21 @@ import CustomSession from '@/utils/Session';
 import BackNavHeader from '@/components/back-nav-header/BackNavHeader';
 
 
-import { useQuill } from "react-quilljs";
 import "quill/dist/quill.snow.css";
 import dynamic from 'next/dynamic';
+import Modal from 'react-modal';
+import { RxCross2 } from 'react-icons/rx';
+import { BsTrash } from 'react-icons/bs';
 
 const QuillNoSSRWrapper = dynamic(import('react-quill'), {
-	ssr: false,
-	loading: () => <p>Loading ...</p>,
-	})
+  ssr: false,
+  loading: () => <p>Loading ...</p>,
+})
 
 const NewList: NextPage = () => {
+  Modal.setAppElement('#__next')
+  const [modalIsOpen, setIsOpen] = useState(false);
+
   const { data: session, status } = useSession();
   const userSession = session as CustomSession;
 
@@ -78,17 +83,23 @@ const NewList: NextPage = () => {
     );
   }
 
+  const openModal = () => {
+    setIsOpen(true)
+  }
+
+  const closeModal = () => {
+    setIsOpen(false)
+  }
+
   const handleSubmit: FormEventHandler = async (event) => {
     event.preventDefault();
     setButtonIsDisabled(true);
     const enteredTitle = titleRef.current?.value;
-    const enteredAbout = aboutRef.current?.value;
     const enteredShortAbout = shortAboutRef.current?.value
     const enteredImage = imageRef.current?.files![0];
 
 
-
-    if (enteredImage) {
+    if (enteredImage && enteredTitle?.trim().length! > 0 && enteredShortAbout?.trim().length! > 0) {
       const formData = new FormData();
       formData.append('file', enteredImage);
       formData.append('upload_preset', 'favolist');
@@ -126,6 +137,14 @@ const NewList: NextPage = () => {
       } catch (error) {
         console.log(error);
       }
+    } else {
+
+      setButtonIsDisabled(false);
+
+      setIsOpen(true)
+      setTimeout(() => {
+        setIsOpen(false)
+      }, 1000);
     }
   };
 
@@ -138,16 +157,16 @@ const NewList: NextPage = () => {
       <BackNavHeader title={'New list'} />
       <div className={styles.formContainer}>
         <form className={styles.form} onSubmit={handleSubmit}>
-          <label htmlFor="title">List name</label>
+          <label htmlFor="title">List name*</label>
           <input type="text" id="title" placeholder="Give your list a name..." ref={titleRef} />
 
-          <label htmlFor="about">Description</label>
+          <label htmlFor="about">Description*</label>
 
-          <QuillNoSSRWrapper modules={modules} formats={formats} value={quillValue} onChange={setQuillValue}  theme="snow" />
+          <QuillNoSSRWrapper modules={modules} formats={formats} value={quillValue} onChange={setQuillValue} theme="snow" />
 
 
-          <label htmlFor="shortAbout">Short Description</label>
-          <textarea id="shortAbout" placeholder='Short descripion...' ref={shortAboutRef}/>
+          <label htmlFor="shortAbout">Short Description*</label>
+          <textarea id="shortAbout" placeholder='Short descripion...' ref={shortAboutRef} />
 
           <label htmlFor="image" className={styles.imageupload}>
             <BiImage className={styles.imageuploadicon} />
@@ -167,6 +186,16 @@ const NewList: NextPage = () => {
             Create
           </button>
         </form>
+      </div>
+
+
+
+
+
+      <div>
+        <Modal className={styles.modal} isOpen={modalIsOpen} onRequestClose={closeModal}>
+          <h1 className={styles.modalHeading}>Invalid inputs</h1>
+        </Modal>
       </div>
     </>
   );

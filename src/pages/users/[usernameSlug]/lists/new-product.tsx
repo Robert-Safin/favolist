@@ -9,7 +9,7 @@ import BackNavHeader from '@/components/back-nav-header/BackNavHeader'
 import { BiImage } from 'react-icons/bi'
 
 
-
+import Modal from 'react-modal';
 import { useQuill } from "react-quilljs";
 import "quill/dist/quill.snow.css";
 import { connectDB } from "@/db/lib/connectDb";
@@ -22,11 +22,12 @@ interface Props {
 }
 
 const NewProduct: NextPage<Props> = (props) => {
-
+  Modal.setAppElement('#__next')
   const { data: session, status } = useSession();
   const userSession = session as CustomSession
   const router = useRouter();
   const listSlug = router.query.listIdSlug
+  const [modalIsOpen, setIsOpen] = useState(false);
 
   const nameRef = useRef<HTMLInputElement>(null)
   const contentRef = useRef<HTMLTextAreaElement>(null)
@@ -69,6 +70,13 @@ const NewProduct: NextPage<Props> = (props) => {
       </>
     )
   }
+  const openModal = () => {
+    setIsOpen(true)
+  }
+
+  const closeModal = () => {
+    setIsOpen(false)
+  }
   const username = userSession.user.username
 
   if (props.userListTitles.length === 0) {
@@ -86,7 +94,6 @@ const NewProduct: NextPage<Props> = (props) => {
 
     setButtonIsDisbaled(true)
     const enteredName = nameRef.current?.value
-    //const enteredContent = contentRef.current?.value
     const enteredShortContent = shortContentRef.current?.value
     const enteredSpecs = specsRef.current?.value
     const enteredPrice = priceRef.current?.value
@@ -96,49 +103,62 @@ const NewProduct: NextPage<Props> = (props) => {
     const listName = listRef.current?.value
 
 
-    // to do valiadation
+    if (enteredImage &&
+      enteredName?.trim().length! > 0 &&
+      enteredShortContent?.trim().length! > 0 &&
+      enteredSpecs?.trim().length! > 0 &&
+      enteredPrice &&
+      listName
+    ) {
+      const formData = new FormData();
+      formData.append('file', enteredImage!);
+      formData.append('upload_preset', 'favolist');
 
-    const formData = new FormData();
-    formData.append('file', enteredImage!);
-    formData.append('upload_preset', 'favolist');
-
-    const response = await fetch(`https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/upload`, {
-      method: 'POST',
-      body: formData,
-    });
-    const responseData = await response.json()
-    const secureUrl = responseData.secure_url
-
-
-    const data = {
-      userEmail: userSession.user.email,
-      productName: enteredName,
-      enteredContent: JSON.stringify(quill?.getContents()),
-      enteredShortContent: enteredShortContent,
-      enteredSpecs: enteredSpecs,
-      enteredPrice: enteredPrice,
-      enteredReferral: enteredReferral,
-      enteredReferralDiscription: enteredReferralDiscription,
-      image: secureUrl,
-      listName: listName,
-    }
-
-    try {
-      const response = await fetch('/api/users/new-product', {
+      const response = await fetch(`https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/upload`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
+        body: formData,
       });
-      const status = await response.json()
+      const responseData = await response.json()
+      const secureUrl = responseData.secure_url
 
-      if (response.ok) {
-        router.push(`/users/${username}/lists/${listName}`);
+
+      const data = {
+        userEmail: userSession.user.email,
+        productName: enteredName,
+        enteredContent: JSON.stringify(quill?.getContents()),
+        enteredShortContent: enteredShortContent,
+        enteredSpecs: enteredSpecs,
+        enteredPrice: enteredPrice,
+        enteredReferral: enteredReferral,
+        enteredReferralDiscription: enteredReferralDiscription,
+        image: secureUrl,
+        listName: listName,
       }
-    } catch (error) {
-      console.log(error);
+
+      try {
+        const response = await fetch('/api/users/new-product', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+        const status = await response.json()
+
+        if (response.ok) {
+          router.push(`/users/${username}/lists/${listName}`);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      setButtonIsDisbaled(false)
+      setIsOpen(true)
+      setTimeout(() => {
+        setIsOpen(false)
+      }, 1500);
     }
+
   }
 
 
@@ -203,6 +223,12 @@ const NewProduct: NextPage<Props> = (props) => {
 
         <button className={styles.button} type="submit" disabled={buttonIsDisabled}>Submit</button>
       </form>
+
+      <div>
+        <Modal className={styles.modal} isOpen={modalIsOpen} onRequestClose={closeModal}>
+          <h1 className={styles.modalHeading}>Invalid inputs</h1>
+        </Modal>
+      </div>
     </>
   )
 }
