@@ -28,20 +28,26 @@ interface Props {
   referral: string,
   user: UserModelSchema
   currentUserDoc: UserModelSchema
+  bookmarkedBy: ObjectId[]
 
 }
 
 const FeedProductCard: FC<Props> = (props) => {
   const { data: session, status } = useSession()
   const userSession = session as CustomSession
-  const router = useRouter()
+  //const router = useRouter()
 
   const [isBookmarked, setIsBookmarked] = useState(false)
 
   useEffect(() => {
-    const productIsBookmarked = props.currentUserDoc.bookmarks.some(bookmark=> props.id)
+
+    //const productIsBookmarked = props.currentUserDoc.bookmarks.some(bookmark => bookmark._id === props.id)
+    console.log(props.bookmarkedBy);
+
+    const productIsBookmarked = props.bookmarkedBy.some(bookmark => bookmark === props.currentUserDoc._id)
+
     setIsBookmarked(productIsBookmarked)
-  },[props.currentUserDoc.bookmarks, props.id ])
+  },[props.currentUserDoc.bookmarks, props.id, props.bookmarkedBy,props.currentUserDoc._id ])
 
 
 
@@ -49,7 +55,7 @@ const FeedProductCard: FC<Props> = (props) => {
   const handleAddBookmark = async () => {
     const data = {
       bookmarkedByEmail: userSession.user.email,
-      productId: props.user.products[0]._id,
+      productId: props.id,
     }
     const response = await fetch('/api/bookmarks/add-bookmark', {
       method: 'POST',
@@ -59,7 +65,7 @@ const FeedProductCard: FC<Props> = (props) => {
       body: JSON.stringify(data),
     });
     if (response.ok) {
-      router.push(`/users/${userSession.user.username}/lists/${listSlug}/product/${props.user.products[0].productName}`)
+      setIsBookmarked(true)
     } else {
       console.log(await response.json())
     }
@@ -69,7 +75,7 @@ const FeedProductCard: FC<Props> = (props) => {
 
     const data = {
       bookmarkedByEmail: userSession.user.email,
-      productId: props.user.products[0]._id,
+      productId: props.id,
     }
 
     const response = await fetch('/api/bookmarks/remove-bookmark', {
@@ -80,7 +86,7 @@ const FeedProductCard: FC<Props> = (props) => {
       body: JSON.stringify(data),
     });
     if (response.ok) {
-      router.push(`/users/${userSession.user.username}/lists/${listSlug}/product/${props.user.products[0].productName}`)
+      setIsBookmarked(false)
     } else {
       console.log(await response.json())
     }
@@ -114,12 +120,8 @@ const FeedProductCard: FC<Props> = (props) => {
         </div>
 
         <div className={styles.actions}>
-          {!isBookmarked &&
-          <div><BsBookmark /></div>
-          }
-          {isBookmarked &&
-          <div><BsFillBookmarkFill /></div>
-          }
+          {!isBookmarked &&<div onClick={handleAddBookmark}><BsBookmark /></div>}
+          {isBookmarked &&<div onClick={handleRemoveBookmark}><BsFillBookmarkFill /></div>}
 
           <div><FaRegComment /></div>
 
