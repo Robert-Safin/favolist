@@ -27,6 +27,21 @@ const FollowingPage: NextPage<Props> = (props) => {
     setFollowingIsActive(true)
   }
 
+  const handleDeleteUser = () => {
+
+  }
+
+  const handleReturnUser = () => {
+
+  }
+
+  const handleUnfollowUser = () => {
+
+  }
+
+  const handleFollowUser = () => {
+
+  }
 
   return (
     <>
@@ -53,6 +68,11 @@ const FollowingPage: NextPage<Props> = (props) => {
             products={user.products}
             followers={user.followers}
             follows={user.follows}
+            action={'Delete'}
+            handleDeleteUser={handleDeleteUser}
+            handleReturnUser={handleReturnUser}
+            handleUnfollowUser={handleUnfollowUser}
+            handleFollowUser={handleFollowUser}
           />
         )}
       </div>
@@ -67,6 +87,11 @@ const FollowingPage: NextPage<Props> = (props) => {
             products={user.products}
             followers={user.followers}
             follows={user.follows}
+            action={'Unfollow'}
+            handleUnfollowUser={handleUnfollowUser}
+            handleFollowUser={handleFollowUser}
+            handleDeleteUser={handleDeleteUser}
+            handleReturnUser={handleReturnUser}
           />
         )}
       </div>

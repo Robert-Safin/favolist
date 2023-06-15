@@ -8,6 +8,8 @@ interface Props {
 }
 
 const SuggestedUser: FC<Props> = (props) => {
+  //console.log('props', props);
+
   return (
     <div className={styles.userContainer}>
       <Image className={styles.avatar} src={props.user.avatar!} alt={props.user.username} width={50} height={50} />

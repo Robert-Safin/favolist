@@ -1,10 +1,11 @@
+
 .header {
-  @apply text-lg
+  @apply text-xl font-bold
 }
 
 .container {
-  @apply h-12 flex border-b border-gray-300 mb-4 sticky top-0 bg-white z-10
-  md:w-1/2 md:mx-auto
+  @apply h-12 flex border-b border-gray-300 sticky top-0 bg-white z-10
+  md:w-1/2 md:mx-auto md:mt-4
 }
 
 .subcontainer {

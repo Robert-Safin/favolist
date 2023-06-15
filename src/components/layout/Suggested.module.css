@@ -4,7 +4,7 @@
 }
 
 .title {
-  @apply ml-4 font-semibold
+  @apply text-lg ml-4 mt-6 font-semibold
 }
 
 .subTitle {

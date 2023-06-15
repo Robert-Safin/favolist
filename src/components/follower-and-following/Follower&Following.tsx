@@ -13,6 +13,11 @@ interface Props {
   products : ProductModelSchema[]
   followers: UserModelSchema[]
   follows: UserModelSchema[]
+  action: string
+  handleDeleteUser: () => void
+  handleReturnUser: () => void
+  handleUnfollowUser: () => void
+  handleFollowUser: () => void
 }
 
 const FollowerAndFollowingCard:FC<Props> = (props) => {
@@ -29,7 +34,7 @@ const FollowerAndFollowingCard:FC<Props> = (props) => {
         <div className={styles.count}>{props.followers.length} followers . {props.follows.length} following</div>
       </div>
 
-      <button className={styles.button}>To do</button>
+      <button className={styles.button}>{props.action}</button>
 
 
     </div>

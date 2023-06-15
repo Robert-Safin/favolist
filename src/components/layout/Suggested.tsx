@@ -58,7 +58,7 @@ const Suggested: FC = () => {
 
     <div className={styles.suggestedContainer}>
 
-      <h1 className={styles.title}>Suggestioned for you</h1>
+      <h1 className={styles.title}>Suggested for you</h1>
 
       <div className={styles.suggestedUsers}>
         {suggestedUsers.length > 0 &&

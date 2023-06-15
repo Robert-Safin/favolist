@@ -3,8 +3,8 @@
   md:block md:fixed md:top-0 w-1/4 h-full border-r border-gray-200 pl-10
 }
 .title {
-  @apply font-extrabold text-lg text-center mb-4 mr-4
-  md:mx-auto
+  @apply font-extrabold text-3xl text-center pl-4
+
 
 }
 .logo {

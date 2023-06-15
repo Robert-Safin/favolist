@@ -29,7 +29,7 @@
 
 
 .image {
-  @apply object-contain w-80 h-80 mx-auto
+  @apply object-cover w-80 h-80 mx-auto
 }
 
 .cardBar {

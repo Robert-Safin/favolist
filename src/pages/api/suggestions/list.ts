@@ -10,6 +10,7 @@ import { getToken } from "next-auth/jwt";
 
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+
   const token = await getToken({ req });
 
   const userDoc = await User.findOne({ email: token?.email });
@@ -25,7 +26,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const randomFriendListId = getRandomValue(randomFriendDoc?.lists!)
     const randomListDoc = await  List.findOne({_id: randomFriendListId})
     const randomListOwner = await User.findOne({_id: randomListDoc?.user_id})
-    res.status(400).json({listDoc: randomListDoc, userDoc: randomListOwner })
+
+
+    res.status(200).json({listDoc: randomListDoc, userDoc: randomListOwner })
   } else {
     res.status(400).json({message: 'not matched'})
   }
