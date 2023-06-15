@@ -22,8 +22,12 @@ const Suggested: FC = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       const response = await fetch('/api/suggestions/users');
-      const data = await response.json();
 
+      if (!response.ok) {
+        throw new Error("HTTP error " + response.status);
+      }
+
+      const data = await response.json();
       setSuggestedUsers(await JSON.parse(JSON.stringify(data)));
     }
 
