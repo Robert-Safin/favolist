@@ -41,5 +41,5 @@
 }
 
 .actionButton:hover {
-  @apply bg-purple text-black shadow-inner shadow-lg
+  @apply bg-purple text-black shadow-inner
 }
