@@ -211,7 +211,6 @@ const UserProduct: FC<Props> = (props) => {
             </div>
           </Link>
 
-          <Image className={styles.logo} src={props.logo} alt={`product brand`} width={50} height={50} />
 
           <div className={styles.iconsContainer}>
 
@@ -225,10 +224,7 @@ const UserProduct: FC<Props> = (props) => {
               <p>{props.bookmarkedBy.length}</p>
             </div>}
 
-            {/* <div className={styles.iconContainer}>
-              <IoMdAddCircleOutline className={styles.icons} />
-              <p>x</p>
-            </div> */}
+
 
             <div className={styles.iconContainer}>
               <Link href={`/users/${userSlug}/lists/${props.listName}/product/${props.title}/comments`}><FaRegComment className={styles.icons} /></Link>

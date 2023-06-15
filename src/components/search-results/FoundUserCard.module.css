@@ -13,7 +13,7 @@
 }
 
 .button {
-  @apply bg-purple ml-auto mb-auto p-2 text-white rounded-md text-sm
+  @apply bg-purple ml-auto mb-auto p-2 text-white rounded-md text-sm my-auto
 }
 
 .bio {

@@ -1,0 +1,8 @@
+.mainContainer {
+  @apply mx-auto w-full
+  md:w-1/2
+}
+
+.title {
+  @apply text-center
+}

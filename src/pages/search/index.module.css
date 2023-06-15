@@ -5,7 +5,7 @@
 
 
 .resultsContainer {
-  @apply border  justify-between flex flex-wrap p-2
+  @apply border  justify-between flex flex-wrap
 }
 
 .foundCategory {

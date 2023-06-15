@@ -1,5 +1,5 @@
 .referralCard {
-  @apply border-b border-gray-200 w-full p-4
+  @apply border-b border-gray-200 w-full p-2
           md:w-1/2
 }
 .refInfo {
@@ -37,7 +37,7 @@
   @apply ml-auto text-gray-400 text-base
 }
 .referralDiscription {
-  @apply line-clamp-3 text-sm
+  @apply  text-sm overflow-auto h-24
 }
 
 .referralContainerCopy {

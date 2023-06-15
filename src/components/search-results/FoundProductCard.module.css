@@ -5,7 +5,7 @@
 }
 
 .productContainer {
-  @apply w-full border border-gray-200 md:w-1/2
+  @apply w-full border-b border-gray-200 md:w-1/2 p-2
 }
 
 .productInfo {

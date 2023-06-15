@@ -17,11 +17,12 @@
 }
 
 .subNavigation {
-  @apply flex justify-evenly mt-5
+  @apply flex justify-evenly mt-5 border-b border-gray-200 mx-auto
+  md:w-1/2
 }
 
-.listTitle {
-  @apply text-center text-xl px-2
+.lisTitle {
+  @apply text-center text-xl px-2 line-clamp-1
 }
 
 .listAbout {
@@ -37,7 +38,7 @@
 }
 
 .productsContainer {
-  @apply flex flex-wrap p-2 justify-center md:w-1/2 md:mx-auto
+  @apply flex flex-wrap p-2 justify-center md:w-1/2 md:mx-auto mt-4
 }
 
 .back {
@@ -45,13 +46,13 @@
 }
 
 
-.activeTab {
-  @apply border-b border-gray-200
+.nonActiveTab {
+  @apply border-b border-gray-200 flex items-center
 }
 
 
 .activeTab {
-@apply border-b border-purple
+@apply border-b border-purple flex items-center
 }
 
 .buttonContainer {
@@ -67,4 +68,8 @@
 }
 .listInfoContainer {
   @apply md:w-1/2 md:mx-auto mb-20
+}
+
+.icon {
+  @apply text-lg mr-2
 }

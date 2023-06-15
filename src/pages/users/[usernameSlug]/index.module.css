@@ -15,7 +15,8 @@
 }
 
 .userCard {
-  @apply flex mb-8 justify-between
+  @apply flex mb-8 justify-between mx-auto mt-4
+  md:w-8/12
 
 }
 
@@ -44,7 +45,8 @@
 }
 
 .userStats {
-  @apply flex text-sm flex-col
+  @apply flex text-sm flex-col mr-auto
+  md:mr-0
 }
 
 .tabs {
@@ -52,7 +54,11 @@
 }
 
 .activeTab {
-  @apply text-purple border-b border-purple
+  @apply text-purple border-b border-purple flex items-center
+}
+
+.tabLink {
+  @apply flex items-center
 }
 
 .listsContainer {
@@ -114,4 +120,8 @@
 .socialIcon {
   @apply h-8 w-8 my-3
           md:h-10 md:w-10
+}
+
+.icon {
+  @apply mr-1
 }

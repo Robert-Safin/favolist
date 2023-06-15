@@ -6,8 +6,9 @@ import Image from "next/image";
 import styles from './followers-and-following.module.css'
 import { useState } from "react";
 import ToggleView from "@/components/toggleViewListCard/ToggleView";
-import FollowerAndFollowingCard from "@/components/follower-and-following/Follower&Following";
 import BackNavHeader from "@/components/back-nav-header/BackNavHeader";
+import FollowerCard from "@/components/follower-and-following/Follower";
+import FollowingCard from "@/components/follower-and-following/Following";
 
 interface Props {
   user: UserModelSchema
@@ -27,21 +28,7 @@ const FollowingPage: NextPage<Props> = (props) => {
     setFollowingIsActive(true)
   }
 
-  const handleDeleteUser = () => {
 
-  }
-
-  const handleReturnUser = () => {
-
-  }
-
-  const handleUnfollowUser = () => {
-
-  }
-
-  const handleFollowUser = () => {
-
-  }
 
   return (
     <>
@@ -60,7 +47,7 @@ const FollowingPage: NextPage<Props> = (props) => {
 
       <div className={styles.followersContainer}>
         {followersIsActive && props.user.followers.map(user =>
-          <FollowerAndFollowingCard
+          <FollowerCard
             key={String(user._id)}
             avatar={user.avatar!}
             username={user.username}
@@ -68,18 +55,14 @@ const FollowingPage: NextPage<Props> = (props) => {
             products={user.products}
             followers={user.followers}
             follows={user.follows}
-            action={'Delete'}
-            handleDeleteUser={handleDeleteUser}
-            handleReturnUser={handleReturnUser}
-            handleUnfollowUser={handleUnfollowUser}
-            handleFollowUser={handleFollowUser}
+            _id={user._id}
           />
         )}
       </div>
 
       <div className={styles.followingContainer}>
         {followingIsActive && props.user.follows.map(user =>
-          <FollowerAndFollowingCard
+          <FollowingCard
             key={String(user._id)}
             avatar={user.avatar!}
             username={user.username}
@@ -87,11 +70,8 @@ const FollowingPage: NextPage<Props> = (props) => {
             products={user.products}
             followers={user.followers}
             follows={user.follows}
-            action={'Unfollow'}
-            handleUnfollowUser={handleUnfollowUser}
-            handleFollowUser={handleFollowUser}
-            handleDeleteUser={handleDeleteUser}
-            handleReturnUser={handleReturnUser}
+            _id={user._id}
+
           />
         )}
       </div>

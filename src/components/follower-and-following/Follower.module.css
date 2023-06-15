@@ -27,5 +27,5 @@
 }
 
 .button {
-  @apply bg-purple p-1 text-white
+  @apply bg-purple p-2 text-white text-sm rounded-lg
 }

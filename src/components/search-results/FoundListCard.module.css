@@ -1,33 +1,35 @@
 .cardContainer {
-  @apply my-2 border border-b-gray-200 w-1/2 md:px-8
-}
-
-.imageContainer {
-  @apply w-44 h-44 relative md:w-72 md:h-72
+  @apply border-b border-b-gray-200 w-full mx-10 my-2
+  md:w-1/2 md:px-4 md:mx-0
 }
 
 .image {
-  @apply object-cover opacity-50
+  @apply object-cover opacity-50 w-64 h-64 mx-auto
+  md:w-72 md:h-72
 }
 
 .cardText {
-  @apply  text-xl w-full md:text-3xl z-10
+  @apply  text-2xl w-full line-clamp-1
+  md:text-3xl
+
 }
 
 .cardProductLength {
-  @apply pb-2  md:pb-8 md:text-xl z-10
+  @apply absolute top-16 text-lg
+  md:text-xl
+
 }
 
 .textItems {
-  @apply flex flex-col ml-4 h-full justify-between
+  @apply flex flex-col ml-4 h-full justify-between absolute top-14 w-full left-8
+  md:top-20
 }
 
 
 .userInfo {
-  @apply flex justify-between items-center
+  @apply flex justify-between items-center m-2
+  md:mx-0
 }
-
-
 
 
 .avatarContainer {
@@ -39,14 +41,14 @@
 }
 
 
-
-
-
-
 .followers {
   @apply text-xs md:text-base
 }
 
 .username {
   @apply text-xs md:text-base ml-1
+}
+
+.listInfo {
+  @apply relative
 }

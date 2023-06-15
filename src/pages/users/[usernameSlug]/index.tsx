@@ -21,10 +21,12 @@ import { useSession } from "next-auth/react";
 import CustomSession from "@/utils/Session";
 import { UserModelSchema } from "@/db/models/User";
 import { ObjectId } from "mongoose";
-import { MdThumbUp } from "react-icons/md";
-import { RxCross2 } from "react-icons/rx";
+import { MdOutlineDiscount, MdThumbUp } from "react-icons/md";
+import { RxCross2, RxGrid } from "react-icons/rx";
 import Social, { SocialModelSchema } from "@/db/models/Social";
 import BackNavHeader from "@/components/back-nav-header/BackNavHeader";
+import { BsSquare } from "react-icons/bs";
+import { AiOutlineUser } from "react-icons/ai";
 
 
 
@@ -224,10 +226,10 @@ const UserProfile: NextPage<UserProfileProps> = (props) => {
       </div>
 
       <div className={styles.tabContainer}>
-        <button className={productIsActive ? styles.activeTab : styles.tabLink} onClick={handleProductClick}>Products</button>
-        <button className={listIsActive ? styles.activeTab : styles.tabLink} onClick={handleListClick}>Lists</button>
-        <button className={referralIsActive ? styles.activeTab : styles.tabLink} onClick={handleReferralClick}>Referral</button>
-        <button className={accountIsActive ? styles.activeTab : styles.tabLink} onClick={handleProfileClick}>Profile</button>
+        <button className={productIsActive ? styles.activeTab : styles.tabLink} onClick={handleProductClick}>  <BsSquare className={styles.icon}/> Products</button>
+        <button className={listIsActive ? styles.activeTab : styles.tabLink} onClick={handleListClick}> <RxGrid className={styles.icon}/>Lists</button>
+        <button className={referralIsActive ? styles.activeTab : styles.tabLink} onClick={handleReferralClick}> <MdOutlineDiscount className={styles.icon}/> Referral</button>
+        <button className={accountIsActive ? styles.activeTab : styles.tabLink} onClick={handleProfileClick}> <AiOutlineUser className={styles.icon}/> Profile</button>
       </div>
 
       <ToggleView />

@@ -1,9 +1,13 @@
 import { NextPage } from "next";
-
+import styles from './privacy.module.css'
+import BackNavHeader from "@/components/back-nav-header/BackNavHeader";
 const PrivacyPage:NextPage = () => {
   return (
     <>
-    <h1>Ante homo</h1>
+      <BackNavHeader title={`Privacy`}/>
+    <div className={styles.mainContainer}>
+    <h1 className={styles.title}>Thanks for your data ;)</h1>
+    </div>
     </>
   )
 }

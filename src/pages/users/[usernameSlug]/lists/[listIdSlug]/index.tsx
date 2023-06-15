@@ -12,7 +12,6 @@ import Link from "next/link";
 import Image from "next/image";
 import UserProduct from "@/components/user-profile/UserProduct";
 import { MdOutlineArrowBackIos } from 'react-icons/md'
-import ToggleView from "@/components/toggleViewListCard/ToggleView";
 
 
 import CustomSession from "@/utils/Session";
@@ -21,11 +20,13 @@ import { useQuill } from "react-quilljs";
 import dynamic from "next/dynamic";
 
 import "quill/dist/quill.snow.css";
+import { BsCardText } from "react-icons/bs";
+import { RxGrid } from "react-icons/rx";
 
 const QuillNoSSRWrapper = dynamic(import('react-quill'), {
   ssr: false,
   loading: () => <p>Loading ...</p>,
-  })
+})
 interface Props {
   user: UserModelSchema
   currentUser: UserModelSchema;
@@ -45,19 +46,7 @@ const ShowList: NextPage<Props> = (props) => {
 
 
 
-  // const { quill, quillRef } = useQuill({readOnly: true,});
-  //   const deltaString = props.user.lists[0].about;
-  //   const deltaObject = JSON.parse(deltaString);
-  //   quill?.setContents(deltaObject)
 
-  //   useEffect(() => {
-  //     if (quill) {
-  //         const toolbar = quill.getModule('toolbar');
-  //         if (toolbar && toolbar.container) {
-  //             toolbar.container.style.display = 'none';
-  //         }
-  //     }
-  // }, [quill]);
 
 
   const [quillValue, setQuillValue] = useState(JSON.parse(props.user.lists[0].about));
@@ -98,14 +87,15 @@ const ShowList: NextPage<Props> = (props) => {
 
         <div className={styles.userInfo}>
           <Image src={props.user.avatar!} alt={'user avatar'} className={styles.image} width={100} height={100} />
-          {!listHasNoProducts && <h1 className={styles.lisTitle}>{props.user.lists[0].title} </h1>  }
+          <h1 className={styles.lisTitle}>{props.user.lists[0].title} </h1>
+
         </div>
 
       </div>
 
       <div className={styles.subNavigation}>
-        <button className={showProducts ? styles.activeTab : styles.nonActiveTab} onClick={handleShowProducts}>Products</button>
-        <button className={showListAbout ? styles.activeTab : styles.nonActiveTab} onClick={handleShowAbout}>List Description</button>
+        <button className={showProducts ? styles.activeTab : styles.nonActiveTab} onClick={handleShowProducts}> <RxGrid className={styles.icon}/> Products {`(${props.user.lists[0].products.length})`}</button>
+        <button className={showListAbout ? styles.activeTab : styles.nonActiveTab} onClick={handleShowAbout}> <BsCardText className={styles.icon}/> List Description</button>
       </div>
 
 
@@ -113,8 +103,7 @@ const ShowList: NextPage<Props> = (props) => {
 
       {showProducts &&
         <>
-          <div className={styles.buttonContainer}>
-          </div>
+
           <div className={styles.productsContainer}>
             {listHasNoProducts && <p className={styles.listNoProducts}>No products in this list yet</p>}
             {props.user.products.map((product) =>
@@ -143,7 +132,7 @@ const ShowList: NextPage<Props> = (props) => {
 
       {showListAbout &&
         <div className={styles.listInfoContainer}>
-          <QuillNoSSRWrapper modules={{toolbar: false}} readOnly={true} value={quillValue} onChange={setQuillValue} theme="snow" />
+          <QuillNoSSRWrapper modules={{ toolbar: false }} readOnly={true} value={quillValue} onChange={setQuillValue} theme="snow" />
           <Link href={`/users/${usernameSlug}/lists/${listIdSlug}/edit-description`} className={styles.editList}><button className={styles.button}>Edit list</button></Link>
 
         </div>}
@@ -170,7 +159,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const token = await getToken(context)
   const currentUserEmail = token?.email
 
-  const currentUserDoc  = await User.findOne({email:currentUserEmail})
+  const currentUserDoc = await User.findOne({ email: currentUserEmail })
 
 
 
@@ -178,7 +167,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const userDoc = await User.findOne({ username: usernameSlug })
 
 
-    await userDoc!.populate({
+  await userDoc!.populate({
     path: 'products',
     match: { productListName: listIdSlug }
   });
