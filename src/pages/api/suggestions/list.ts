@@ -1,7 +1,6 @@
 
 import { List, User } from "@/db/models";
-import { UserModelSchema } from "@/db/models/User";
-import { ObjectId } from "mongoose";
+
 import { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "next-auth/jwt";
 

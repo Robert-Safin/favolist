@@ -24,7 +24,7 @@ const Suggested: FC = () => {
       const response = await fetch('/api/suggestions/users');
       const data = await response.json();
 
-      setSuggestedUsers(JSON.parse(JSON.stringify(data)));
+      setSuggestedUsers(await JSON.parse(JSON.stringify(data)));
     }
 
     fetchUsers();
