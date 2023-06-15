@@ -9,19 +9,20 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const userDoc = await User.findOne({ email: token?.email });
 
-  const getRandomValue = (arr:UserModelSchema[]) => {
+  const getRandomValue = (arr: UserModelSchema[]) => {
     let randomIndex = Math.floor(Math.random() * arr.length);
     return arr[randomIndex];
   };
-
-  const randomFriendId = getRandomValue(userDoc?.follows!)
-  const randomFriendDoc = await User.findOne({_id: randomFriendId})
-
-  const randomFriendFriendsDoc = await randomFriendDoc?.populate('follows')
-  const filteredFollows = randomFriendFriendsDoc?.follows.filter(id => !userDoc?.follows.includes(id));
-
-
-
-  res.json({filteredFollows})
+  if (userDoc?.follows.length !== undefined) {
+    const randomFriendId = getRandomValue(userDoc?.follows!);
+    const randomFriendDoc = await User.findOne({ _id: randomFriendId });
+    if (randomFriendDoc?.follows !== undefined) {
+      const randomFriendFriendsDoc = await randomFriendDoc?.populate("follows");
+      const filteredFollows = randomFriendFriendsDoc?.follows.filter(
+        (id) => !userDoc?.follows.includes(id)
+      );
+      res.json({ filteredFollows });
+    }
+  }
 };
 export default handler;
