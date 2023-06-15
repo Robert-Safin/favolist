@@ -17,6 +17,7 @@ import CustomSession from '@/utils/Session';
 import { Router, useRouter } from 'next/router';
 import Link from 'next/link';
 import { CommentModelSchema } from '@/db/models/Comment';
+import { motion } from 'framer-motion'
 
 interface Props {
   id: ObjectId;
@@ -67,7 +68,7 @@ const FeedProductCard: FC<Props> = (props) => {
     });
     if (response.ok) {
       setIsBookmarked(true)
-      setBookmarkValue(bookmarkValue+1)
+      setBookmarkValue(bookmarkValue + 1)
     } else {
       console.log(await response.json())
     }
@@ -89,7 +90,7 @@ const FeedProductCard: FC<Props> = (props) => {
     });
     if (response.ok) {
       setIsBookmarked(false)
-      setBookmarkValue(bookmarkValue-1)
+      setBookmarkValue(bookmarkValue - 1)
     } else {
       console.log(await response.json())
     }
@@ -97,54 +98,63 @@ const FeedProductCard: FC<Props> = (props) => {
 
 
   return (
-    <div className={styles.container}>
 
 
-      <h2 className={styles.category}>{props.productListName}</h2>
-      <h2 className={styles.title}>{props.productName}</h2>
-      <h2 className={styles.price}>${props.price}</h2>
-      <div className={styles.imgContainer}>
-        <Link href={`/users/${props.user.username}/lists/${props.productListName}/product/${props.productName}`}>
-          <Image className={styles.image} width={500} height={500} alt='product' src={props.productImage} />
-        </Link>
-      </div>
+    <motion.div
+      initial={{ y: 300, opacity: 0 }}
+      whileInView={{ y: 0, opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 1.5 }}>
 
-      <div className={styles.cardBar}>
-        <Link href={`/users/${props.user.username}`}>
-          <div className={styles.userInfo}>
-            <Image className={styles.avatar} src={props.user.avatar!} alt={'user avatar'} width={50} height={50} />
-            <p className={styles.username}>{props.user.username}</p>
-          </div>
-        </Link>
+      <div className={styles.container}>
 
-        <div className={styles.actions}>
-          {!isBookmarked &&
-            <div className={styles.actionContainer} onClick={handleAddBookmark}>
-              <BsBookmark className={styles.icon} />
-              <p className={styles.count}>{bookmarkValue}</p>
-            </div>}
 
-          {isBookmarked &&
-            <div className={styles.actionContainer} onClick={handleRemoveBookmark}>
-              <BsFillBookmarkFill className={styles.icon} />
-              <p className={styles.count}>{bookmarkValue}</p>
-            </div>}
+        <h2 className={styles.category}>{props.productListName}</h2>
+        <h2 className={styles.title}>{props.productName}</h2>
+        <h2 className={styles.price}>${props.price}</h2>
+        <div className={styles.imgContainer}>
+          <Link href={`/users/${props.user.username}/lists/${props.productListName}/product/${props.productName}`}>
+            <Image className={styles.image} width={500} height={500} alt='product' src={props.productImage} />
+          </Link>
+        </div>
 
-          <Link href={`/users/${props.user.username}/lists/${props.productListName}/product/${props.productName}/comments`}>
-            <div className={styles.actionContainer}>
-              <FaRegComment className={styles.icon} />
-              <p className={styles.count}>{props.comments.length}</p>
+        <div className={styles.cardBar}>
+          <Link href={`/users/${props.user.username}`}>
+            <div className={styles.userInfo}>
+              <Image className={styles.avatar} src={props.user.avatar!} alt={'user avatar'} width={50} height={50} />
+              <p className={styles.username}>{props.user.username}</p>
             </div>
           </Link>
 
+          <div className={styles.actions}>
+            {!isBookmarked &&
+              <div className={styles.actionContainer} onClick={handleAddBookmark}>
+                <BsBookmark className={styles.icon} />
+                <p className={styles.count}>{bookmarkValue}</p>
+              </div>}
+
+            {isBookmarked &&
+              <div className={styles.actionContainer} onClick={handleRemoveBookmark}>
+                <BsFillBookmarkFill className={styles.icon} />
+                <p className={styles.count}>{bookmarkValue}</p>
+              </div>}
+
+            <Link href={`/users/${props.user.username}/lists/${props.productListName}/product/${props.productName}/comments`}>
+              <div className={styles.actionContainer}>
+                <FaRegComment className={styles.icon} />
+                <p className={styles.count}>{props.comments.length}</p>
+              </div>
+            </Link>
+
+          </div>
+        </div>
+
+        <div className={styles.descriptionContainer}>
+          <p className={styles.descriptionList}>{props.shortContent}</p>
         </div>
       </div>
+    </motion.div>
 
-      <div className={styles.descriptionContainer}>
-        <p className={styles.descriptionList}>{props.shortContent}</p>
-      </div>
-
-    </div>
   );
 };
 

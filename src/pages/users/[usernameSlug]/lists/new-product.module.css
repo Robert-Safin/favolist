@@ -47,3 +47,7 @@
 .modalHeading {
   @apply text-white p-2
 }
+
+.extraMargin {
+  @apply mt-4
+}

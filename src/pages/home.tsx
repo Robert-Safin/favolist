@@ -92,7 +92,7 @@ export const getServerSideProps:GetServerSideProps = async(context) => {
   let followedProducts:ProductModelSchema[] = [];
 
   for(let i = 0; i < userDoc!.follows.length; i++) {
-    let followedUser = await User.findById(userDoc!.follows[i]).populate('products').limit(10);
+    let followedUser = await User.findById(userDoc!.follows[i]).populate('products').limit(50);
     followedProducts = [...followedProducts, ...followedUser!.products];
   }
 

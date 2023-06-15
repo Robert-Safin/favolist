@@ -50,7 +50,7 @@ const NavBar: FC = () => {
     <div className={styles.nav}>
 
       <div>
-        <Link href={'/home'} className={styles.logo}>
+        <Link href={'/'} className={styles.logo}>
           <Image src={`/logo.png`} width={50} height={50} alt={`Fabolist Logo`} />
           <h1 className={styles.title}>FAVOLIST</h1>
         </Link>

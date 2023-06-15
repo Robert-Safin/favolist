@@ -157,17 +157,17 @@ const NewList: NextPage = () => {
       <BackNavHeader title={'New list'} />
       <div className={styles.formContainer}>
         <form className={styles.form} onSubmit={handleSubmit}>
-          <label htmlFor="title">List name*</label>
+          <label className={styles.labelSpace} htmlFor="title">List name*</label>
           <input type="text" id="title" placeholder="Give your list a name..." ref={titleRef} />
 
-          <label htmlFor="about">Description*</label>
+          <label className={styles.labelSpace} htmlFor="about">Description*</label>
 
           <QuillNoSSRWrapper modules={modules} formats={formats} value={quillValue} onChange={setQuillValue} theme="snow" />
 
 
-          <label htmlFor="shortAbout">Short Description*</label>
+          <label className={styles.labelSpace} htmlFor="shortAbout">Short Description*</label>
           <textarea id="shortAbout" placeholder='Short descripion...' ref={shortAboutRef} />
-
+          <label className={styles.labelSpace}>List Thumbnail*</label>
           <label htmlFor="image" className={styles.imageupload}>
             <BiImage className={styles.imageuploadicon} />
             <div>Upload list image</div>

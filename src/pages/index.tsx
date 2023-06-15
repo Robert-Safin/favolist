@@ -21,55 +21,64 @@ const LandingPage: NextPage = () => {
   return (
     <div className={styles.mainContainer}>
 
-      {/* <motion.div
-        initial={{ y: 200, opacity: 0 }}
+        <motion.div
+        initial={{ y: 0, opacity: 0 }}
         whileInView={{ y:0 , opacity: 1}}
         viewport={{ once: true }}
         transition={{ duration: 1 }}
-        className={styles.rightCard}>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quod saepe possimus inventore quis, perferendis non maiores sint repellat, mollitia dolore officia ipsum eos incidunt unde ducimus distinctio aliquam quibusdam pariatur!</p>
-        <Image src={'landing-page-images/mobile.svg'} alt='mobile application' width={600} height={600}/>
+        className={styles.title}>
+          <p>Welcome to Favolist</p>
       </motion.div>
 
       <motion.div
-        initial={{ y: 200, opacity: 0 }}
+        initial={{ y: 400, opacity: 0 }}
+        whileInView={{ y:0 , opacity: 1}}
+        viewport={{ once: false }}
+        transition={{ duration: 1 }}
+        className={styles.rightCard}>
+        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quod saepe possimus inventore quis, perferendis non maiores sint repellat, mollitia dolore officia ipsum eos incidunt unde ducimus distinctio aliquam quibusdam pariatur!</p>
+        <Image className={styles.image} src={'landing-page-images/mobile.svg'} alt='mobile application' width={600} height={600}/>
+      </motion.div>
+
+      <motion.div
+        initial={{ y: 400, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
-        viewport={{ once: true }}
+        viewport={{ once: false }}
         transition={{ duration: 1 }}
         className={styles.leftCard}>
-        <Image src={'landing-page-images/browse.svg'} alt='browse products' width={600} height={600} />
+        <Image className={styles.image} src={'landing-page-images/browse.svg'} alt='browse products' width={600} height={600} />
         <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quod saepe possimus inventore quis, perferendis non maiores sint repellat, mollitia dolore officia ipsum eos incidunt unde ducimus distinctio aliquam quibusdam pariatur!</p>
       </motion.div>
 
       <motion.div
-        initial={{ y: 200, opacity: 0 }}
+        initial={{ y: 400, opacity: 0 }}
         whileInView={{ y:0 , opacity: 1}}
-        viewport={{ once: true }}
+        viewport={{ once: false }}
         transition={{ duration: 1 }}
         className={styles.rightCard}>
         <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quod saepe possimus inventore quis, perferendis non maiores sint repellat, mollitia dolore officia ipsum eos incidunt unde ducimus distinctio aliquam quibusdam pariatur!</p>
-        <Image src={'landing-page-images/charecteristics.svg'} alt='read reviews' width={600} height={600} />
+        <Image className={styles.image} src={'landing-page-images/charecteristics.svg'} alt='read reviews' width={600} height={600} />
       </motion.div>
 
       <motion.div
-        initial={{ y: 200, opacity: 0 }}
+        initial={{ y: 400, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
-        viewport={{ once: true }}
+        viewport={{ once: false }}
         transition={{ duration: 1 }}
         className={styles.leftCard}>
-        <Image src={'landing-page-images/refer.svg'} alt='refer friends' width={600} height={600} />
+        <Image className={styles.image} src={'landing-page-images/refer.svg'} alt='refer friends' width={600} height={600} />
         <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quod saepe possimus inventore quis, perferendis non maiores sint repellat, mollitia dolore officia ipsum eos incidunt unde ducimus distinctio aliquam quibusdam pariatur!</p>
       </motion.div>
 
       <motion.div
-        initial={{ y: 200, opacity: 0 }}
+        initial={{ y: 400, opacity: 0 }}
         whileInView={{ y:0 , opacity: 1}}
-        viewport={{ once: true }}
+        viewport={{ once: false }}
         transition={{ duration: 1 }}
         className={styles.rightCard}>
         <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quod saepe possimus inventore quis, perferendis non maiores sint repellat, mollitia dolore officia ipsum eos incidunt unde ducimus distinctio aliquam quibusdam pariatur!</p>
-        <Image src={'landing-page-images/buy.svg'} alt='buy products' width={600} height={600} />
-      </motion.div> */}
+        <Image className={styles.image} src={'landing-page-images/buy.svg'} alt='buy products' width={600} height={600} />
+      </motion.div>
     </div>
 
 

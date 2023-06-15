@@ -171,7 +171,7 @@ const ShowProduct: NextPage<Props> = (props) => {
 
       <div className={styles.tabs}>
         <p onClick={handleReviewActive} className={reviewIsActive ? styles.activeTab : styles.nonActiveTab}>Review</p>
-        <p onClick={handleDescriptionActive} className={descriptionIsActive ? styles.activeTab : styles.nonActiveTab}>Description</p>
+        <p onClick={handleDescriptionActive} className={descriptionIsActive ? styles.activeTab : styles.nonActiveTab}>Specs</p>
         <p onClick={handleReferralActive} className={referralIsActive ? styles.activeTab : styles.nonActiveTab}>Referral</p>
       </div>
 

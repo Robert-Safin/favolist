@@ -178,13 +178,13 @@ const NewProduct: NextPage<Props> = (props) => {
       <BackNavHeader title={"New Product"} />
       <form className={styles.form} onSubmit={handleSubmit}>
 
-        <label htmlFor="name">Product</label>
+        <label htmlFor="name">Product*</label>
         <input type="text" id='name' placeholder="Type the product name here..." ref={nameRef} />
 
-        <label htmlFor="price">Price</label>
+        <label htmlFor="price">Price*</label>
         <input type="number" id='price' placeholder="Enter product price..." ref={priceRef} />
 
-        <label htmlFor="list">List</label>
+        <label htmlFor="list">List*</label>
 
         <select name="languages" id="lang" ref={listRef}>
           {props.userListTitles.map(title =>
@@ -195,24 +195,24 @@ const NewProduct: NextPage<Props> = (props) => {
         </select>
 
 
-        <label htmlFor="content">Review</label>
+        <label htmlFor="content">Review*</label>
         <div ref={quillRef} />
         {/* <textarea id='content' placeholder="Write a review here..." ref={contentRef} /> */}
 
 
-        <label htmlFor="shortContent">Short Content</label>
+        <label className={styles.extraMargin} htmlFor="shortContent">Short Review*</label>
         <input id='shortContent' placeholder="Provide a seo content here" ref={shortContentRef} />
 
 
-        <label htmlFor="specs">Description</label>
-        <textarea id='specs' placeholder="Provide a product description here..." ref={specsRef} />
+        <label htmlFor="specs">Product Specs*</label>
+        <textarea id='specs' placeholder="Provide a product specs..." ref={specsRef} />
 
-        <label htmlFor="referral">Referral</label>
+        <label htmlFor="referral">Referral (optional)</label>
         <input type="text" id='referral' placeholder="Copy your referral code or link here..." ref={referralRef} />
 
-        <label htmlFor="referralDescription">Referral details</label>
+        <label htmlFor="referralDescription">Referral details (optional)</label>
         <input type="text" id='referralDescription' placeholder="Enter referral details..." ref={referralDescriptionRef} />
-
+            <label>Product Thumbnail*</label>
         <label htmlFor="image" className={styles.imageupload}>
           <BiImage className={styles.imageuploadicon} />
           <div>Upload product image...</div>

@@ -21,7 +21,7 @@
 }
 
 .form label {
-  @apply  text-sm w-full mb-1 my-6
+  @apply  text-sm w-full mb-1
 }
 
 .form input  {
@@ -48,4 +48,8 @@
 
 .modalHeading {
   @apply text-white p-2
+}
+
+.labelSpace {
+  @apply mt-4
 }
