@@ -18,19 +18,19 @@ const Suggested: FC = () => {
 
   const router = useRouter()
   const usernameSlug = router.query.usernameSlug
+  console.log('suggestedUsers',suggestedUsers);
+  console.log('suggestedList', suggestedList);
+  console.log('suggestedListUser', suggestedListUser);
+
+
+
 
   useEffect(() => {
     const fetchUsers = async () => {
       const response = await fetch('/api/suggestions/users');
-      const text = await response.text();
+      const data = await response.json();
 
-      try {
-        const data = JSON.parse(text);
-        setSuggestedUsers(data);
-      } catch (error) {
-        console.error('Failed to parse JSON:', text);
-        throw error;
-      }
+      setSuggestedUsers(await JSON.parse(JSON.stringify(data)));
     }
 
     fetchUsers();
