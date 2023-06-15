@@ -22,6 +22,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       const randomListOwner = await User.findOne({
         _id: randomListDoc?.user_id,
       });
+      console.log("listDoc:", randomListDoc, "userDoc:", randomListOwner);
 
       res
         .status(200)

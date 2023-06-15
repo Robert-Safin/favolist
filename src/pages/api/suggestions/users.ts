@@ -27,6 +27,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         const filteredFollows = randomFriendFriendsDoc?.follows.filter(
           (id) => !userDoc?.follows.map(follow => follow.toString()).includes(id.toString())
       );
+      console.log('filteredFollows', filteredFollows);
+
         res.json({ filteredFollows });
       }
     }
