@@ -4,6 +4,7 @@ import Image from "next/image";
 import { ListModelSchema } from "@/db/models/List";
 import { UserModelSchema } from "@/db/models/User";
 import Link from "next/link";
+import { signIn, useSession } from "next-auth/react";
 
 
 interface Props {
@@ -12,6 +13,21 @@ interface Props {
 }
 
 const SuggestedList: FC<Props> = (props) => {
+  const { data: session, status } = useSession()
+  if (status === "loading") {
+    return (
+      <>
+        <p>loading</p>
+      </>
+    );
+  }
+  if (!session) {
+    return (
+      <>
+        <button onClick={() => signIn()}>Login</button>
+      </>
+    );
+  }
 
 
   return (

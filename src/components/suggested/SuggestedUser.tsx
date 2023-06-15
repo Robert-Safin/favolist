@@ -2,13 +2,28 @@ import { FC } from "react";
 import Image from "next/image";
 import styles from './SuggestedUser.module.css'
 import { UserModelSchema } from "@/db/models/User";
+import { signIn, useSession } from "next-auth/react";
 
 interface Props {
   user: UserModelSchema
 }
 
 const SuggestedUser: FC<Props> = (props) => {
-  //console.log('props', props);
+  const { data: session, status } = useSession()
+  if (status === "loading") {
+    return (
+      <>
+        <p>loading</p>
+      </>
+    );
+  }
+  if (!session) {
+    return (
+      <>
+        <button onClick={() => signIn()}>Login</button>
+      </>
+    );
+  }
 
   return (
     <div className={styles.userContainer}>
