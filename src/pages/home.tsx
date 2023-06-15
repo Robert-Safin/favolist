@@ -110,8 +110,8 @@ export const getServerSideProps:GetServerSideProps = async(context) => {
 
   return {
     props: {
-      populatedSortedProducts: JSON.parse(JSON.stringify(populatedSortedProducts)),
-      currentUserDoc: JSON.parse(JSON.stringify(currentUserDoc))
+      populatedSortedProducts: await JSON.parse(JSON.stringify(populatedSortedProducts)),
+      currentUserDoc: await JSON.parse(JSON.stringify(currentUserDoc))
     }
   }
 }
