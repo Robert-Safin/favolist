@@ -98,6 +98,7 @@ const SearchPage: NextPage<Props> = (props) => {
         body: JSON.stringify({ query: searchInput }),
       });
       const data = await response.json();
+      console.log(data);
       setFoundUsers(JSON.parse(data.foundUsers));
       setFoundLists(JSON.parse(data.foundLists));
       setFoundProducts(JSON.parse(data.foundProducts));
@@ -121,7 +122,7 @@ const SearchPage: NextPage<Props> = (props) => {
       followTargetID: userId,
     }
     try {
-      const response = fetch("/api/users/follow", {
+      const response = await fetch("/api/users/follow", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -144,7 +145,7 @@ const SearchPage: NextPage<Props> = (props) => {
       unfollowTargetID: userId,
     }
     try {
-      const response = fetch("/api/users/unfollow", {
+      const response = await fetch("/api/users/unfollow", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
