@@ -33,7 +33,8 @@ const Footer: FC = () => {
   }
 
   if (!userSession) {
-    return <p>no session</p>
+    return <>
+    </>
   }
 
   const handleNewProduct = () => {

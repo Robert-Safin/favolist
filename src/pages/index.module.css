@@ -28,3 +28,7 @@
 .image {
   @apply w-80 h-80 my-auto
 }
+
+.signUp {
+  @apply bg-purple w-full text-white text-base p-2 rounded-lg tracking-widest
+}
