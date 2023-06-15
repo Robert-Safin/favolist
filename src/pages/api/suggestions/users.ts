@@ -7,6 +7,11 @@ import { getToken } from "next-auth/jwt";
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const token = await getToken({ req });
 
+  if (!token) {
+    console.log('no token');
+
+  }
+
   const userDoc = await User.findOne({ email: token?.email });
 
   const getRandomValue = (arr: UserModelSchema[]) => {
