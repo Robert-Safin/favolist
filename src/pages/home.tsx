@@ -1,16 +1,12 @@
 
 import ToggleView from "@/components/toggleViewListCard/ToggleView";
-import SearchBar from "@/components/searchBar/SearchBar";
 import type { GetServerSideProps, NextPage } from "next";
 import styles from "./home.module.css";
 import { getSession, signIn, useSession } from "next-auth/react";
-import { useState, FormEventHandler } from "react";
 import { connectDB } from "@/db/lib/connectDb";
 import CustomSession from "@/utils/Session";
 import { User } from "@/db/models";
 import { ProductModelSchema } from "@/db/models/Product";
-import UserProduct from "@/components/user-profile/UserProduct";
-import HomepageProduct from "@/components/homepage/HomepageProduct";
 import FeedProductCard from "@/components/product-feed/FeedCard";
 import BackNavHeader from "@/components/back-nav-header/BackNavHeader";
 import { UserModelSchema } from "@/db/models/User";
@@ -75,14 +71,14 @@ export const getServerSideProps:GetServerSideProps = async(context) => {
   await connectDB()
   const session = await getSession(context)
 
-  if (session === null) {
-    return {
-      props: {
-        populatedSortedProducts: 0,
-        currentUserDoc: 0,
-      }
-    }
-  }
+  // if (session === null) {
+  //   return {
+  //     props: {
+  //       populatedSortedProducts: 0,
+  //       currentUserDoc: 0,
+  //     }
+  //   }
+  // }
 
   const userDoc = await User.findOne({email: session?.user?.email})
 
@@ -101,7 +97,10 @@ export const getServerSideProps:GetServerSideProps = async(context) => {
 
   const productsSortedByDate = followedProducts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
-  const populatedSortedProductsPromises = productsSortedByDate.map(product => product.populate('user_id'));
+  const populatedSortedProductsPromises = productsSortedByDate.map(async product => {
+    await product.populate('user_id');
+    return product;
+  });
   const populatedSortedProducts = await Promise.all(populatedSortedProductsPromises);
 
 
