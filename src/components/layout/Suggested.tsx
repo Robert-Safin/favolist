@@ -18,7 +18,7 @@ const Suggested: FC = () => {
 
   const router = useRouter()
   const usernameSlug = router.query.usernameSlug
-  console.log('suggestedUsers',suggestedUsers);
+  console.log('suggestedUsers', suggestedUsers);
   console.log('suggestedList', suggestedList);
   console.log('suggestedListUser', suggestedListUser);
 
@@ -27,13 +27,17 @@ const Suggested: FC = () => {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const response = await fetch('/api/suggestions/users');
-      const data = await response.json();
-      if(response.ok) {
+      try {
+        const response = await fetch('/api/suggestions/users');
+        const data = await response.json();
+
         setSuggestedUsers(await JSON.parse(JSON.stringify(data)));
-      } else {
-        return
+
+      } catch (error) {
+        console.log(error);
+
       }
+
     }
 
     fetchUsers();
@@ -41,15 +45,18 @@ const Suggested: FC = () => {
 
   useEffect(() => {
     const fetchList = async () => {
-      const response = await fetch('/api/suggestions/list');
+      try {
+        const response = await fetch('/api/suggestions/list');
 
-      if (response.ok) {
         const data = await response.json();
-        setSuggestedList(data.listDoc);
-        setSuggestedListUser(data.userDoc)
-      } else {
-        return
+        setSuggestedList(JSON.parse(JSON.stringify(data.listDoc)));
+        setSuggestedListUser(JSON.parse(JSON.stringify(data.userDoc)))
+
+      } catch (error) {
+        console.log(error);
+
       }
+
     }
     fetchList()
   }, [])
@@ -88,10 +95,10 @@ const Suggested: FC = () => {
 
       <div className={styles.suggestedLists}>
         {suggestedList && suggestedListUser &&
-        <h2 className={styles.subTitle}>List</h2>
+          <h2 className={styles.subTitle}>List</h2>
         }
         {suggestedList && suggestedListUser &&
-        <SuggestedList list={suggestedList!} user={suggestedListUser!}/>
+          <SuggestedList list={suggestedList!} user={suggestedListUser!} />
         }
       </div>
     </div>
