@@ -3,7 +3,6 @@ import { NextPage } from "next"
 import { FormEventHandler, useRef } from "react"
 import styles from './edit.module.css'
 import { useSession } from 'next-auth/react'
-import { UserProfileUpdateForm } from "../api/users/edit"
 import {useRouter} from 'next/router'
 import { signIn } from 'next-auth/react'
 import CustomSession from "@/utils/Session"
@@ -33,7 +32,7 @@ const EditProfile: NextPage = () => {
 
   const handleSubmit: FormEventHandler = async (event) => {
     event.preventDefault()
-    const formData: UserProfileUpdateForm = {
+    const formData = {
       //newUsername: usernameRef.current?.value as string,
       newBio: bioRef.current?.value as string,
       userEmail: userSession.user.email as string
