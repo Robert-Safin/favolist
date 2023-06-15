@@ -1,3 +1,4 @@
+import { connectDB } from "@/db/lib/connectDb";
 import { User } from "@/db/models";
 import { UserModelSchema } from "@/db/models/User";
 import { ObjectId } from "mongoose";
@@ -5,6 +6,8 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "next-auth/jwt";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  await connectDB()
+
   try {
     const token = await getToken({ req });
 
