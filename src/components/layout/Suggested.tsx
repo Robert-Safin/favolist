@@ -61,10 +61,10 @@ const Suggested: FC = () => {
       <h1 className={styles.title}>Suggested for you</h1>
 
       <div className={styles.suggestedUsers}>
-        {suggestedUsers.length > 0 &&
+        {suggestedUsers &&
           <h2 className={styles.subTitle}>Profile {usernameSlug} follows</h2>
         }
-        {suggestedUsers.length > 0 && suggestedUsers.map(user =>
+        {suggestedUsers && suggestedUsers.map(user =>
           <SuggestedUser key={user} user={user} />
         )}
       </div>

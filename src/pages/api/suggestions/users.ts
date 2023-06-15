@@ -22,7 +22,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         (id) => !userDoc?.follows.includes(id)
       );
       res.json({ filteredFollows });
+    } else {
+      console.log('NO FRIEND FOLLOWS');
+
     }
+  } else {
+    console.log('NO FOLLOWS');
+
   }
 };
 export default handler;
