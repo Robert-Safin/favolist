@@ -1,7 +1,7 @@
 
 
 .user {
-  @apply flex border-b border-gray-200 items-center justify-center
+  @apply flex border-b border-gray-200 items-center justify-center md:w-1/2 mx-auto pb-4
 }
 
 .avatar {

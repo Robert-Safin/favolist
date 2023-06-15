@@ -70,18 +70,25 @@ const Home: NextPage<Props> = (props) => {
 export default Home;
 
 export const getServerSideProps:GetServerSideProps = async(context) => {
+
+
   await connectDB()
   const session = await getSession(context)
+
+  if (session === null) {
+    return {
+      props: {
+        populatedSortedProducts: 0,
+        currentUserDoc: 0,
+      }
+    }
+  }
+
   const userDoc = await User.findOne({email: session?.user?.email})
 
   await userDoc?.populate('follows')
   await userDoc?.populate('products')
 
-  // if (!userDoc) {
-  //   return {
-  //     props: { error: 'User not found' }
-  //   }
-  // }
   let followedProducts:ProductModelSchema[] = [];
 
   for(let i = 0; i < userDoc!.follows.length; i++) {

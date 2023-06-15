@@ -41,11 +41,9 @@ const FeedProductCard: FC<Props> = (props) => {
   const router = useRouter()
 
   const [isBookmarked, setIsBookmarked] = useState(false)
+  const [bookmarkValue, setBookmarkValue] = useState(props.bookmarkedBy.length)
 
   useEffect(() => {
-
-    //const productIsBookmarked = props.currentUserDoc.bookmarks.some(bookmark => bookmark._id === props.id)
-    console.log(props.bookmarkedBy);
 
     const productIsBookmarked = props.bookmarkedBy.some(bookmark => bookmark === props.currentUserDoc._id)
 
@@ -69,6 +67,7 @@ const FeedProductCard: FC<Props> = (props) => {
     });
     if (response.ok) {
       setIsBookmarked(true)
+      setBookmarkValue(bookmarkValue+1)
     } else {
       console.log(await response.json())
     }
@@ -90,6 +89,7 @@ const FeedProductCard: FC<Props> = (props) => {
     });
     if (response.ok) {
       setIsBookmarked(false)
+      setBookmarkValue(bookmarkValue-1)
     } else {
       console.log(await response.json())
     }
@@ -121,13 +121,13 @@ const FeedProductCard: FC<Props> = (props) => {
           {!isBookmarked &&
             <div className={styles.actionContainer} onClick={handleAddBookmark}>
               <BsBookmark className={styles.icon} />
-              <p className={styles.count}>{props.bookmarkedBy.length}</p>
+              <p className={styles.count}>{bookmarkValue}</p>
             </div>}
 
           {isBookmarked &&
             <div className={styles.actionContainer} onClick={handleRemoveBookmark}>
               <BsFillBookmarkFill className={styles.icon} />
-              <p className={styles.count}>{props.bookmarkedBy.length}</p>
+              <p className={styles.count}>{bookmarkValue}</p>
             </div>}
 
           <Link href={`/users/${props.user.username}/lists/${props.productListName}/product/${props.productName}/comments`}>

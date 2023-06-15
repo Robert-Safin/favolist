@@ -7,6 +7,7 @@ import styles from './followers-and-following.module.css'
 import { useState } from "react";
 import ToggleView from "@/components/toggleViewListCard/ToggleView";
 import FollowerAndFollowingCard from "@/components/follower-and-following/Follower&Following";
+import BackNavHeader from "@/components/back-nav-header/BackNavHeader";
 
 interface Props {
   user: UserModelSchema
@@ -29,6 +30,7 @@ const FollowingPage: NextPage<Props> = (props) => {
 
   return (
     <>
+    <BackNavHeader title={`Followers & Following`}/>
       <div className={styles.user}>
         <Image className={styles.avatar} src={props.user.avatar!} alt={props.user.username} width={50} height={50} />
         <p>{props.user.username}</p>
@@ -39,7 +41,7 @@ const FollowingPage: NextPage<Props> = (props) => {
         <p className={followingIsActive ? styles.activeTab : styles.nonActiveTab} onClick={handleFollowsClick}>Following</p>
       </div>
 
-      <ToggleView />
+
 
       <div className={styles.followersContainer}>
         {followersIsActive && props.user.followers.map(user =>
