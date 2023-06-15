@@ -24,7 +24,6 @@ interface Props {
   userId: ObjectId,
   productListName: string
   productName: string
-  productLogo: string;
   productImage: string;
   shortContent: string;
   price: number;
@@ -50,6 +49,7 @@ const FeedProductCard: FC<Props> = (props) => {
 
     setIsBookmarked(productIsBookmarked)
   }, [props.currentUserDoc.bookmarks, props.id, props.bookmarkedBy, props.currentUserDoc._id])
+
 
 
 

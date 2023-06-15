@@ -30,6 +30,7 @@ const Home: NextPage<Props> = (props) => {
   }
 
 
+console.log(props.populatedSortedProducts[0].user_id);
 
 
 
@@ -45,7 +46,6 @@ const Home: NextPage<Props> = (props) => {
           userId={product.user_id}
           productImage={product.productImage}
           productListName={product.productListName}
-          productLogo="/logo.png"
           productName={product.productName}
           shortContent={product.shortContent}
           price={product.price}
