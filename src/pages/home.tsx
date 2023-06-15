@@ -21,17 +21,17 @@ const Home: NextPage<Props> = (props) => {
   const userSession = session as CustomSession
 
 
-  if (!session) {
-    return (
-      <>
-        <button onClick={() => signIn()}>Login</button>
-      </>
-    );
-  }
   if (status === "loading") {
     return (
       <>
         <p>loading</p>
+      </>
+    );
+  }
+  if (!session) {
+    return (
+      <>
+        <button onClick={() => signIn()}>Login</button>
       </>
     );
   }
