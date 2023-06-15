@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import styles from './Suggested.module.css'
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import CustomSession from "@/utils/Session";
 import SuggestedUser from "../suggested/SuggestedUser";
 import { useRouter } from "next/router";
@@ -46,11 +46,19 @@ const Suggested: FC = () => {
   }, [])
 
 
+  if (status === "loading") {
+    return (
+      <>
+        <p>loading</p>
+      </>
+    );
+  }
   if (!session) {
     return (
       <>
+        <button onClick={() => signIn()}>Login</button>
       </>
-    )
+    );
   }
 
 

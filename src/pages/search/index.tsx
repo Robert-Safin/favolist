@@ -8,7 +8,7 @@ import { UserModelSchema } from '@/db/models/User';
 import { NextPage } from 'next';
 import { FormEventHandler, useState } from 'react';
 import styles from './index.module.css'
-import { useSession } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import { ObjectId } from 'mongoose';
 import CustomSession from '@/utils/Session';
 import UserReferral from '@/components/user-profile/UserReferral';
@@ -25,6 +25,7 @@ const SearchPage: NextPage<Props> = (props) => {
   const { data: session, status } = useSession()
   const userSession = session as CustomSession
 
+
   const [foundUsers, setFoundUsers] = useState<UserModelSchema[]>([]);
   const [foundLists, setFoundLists] = useState<ListModelSchema[]>([]);
   const [foundProducts, setFoundProducts] = useState<ProductModelSchema[]>([]);
@@ -40,6 +41,21 @@ const SearchPage: NextPage<Props> = (props) => {
   const [showPopupUnfollow, setShowPopupUnfollow] = useState(false)
 
   const [searchInput, setSearchInput] = useState('');
+
+  if (status === "loading") {
+    return (
+      <>
+        <p>loading</p>
+      </>
+    );
+  }
+  if (!session) {
+    return (
+      <>
+        <button onClick={() => signIn()}>Login</button>
+      </>
+    );
+  }
 
   const handleShowProducts = () => {
     setShowProducts(true)
