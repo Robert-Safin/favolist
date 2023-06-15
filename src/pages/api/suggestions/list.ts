@@ -1,8 +1,10 @@
+import { connectDB } from "@/db/lib/connectDb";
 import { List, User } from "@/db/models";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "next-auth/jwt";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  await connectDB()
   try {
     const token = await getToken({ req });
     if (!token) {
