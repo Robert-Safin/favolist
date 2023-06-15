@@ -10,7 +10,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     if (!token) {
       console.log('no token');
-
+      res.status(401).json({ error: 'Not authorized' });
     }
 
     const userDoc = await User.findOne({ email: token?.email });
