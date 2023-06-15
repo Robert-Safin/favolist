@@ -75,6 +75,7 @@ const ShowList: NextPage<Props> = (props) => {
   }
 
 
+console.log(props);
 
 
   return (
