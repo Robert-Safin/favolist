@@ -98,7 +98,6 @@ const SearchPage: NextPage<Props> = (props) => {
         body: JSON.stringify({ query: searchInput }),
       });
       const data = await response.json();
-      console.log(data);
       setFoundUsers(JSON.parse(data.foundUsers));
       setFoundLists(JSON.parse(data.foundLists));
       setFoundProducts(JSON.parse(data.foundProducts));
