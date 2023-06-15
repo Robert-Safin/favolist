@@ -22,7 +22,7 @@ const Layout = ({ children }: LayoutProps) => {
       <main>{children}</main>
 
       <footer>
-        <Suggested/>
+        {/* <Suggested/> */}
         <Footer/>
       </footer>
 

@@ -1,3 +1,4 @@
+import { connectDB } from "@/db/lib/connectDb";
 import { Product, User } from "@/db/models";
 import { NextApiRequest, NextApiResponse } from "next";
 
@@ -8,6 +9,8 @@ const handler = async(req:NextApiRequest,res:NextApiResponse) => {
 
 
   try {
+    await connectDB()
+
     const userDoc = await User.findOne({email:userEmail})
     const productDoc =  await Product.findById(productId)
 

@@ -32,7 +32,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       const randomListId = getRandomValue(randomFriendDoc?.lists);
       const randomListDoc = await List.findOne({ _id: randomListId });
 
-      res.status(200).json({ listDoc: randomListDoc, userDoc: randomFriendDoc });
     } else {
       res.status(400).json({ message: "User is not following anyone" });
     }
