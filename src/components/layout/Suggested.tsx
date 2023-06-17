@@ -67,7 +67,7 @@ const Suggested: FC = () => {
   if (status === "loading") {
     return (
       <>
-        <p>loading</p>
+
       </>
     );
   }

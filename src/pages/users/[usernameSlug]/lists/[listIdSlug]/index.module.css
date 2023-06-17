@@ -38,7 +38,7 @@
 }
 
 .productsContainer {
-  @apply flex flex-wrap p-2 justify-center md:w-1/2 md:mx-auto mt-4
+  @apply flex flex-wrap p-2 md:w-1/2 md:mx-auto mt-4
 }
 
 .back {
