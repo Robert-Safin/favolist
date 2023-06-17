@@ -63,7 +63,7 @@
 
 .listsContainer {
   @apply flex flex-col mx-2
-  md:flex-row md:justify-between md:flex-wrap
+  md:flex-row md:flex-wrap
 }
 
 .tabContainer {
@@ -80,7 +80,7 @@
 
 .productsContainer {
   @apply flex flex-col mx-2
-         md:flex-row md:flex-wrap md:justify-between md:space-y-4
+         md:flex-row md:flex-wrap md:space-y-4
 }
 
 .userBioTitle {
