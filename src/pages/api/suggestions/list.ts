@@ -24,9 +24,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       });
       console.log("listDoc:", randomListDoc, "userDoc:", randomListOwner);
 
-      res
-        .status(200)
-        .json({ listDoc: randomListDoc, userDoc: randomListOwner });
+      res.status(200).json({ listDoc: randomListDoc, userDoc: randomListOwner });
     } else {
       res.status(400).json({ message: "not matched" });
     }
