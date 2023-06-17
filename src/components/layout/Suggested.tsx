@@ -16,11 +16,9 @@ const Suggested: FC = () => {
   const [suggestedList, setSuggestedList] = useState(null);
   const [suggestedListUser, setSuggestedListUser] = useState(null);
 
-  const router = useRouter()
-  const usernameSlug = router.query.usernameSlug
-  console.log('suggestedUsers', suggestedUsers);
-  console.log('suggestedList', suggestedList);
-  console.log('suggestedListUser', suggestedListUser);
+  // console.log('suggestedUsers', suggestedUsers);
+  // console.log('suggestedList', suggestedList);
+  // console.log('suggestedListUser', suggestedListUser);
 
 
 
